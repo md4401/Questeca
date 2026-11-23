@@ -3,30 +3,10 @@
 Tudo abaixo foi deixado de fora porque exige conta, chave, decisão ou conteúdo que eu não tenho.
 Itens marcados **[bloqueia o lançamento]** devem ser resolvidos antes de abrir para usuários reais.
 
-## 0. Deploy no Stay Cloud (feito até onde a CLI permite)  **[bloqueia o lançamento]**
-O projeto **Questeca** foi criado no Stay Cloud (`deploy --new`, subdomínio `questeca`) e os 158 arquivos foram enviados, mas o
-deploy parou em `missing_env`: a plataforma pede variáveis que só podem ser criadas no painel (**Cloud > Variáveis**; a CLI não cria variáveis).
-Crie lá, depois rode `npx @staysdev/setup deploy` (ou republique pelo painel):
-- `DATABASE_URL` (string pooled do Neon, ver item 1), `AUTH_SECRET` (`openssl rand -hex 32`)
-- `NEXT_PUBLIC_APP_URL` e `APP_URL` = URL pública do projeto no Stay Cloud
-- `REQUIRE_EMAIL_VERIFICATION=false`, `AI_PROVIDER=none`, `BILLING_PROVIDER=none` (até configurar e-mail/IA/cobrança)
-Não verifiquei se o Stay Cloud executa Next.js com funções de servidor (o app precisa); confira em `npx @staysdev/setup status` / `logs`.
-Não consegui validar o app publicado (status atual: `draft`). A credencial local fica em `.staycloud/` (ignorada pelo git).
-
-## 1. Deploy na Vercel (alternativa)  **[bloqueia o lançamento, se for usar Vercel]**
-O conector da Vercel recusou criar o projeto (`403 forbidden` ao criar em `mdinizmarques1-6271s-projects`).
-1. Em vercel.com → *Add New Project* → importe `md4401/Questeca` (instale o app GitHub da Vercel no repositório, se pedir).
-2. Branch de produção: faça merge de `claude/confident-dirac-3qebne` em `main` (ou defina essa branch como produção).
-3. Framework: Next.js (auto). Região das funções: **gru1 (São Paulo)**, perto do Neon (`aws-sa-east-1`).
-4. Variáveis (Production + Preview): `DATABASE_URL`, `AUTH_SECRET` — ver `.env.example`.
-   - `DATABASE_URL`: string *pooled* do projeto Neon **questeca** (id `fragrant-unit-00970553`, branch principal). Está em `.env.local` desta sessão; **gire a senha do role `neondb_owner` no console do Neon** depois de copiar, pois ela passou por esta conversa.
-   - `AUTH_SECRET`: `openssl rand -hex 32`.
-5. Não defina `NEON_FETCH_VIA_HOST`, `ALLOW_MOCK_BILLING`, `RATE_LIMIT_MULTIPLIER`, `DEV_EMAIL_OUTBOX`.
-6. Após o primeiro deploy, abra `/` e `/planos`, crie uma conta e rode um fluxo (criar prova → PDF).
-7. Domínio próprio e `APP_URL`.
-
-Banco: o schema e o acervo-semente **já estão aplicados no branch principal** do Neon. Para novos ambientes: `pnpm db:migrate && pnpm db:seed`.
-O branch `test` do Neon é só para os testes E2E (pode ser apagado).
+## 0. Deploy — **feito**
+Publicado no Stay Cloud: https://questeca.stayai.space/ (variáveis criadas no painel). Para republicar: `npx @staysdev/setup deploy`.
+Alternativa Vercel: o conector recusou (403); se quiser, importe `md4401/Questeca` em vercel.com e repita as variáveis do `.env.example`.
+Banco: schema e acervo-semente já aplicados no Neon. **Gire a senha do role `neondb_owner`** (passou pela conversa) e atualize `DATABASE_URL` no painel.
 
 ## 2. E-mail transacional  **[bloqueia o lançamento]**
 Sem `RESEND_API_KEY` + domínio verificado: não chegam e-mails de verificação, recuperação de senha nem convites
@@ -43,8 +23,9 @@ defina `RESEND_API_KEY` e `EMAIL_FROM`; depois, se quiser, `REQUIRE_EMAIL_VERIFI
 - Atualize o registro de quem é a equipe: defina `STAFF_EMAILS` e crie as contas (acesso a `/admin`).
 
 ## 4. Textos jurídicos  **[bloqueia o lançamento]**
-`/termos` e `/privacidade` são modelos iniciais (LGPD/ANPD). Precisam de revisão jurídica, indicação do controlador/encarregado (DPO),
-canal de titulares, prazos de retenção e contrato de operadores (Neon, Vercel, Resend, Stripe, IA).
+`/termos` e `/privacidade` agora são textos completos (LGPD, CDC, Marco Civil), **mas escritos por IA, não por advogado**.
+Faça: (1) crie no painel as variáveis `LEGAL_NAME`, `LEGAL_CNPJ`, `LEGAL_ADDRESS`, `LEGAL_EMAIL`, `LEGAL_DPO`, `LEGAL_FORUM` (as páginas mostram "[defina ...]" até lá);
+(2) peça a um advogado que revise (prazos de retenção, foro, base legal para dados de estudantes); (3) assine contratos/DPAs com Neon, Stay Cloud, Resend, Stripe.
 
 ## 5. Cobrança (Stripe)
 Implementado (checkout, webhook com assinatura verificada e idempotente, falha/carência de 7 dias, cancelar/reativar), **mas não testado contra a Stripe real** (testado com provedor simulado).

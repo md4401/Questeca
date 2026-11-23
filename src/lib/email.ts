@@ -23,8 +23,8 @@ export async function sendMail(opts: { to: string; subject: string; html: string
 export const emailEnabled = () => !!process.env.RESEND_API_KEY;
 
 export function layoutMail(title: string, bodyHtml: string, cta?: { href: string; label: string }) {
-  return `<div style="font-family:system-ui,sans-serif;max-width:520px;margin:auto;color:#1B302C">
-  <h2 style="font-family:Georgia,serif;color:#135B4E">Questeca</h2><h3>${title}</h3>${bodyHtml}
-  ${cta ? `<p><a href="${cta.href}" style="background:#135B4E;color:#fff;padding:10px 18px;border-radius:8px;text-decoration:none;display:inline-block">${cta.label}</a></p><p style="font-size:12px;color:#666">Se o botão não funcionar, copie: ${cta.href}</p>` : ""}
+  return `<div style="font-family:system-ui,sans-serif;max-width:520px;margin:auto;color:#0A1A3F">
+  <h2 style="font-family:Georgia,serif;color:#1F4FE0">Questeca</h2><h3>${title}</h3>${bodyHtml}
+  ${cta ? `<p><a href="${cta.href}" style="background:#1F4FE0;color:#fff;padding:10px 18px;border-radius:8px;text-decoration:none;display:inline-block">${cta.label}</a></p><p style="font-size:12px;color:#666">Se o botão não funcionar, copie: ${cta.href}</p>` : ""}
   </div>`;
 }
