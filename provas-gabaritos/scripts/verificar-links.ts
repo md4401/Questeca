@@ -52,6 +52,9 @@ async function main() {
       await new Promise((res) => setTimeout(res, 400));
     }
   }));
+  // Remove entradas de URLs que já não estão no catálogo (ex.: links retirados por estarem indisponíveis).
+  const noCatalogo = new Set(r.edicoes.flatMap((e) => e.arquivos.map((a) => a.url)));
+  for (const k of Object.keys(atual)) if (!noCatalogo.has(k)) delete atual[k];
   writeFileSync("data/verificacao.json", JSON.stringify(atual, null, 2) + "\n");
   const quebrados = urls.filter((u) => atual[u]?.status === "quebrado");
   console.log(`Pronto: ${urls.length - quebrados.length} ok, ${quebrados.length} com problema.`);

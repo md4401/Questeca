@@ -2,7 +2,7 @@
   "name": "provas-gabaritos",
   "version": "0.1.0",
   "private": true,
-  "description": "Download de provas e gabaritos oficiais, por instituição.",
+  "description": "Download de provas e gabaritos oficiais, por institui\u00e7\u00e3o.",
   "scripts": {
     "dev": "next dev",
     "build": "pnpm validar && next build",
@@ -11,7 +11,9 @@
     "test": "vitest run",
     "validar": "tsx scripts/validar.ts",
     "links": "tsx scripts/verificar-links.ts",
-    "importar": "tsx scripts/importar-csv.ts"
+    "importar": "tsx scripts/importar-csv.ts",
+    "relatorio": "tsx scripts/relatorio.ts",
+    "coletar": "bash scripts/coletar-tudo.sh"
   },
   "dependencies": {
     "@fontsource/bricolage-grotesque": "^5.3.0",
