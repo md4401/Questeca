@@ -19,7 +19,8 @@ const urls = [...new Set(r.edicoes.filter((e) => !so || e.instituicao === so).fl
 console.log(`Verificando ${urls.length} link(s)…`);
 const UA = "provas-gabaritos-verificador/0.1 (conferencia de links publicos)";
 const hoje = new Date().toISOString().slice(0, 10);
-const ESPERADO = /pdf|zip|octet-stream|msword|officedocument|html/i;
+// Os arquivos do catálogo são PDF/ZIP/Word: uma resposta 200 em HTML costuma ser página de erro ("soft 404"), então não vale como ok.
+const ESPERADO = /pdf|zip|octet-stream|msword|officedocument|binary/i;
 
 async function checar(url: string) {
   const tenta = async (metodo: "HEAD" | "GET") => {
@@ -32,20 +33,28 @@ async function checar(url: string) {
     const ct = res.headers.get("content-type");
     const ok = res.status >= 200 && res.status < 400 && (!ct || ESPERADO.test(ct));
     return { status: ok ? "ok" : "quebrado", httpStatus: res.status, contentType: ct, verificadoEm: hoje };
-  } catch { return { status: "quebrado", httpStatus: null, contentType: null, verificadoEm: hoje }; }
+  } catch (e) {
+    // Servidor com cadeia de certificados incompleta (ex.: Inep): não dá para afirmar que o link está quebrado — navegadores costumam abrir normalmente.
+    const causa = JSON.stringify([(e as { cause?: { code?: string } })?.cause?.code, (e as Error)?.message]);
+    const cert = /CERT|SELF_SIGNED|UNABLE_TO_VERIFY|ISSUER/i.test(causa);
+    return { status: cert ? "desconhecido" : "quebrado", httpStatus: null, contentType: null, verificadoEm: hoje };
+  }
 }
 
-let feitos = 0;
-const fila = [...urls];
-await Promise.all(Array.from({ length: 4 }, async () => {
-  while (fila.length) {
-    const u = fila.shift()!;
-    atual[u] = await checar(u);
-    if (++feitos % 25 === 0) { writeFileSync("data/verificacao.json", JSON.stringify(atual, null, 2) + "\n"); console.log(`${feitos}/${urls.length}`); }
-    await new Promise((res) => setTimeout(res, 400));
-  }
-}));
-writeFileSync("data/verificacao.json", JSON.stringify(atual, null, 2) + "\n");
-const quebrados = urls.filter((u) => atual[u]?.status === "quebrado");
-console.log(`Pronto: ${urls.length - quebrados.length} ok, ${quebrados.length} com problema.`);
-for (const u of quebrados) console.log("  ✗", u, atual[u].httpStatus ?? "sem resposta");
+async function main() {
+  let feitos = 0;
+  const fila = [...urls];
+  await Promise.all(Array.from({ length: 4 }, async () => {
+    while (fila.length) {
+      const u = fila.shift()!;
+      atual[u] = await checar(u);
+      if (++feitos % 25 === 0) { writeFileSync("data/verificacao.json", JSON.stringify(atual, null, 2) + "\n"); console.log(`${feitos}/${urls.length}`); }
+      await new Promise((res) => setTimeout(res, 400));
+    }
+  }));
+  writeFileSync("data/verificacao.json", JSON.stringify(atual, null, 2) + "\n");
+  const quebrados = urls.filter((u) => atual[u]?.status === "quebrado");
+  console.log(`Pronto: ${urls.length - quebrados.length} ok, ${quebrados.length} com problema.`);
+  for (const u of quebrados) console.log("  ✗", u, atual[u].httpStatus ?? "sem resposta");
+}
+main().catch((e) => { console.error(e); process.exit(1); });
