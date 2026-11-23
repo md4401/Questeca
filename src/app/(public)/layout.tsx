@@ -14,10 +14,19 @@ export default async function PublicLayout({ children }: { children: React.React
               <Link key={h} href={h} className="rounded-full px-3 py-2 text-ink no-underline transition-colors hover:bg-white hover:text-brand-dark">{l}</Link>))}
           </nav>
           <div className="flex items-center gap-2">
-            {s ? <Link className="btn btn-sm" href="/app">Abrir Questeca</Link> : (
+            <details className="group lg:hidden">
+              <summary aria-label="Abrir menu" className="grid h-10 w-10 cursor-pointer list-none place-items-center rounded-full bg-white/80 text-ink [&::-webkit-details-marker]:hidden">
+                <span aria-hidden className="relative block h-3 w-4"><span className="absolute inset-x-0 top-0 h-0.5 rounded bg-current transition-transform group-open:translate-y-[5px] group-open:rotate-45" /><span className="absolute inset-x-0 top-[5px] h-0.5 rounded bg-current group-open:opacity-0" /><span className="absolute inset-x-0 top-[10px] h-0.5 rounded bg-current transition-transform group-open:-translate-y-[5px] group-open:-rotate-45" /></span>
+              </summary>
+              <nav aria-label="Menu" className="glass fixed inset-x-3 top-[4.75rem] z-50 !bg-white p-2 shadow-2xl">
+                {[["/#como-funciona", "Como funciona"], ["/#recursos", "Recursos"], ["/#planos", "Planos"], ["/escolas", "Para escolas"], ["/ajuda", "Ajuda"], ...(s ? [] : [["/entrar", "Entrar"]])].map(([h, l]) => (
+                  <Link key={h} href={h} className="block rounded-xl px-4 py-3.5 text-base font-medium text-ink no-underline hover:bg-brand-tint">{l}</Link>))}
+              </nav>
+            </details>
+            {s ?<Link className="btn btn-sm" href="/app">Abrir Questeca</Link> : (
               <>
-                <Link className="btn btn-glass btn-sm" href="/entrar">Entrar</Link>
-                <Link className="btn btn-sm" href="/criar-conta">Criar conta</Link>
+                <Link className="btn btn-glass btn-sm hidden sm:inline-flex" href="/entrar">Entrar</Link>
+                <Link className="btn btn-sm whitespace-nowrap" href="/criar-conta">Criar conta</Link>
               </>)}
           </div>
         </div>

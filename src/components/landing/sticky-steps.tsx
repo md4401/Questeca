@@ -56,7 +56,7 @@ export function StickySteps() {
       <ol className="space-y-6 md:space-y-0">
         {STEPS.map((s, i) => (
           <li key={s.title} ref={(el) => { refs.current[i] = el; }} data-i={i} className="md:flex md:min-h-[62vh] md:items-center">
-            <div className={`border-l-4 pl-5 transition-colors duration-500 ${i === active ? "md:border-brand" : "border-transparent md:border-line"}`}>
+            <div className={`border-l-4 border-transparent pl-5 transition-colors duration-500 ${i === active ? "md:border-brand" : "md:border-line"}`}>
               <span className="mono text-sm text-brand">Etapa {i + 1} de 4</span>
               <h3 className="display mt-2 text-3xl leading-tight md:text-4xl">{s.title}</h3>
               <p className="mt-3 max-w-md text-lg text-ink-soft">{s.text}</p>

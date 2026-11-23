@@ -59,7 +59,7 @@ export function HorizontalFeatures() {
           <p className="mono text-sm text-brand">Depois da prova</p>
           <h2 className="display mt-2 max-w-2xl text-4xl md:text-5xl">A mesma avaliação continua trabalhando por você.</h2>
         </div>
-        <div ref={track} className={`flex gap-5 px-4 will-change-transform md:px-[max(1rem,calc((100vw-72rem)/2+1rem))] ${pinned ? "" : "snap-x snap-mandatory overflow-x-auto pb-6"}`} tabIndex={pinned ? undefined : 0} aria-label="Recursos">
+        <div ref={track} className={`flex gap-5 px-4 will-change-transform md:px-[max(1rem,calc((100vw-72rem)/2+1rem))] ${pinned ? "" : "snap-x snap-mandatory scroll-px-4 overflow-x-auto pb-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"}`} tabIndex={pinned ? undefined : 0} aria-label="Recursos">
           {FEATURES.map((f) => (
             <article key={f.title} className="glass hover-lift w-[78vw] shrink-0 snap-start p-6 sm:w-[340px]">
               <Art kind={f.art} />
