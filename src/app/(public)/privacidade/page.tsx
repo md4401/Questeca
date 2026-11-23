@@ -17,6 +17,7 @@ export default function Privacidade() {
       <ul className="list-disc space-y-1 pl-6">
         <li><b>Conta:</b> nome, e-mail, senha (guardada apenas como hash irreversível), escola e papel.</li>
         <li><b>Estudantes (lançados por professores/escolas):</b> nome, identificador escolar, turma, respostas, notas, ausências e observações pedagógicas. Não pedimos CPF, endereço, saúde ou dados sensíveis; não os registre.</li>
+        <li><b>Rotina escolar (quando a escola usa):</b> frequência, tarefas e entregas, mensagens e anexos trocados na plataforma, comentários do mural, respostas de quizzes, XP e conquistas, boletins emitidos e foto de perfil opcional.</li>
         <li><b>Arquivos enviados:</b> fotos/PDF de cartões-resposta, tabelas de notas, materiais de aula e anexos.</li>
         <li><b>Uso e segurança:</b> registros de acesso, endereço IP, tipo de navegador, tentativas de login, histórico de alterações (para auditoria) e métricas de uso do produto.</li>
         <li><b>Cobrança:</b> plano, status e faturas. Dados de cartão são tratados pelo processador de pagamentos; <b>não os armazenamos</b>.</li>
@@ -44,6 +45,7 @@ export default function Privacidade() {
       <p>Usamos prestadores sob contrato, que tratam dados apenas para nos prestar serviço: hospedagem da aplicação (Stay Cloud), banco de dados (Neon), envio de e-mails (Resend) e, se o plano pago estiver ativo, pagamentos (Stripe). Se o recurso de IA for ativado, enviamos ao provedor apenas o trecho mínimo necessário (por exemplo, a imagem de um cartão ou de uma tabela), sem usar o material para treinamento. Também podemos compartilhar dados quando a lei ou ordem judicial exigir. Alguns desses prestadores armazenam dados fora do Brasil; nesses casos adotamos as garantias do art. 33 da LGPD (cláusulas contratuais e prestadores com padrões adequados de proteção).</p>
 
       <h2>6. Por quanto tempo guardamos</h2>
+      <p className="hint">Mensagens e anexos seguem a regra da conta ou da escola e podem ser removidos por moderação. O XP é um extrato de reconhecimento; a escola pode desativar conquistas e ranking.</p>
       <ul className="list-disc space-y-1 pl-6">
         <li>Conta e conteúdo: enquanto a conta existir. Ao encerrar, excluímos ou anonimizamos em até 30 dias, salvo o que a lei exigir manter.</li>
         <li>Dados de estudantes em escola: pelo prazo definido pela escola; ao fim do contrato, são exportados à escola e excluídos em até 90 dias.</li>
