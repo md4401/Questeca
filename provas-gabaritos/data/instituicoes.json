@@ -1,0 +1,206 @@
+[
+  {
+    "slug": "enem",
+    "nome": "Exame Nacional do Ensino Médio",
+    "sigla": "ENEM",
+    "categoria": "exame-nacional",
+    "descricao": "Exame do Inep/MEC aplicado desde 1998; provas por dia, com cadernos de cores e reaplicações.",
+    "site": "https://www.gov.br/inep/pt-br",
+    "paginaProvas": null,
+    "primeiraEdicao": 1998,
+    "observacao": "Provas e gabaritos são publicados pelo Inep."
+  },
+  {
+    "slug": "fuvest",
+    "nome": "Fundação Universitária para o Vestibular",
+    "sigla": "Fuvest",
+    "categoria": "vestibular",
+    "descricao": "Vestibular da Universidade de São Paulo (USP), em duas fases.",
+    "site": "https://www.fuvest.br",
+    "paginaProvas": null,
+    "primeiraEdicao": null
+  },
+  {
+    "slug": "comvest",
+    "nome": "Comissão Permanente para os Vestibulares",
+    "sigla": "Comvest",
+    "categoria": "vestibular",
+    "descricao": "Vestibular da Universidade Estadual de Campinas (Unicamp), em duas fases.",
+    "site": "https://www.comvest.unicamp.br",
+    "paginaProvas": null,
+    "primeiraEdicao": null
+  },
+  {
+    "slug": "vunesp",
+    "nome": "Fundação VUNESP",
+    "sigla": "Vunesp",
+    "categoria": "vestibular",
+    "descricao": "Banca do vestibular da Unesp e de outras seleções do Estado de São Paulo.",
+    "site": "https://www.vunesp.com.br",
+    "paginaProvas": null,
+    "primeiraEdicao": null
+  },
+  {
+    "slug": "univesp",
+    "nome": "Universidade Virtual do Estado de São Paulo",
+    "sigla": "Univesp",
+    "categoria": "vestibular",
+    "descricao": "Vestibular da Univesp para cursos a distância.",
+    "site": "https://univesp.br",
+    "paginaProvas": null,
+    "primeiraEdicao": null
+  },
+  {
+    "slug": "fatec",
+    "nome": "Faculdades de Tecnologia do Estado de São Paulo",
+    "sigla": "Fatec",
+    "categoria": "vestibular",
+    "descricao": "Vestibular das Fatecs, do Centro Paula Souza.",
+    "site": null,
+    "paginaProvas": null,
+    "primeiraEdicao": null,
+    "observacao": "Endereço oficial a confirmar."
+  },
+  {
+    "slug": "uerj",
+    "nome": "Universidade do Estado do Rio de Janeiro",
+    "sigla": "UERJ",
+    "categoria": "vestibular",
+    "descricao": "Vestibular da UERJ, com exame de qualificação e exame discursivo.",
+    "site": "https://vestibular.uerj.br",
+    "paginaProvas": null,
+    "primeiraEdicao": null
+  },
+  {
+    "slug": "ufpr",
+    "nome": "Universidade Federal do Paraná",
+    "sigla": "UFPR",
+    "categoria": "vestibular",
+    "descricao": "Vestibular da UFPR, realizado pelo Núcleo de Concursos (NC-UFPR).",
+    "site": "https://www.nc.ufpr.br",
+    "paginaProvas": null,
+    "primeiraEdicao": null
+  },
+  {
+    "slug": "ufrgs",
+    "nome": "Universidade Federal do Rio Grande do Sul",
+    "sigla": "UFRGS",
+    "categoria": "vestibular",
+    "descricao": "Vestibular da UFRGS, organizado pela Coperse.",
+    "site": "https://www.ufrgs.br/coperse",
+    "paginaProvas": null,
+    "primeiraEdicao": null
+  },
+  {
+    "slug": "pas-unb",
+    "nome": "Programa de Avaliação Seriada da UnB",
+    "sigla": "PAS/UnB",
+    "categoria": "vestibular",
+    "descricao": "Avaliação seriada em três etapas para ingresso na Universidade de Brasília.",
+    "site": "https://www.cebraspe.org.br",
+    "paginaProvas": null,
+    "primeiraEdicao": null
+  },
+  {
+    "slug": "ita",
+    "nome": "Instituto Tecnológico de Aeronáutica",
+    "sigla": "ITA",
+    "categoria": "militar",
+    "descricao": "Vestibular do ITA, em quatro fases, com provas de Matemática, Física, Química, Português e Inglês.",
+    "site": null,
+    "paginaProvas": null,
+    "primeiraEdicao": null,
+    "observacao": "Endereço oficial a confirmar."
+  },
+  {
+    "slug": "ime",
+    "nome": "Instituto Militar de Engenharia",
+    "sigla": "IME",
+    "categoria": "militar",
+    "descricao": "Concurso de admissão ao IME, com provas objetivas e discursivas.",
+    "site": "https://www.ime.eb.br",
+    "paginaProvas": null,
+    "primeiraEdicao": null
+  },
+  {
+    "slug": "espcex",
+    "nome": "Escola Preparatória de Cadetes do Exército",
+    "sigla": "EsPCEx",
+    "categoria": "militar",
+    "descricao": "Concurso de admissão à EsPCEx, do Exército Brasileiro.",
+    "site": "https://www.espcex.eb.mil.br",
+    "paginaProvas": null,
+    "primeiraEdicao": null
+  },
+  {
+    "slug": "afa",
+    "nome": "Academia da Força Aérea",
+    "sigla": "AFA",
+    "categoria": "militar",
+    "descricao": "Concurso de admissão à Academia da Força Aérea.",
+    "site": null,
+    "paginaProvas": null,
+    "primeiraEdicao": null,
+    "observacao": "Endereço oficial a confirmar."
+  },
+  {
+    "slug": "fgv",
+    "nome": "Fundação Getulio Vargas",
+    "sigla": "FGV",
+    "categoria": "faculdade-privada",
+    "descricao": "Vestibular e processos seletivos da FGV.",
+    "site": "https://www.fgv.br",
+    "paginaProvas": null,
+    "primeiraEdicao": null
+  },
+  {
+    "slug": "insper",
+    "nome": "Insper",
+    "sigla": "Insper",
+    "categoria": "faculdade-privada",
+    "descricao": "Processo seletivo do Insper para graduação.",
+    "site": "https://www.insper.edu.br",
+    "paginaProvas": null,
+    "primeiraEdicao": null
+  },
+  {
+    "slug": "puc-sp",
+    "nome": "Pontifícia Universidade Católica de São Paulo",
+    "sigla": "PUC-SP",
+    "categoria": "faculdade-privada",
+    "descricao": "Vestibular da PUC-SP.",
+    "site": "https://www.pucsp.br",
+    "paginaProvas": null,
+    "primeiraEdicao": null
+  },
+  {
+    "slug": "mackenzie",
+    "nome": "Universidade Presbiteriana Mackenzie",
+    "sigla": "Mackenzie",
+    "categoria": "faculdade-privada",
+    "descricao": "Vestibular do Mackenzie.",
+    "site": "https://www.mackenzie.br",
+    "paginaProvas": null,
+    "primeiraEdicao": null
+  },
+  {
+    "slug": "einstein",
+    "nome": "Faculdade Israelita de Ciências da Saúde Albert Einstein",
+    "sigla": "Albert Einstein",
+    "categoria": "faculdade-privada",
+    "descricao": "Processo seletivo da Faculdade Albert Einstein (graduação em Medicina e Enfermagem).",
+    "site": "https://www.einstein.br",
+    "paginaProvas": null,
+    "primeiraEdicao": null
+  },
+  {
+    "slug": "espm",
+    "nome": "Escola Superior de Propaganda e Marketing",
+    "sigla": "ESPM",
+    "categoria": "faculdade-privada",
+    "descricao": "Vestibular da ESPM.",
+    "site": "https://www.espm.br",
+    "paginaProvas": null,
+    "primeiraEdicao": null
+  }
+]
