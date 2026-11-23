@@ -14,6 +14,7 @@ import { loadLessonNow } from "@/lib/lesson-now";
 import { AulaDeAgora } from "./aula-agora/panel";
 import { Icon } from "@/components/icons";
 import { loadRadar } from "@/lib/radar";
+import { classSummaries } from "@/lib/class-summary";
 import { gradeSubmissions, students as studentsT, classes as classesT } from "@/db/schema";
 
 export const metadata = { title: "Início" };
@@ -30,6 +31,8 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
   const info = await planInfo(ctx.org.id);
   const lessonNow = ctx.org.role === "admin" ? null : await loadLessonNow(ctx);
   const radar = ctx.org.role === "admin" ? [] : await loadRadar(ctx);
+  const summ = await classSummaries(cls.map((c) => c.id));
+  const totalStudents = [...summ.byClass.values()].reduce((a, v) => a + v.students, 0);
   const submissions = await db.select({ s: gradeSubmissions, student: studentsT.name, cls: classesT.name }).from(gradeSubmissions)
     .innerJoin(studentsT, eq(studentsT.id, gradeSubmissions.studentId)).innerJoin(classesT, eq(classesT.id, gradeSubmissions.classId))
     .where(and(eq(gradeSubmissions.orgId, ctx.org.id), ctx.org.role === "coordinator" ? undefined : eq(gradeSubmissions.submittedBy, ctx.user.id))).orderBy(desc(gradeSubmissions.submittedAt)).limit(6);
@@ -50,6 +53,13 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
           {cls.some((c) => c.subject !== "matematica") && <p className="hint">O acervo de questões ainda cobre Matemática. As outras disciplinas ficam salvas no seu perfil.</p>}
         </section>)}
       {staffView && (
+        <section className="stat-grid" aria-label="Resumo">
+          <Link href="/app/turmas" className="stat"><span className="stat-icon" data-c="blue"><Icon name="turmas" size={22} /></span><strong>{cls.length}</strong><span>Turmas</span></Link>
+          <Link href="/app/turmas" className="stat"><span className="stat-icon" data-c="green"><Icon name="chamada" size={22} /></span><strong>{totalStudents}</strong><span>Alunos</span></Link>
+          <Link href="/app/turmas" className="stat" data-dot={summ.pending > 0}><span className="stat-icon" data-c="amber"><Icon name="prova" size={22} /></span><strong>{summ.pending}</strong><span>Para conferir</span></Link>
+          <Link href="/app/radar" className="stat" data-dot={radar.length > 0}><span className="stat-icon" data-c="red"><Icon name="nota" size={22} /></span><strong>{radar.length}</strong><span>Em atenção</span></Link>
+        </section>)}
+      {staffView && (
         <nav className="quick" aria-label="Atalhos">
           <Link href="/app/provas/nova"><Icon name="prova" size={20} />Nova prova</Link>
           <Link href="/app/planos-de-aula"><Icon name="material" size={20} />Plano de aula</Link>
@@ -60,7 +70,13 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
         <div className="space-y-6">
           {lessonNow && <AulaDeAgora ln={lessonNow} multiOrg={ctx.orgs.length > 1} />}
           <section className="card" aria-label="Turmas ativas"><div className="section-title"><h2>Turmas ativas</h2><Link href="/app/turmas">Ver todas</Link></div>
-            {cls.length === 0 ? <p className="empty">Nenhuma turma disponível neste contexto. <Link href="/app/turmas/nova">Criar turma</Link></p> : <ul className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">{cls.map((c) => <li key={c.id}><Link href={`/app/turmas/${c.id}`} className="block rounded-lg border border-line p-3 no-underline hover:border-sky hover:bg-brand-tint"><strong className="text-ink">{c.name}</strong><br /><span className="hint">{gradeLabel(c.grade)} · {subjectLabel(c.subject)}{c.isDemo ? " · exemplo" : ""}</span></Link></li>)}</ul>}
+            {cls.length === 0 ? <p className="empty">Nenhuma turma disponível neste contexto. <Link href="/app/turmas/nova">Criar turma</Link></p> : (
+              <ul className="space-y-3">{cls.map((c) => { const v = summ.byClass.get(c.id); const avg = v?.avg ?? null; const att = v?.att ?? null; return (
+                <li key={c.id}><Link href={`/app/turmas/${c.id}`} className="block no-underline">
+                  <div className="flex flex-wrap items-center justify-between gap-2"><span><strong className="text-ink">{c.name}</strong> <span className="hint">· {gradeLabel(c.grade)} · {subjectLabel(c.subject)}{c.isDemo ? " · exemplo" : ""} · {v?.students ?? 0} aluno(s)</span></span>
+                    <span className="flex gap-1.5"><span className="chip-status" data-s={avg == null ? "regular" : avg < 6 ? "risco" : "regular"}>Média {avg == null ? "—" : String(avg).replace(".", ",")}</span><span className="chip-status" data-s={att == null ? "regular" : att < 75 ? "risco" : "regular"}>{att == null ? "—" : `${att}%`} freq.</span></span></div>
+                  <div className="pbar mt-1.5" data-tone={avg != null && avg < 6 ? "danger" : undefined} role="img" aria-label={`Média da turma ${c.name}: ${avg ?? "sem notas"}`}><i style={{ width: `${avg == null ? 0 : Math.min(100, avg * 10)}%` }} /></div>
+                </Link></li>); })}</ul>)}
           </section>
           {drafts.length > 0 && <section className="card"><div className="section-title"><h2>Rascunhos recentes</h2><Link href="/app/provas">Ver provas</Link></div><ul className="list-rows">{drafts.map((d) => <li key={d.id}><Link href={`/app/provas/${d.id}`}>{d.title}</Link> <span className="hint">· {fmtDateTime(d.updatedAt)}</span></li>)}</ul></section>}
         </div>

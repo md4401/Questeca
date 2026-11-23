@@ -60,10 +60,17 @@ export default async function Frequencia({ params, searchParams }: { params: Pro
         <h2 className="mb-1 text-lg">Frequência da turma</h2>
         <p className="hint mb-3">{allSessions.length} chamada(s) registrada(s). Percentual = presenças ÷ chamadas registradas; falta justificada não conta como presença. Alerta abaixo de {DEFAULT_MIN_PCT}%.</p>
         {roster.length === 0 || allSessions.length === 0 ? <p className="text-ink-soft">Sem dados ainda.</p> : (
-          <table className="t"><thead><tr><th>Aluno</th><th>Presenças</th><th>Faltas</th><th>Justificadas</th><th>Frequência</th></tr></thead><tbody>
-            {roster.map((s) => { const sm = summarize(allRecs.filter((r) => r.studentId === s.id)); const low = isLow(sm.pct);
-              return <tr key={s.id}><td>{s.name}</td><td>{sm.present}</td><td>{sm.absent}</td><td>{sm.justified}</td><td className={low ? "font-bold text-danger" : ""}>{sm.pct == null ? "—" : `${String(sm.pct).replace(".", ",")}%`}{low && " ⚠ abaixo do mínimo"}</td></tr>; })}
-          </tbody></table>)}
+          <ul className="space-y-2.5">
+            {roster.map((s) => { const sm = summarize(allRecs.filter((r) => r.studentId === s.id)); const low = isLow(sm.pct); const pct = sm.pct == null ? 0 : Math.round(sm.pct);
+              return (
+                <li key={s.id} className="rounded-xl border border-line p-3.5">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <div className="flex items-center gap-3"><span className="avatar" aria-hidden>{s.name.trim().slice(0, 1).toUpperCase()}</span><div><p className="font-semibold">{s.name}</p><p className="hint">{sm.present} presente(s) · {sm.absent} falta(s) · {sm.justified} justificada(s)</p></div></div>
+                    <div className="flex items-center gap-2">{low && <span className="chip-status" data-s="atencao">⚠ abaixo do mínimo</span>}<span className={`chip-status ${low ? "" : ""}`} data-s={sm.pct == null ? "regular" : low ? "risco" : "regular"}>{sm.pct == null ? "—" : `${String(sm.pct).replace(".", ",")}%`}</span></div>
+                  </div>
+                  <div className="pbar mt-2.5" data-tone={sm.pct == null ? undefined : low ? "danger" : sm.pct < 85 ? "amber" : undefined} role="img" aria-label={`Frequência de ${s.name}: ${sm.pct == null ? "sem dados" : `${pct}%`}`}><i style={{ width: `${pct}%` }} /></div>
+                </li>); })}
+          </ul>)}
       </section>
     </div>
   );

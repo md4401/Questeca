@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PageHead } from "@/components/page-head";
 import { desc, eq } from "drizzle-orm";
 import { db } from "@/db";
 import { lessonPlans } from "@/db/schema";
@@ -18,7 +19,7 @@ export default async function Planos({ searchParams }: { searchParams: Promise<{
   const plans = await db.select().from(lessonPlans).where(eq(lessonPlans.authorId, ctx.user.id)).orderBy(desc(lessonPlans.updatedAt)).limit(30);
   return (
     <div>
-    <div className="page-head"><div><h1>Planos de aula</h1><p>Digite o tema e receba o plano pronto no formato escolar.</p></div></div>
+    <PageHead icon="material" title="Planos de aula" sub="Digite o tema e receba o plano pronto no formato escolar." />
     <div className="grid items-start gap-6 lg:grid-cols-[1fr_1.2fr]">
       <section className="card">
         <h2 className="mb-1">Gerar plano de aula</h2>

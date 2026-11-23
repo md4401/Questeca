@@ -8,6 +8,8 @@ import { fmtDate } from "@/lib/format";
 import { Form, SubmitButton } from "@/components/form";
 import { addLessonLogAction, archiveClassAction } from "../actions";
 import { TOPICS, topicName } from "@/lib/taxonomy";
+import { classAnalytics } from "@/lib/analytics";
+import { rulesFrom } from "@/lib/gradebook";
 
 export default async function VisaoGeral({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -22,9 +24,20 @@ export default async function VisaoGeral({ params }: { params: Promise<{ id: str
     db.select({ n: count() }).from(grades).innerJoin(gradeItems, eq(gradeItems.id, grades.gradeItemId)).where(and(eq(gradeItems.classId, id), eq(grades.state, "pending"))),
     db.select({ n: count() }).from(answerSheets).innerJoin(applications, eq(applications.id, answerSheets.applicationId)).where(and(eq(applications.classId, id), eq(answerSheets.status, "pending_review"))),
   ]);
+  const an = studs.length ? await classAnalytics(id, ctx.org.settings, rulesFrom(ctx.org.settings).periods[0]) : null;
+  const level = (r: { level: string }) => (r.level === "alerta" ? "risco" : r.level === "atencao" ? "atencao" : "regular");
+  const levelLabel = { risco: "Risco", atencao: "Atenção", regular: "Regular" } as const;
   return (
     <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
       <div className="space-y-6">
+        {an && an.rows.length > 0 && (
+          <section className="card" aria-label="Alunos da turma"><div className="section-title"><h2>Alunos ({an.rows.length})</h2><Link href={`/app/turmas/${id}/alunos`}>Gerenciar</Link></div>
+            <ul className="grid gap-2.5 sm:grid-cols-2 xl:grid-cols-3">{an.rows.map((r) => { const lv = level(r.risk) as keyof typeof levelLabel; const avg = r.average; return (
+              <li key={r.student.id} className="rounded-xl border border-line p-3">
+                <div className="flex items-start justify-between gap-2"><div className="flex min-w-0 items-center gap-2.5"><span className="avatar" aria-hidden>{r.student.name.trim().slice(0, 1).toUpperCase()}</span><div className="min-w-0"><p className="truncate font-semibold">{r.student.name}</p><p className="hint">{r.student.registration ?? "sem matrícula"}</p></div></div><span className="chip-status" data-s={lv}>{levelLabel[lv]}</span></div>
+                <div className="mt-2.5 flex items-center justify-between text-sm"><span className="hint">Média</span><strong>{avg == null ? "—" : String(Math.round(avg * 10) / 10).replace(".", ",")}</strong></div>
+                <div className="pbar mt-1" data-tone={lv === "risco" ? "danger" : lv === "atencao" ? "amber" : undefined} role="img" aria-label={`Média de ${r.student.name}: ${avg == null ? "sem notas" : Math.round(avg * 10) / 10}`}><i style={{ width: `${avg == null ? 0 : Math.min(100, (avg / an.rules.scaleMax) * 100)}%` }} /></div>
+              </li>); })}</ul></section>)}
         <section className="card">
           <h2 className="mb-2">Resumo</h2>
           <p>{studs.length} aluno(s) · {apps.length ? `${apps.length} avaliação(ões) recente(s)` : "nenhuma avaliação aplicada ainda"}</p>

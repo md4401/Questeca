@@ -4,7 +4,7 @@ import { requireCtx } from "@/lib/session";
 import { Logo, LogoMark } from "@/components/logo";
 import { NavLinks } from "@/components/nav";
 import { MobileTabs } from "@/components/mobile-tabs";
-import { ThemeSync } from "@/components/theme";
+import { ThemeSync, ThemeToggle } from "@/components/theme";
 import { Icon, type IconName } from "@/components/icons";
 import { db } from "@/db";
 import { notifications } from "@/db/schema";
@@ -99,11 +99,19 @@ export default async function AppLayout({ children }: { children: React.ReactNod
             <span className="avatar" aria-hidden>{ctx.user.name.trim().slice(0, 1).toUpperCase()}</span>
             <span className="min-w-0"><span className="block truncate font-semibold">{ctx.user.name}</span><span className="hint block truncate">Minha conta{unread ? ` (${unread})` : ""}</span></span>
           </Link>
+          <ThemeToggle />
           <form action={logoutAction}><button className="nav-link w-full text-left" type="submit"><Icon name="sair" size={18} />Sair</button></form>
         </div>
       </aside>
 
       <div className="min-w-0">
+        <div className="topbar no-print hidden md:flex">
+          <p className="min-w-0 truncate text-sm text-ink-soft">{ctx.org.name} · {ROLE_LABEL[role]}</p>
+          <div className="flex items-center gap-1">
+            <Link href="/app/banco" className="icon-btn" aria-label="Buscar no banco de questões"><Icon name="busca" size={20} /></Link>
+            <Link href="/app/notificacoes" className="icon-btn relative" aria-label={`Avisos${unread ? ` (${unread} não lidos)` : ""}`}><Icon name="sino" size={20} />{unread > 0 && <i className="absolute right-1.5 top-1.5 h-2.5 w-2.5 rounded-full bg-danger" aria-hidden />}</Link>
+          </div>
+        </div>
         {!ctx.user.emailVerifiedAt && (
           <div className="no-print slim-note" role="status">
             <span>Confirme seu e-mail ({ctx.user.email}) para proteger sua conta.</span>

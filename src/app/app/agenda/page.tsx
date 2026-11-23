@@ -1,17 +1,19 @@
 import { requireCtx } from "@/lib/session";
 import { visibleClasses } from "@/lib/access";
 import { AgendaWeek } from "@/components/agenda-week";
+import { MonthCalendar, DayPanel, UpcomingList, monthRange } from "@/components/month-calendar";
+import { PageHead } from "@/components/page-head";
 import { Form, SubmitButton } from "@/components/form";
 import { loadAgenda, loadSlots, ensureReminders } from "@/lib/events";
 import { createEventAction, deleteEventAction } from "./actions";
-import { weekStart, addDaysISO, fromSP } from "@/lib/core/calendar";
+import { weekStart, addDaysISO, fromSP, spISO } from "@/lib/core/calendar";
 import { todayISO } from "@/lib/format";
 import { subjectLabel } from "@/lib/taxonomy";
 import Link from "next/link";
 
 export const metadata = { title: "Agenda" };
 
-export default async function Agenda({ searchParams }: { searchParams: Promise<{ semana?: string }> }) {
+export default async function Agenda({ searchParams }: { searchParams: Promise<{ semana?: string; mes?: string; dia?: string }> }) {
   const sp = await searchParams;
   const ctx = await requireCtx();
   const cls = await visibleClasses(ctx);
@@ -21,10 +23,19 @@ export default async function Agenda({ searchParams }: { searchParams: Promise<{
   await ensureReminders({ orgId: ctx.org.id, userId: ctx.user.id, classIds, href: "/app/agenda" });
   const items = await loadAgenda({ orgId: ctx.org.id, userId: ctx.user.id, classIds, from: fromSP(start), to: fromSP(addDaysISO(start, 6), "23:59") });
   const slots = (await loadSlots(ctx.org.id, classIds)).map(({ s, className }) => ({ ...s, subject: subjectLabel(s.subject), className }));
+  const mes = /^\d{4}-(0[1-9]|1[0-2])$/.test(sp.mes ?? "") ? sp.mes! : (/^\d{4}-\d{2}-\d{2}$/.test(sp.dia ?? "") ? sp.dia!.slice(0, 7) : today.slice(0, 7));
+  const mr = monthRange(mes);
+  const dia = /^\d{4}-\d{2}-\d{2}$/.test(sp.dia ?? "") && sp.dia!.startsWith(mes) ? sp.dia! : (today.startsWith(mes) ? today : mr.first);
+  const monthItems = await loadAgenda({ orgId: ctx.org.id, userId: ctx.user.id, classIds, from: fromSP(mr.first), to: fromSP(mr.last, "23:59") });
+  const upcoming = (await loadAgenda({ orgId: ctx.org.id, userId: ctx.user.id, classIds, from: fromSP(today), to: fromSP(addDaysISO(today, 60), "23:59") })).slice(0, 5);
   const canSchool = ctx.org.role === "coordinator" || ctx.org.role === "admin" || ctx.org.kind === "personal";
   return (
     <div className="space-y-6">
-      <div className="page-head"><h1>Agenda</h1><Link className="btn btn-ghost btn-sm" href="/app/horarios">Grade de horários</Link></div>
+      <PageHead icon="agenda" title="Agenda" sub="Calendário, aulas e eventos" actions={<Link className="btn btn-ghost btn-sm" href="/app/horarios">Grade de horários</Link>} />
+      <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
+        <MonthCalendar mes={mes} items={monthItems} selected={dia} today={today} base="/app/agenda" />
+        <div className="space-y-4"><DayPanel date={dia} items={monthItems.filter((i) => spISO(i.start) === dia)} /><UpcomingList items={upcoming} today={today} /></div>
+      </div>
       <AgendaWeek start={start} items={items} slots={slots} base="/app/agenda" today={today}
         renderAction={(key) => (<form action={deleteEventAction.bind(null, key.split("@")[0])} className="mt-1"><button className="link-btn text-danger" type="submit">Excluir</button></form>)} />
       <section className="card max-w-2xl"><h2 className="mb-2 text-lg">Novo evento</h2>

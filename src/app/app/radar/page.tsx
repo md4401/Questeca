@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PageHead } from "@/components/page-head";
 import { requireCtx } from "@/lib/session";
 import { loadRadar } from "@/lib/radar";
 import { Form, SubmitButton } from "@/components/form";
@@ -13,7 +14,7 @@ export default async function Radar() {
   const multi = new Set(rows.map((r) => r.orgId)).size > 1 || ctx.orgs.length > 1;
   return (
     <div className="space-y-4">
-      <div><h1>Radar de alunos</h1><p className="hint">Quem teve queda brusca de nota, faltas seguidas ou frequência baixa. É um apoio à sua decisão: confirme com a turma antes de agir. Os limites seguem as regras da escola.</p></div>
+      <PageHead icon="nota" title="Radar de alunos" sub="Quem teve queda brusca de nota, faltas seguidas ou frequência baixa. É um apoio à sua decisão: confirme com a turma antes de agir. Os limites seguem as regras da escola." />
       {rows.length === 0 ? <section className="card"><p>Nenhum aluno em atenção agora. 🎉</p></section> : (
         <ul className="space-y-3" aria-label="Alunos em atenção">
           {rows.map((r) => (

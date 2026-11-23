@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PageHead } from "@/components/page-head";
 import { and, eq, desc } from "drizzle-orm";
 import { requireCtx } from "@/lib/session";
 import { db } from "@/db";
@@ -16,10 +17,7 @@ export default async function Provas() {
   const list = mine.filter((m) => !m.a.classId || allowed.has(m.a.classId));
   return (
     <div>
-      <div className="page-head">
-        <h1>Provas</h1>
-        <div className="flex gap-2"><Link className="btn btn-ghost" href="/app/banco">Busca no banco</Link><Link className="btn" href="/app/provas/nova">Criar prova</Link></div>
-      </div>
+      <PageHead icon="prova" title="Provas" sub="Rascunhos, provas aplicadas e correção" actions={<><Link className="btn btn-ghost" href="/app/banco">Busca no banco</Link><Link className="btn" href="/app/provas/nova">Criar prova</Link></>} />
       {list.length === 0 ? <div className="card empty"><p>Você ainda não tem provas. Descreva o que ensinou e a Questeca monta um rascunho com questões reais.</p><p className="mt-3"><Link className="btn" href="/app/provas/nova">Criar primeira prova</Link></p></div> : (
         <div className="card overflow-x-auto"><table className="t"><thead><tr><th>Prova</th><th>Turma</th><th>Situação</th><th>Atualizada</th></tr></thead><tbody>
           {list.map(({ a, cname }) => <tr key={a.id}><td><Link href={`/app/provas/${a.id}`}>{a.title}</Link></td><td>{cname ?? "—"}</td>

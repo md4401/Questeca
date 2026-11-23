@@ -8,6 +8,7 @@ import { loadSlots } from "@/lib/events";
 import { createSlotAction, deleteSlotAction } from "../agenda/actions";
 import { WEEKDAY } from "@/lib/core/calendar";
 import { subjectLabel } from "@/lib/taxonomy";
+import { PageHead } from "@/components/page-head";
 
 export const metadata = { title: "Grade de horários" };
 
@@ -19,9 +20,25 @@ export default async function Horarios() {
   const teachers = manager && cls.length ? await db.select({ id: users.id, name: users.name }).from(classTeachers).innerJoin(users, eq(users.id, classTeachers.userId)) : [];
   const uniq = [...new Map(teachers.map((t) => [t.id, t])).values()];
   const byDay = [1, 2, 3, 4, 5, 6, 7].map((d) => ({ d, rows: slots.filter((x) => x.s.weekday === d) })).filter((x) => x.rows.length);
+  const times = [...new Set(slots.map((x) => x.s.startTime))].sort();
+  const PAL = ["#3B82F6", "#E5484D", "#10B981", "#E39B14", "#8B5CF6", "#EC4899", "#14B8A6"];
+  const colorOf = (sub: string) => PAL[[...sub].reduce((a, c) => a + c.charCodeAt(0), 0) % PAL.length];
+  const days = [1, 2, 3, 4, 5, 6].filter((d) => d <= 5 || slots.some((x) => x.s.weekday === d));
   return (
+    <div className="space-y-6">
+    <PageHead icon="agenda" title="Grade de horários" sub="Aulas da semana por turma e disciplina" />
+    {times.length > 0 && (
+      <section className="card overflow-x-auto" aria-label="Visão semanal">
+        <table className="t" style={{ minWidth: 640 }}><thead><tr><th scope="col">Horário</th>{days.map((d) => <th key={d} scope="col">{WEEKDAY[d]}</th>)}</tr></thead><tbody>
+          {times.map((tm) => (
+            <tr key={tm}><th scope="row" className="mono !bg-transparent !text-ink-soft !normal-case">{tm}</th>
+              {days.map((d) => { const here = slots.filter((x) => x.s.weekday === d && x.s.startTime === tm); return (
+                <td key={d} className="!p-1">{here.map(({ s, className }) => <div key={s.id} className="mb-1 rounded-lg border-l-4 px-2 py-1.5 text-sm" style={{ borderColor: colorOf(s.subject), background: `color-mix(in srgb, ${colorOf(s.subject)} 14%, transparent)` }}><strong>{subjectLabel(s.subject)}</strong><br /><span className="hint">{className}{s.room ? ` · ${s.room}` : ""}</span></div>)}</td>); })}
+            </tr>))}
+        </tbody></table>
+      </section>)}
     <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
-      <section className="card"><h1 className="mb-3 text-2xl">Grade de horários</h1>
+      <section className="card"><h2 className="mb-3">Lista por dia</h2>
         {byDay.length === 0 ? <p className="text-ink-soft">Nenhum horário cadastrado.</p> : byDay.map(({ d, rows }) => (
           <div key={d} className="mb-4"><h2 className="text-base">{WEEKDAY[d]}</h2>
             <ul className="mt-1 divide-y divide-line text-sm">{rows.map(({ s, className }) => (
@@ -40,6 +57,7 @@ export default async function Horarios() {
           </Form>)}
         <p className="hint mt-2">O sistema recusa horários que colidem para a mesma turma, professor ou sala.</p>
       </section>
+    </div>
     </div>
   );
 }

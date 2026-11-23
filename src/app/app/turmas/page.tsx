@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PageHead } from "@/components/page-head";
 import { eq, count, and } from "drizzle-orm";
 import { requireCtx } from "@/lib/session";
 import { visibleClasses } from "@/lib/access";
@@ -16,10 +17,7 @@ export default async function Turmas() {
   const nBy = new Map(counts.map((c) => [c.id, c.n]));
   return (
     <div>
-      <div className="page-head">
-        <div><h1>Turmas</h1><p>{ctx.org.name}</p></div>
-        {can(ctx.org.role, "class.create") && <Link className="btn" href="/app/turmas/nova">Nova turma</Link>}
-      </div>
+      <PageHead icon="turmas" title="Turmas" sub={ctx.org.name} actions={can(ctx.org.role, "class.create") ? <Link className="btn" href="/app/turmas/nova">Nova turma</Link> : null} />
       {ctx.org.role === "admin" && list.length === 0 && <p className="card-tint">A gestão institucional não tem acesso pedagógico por padrão. Para ver turmas, atribua-se a uma turma ou peça a permissão à coordenação.</p>}
       {list.length === 0 && ctx.org.role !== "admin" ? (
         <div className="card"><p>Você ainda não tem turmas aqui. Crie uma para começar — nomes de alunos podem ser adicionados depois.</p><p className="mt-3"><Link className="btn" href="/app/turmas/nova">Criar primeira turma</Link></p></div>
