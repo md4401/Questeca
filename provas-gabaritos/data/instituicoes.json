@@ -27,8 +27,9 @@
     "categoria": "vestibular",
     "descricao": "Vestibular da Universidade Estadual de Campinas (Unicamp), em duas fases.",
     "site": "https://www.comvest.unicamp.br",
-    "paginaProvas": null,
-    "primeiraEdicao": null
+    "paginaProvas": "https://www.comvest.unicamp.br/vestibulares-anteriores/",
+    "primeiraEdicao": 1987,
+    "observacao": "Acervo oficial a partir do Vestibular 1987. Gabaritos das provas discursivas aparecem como \"respostas esperadas\" publicadas pela banca."
   },
   {
     "slug": "vunesp",

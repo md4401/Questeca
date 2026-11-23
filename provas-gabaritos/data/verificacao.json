@@ -1,1 +1,3458 @@
-{}
+{
+  "https://www.comvest.unicamp.br/wp-content/uploads/2026/10/gabarito_2027_TX.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2026/10/gabarito_2027_SW.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2026/10/gabarito_2027_RZ.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2026/10/gabarito_2027_QY.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2027/F1/F1_2027_Q_Y.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2027/F1/F1_2027_R_Z.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2027/F1/F1_2027_S_W.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2027/F1/F1_2027_T_X.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2025/10/Q_X-gabarito.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2025/10/S_Z-gabarito.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2025/10/R_Y-gabarito.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2025/10/T_W-gabarito.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2026/F1/f12026Q_X.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2026/F1/f12026R_Y.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2026/F1/f12026S_Z.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2026/F1/f12026T_W.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2025/12/Expectativa-Banca_RED_FINAL.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2026/F2/provas/2026F2CE.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2026/F2/provas/2026F2CB.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2026/F2/provas/2026F2CH.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2026/F2/provas/2026F2redporingcn.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2025/12/Respostas-Esperadas_Dia-1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2025/12/Respostas-Esperadas_Dia-2_CET.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2025/12/Respostas-Esperadas_Dia-2_CBS.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2025/12/Respostas-Esperadas_Dia-2_CHA.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2024/10/QZ_gabarito_2025_FINAL_site.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2024/10/RW_gabarito_2025_FINAL_site.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2024/10/SX_gabarito_2025_FINAL_site.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2024/10/TY_gabarito_2025_FINAL_site.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2025/F1/f12025R_W.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2025/F1/f12025Q_Z.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2025/F1/f12025S_X.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2025/F1/f12025T_Y.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2024/12/Expectativa-Banca_RED_FINAL.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2025/F2/provas/2025F2CE.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2025/F2/provas/2025F2CB.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2025/F2/provas/2025F2redporingcn.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2024/12/Respostas-Esperadas_Dia-2_CET.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2025/F2/provas/2025F2CH.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2024/12/Respostas-Esperadas_Dia-1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2023/10/Q_Y.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2024/12/Respostas-Esperadas_Dia-2_CBS.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2024/12/Respostas-Esperadas_Dia-2_CHA.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2023/10/R_Z.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2023/10/T_X.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2023/10/S_W.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2024/F1/f12024R_Z.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2024/F1/f12024Q_Y.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2024/F2/provas/2024F2CE.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2024/F1/f12024S_W.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2024/F1/f12024T_X.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2023/12/Expectativa-Banca_RED.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2024/F2/provas/2024F2CB.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2024/F2/provas/2024F2CH.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2024/F2/provas/2024F2redporingcn.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2023/12/Respostas-Esperadas_1odia.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2023/12/RespostasEsperadas_dia2_CE.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2023/12/RespostasEsperadas_dia2_CB.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2023/12/RespostasEsperadas_dia2_CH.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2024/05/Arquitetura-e-Urbanismo-P1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2024/05/Arquitetura-e-Urbanismo-P2.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2024/05/Artes-Visuais_Expressao-Plastica.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2024/05/Artes-Visuais_Historia-da-Arte.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2024/05/Artes-Cenicas.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2023/F1/f12023Q_Z.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2023/F1/f12023R_Y.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2023/F1/f12023S_X.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2023/F1/f12023T_W.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2022/12/Resposta-Esperada_RED.docx.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2023/F2/provas/2023F2CE.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2023/F2/provas/2023F2CB.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2023/F2/provas/2023F2CH.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2023/F2/provas/2023F2redporingcn.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2022/12/Respostas-Esperadas_1odia.docx.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2022/12/RespostasEsperadas_2odia_CE.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2022/12/RespostasEsperadas_2odia_CB.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2022/12/RespostasEsperadas_2odia_CH.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2021/11/gabarito_2022_DIVULGA.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2022/F1/f12022Q_X.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2022/F1/f12022R_W.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2022/F1/f12022S_Z.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2022/01/Resposta-Esperada_2022_RED.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2022/F1/f12022T_Y.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2022/01/Resposta-Esperada_LIT_PORT_INTER.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2022/01/Resposta-Esperada_CE_T.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2022/01/Resposta-Esperada_CB_S.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2022/01/Resposta-Esperada_CH_A.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2022/01/2022F2redporingcorrecao.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2022/F2/provas/2022F2CE.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2022/01/CHumanas.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2022/F2/provas/2022F2CB.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2021/01/DIA1_gabarito_2021.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2021/F1/f12021E_G.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2021/F1/f12021F_H.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2021/F1/f12021J_L.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2021/F1/f12021K_M.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2021/01/DIA2_gabarito_2020.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2021/F1/f12021Q_Z.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2021/F1/f12021R_Y.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2021/F1/f12021S_X.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2021/F1/f12021T_W.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2021/02/Resposta-Esperada_CE_T.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2021/02/Resposta-Esperada_CH_A.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2021/02/Resposta-Esperada_CB_S.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2021/02/Resposta-Esperada_RED-1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2021/02/Resposta-Esperada_LIT_PORT_INTER.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2021/F2/provas/2021F2CB.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2021/F2/provas/2021F2CE.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2021/F2/provas/2021F2CH.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2020/F1/f12020Q_X.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2021/F2/provas/2021F2redporing.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2020/F1/f12020R_W.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2019/11/gabarito2020.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2020/F1/f12020T_Y.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2020/F1/f12020S_Z.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2020/F2/provas/2020F2CB.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2020/F2/provas/2020F2CE.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2020/F2/provas/2020F2CH.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2020/F2/provas/2020F2redporting.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2020/F2/provas/resp_2020F2CB.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2020/F2/provas/resp_2020F2CE.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2020/F2/provas/resp_2020F2CH.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2020/F2/provas/resp_2020F2redporting.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2020/01/ARQUITETURA_Parte1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2020/01/ARQUITETURA_Partes-2-e-3.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2020/01/ARTES-VISUAIS_Desenho.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2020/01/ARTES-CÊNICAS_Prova-Escrita.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2020/01/ARTES-VISUAIS_História-da-Arte.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2020/06/Musica-2020-prova-teorica.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2019/F1/f12019Q_X.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2019/F1/f12019R_Z.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2020/06/2020-Musica-Licenciatura.docx": {
+    "status": "quebrado",
+    "httpStatus": 403,
+    "contentType": "text/html; charset=iso-8859-1",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2019/F1/f12019T_W.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2019/F1/f12019S_Y.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2018/11/gabarito_2019-F1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2019/F2/provas/fisbioqui.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2019/F2/provas/redport.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2019/F2/provas/matgeohis.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2019/F2/provas/fisresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2019/F2/provas/bioresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2019/F2/provas/matresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2019/F2/provas/quiresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2019/F2/provas/georesp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2019/F2/provas/hisresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2019/F2/provas/portresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2019/F2/provas/redacao_expectativas.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2019/05/Arquitetura_2019.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2019/05/Artes_Cenicas_2019.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2019/05/Artes_Visuais_2019.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2019/05/Musica_2019.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2018/F1/f12018Q.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2018/F1/f12018X.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2018/F1/f12018R.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2018/F1/f12018Z.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2018/F1/f12018S.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2018/F1/f12018Y.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2018/F1/f12018T.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2018/F1/f12018W.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2018/F1/gabarito2018.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2018/F2/provas/fisbioqui.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2018/F2/provas/matgeohis.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2018/F2/provas/redport.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2018/F2/provas/fisresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2018/F2/provas/bioresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2018/F2/provas/quiresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2018/F2/provas/matresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2018/F2/provas/georesp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2018/F2/provas/hisresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2018/F2/provas/portresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2018/F2/provas/redacao_expectativas.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2019/04/HE_F2_2018_Arquit_Urb.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2021/09/HE_F2_2018_Artes-Cenicas_CAPA_QUESTAO_MIOLO_versao_2.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2019/04/HE_F2_2018_Artes_Visuais.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2020/06/2018-Musica-Licenciatura.docx": {
+    "status": "quebrado",
+    "httpStatus": 403,
+    "contentType": "text/html; charset=iso-8859-1",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/02/gabarito2017.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2020/06/PHE-Musica-2018-Teoria.docx": {
+    "status": "quebrado",
+    "httpStatus": 403,
+    "contentType": "text/html; charset=iso-8859-1",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/02/f12017QY.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/02/f12017RX.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/02/f12017SW.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/02/f12017TZ.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/02/bioquifis.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/02/geohismat.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/02/redport.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/04/quiresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/04/fisresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/04/bioresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/04/hisresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/04/matresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/04/georesp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/04/portresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/06/arquitetura2017.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/06/cenicas2017.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/06/artesvisuais2017.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/06/musica2017.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/04/redacao_expectativas.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/02/gabarito2016.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/02/f12016QZ.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/02/f12016RY.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/02/f12016SX.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/02/f12016TW.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/02/quifisbio.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/02/hismatgeo.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/02/redport-1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/02/quiresp-1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/02/fisresp-1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/02/bioresp-1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/02/hisresp-1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/02/matresp-1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/02/georesp-1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/02/portresp-1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/02/arquitetura2016.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/02/cenicas2016.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/02/artesvisuais2016.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/02/musica2016.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/wp-content/uploads/2017/02/redacao_expectativas-1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2015/F1/f12015QW.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2015/F1/f12015RZ.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2015/F1/f12015SY.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2015/F1/f12015TX.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2015/F1/gabarito2015.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2015/F1/he/musica2015.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2015/F2/provas/fisquibio.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2015/F2/provas/mathisgeo.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2015/F2/provas/redport.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2015/F2/provas/fisresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2015/F2/provas/quiresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2015/F2/provas/bioresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2015/F2/provas/matresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2015/F2/provas/hisresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2015/F2/provas/georesp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2015/F2/provas/portresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2015/F2/provas/redacao_expectativas.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2015/F2/provas/he/arquitetura2015.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2015/F2/provas/he/cenicas2015.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2015/F2/provas/he/artesvisuais2015.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2014/F1/f12014QX.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2014/F1/f12014RW.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2014/F1/f12014SZ.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2014/F1/f12014TY.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2014/F1/redacao_expectativas.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2014/F1/gabarito2014.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2014/F2/provas/ciennatu.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2014/F2/provas/ciening.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2014/F2/provas/portmat.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2014/F2/provas/cnresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2014/F2/provas/charesp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2014/F2/provas/ingresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2014/F2/provas/portresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2014/F2/provas/matresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2014/F2/provas/he/arquitetura2014.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2014/F2/provas/he/cenicas2014.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2014/F2/provas/he/artesvisuais2014.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2014/F2/provas/he/musica2014.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2013/F1/f12013QZ.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2013/F1/f12013RY.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2013/F1/f12013SX.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2013/F1/f12013TW.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2013/F1/redacao_expectativas.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2013/F1/gabarito2013.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2013/F2/provas/ciennatu.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2013/F2/provas/ciening.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2013/F2/provas/portmat.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2013/F2/provas/cnresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2013/F2/provas/charesp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2013/F2/provas/ingresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2013/F2/provas/portresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2013/F2/provas/matresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2013/F2/provas/he/arquitetura2013.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2013/F2/provas/he/cenicas2013.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2013/F2/provas/he/artesvisuais2013.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2013/F2/provas/he/musica2013.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2012/F1/f12012QZ.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2012/F1/f12012RY.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2012/F1/f12012SX.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2012/F1/f12012TW.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2012/F1/redacao_expectativas.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2012/F2/provas/ciennatu.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2012/F1/gabarito2012.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2012/F2/provas/ciennatu_errata.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2012/F2/provas/ciening.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2012/F2/provas/portmat.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2012/F2/provas/cnresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2012/F2/provas/charesp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2012/F2/provas/ingresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2012/F2/provas/portresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2012/F2/provas/matresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2012/F2/provas/he/arquitetura2012.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2012/F2/provas/he/cenicas2012.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2012/F2/provas/he/artesvisuais2012.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2012/F2/provas/he/musica2012.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2011/F1/f12011QZ.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2011/F1/f12011RY.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2011/F1/f12011SX.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2011/F1/f12011TW.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2011/F1/redacao_expectativas.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2011/F1/gabarito2011.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2011/F2/provas/ciennatu.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2011/F2/provas/ciening.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2011/F2/provas/portmat.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2011/F2/provas/portmat_errata.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2011/F2/provas/cnresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2011/F2/provas/charesp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2011/F2/provas/ingresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2011/F2/provas/portresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2011/F2/provas/matresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2011/F2/provas/he/arquitetura2011.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2011/F2/provas/he/cenicas2011.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2011/F2/provas/he/artesvisuais2011.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2011/F2/provas/he/musica2011.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2010/F1/f12010redacao.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2010/F1/f12010questoes.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2010/F1/redacao_expectativas.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2010/F1/questoesf1_resp_esperadas.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2010/F2/provas/portbio.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2010/F2/provas/quihis.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2010/F2/provas/fisgeo.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2010/F2/provas/mating.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2010/F2/provas/portresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2010/F2/provas/bioresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2010/F2/provas/quiresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2010/F2/provas/hisresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2010/F2/provas/fisresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2010/F2/provas/georesp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2010/F2/provas/matresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2010/F2/provas/ingresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2010/F2/provas/aptidao/arquitetura2010.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2010/F2/provas/aptidao/cenicas2010.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2010/F2/provas/aptidao/artesvisuais2010.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2010/F2/provas/aptidao/musica2010.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2009/F1/f12009redacao.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2009/F1/F12009questoes.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2009/F1/redacao_expectativas.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2009/F1/questoesf1_resp_esperadas.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2009/F2/provas/portbio.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2009/F2/provas/quihis.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2009/F2/provas/fisgeo.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2009/F2/provas/mating.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2009/F2/provas/portresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2009/F2/provas/bioresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2009/F2/provas/quiresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2009/F2/provas/hisresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2009/F2/provas/fisresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2009/F2/provas/georesp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2009/F2/provas/matresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2009/F2/provas/ingresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2009/F2/provas/aptidao/arquitetura2009.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2009/F2/provas/aptidao/cenicas2009.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2009/F2/provas/aptidao/artesvisuais2009.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2009/F2/provas/aptidao/musica2009.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2008/F1/provafase1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2008/F1/redacao_expectativas.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2008/F1/questoesf1_rep_esperadas.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2008/F2/provas/portbio.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2008/F2/provas/errata_portbio.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2008/F2/provas/quihis.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2008/F2/provas/fisgeo.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2008/F2/provas/mating.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2008/F2/provas/portresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2008/F2/provas/bioresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2008/F2/provas/quiresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2008/F2/provas/hisresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2008/F2/provas/fisresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2008/F2/provas/georesp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2008/F2/provas/matresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2008/F2/provas/ingresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2008/F2/provas/aptidao/arquitetura2008.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2008/F2/provas/aptidao/cenicas2008.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2008/F2/provas/aptidao/artesvisuais2008.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2008/F2/provas/aptidao/musica2008.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2008/F2/provas/aptidao/odontologia2008.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2007/F1/fase1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2007/F1/expectativa_RED.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2007/F1/repostas_esperadas_geral.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2007/F1/fase1coment.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2007/F2/provas/portbio.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2007/F2/provas/quihis.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2007/F2/provas/errata-quimica.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2007/F2/provas/fisgeo.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2007/F2/provas/mating.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2007/F2/provas/portbioresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2007/F2/provas/portcoment.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2007/F2/provas/biocoment.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2007/F2/provas/quihisresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2007/F2/provas/quimcoment.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2007/F2/provas/histcoment.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2007/F2/provas/fisgeoresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2007/F2/provas/fiscoment.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2007/F2/provas/geocoment.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2007/F2/provas/matingresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2007/F2/provas/matcoment.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2007/F2/provas/ingcoment.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2007/F2/provas/aptidao/arquitetura2007.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2007/F2/provas/aptidao/cenicas2007.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2007/F2/provas/aptidao/artesvisuais2007.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2007/F2/provas/aptidao/musica2007.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2007/F2/provas/aptidao/odontologia2007.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2006/F1/provaf1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2006/F1/redacao_expectativas.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2006/F1/questoesf1_expectativas.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2006/F2/provas/port-bio.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2006/F2/provas/quim-hist.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2006/F2/provas/fis-geo.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2006/F2/provas/mat-ing.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2006/F2/provas/portbioresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2006/F2/provas/quihistresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2006/F2/provas/fisgeoresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2006/F2/provas/matingresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2006/F2/provas/aptidao/arquitetura2006.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2006/F2/provas/aptidao/cenicas2006.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2006/F2/provas/aptidao/ed_artistica2006.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2006/F2/provas/aptidao/musica2006.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2006/F2/provas/aptidao/odontologia2006.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2005/F1/provaf1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2005/F1/redacao_expectativa.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2005/F1/questoesf1_expectativas.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2005/F2/port-bio.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2005/F2/quim-hist.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2005/F2/fis-geo.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2005/F2/mat-est.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2005/F2/portbioresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2005/F2/quihisresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2005/F2/fisgeoresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2005/F2/matestresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2005/F2/aptidao/Arquitetura2005.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2005/F2/aptidao/Cenicas2005.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2005/F2/aptidao/Artistica2005.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2005/F2/aptidao/Musica.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2005/F2/aptidao/Odontologia2005.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2004/F1/provaf1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2004/F1/respostas.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2004/F2/provas/portbio.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2004/F2/provas/quimhist.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2004/F2/provas/fisgeo.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2004/F2/provas/matest.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2004/F2/provas/portbioresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2004/F2/provas/quimhistresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2004/F2/provas/fisgeoresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2004/F2/provas/matestrresp.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2004/F2/provas/arquitetura2004.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2004/F2/provas/cenicas.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2004/F2/provas/artistica2004_de.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2004/F2/provas/artistica2004_ha.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2004/F2/provas/Musica.zip": {
+    "status": "quebrado",
+    "httpStatus": 404,
+    "contentType": "text/html; charset=UTF-8",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2004/F2/provas/odontologia2004.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2003/download/ProvaFase1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2003/download/ExpecRed.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2003/download/portbio.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2003/download/quimhist.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2003/download/fisgeo.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2003/download/matestr.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2003/download/Arquitetura.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2003/download/Acenicas.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2003/download/EdArtistica.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2003/download/Odontologia.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2003/download/musica.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2002/download/fase1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2002/download/lport.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2002/download/cbiolog.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2002/download/quimica.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest2002/F2/solucao_enigma.pdf": {
+    "status": "quebrado",
+    "httpStatus": 404,
+    "contentType": "text/html; charset=UTF-8",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2002/download/historia.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2002/download/fisica.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2002/download/geografia.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2002/download/matematica.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2002/download/ingles.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2002/download/frances.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2001/download/fase1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2001/download/portugues.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2001/download/cbiolog.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2001/download/quimica.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2001/download/historia%20.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2001/download/fisica.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2001/download/geografia.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2001/download/matematica.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2001/download/ingles.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2001/download/frances.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2000/download/fase1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2000/download/lingport.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2000/download/cbiol.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2000/download/quimica.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2000/download/historia.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2000/download/fisica.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2000/download/geografia.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2000/download/matematica.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2000/download/ingles.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/2000/download/frances.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1999/download/fase1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1999/download/portugues.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1999/download/biologia.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1999/download/quimica.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1999/download/historia.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1999/download/fisica.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1999/download/geografia.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1999/download/matematica.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1999/download/ingles.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1999/download/frances.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1998/download/fasei.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1998/download/port.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1998/download/biologia.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1998/download/quimica.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1998/download/hist.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1998/download/fisica.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1998/download/geo.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1998/download/mat.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1998/download/ingles.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1998/download/frances.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1997/download/FASE1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1997/download/PORT97.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1997/download/BIO97.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1997/download/QUI97.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1997/download/HIST97.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1997/download/FIS97.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1997/download/GEO97.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1997/download/MAT97.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1997/download/ING97.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1997/download/FRAN97.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1996/download/FASE1.PDF": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1996/download/PORT.PDF": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1996/download/BIO.PDF": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1996/download/QUIMICA.PDF": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1996/download/HIST.PDF": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1996/download/FIS.PDF": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1996/download/GEO.PDF": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1996/download/MAT.PDF": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1996/download/ING.PDF": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1996/download/FRANC.PDF": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1995/download/FASE1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1995/download/POR_BIO.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1995/download/QUI_HIS.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1995/download/FIS_GEO.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1995/download/MAT_EST.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1994/download/FASE1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1994/download/POR_BIO.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1994/download/QUI_HIS.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1994/download/FIS_GEO.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1994/download/MAT_EST.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1993/download/FASE1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1993/download/POR_BIO.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1993/download/QUI_HIS.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1993/download/FIS_GEO.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1993/download/MAT_EST.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1992/download/FASE1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1992/download/POR_BIO.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1992/download/QUI_HIS.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1992/download/FIS_GEO.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1992/download/MAT_EST.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1991/download/FASE1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1991/download/POR_BIO.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1991/download/QUI_HIS.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1991/download/FIS_GEO.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1991/download/MAT_EST.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1990/download/FASE1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1990/download/POR_BIO.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1990/download/QUI_HIS.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1990/download/FIS_GEO.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1990/download/MAT_EST.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1989/download/FASE1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1989/download/POR_BIO.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1989/download/QUI_HIS.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1989/download/FIS_GEO.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1989/download/MAT_EST.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1988/download/FASE1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1988/download/POR_BIO.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1988/download/FIS_EST.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1988/download/GEO_QUI.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1988/download/MAT_HIS.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1988_2/download/FASE1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1988_2/download/POR_BIO.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1988_2/download/FIS_EST.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1988_2/download/GEO_QUI.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1988_2/download/MAT_HIS.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1987/download/FASE1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1987/download/CEX_BIO.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1987/download/FIS_EST.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1987/download/GEO_QUI.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://www.comvest.unicamp.br/vest_anteriores/1987/download/MAT_HIS.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  }
+}
