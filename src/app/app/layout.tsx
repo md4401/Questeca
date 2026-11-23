@@ -27,32 +27,21 @@ export default async function AppLayout({ children }: { children: React.ReactNod
     { items: [{ href: "/app", label: "Início", icon: "home" }] },
     { label: "Sala de aula", items: [
       { href: "/app/turmas", label: "Turmas", icon: "turmas" },
-      ...(teacherLike ? [{ href: "/app/planos-de-aula", label: "Planos de aula", icon: "material" as const }] : []),
+      ...(teacherLike ? [{ href: "/app/notas", label: "Notas", icon: "nota" as const }, { href: "/app/planos-de-aula", label: "Planos de aula", icon: "material" as const }] : []),
       { href: "/app/agenda", label: "Agenda", icon: "agenda" },
     ] },
     ...(teacherLike ? [{ label: "Avaliações", items: [
       { href: "/app/provas", label: "Provas", icon: "prova" as const },
       { href: "/app/banco", label: "Banco de questões", icon: "banco" as const },
-      { href: "/app/escanear", label: "Escanear cartão", icon: "chamada" as const },
-    ] }, { label: "Acompanhamento", items: [
-      { href: "/app/radar", label: "Radar de alunos", icon: "nota" as const },
-      { href: "/app/chat", label: `Mensagens${msgs ? ` (${msgs})` : ""}`, icon: "chat" as const },
-    ] }] : [{ label: "Acompanhamento", items: [{ href: "/app/chat", label: `Mensagens${msgs ? ` (${msgs})` : ""}`, icon: "chat" as const }] }]),
-    { label: "Escola e comunidade", items: [
-      { href: "/app/documentos", label: "Coordenação", icon: "coord" },
-      { href: "/app/comunidade", label: "Comunidade", icon: "chat" },
-      { href: "/app/materiais", label: "Materiais", icon: "material" },
-      { href: "/app/moderacao", label: "Moderação", icon: "interno" },
-      ...(ctx.org.kind === "school" && (role === "admin" || role === "coordinator") ? [{ href: "/app/escola", label: "Escola", icon: "escola" as const }, { href: "/app/gestao", label: "Gestão acadêmica", icon: "turmas" as const }] : []),
-      ...(ctx.org.kind === "personal" ? [{ href: "/app/escola", label: "Modelos e regras", icon: "ajustes" as const }] : []),
-      ...(ctx.user.isStaff ? [{ href: "/admin", label: "Área interna", icon: "interno" as const }] : []),
-    ] },
+    ] }] : []),
+    { label: "Contato", items: [{ href: "/app/chat", label: `Mensagens${msgs ? ` (${msgs})` : ""}`, icon: "chat" as const }] },
+    ...(ctx.user.isStaff ? [{ label: "Interno", items: [{ href: "/admin", label: "Área interna", icon: "interno" as const }] }] : []),
   ];
   const items: Item[] = groups.flatMap((g) => g.items);
   // Celular: quatro destinos principais ao alcance do polegar; o resto em "Mais".
   const tabs: Item[] = role === "admin"
-    ? [{ href: "/app", label: "Início", icon: "home" }, { href: "/app/turmas", label: "Turmas", icon: "turmas" }, { href: "/app/documentos", label: "Coordenação", icon: "coord" }]
-    : [{ href: "/app", label: "Início", icon: "home" }, { href: "/app/provas", label: "Provas", icon: "prova" }, { href: "/app/turmas", label: "Turmas", icon: "turmas" }];
+    ? [{ href: "/app", label: "Início", icon: "home" }, { href: "/app/turmas", label: "Turmas", icon: "turmas" }, { href: "/app/agenda", label: "Agenda", icon: "agenda" }]
+    : [{ href: "/app", label: "Início", icon: "home" }, { href: "/app/turmas", label: "Turmas", icon: "turmas" }, { href: "/app/notas", label: "Notas", icon: "nota" }];
   const tabHrefs = new Set(tabs.map((t) => t.href));
   const more: Item[] = [
     ...items.filter((i) => !tabHrefs.has(i.href)),

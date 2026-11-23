@@ -111,3 +111,10 @@ export function parseGradeInput(raw: string, maxPoints: number): { state: GradeS
   if (v === 0) return { state: "zero", value: 0 };
   return { state: "value", value: v };
 }
+
+/** Situação do aluno no período: aprovado (média ≥ mínima), recuperação (até 2 pontos abaixo) ou reprovado. */
+export function situation(average: number | null, passMark: number): "sem_notas" | "aprovado" | "recuperacao" | "reprovado" {
+  if (average == null) return "sem_notas";
+  if (average >= passMark) return "aprovado";
+  return average >= passMark - 2 ? "recuperacao" : "reprovado";
+}

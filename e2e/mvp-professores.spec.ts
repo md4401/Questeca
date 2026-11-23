@@ -202,7 +202,7 @@ test("MVP professores: Aula de Agora (2 escolas), plano de aula, parecer descrit
   await t.reload();
   await expect(t.getByTestId("radar-row").filter({ hasText: "João Reis" })).toContainText("Coordenação avisada em");
   await t.goto("/app");
-  await expect(t.getByTestId("radar-home")).toContainText("João Reis");
+  await expect(t.getByTestId("radar-home")).toHaveCount(0); // radar fora do Início
   await audit(t, "inicio");
   // a coordenação vê o radar da escola A e recebe o aviso
   await c.goto("/app/radar");

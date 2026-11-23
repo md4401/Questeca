@@ -404,3 +404,5 @@ html[data-theme="dark"] dialog.modal .modal-panel { background: var(--color-shee
 @media (prefers-color-scheme: dark) { html[data-theme="system"] dialog.modal .modal-panel { background: var(--color-sheet) !important; color: var(--color-ink); border: 1px solid var(--color-line); } }
 html[data-theme="dark"] .sheet-link { color: var(--color-ink); }
 .modal-panel.modal-solid { background: var(--color-sheet); color: var(--color-ink); }
+.grade-ok { color: #15803D; font-weight: 700; } .grade-att { color: #B45309; font-weight: 700; } .grade-bad { color: #B91C1C; font-weight: 700; }
+html[data-theme="dark"] .grade-ok { color: #4ADE80; } html[data-theme="dark"] .grade-att { color: #FBBF24; } html[data-theme="dark"] .grade-bad { color: #F87171; }

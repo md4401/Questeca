@@ -191,6 +191,7 @@ export async function createGradeItemAction(classId: string, period: string, _: 
   if (gb.closed) return { error: PERIOD_ERR };
   await db.insert(gradeItems).values({ classId: cls.id, title: p.data.title, category: p.data.category, period, weight: String(p.data.weight), maxPoints: String(p.data.maxPoints), recovery: p.data.recovery === "on" });
   revalidatePath(`/app/turmas/${cls.id}/notas`);
+  revalidatePath("/app/notas");
   return { ok: "Atividade criada." };
 }
 
@@ -204,6 +205,7 @@ export async function deleteGradeItemAction(classId: string, itemId: string) {
   await db.delete(gradeItems).where(eq(gradeItems.id, itemId));
   await audit(ctx.user.id, ctx.org.id, "gradeitem.deleted", itemId);
   revalidatePath(`/app/turmas/${cls.id}/notas`);
+  revalidatePath("/app/notas");
 }
 
 /** Grava (ou valida) uma célula. Campo vazio fica pendente — nunca vira zero por padrão. */
@@ -235,6 +237,7 @@ export async function saveGradesBatch(classId: string, entries: { itemId: string
     results.push({ itemId: e.itemId, studentId: e.studentId, error: "error" in r ? r.error : undefined });
   }
   revalidatePath(`/app/turmas/${classId}/notas`);
+  revalidatePath("/app/notas");
   return results;
 }
 
@@ -251,6 +254,7 @@ export async function closePeriodAction(classId: string, period: string) {
   await db.insert(periodCloses).values({ classId: cls.id, period, closedBy: ctx.user.id }).onConflictDoUpdate({ target: [periodCloses.classId, periodCloses.period], set: { closedBy: ctx.user.id, closedAt: new Date(), reopenedAt: null } });
   await audit(ctx.user.id, ctx.org.id, "period.closed", cls.id, { period });
   revalidatePath(`/app/turmas/${cls.id}/notas`);
+  revalidatePath("/app/notas");
 }
 
 export async function reopenPeriodAction(classId: string, period: string, _: FormState, fd: FormData): Promise<FormState> {
@@ -263,5 +267,6 @@ export async function reopenPeriodAction(classId: string, period: string, _: For
   await db.update(periodCloses).set({ reopenedAt: new Date() }).where(and(eq(periodCloses.classId, cls.id), eq(periodCloses.period, period)));
   await audit(ctx.user.id, ctx.org.id, "period.reopened", cls.id, { period, reason });
   revalidatePath(`/app/turmas/${cls.id}/notas`);
+  revalidatePath("/app/notas");
   return { ok: "Período reaberto. A alteração fica registrada." };
 }
