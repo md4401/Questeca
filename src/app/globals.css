@@ -397,3 +397,6 @@ html[data-theme="dark"] .app-shell .btn-ghost:hover { background: #1F2C4D; borde
 html[data-theme="dark"] .app-shell .btn-ghost { background: #172033; color: var(--color-ink); border-color: var(--color-line); }
 html[data-theme="dark"] .app-shell .input, html[data-theme="dark"] .app-shell select.input, html[data-theme="dark"] .app-shell textarea.input { background: #111A2C; border-color: #34425F; color: var(--color-ink); }
 html[data-theme="dark"] .app-shell .badge-gray { background: #26324D; color: #D6E0FA; }
+.nav-label { color: var(--color-ink-soft); }
+.nav-link { color: var(--color-ink); }
+.nav-link svg { color: var(--color-ink-soft); }
