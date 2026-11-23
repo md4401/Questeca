@@ -28,6 +28,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
       { href: "/app/banco", label: "Banco de questões", icon: "banco" as const },
       { href: "/app/turmas", label: "Turmas", icon: "turmas" as const },
     ] : [{ href: "/app/turmas", label: "Turmas", icon: "turmas" as const }]),
+    { href: "/app/agenda", label: "Agenda", icon: "agenda" },
     { href: "/app/documentos", label: "Coordenação", icon: "coord" },
     { href: "/app/comunidade", label: "Comunidade", icon: "chat" },
     { href: "/app/materiais", label: "Materiais", icon: "material" },

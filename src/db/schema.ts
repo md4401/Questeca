@@ -609,3 +609,126 @@ export const accessInvites = pgTable("access_invites", {
   revokedAt: timestamp("revoked_at", { withTimezone: true }),
   createdAt: created(),
 }, (t) => [uniqueIndex("access_invites_token_uq").on(t.tokenHash), index("access_invites_student_idx").on(t.studentId)]);
+
+/* ---------- Fase 1: frequência, tarefas, agenda e horários ---------- */
+export const attendanceSessions = pgTable("attendance_sessions", {
+  id: id(),
+  orgId: uuid("org_id").notNull().references(() => orgs.id, { onDelete: "cascade" }),
+  classId: uuid("class_id").notNull().references(() => classes.id, { onDelete: "cascade" }),
+  subject: text("subject").notNull(),
+  date: date("date").notNull(),
+  lesson: text("lesson").notNull().default(""), // "1ª aula"; vazio = chamada única do dia
+  takenBy: uuid("taken_by").notNull().references(() => users.id),
+  createdAt: created(),
+}, (t) => [uniqueIndex("attendance_sessions_uq").on(t.classId, t.date, t.lesson), index("attendance_sessions_class_idx").on(t.classId, t.date)]);
+
+export const attendanceRecords = pgTable("attendance_records", {
+  sessionId: uuid("session_id").notNull().references(() => attendanceSessions.id, { onDelete: "cascade" }),
+  studentId: uuid("student_id").notNull().references(() => students.id, { onDelete: "cascade" }),
+  status: text("status").notNull(), // present | absent | justified
+  note: text("note"),
+  updatedBy: uuid("updated_by").references(() => users.id),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+}, (t) => [primaryKey({ columns: [t.sessionId, t.studentId] })]);
+
+export const attendanceChanges = pgTable("attendance_changes", {
+  id: id(),
+  sessionId: uuid("session_id").notNull().references(() => attendanceSessions.id, { onDelete: "cascade" }),
+  studentId: uuid("student_id").notNull(),
+  before: text("before"),
+  after: text("after").notNull(),
+  reason: text("reason").notNull(),
+  changedBy: uuid("changed_by").notNull().references(() => users.id),
+  createdAt: created(),
+});
+
+export type TaskQuestion = { id: string; type: "mc" | "text"; prompt: string; options?: string[]; answer?: number; points: number };
+export const tasks = pgTable("tasks", {
+  id: id(),
+  orgId: uuid("org_id").notNull().references(() => orgs.id, { onDelete: "cascade" }),
+  classId: uuid("class_id").notNull().references(() => classes.id, { onDelete: "cascade" }),
+  ownerId: uuid("owner_id").notNull().references(() => users.id),
+  kind: text("kind").notNull().default("assignment"), // assignment | form | resource
+  title: text("title").notNull(),
+  description: text("description"),
+  dueAt: timestamp("due_at", { withTimezone: true }),
+  points: numeric("points", { precision: 6, scale: 2 }).notNull().default("10"),
+  status: text("status").notNull().default("draft"), // draft | published | closed
+  allowLate: boolean("allow_late").notNull().default(true),
+  allowResubmit: boolean("allow_resubmit").notNull().default(false),
+  questions: jsonb("questions").$type<TaskQuestion[]>().notNull().default([]),
+  resourceUrl: text("resource_url"),
+  gradeItemId: uuid("grade_item_id").references(() => gradeItems.id, { onDelete: "set null" }),
+  publishedAt: timestamp("published_at", { withTimezone: true }),
+  createdAt: created(),
+}, (t) => [index("tasks_class_idx").on(t.classId, t.status)]);
+
+export const taskSubmissions = pgTable("task_submissions", {
+  id: id(),
+  taskId: uuid("task_id").notNull().references(() => tasks.id, { onDelete: "cascade" }),
+  studentId: uuid("student_id").notNull().references(() => students.id, { onDelete: "cascade" }),
+  status: text("status").notNull().default("draft"), // draft | submitted | late | graded
+  answerText: text("answer_text"),
+  answers: jsonb("answers").$type<Record<string, string | number>>().notNull().default({}),
+  autoScore: numeric("auto_score", { precision: 6, scale: 2 }),
+  grade: numeric("grade", { precision: 6, scale: 2 }),
+  feedback: text("feedback"),
+  version: integer("version").notNull().default(0),
+  submittedAt: timestamp("submitted_at", { withTimezone: true }),
+  gradedAt: timestamp("graded_at", { withTimezone: true }),
+  gradedBy: uuid("graded_by").references(() => users.id),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+}, (t) => [uniqueIndex("task_submissions_uq").on(t.taskId, t.studentId)]);
+
+export const submissionVersions = pgTable("submission_versions", {
+  id: id(),
+  submissionId: uuid("submission_id").notNull().references(() => taskSubmissions.id, { onDelete: "cascade" }),
+  version: integer("version").notNull(),
+  answerText: text("answer_text"),
+  answers: jsonb("answers").$type<Record<string, string | number>>().notNull().default({}),
+  late: boolean("late").notNull().default(false),
+  submittedAt: timestamp("submitted_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+export const taskAttachments = pgTable("task_attachments", {
+  id: id(),
+  orgId: uuid("org_id").notNull().references(() => orgs.id, { onDelete: "cascade" }),
+  taskId: uuid("task_id").references(() => tasks.id, { onDelete: "cascade" }),
+  submissionId: uuid("submission_id").references(() => taskSubmissions.id, { onDelete: "cascade" }),
+  name: text("name").notNull(),
+  type: text("type").notNull(),
+  data: bytea("data").notNull(),
+  createdAt: created(),
+});
+
+export const calendarEvents = pgTable("calendar_events", {
+  id: id(),
+  orgId: uuid("org_id").notNull().references(() => orgs.id, { onDelete: "cascade" }),
+  scope: text("scope").notNull(), // school | class | personal
+  classId: uuid("class_id").references(() => classes.id, { onDelete: "cascade" }),
+  ownerId: uuid("owner_id").references(() => users.id, { onDelete: "cascade" }),
+  title: text("title").notNull(),
+  description: text("description"),
+  category: text("category").notNull().default("evento"), // prova | trabalho | evento | feriado | reuniao | atividade
+  startsAt: timestamp("starts_at", { withTimezone: true }).notNull(),
+  endsAt: timestamp("ends_at", { withTimezone: true }),
+  allDay: boolean("all_day").notNull().default(false),
+  recurrence: jsonb("recurrence").$type<{ freq: "daily" | "weekly" | "monthly"; interval?: number; until: string } | null>(),
+  reminderMin: integer("reminder_min"),
+  createdBy: uuid("created_by").notNull().references(() => users.id),
+  createdAt: created(),
+}, (t) => [index("calendar_events_org_idx").on(t.orgId, t.startsAt)]);
+
+export const timetableSlots = pgTable("timetable_slots", {
+  id: id(),
+  orgId: uuid("org_id").notNull().references(() => orgs.id, { onDelete: "cascade" }),
+  classId: uuid("class_id").notNull().references(() => classes.id, { onDelete: "cascade" }),
+  subject: text("subject").notNull(),
+  teacherId: uuid("teacher_id").references(() => users.id, { onDelete: "set null" }),
+  weekday: integer("weekday").notNull(), // 1 = segunda … 7 = domingo
+  startTime: text("start_time").notNull(), // HH:MM
+  endTime: text("end_time").notNull(),
+  room: text("room"),
+  createdBy: uuid("created_by").notNull().references(() => users.id),
+  createdAt: created(),
+}, (t) => [index("timetable_org_idx").on(t.orgId, t.weekday)]);

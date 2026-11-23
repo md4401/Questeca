@@ -50,3 +50,13 @@ export function cellLabel(c: { state: string; value: number | null }) {
   if (c.state === "not_delivered") return "N";
   return "";
 }
+
+/** Notas de UM estudante (portal): mesma regra de média e fórmula visível do caderno, sem carregar os colegas. */
+export async function studentGrades(classId: string, studentId: string, period: string, rules: Rules) {
+  const items = await db.select().from(gradeItems).where(and(eq(gradeItems.classId, classId), eq(gradeItems.period, period))).orderBy(gradeItems.createdAt);
+  const ids = items.map((i) => i.id);
+  const cells = ids.length ? await db.select().from(grades).where(and(inArray(grades.gradeItemId, ids), eq(grades.studentId, studentId))) : [];
+  const metas: GradeItemMeta[] = items.map((i) => ({ id: i.id, title: i.title, weight: Number(i.weight), maxPoints: Number(i.maxPoints), period: i.period, recovery: i.recovery }));
+  const sc: GradeCell[] = items.map((i) => { const c = cells.find((x) => x.gradeItemId === i.id); return { itemId: i.id, state: (c?.state ?? "pending") as GradeCell["state"], value: c?.value != null ? Number(c.value) : null }; });
+  return { items, cells: sc, computed: computeAverage(sc, metas, rules) };
+}
