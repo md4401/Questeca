@@ -12,7 +12,7 @@ export function Modal({ open, onClose, title, children, solid }: { open: boolean
   }, [open]);
   return (
     <dialog ref={ref} className="modal" aria-labelledby="modal-title" onClose={onClose} onClick={(e) => { if (e.target === ref.current) onClose(); }}>
-      <div className={`modal-panel glass glass-strong p-6${solid ? " !bg-white" : ""}`}>
+      <div className={`modal-panel glass glass-strong p-6${solid ? " modal-solid" : ""}`}>
         <div className="mb-3 flex items-start justify-between gap-4">
           <h2 id="modal-title" className="text-2xl">{title}</h2>
           <button type="button" className="link-btn text-xl" aria-label="Fechar" onClick={onClose}>×</button>

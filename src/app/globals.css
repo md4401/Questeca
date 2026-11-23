@@ -403,3 +403,4 @@ html[data-theme="dark"] .app-shell .badge-gray { background: #26324D; color: #D6
 html[data-theme="dark"] dialog.modal .modal-panel { background: var(--color-sheet) !important; color: var(--color-ink); border: 1px solid var(--color-line); }
 @media (prefers-color-scheme: dark) { html[data-theme="system"] dialog.modal .modal-panel { background: var(--color-sheet) !important; color: var(--color-ink); border: 1px solid var(--color-line); } }
 html[data-theme="dark"] .sheet-link { color: var(--color-ink); }
+.modal-panel.modal-solid { background: var(--color-sheet); color: var(--color-ink); }
