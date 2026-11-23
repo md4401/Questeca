@@ -88,7 +88,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
             </div>
           </form>
         ) : (
-          <div className="mb-4 rounded-lg bg-[#F4F6FB] px-3 py-2 text-sm"><p className="truncate font-semibold">{ctx.org.name}</p><p className="hint">{ROLE_LABEL[role]}{ctx.org.city ? ` · ${ctx.org.city}/${ctx.org.uf}` : ""}</p></div>
+          <div className="mb-4 rounded-lg bg-brand-tint px-3 py-2 text-sm"><p className="truncate font-semibold">{ctx.org.name}</p><p className="hint">{ROLE_LABEL[role]}{ctx.org.city ? ` · ${ctx.org.city}/${ctx.org.uf}` : ""}</p></div>
         )}
         <div className="min-h-0 flex-1 overflow-y-auto pr-1"><NavLinks groups={groups} /></div>
         <div className="mt-4 border-t border-line pt-3 text-sm">

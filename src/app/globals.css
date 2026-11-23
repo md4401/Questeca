@@ -389,3 +389,11 @@ html[data-theme="dark"] .chip-status[data-s="regular"] { background: #0F3A26; co
 .stat-icon[data-c="blue"] { background: #E3EBFF; color: #2447D8; } .stat-icon[data-c="green"] { background: #DDF5E8; color: #0E7A45; } .stat-icon[data-c="amber"] { background: #FFF1D6; color: #A86400; } .stat-icon[data-c="red"] { background: #FDE4E2; color: #B42318; }
 html[data-theme="dark"] .stat-icon[data-c="blue"] { background: #1F2C4D; color: #9DB8FF; } html[data-theme="dark"] .stat-icon[data-c="green"] { background: #0F3A26; color: #7EE2B0; } html[data-theme="dark"] .stat-icon[data-c="amber"] { background: #3A2C0E; color: #F2C26B; } html[data-theme="dark"] .stat-icon[data-c="red"] { background: #3B1714; color: #FF8E84; }
 @media (max-width: 640px) { .stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* tokens escuros também dentro do escopo da área logada */
+html[data-theme="dark"] .app-shell { --color-paper: #0F1626; --color-sheet: #172033; --color-ink: #EDF1FB; --color-ink-soft: #A3AFCA; --color-line: #2A3550; --color-brand: #6C93FF; --color-brand-dark: #A9C0FF; --color-brand-tint: #1F2C4D; --color-sky: #4A6FD0; --color-amber: #F2C26B; --color-amber-tint: #3A2C0E; --color-danger: #FF8E84; --color-danger-tint: #3B1714; --color-ok: #7EE2B0; --color-ok-tint: #0F3A26; }
+@media (prefers-color-scheme: dark) { html[data-theme="system"] .app-shell { --color-paper: #0F1626; --color-sheet: #172033; --color-ink: #EDF1FB; --color-ink-soft: #A3AFCA; --color-line: #2A3550; --color-brand: #6C93FF; --color-brand-dark: #A9C0FF; --color-brand-tint: #1F2C4D; --color-sky: #4A6FD0; --color-amber: #F2C26B; --color-amber-tint: #3A2C0E; --color-danger: #FF8E84; --color-danger-tint: #3B1714; --color-ok: #7EE2B0; --color-ok-tint: #0F3A26; } }
+html[data-theme="dark"] .app-shell .btn-ghost:hover { background: #1F2C4D; border-color: #3A4A70; }
+html[data-theme="dark"] .app-shell .btn-ghost { background: #172033; color: var(--color-ink); border-color: var(--color-line); }
+html[data-theme="dark"] .app-shell .input, html[data-theme="dark"] .app-shell select.input, html[data-theme="dark"] .app-shell textarea.input { background: #111A2C; border-color: #34425F; color: var(--color-ink); }
+html[data-theme="dark"] .app-shell .badge-gray { background: #26324D; color: #D6E0FA; }
