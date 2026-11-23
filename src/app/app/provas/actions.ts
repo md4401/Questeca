@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { and, eq, asc, desc, inArray } from "drizzle-orm";
 import { z } from "zod";
 import { db } from "@/db";
-import { assessments, assessmentItems, assessmentHistory, applications, classes, lessonLogs, materials, questions, type Scope } from "@/db/schema";
+import { assessments, assessmentItems, assessmentHistory, applications, lessonLogs, materials, questions, type Scope } from "@/db/schema";
 import { requireCtx } from "@/lib/session";
 import { loadAssessment, loadClass } from "@/lib/access";
 import {

@@ -49,14 +49,13 @@ export async function saveDocumentAction(id: string, _: FormState, fd: FormData)
 
 /** Em escola, a versão final exige revisão institucional; no espaço pessoal o próprio professor confirma. */
 export async function submitDocumentAction(id: string) {
-  const { ctx, d } = await loadDoc(id);
+  const { ctx } = await loadDoc(id);
   if (ctx.org.kind === "school") {
     await db.update(documents).set({ status: "in_review", updatedAt: new Date() }).where(eq(documents.id, id));
     await audit(ctx.user.id, ctx.org.id, "document.submitted", id);
   } else {
     await db.update(documents).set({ status: "approved", reviewerId: ctx.user.id, updatedAt: new Date() }).where(eq(documents.id, id));
   }
-  void d;
   redirect(`/app/documentos/${id}`);
 }
 

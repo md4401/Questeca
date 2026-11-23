@@ -8,7 +8,6 @@ import { applicationData } from "@/lib/correction";
 import { analyze, supportGroups } from "@/lib/core/analysis";
 import { topicName, TOPICS } from "@/lib/taxonomy";
 import { createFollowUpAction } from "../../../provas/actions";
-import { SubmitButton } from "@/components/form";
 import { fmtNum, fmtDate } from "@/lib/format";
 
 export const metadata = { title: "Relatórios da turma" };
@@ -68,4 +67,3 @@ function SubmitButtonForm({ action, label, ghost }: { action: (fd: FormData) => 
 function SubmitButtonInner({ action, label, ghost }: { action: (fd: FormData) => Promise<void>; label: string; ghost?: boolean }) {
   return <button formAction={action} className={`btn ${ghost ? "btn-ghost" : ""}`} type="submit">{label}</button>;
 }
-void SubmitButton;

@@ -74,7 +74,7 @@ type StripeEvent = { id: string; type: string; data: { object: Record<string, un
 export async function handleStripeEvent(ev: StripeEvent) {
   const inserted = await db.insert(billingEvents).values({ id: ev.id, type: ev.type, payload: ev as unknown as object }).onConflictDoNothing().returning({ id: billingEvents.id });
   if (!inserted.length) return { duplicate: true };
-  const o = ev.data.object as Record<string, any>; // eslint-disable-line @typescript-eslint/no-explicit-any
+  const o = ev.data.object as Record<string, any>;  
   const orgIdOf = async (): Promise<string | null> => {
     if (o.client_reference_id) return String(o.client_reference_id);
     if (o.metadata?.orgId) return String(o.metadata.orgId);

@@ -6,7 +6,7 @@ import { renderDocx } from "@/lib/docx";
 import { snapshotFor, ownerName, pdfResponse, slug } from "@/lib/export-helpers";
 import { planInfo } from "@/lib/billing";
 import { db } from "@/db";
-import { classes, assessments } from "@/db/schema";
+import { classes } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { track } from "@/lib/audit";
 
@@ -29,7 +29,6 @@ export async function GET(req: Request) {
   const { snap, label } = await snapshotFor(ctx, a, { versionId: u.searchParams.get("versao") ?? undefined, draft: u.searchParams.get("rascunho") === "1" });
   const [cls] = a.classId ? await db.select().from(classes).where(eq(classes.id, a.classId)).limit(1) : [];
   const teacher = await ownerName(a.ownerId);
-  void assessments;
   await track("export", ctx.user.id, ctx.org.id, { fmt, tipo, assessmentId: id });
   if (fmt === "docx") {
     const buf = await renderDocx(snap, { mode: tipo, teacher, className: cls?.name, versionLabel: label });

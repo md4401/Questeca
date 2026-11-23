@@ -131,7 +131,6 @@ export async function renderExam(snap: Snapshot, opts: ExamOpts): Promise<{ byte
   if (!header.schoolName) d.warnings.push("Cabeçalho da escola não configurado: usando cabeçalho genérico.");
   await drawHeader(d, header, { teacher: opts.teacher, className: opts.className, title: student ? snap.title : `Gabarito — ${snap.title}`, instructions: student ? header.instructions : "Documento do professor. Não distribuir aos alunos.", student });
 
-  const sz = 11 * d.scale;
   if (student) {
     snap.items.forEach((it, i) => {
       const stmt = `${i + 1}. ${it.statement ?? ""}`;
@@ -146,7 +145,6 @@ export async function renderExam(snap: Snapshot, opts: ExamOpts): Promise<{ byte
       for (const a of alts) d.text(a, { font: d.f.serif, size: 11, x: M.l + 14, maxW: d.width - 14, lineGap: 2 });
       d.gap(10 * d.scale);
     });
-    void sz;
   } else {
     d.text("Gabarito e referências", { font: d.f.sansBold, size: 11 });
     d.gap(4);

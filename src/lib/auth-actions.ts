@@ -12,7 +12,7 @@ import { env, TERMS_VERSION } from "@/lib/env";
 import { rateLimit } from "@/lib/ratelimit";
 import { audit, track, notify } from "@/lib/audit";
 import type { FormState } from "@/components/form";
-import { ip, issueToken, sendVerification, escapeHtml } from "@/lib/auth-core";
+import { ip, issueToken, sendVerification } from "@/lib/auth-core";
 
 const signupSchema = z.object({
   name: z.string().trim().min(2, "Informe seu nome.").max(120),

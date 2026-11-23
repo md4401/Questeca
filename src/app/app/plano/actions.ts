@@ -45,8 +45,7 @@ export async function requestContractAction() {
 }
 
 export async function archiveForLimitAction(classId: string) {
-  const ctx = await requireCtx();
+  await requireCtx();
   await db.update(classes).set({ archived: true }).where(eq(classes.id, classId));
-  void ctx;
   revalidatePath("/app/plano");
 }

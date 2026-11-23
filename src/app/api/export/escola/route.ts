@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { eq, and, inArray } from "drizzle-orm";
+import { eq, inArray } from "drizzle-orm";
 import { getCtx } from "@/lib/session";
 import { can } from "@/lib/core/permissions";
 import { db } from "@/db";
@@ -25,7 +25,6 @@ export async function GET() {
   ]);
   const gr = items.length ? await db.select().from(grades).where(inArray(grades.gradeItemId, items.map((i) => i.id))) : [];
   await audit(ctx.user.id, orgId, "org.exported");
-  void and;
   return new Response(JSON.stringify({ exportedAt: new Date().toISOString(), school: ctx.org.name, members: mem, classes: cls, students: studs, enrollments: enr, gradeItems: items, grades: gr, assessments: asm.map((a) => ({ id: a.id, title: a.title, status: a.status, classId: a.classId })), applications: apps.map((a) => ({ id: a.id, title: a.title, classId: a.classId, appliedOn: a.appliedOn, kind: a.kind })) }, null, 2), {
     headers: { "Content-Type": "application/json", "Content-Disposition": 'attachment; filename="escola-export.json"', "Cache-Control": "private, no-store" },
   });

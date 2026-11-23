@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { eq, desc, and, ne, inArray } from "drizzle-orm";
+import { eq, desc } from "drizzle-orm";
 import { requireCtx } from "@/lib/session";
 import { loadAssessment } from "@/lib/access";
 import { getItems, buildMap, conflictsFor, swapAlternatives, loadPool, toCandidate } from "@/lib/assessments";
@@ -151,4 +151,3 @@ export default async function Editor({ params, searchParams }: { params: Promise
     </div>
   );
 }
-void and; void ne; void inArray;

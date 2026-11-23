@@ -1,7 +1,7 @@
 import "server-only";
 import { and, eq, gte, sql, count } from "drizzle-orm";
 import { db } from "@/db";
-import { subscriptions, usage, classes, orgs } from "@/db/schema";
+import { subscriptions, usage, classes } from "@/db/schema";
 import { PLANS, cycleStart, cycleEnd, effectiveLimits, effectivePlan, canConsume, type PlanId } from "@/lib/core/plans";
 
 export async function getSubscription(orgId: string) {
@@ -57,8 +57,6 @@ export async function consumeCard(orgId: string, key: string): Promise<{ ok: tru
 
 export async function canCreateClass(orgId: string) {
   const info = await planInfo(orgId);
-  const [org] = await db.select({ kind: orgs.kind }).from(orgs).where(eq(orgs.id, orgId)).limit(1);
-  void org;
   if (info.used.classes >= info.limits.classes) {
     return { ok: false as const, reason: `Seu plano ${PLANS[info.plan].name} permite ${info.limits.classes} turma(s) ativa(s). Arquive uma turma ou mude de plano.` };
   }

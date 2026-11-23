@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { eq, desc, and } from "drizzle-orm";
+import { eq, desc } from "drizzle-orm";
 import { requireCtx } from "@/lib/session";
 import { planInfo } from "@/lib/billing";
 import { PLANS, brl } from "@/lib/core/plans";
 import { providerName } from "@/lib/billing-provider";
 import { db } from "@/db";
-import { invoices, classes } from "@/db/schema";
+import { invoices } from "@/db/schema";
 import { checkoutAction, cancelAction, reactivateAction, requestContractAction, archiveForLimitAction } from "./actions";
 import { fmtDate } from "@/lib/format";
 import { can } from "@/lib/core/permissions";
@@ -23,7 +23,6 @@ export default async function Plano({ searchParams }: { searchParams: Promise<{ 
   const sub = info.sub;
   const cls = await visibleClasses(ctx);
   const overLimit = info.used.classes > info.limits.classes;
-  void classes; void and;
   const pct = (u: number, l: number) => Math.min(100, Math.round((u / Math.max(1, l)) * 100));
   const bar = (label: string, u: number, l: number) => (
     <div className="mb-3"><div className="flex justify-between text-sm"><span>{label}</span><span>{u} / {l >= 10000 ? "∞" : l}</span></div><div className="h-2 rounded bg-line" role="progressbar" aria-label={label} aria-valuenow={u} aria-valuemax={l}><div className="h-2 rounded bg-brand" style={{ width: `${pct(u, l)}%` }} /></div></div>);

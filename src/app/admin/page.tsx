@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { eq, desc, count, sql, and, gte, inArray } from "drizzle-orm";
 import { db } from "@/db";
-import { questions, questionFlags, postFlags, posts, comments, users, orgs, subscriptions, tickets, demoRequests, events, userBlocks, auditLog, questionChanges } from "@/db/schema";
+import { questions, questionFlags, postFlags, posts, users, orgs, subscriptions, tickets, demoRequests, events, userBlocks, auditLog, questionChanges } from "@/db/schema";
 import { Form, SubmitButton, Field } from "@/components/form";
 import { setQuestionStatusAction, correctAnswerAction, voidQuestionAction, resolveFlagAction, importQuestionsAction, moderateAction, unblockUserAction, setSchoolContractAction, setTicketStatusAction } from "./actions";
 import { STATUS_LABEL, fmtDateTime } from "@/lib/format";
@@ -72,7 +72,6 @@ async function Ocorrencias() {
 async function Moderacao() {
   const rows = await db.select({ f: postFlags, post: posts.title, who: users.name }).from(postFlags).leftJoin(posts, eq(posts.id, postFlags.postId)).innerJoin(users, eq(users.id, postFlags.reporterId)).where(eq(postFlags.status, "open")).orderBy(desc(postFlags.createdAt)).limit(50);
   const blocked = await db.select({ b: userBlocks, name: users.name }).from(userBlocks).innerJoin(users, eq(users.id, userBlocks.userId));
-  void comments;
   const prio = (r: string) => (r === "dados_alunos" ? 0 : r === "direitos" ? 1 : 2);
   rows.sort((a, b) => prio(a.f.reason) - prio(b.f.reason));
   return (

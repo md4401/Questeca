@@ -79,7 +79,7 @@ export async function previewGradeImport(
     const raw = (r[map.valueCol] ?? "").trim();
     const base = { line: i + 2, label: key || "(sem identificação)", raw, studentId: null as string | null };
     if (!key) return { ...base, status: "erro", message: "Linha sem matrícula/nome.", include: false };
-    let matches = map.keyKind === "registration" ? studs.filter((s) => (s.registration ?? "").trim() === key) : studs.filter((s) => normalize(s.name).replace(/\s+/g, " ") === normalize(key).replace(/\s+/g, " "));
+    const matches = map.keyKind === "registration" ? studs.filter((s) => (s.registration ?? "").trim() === key) : studs.filter((s) => normalize(s.name).replace(/\s+/g, " ") === normalize(key).replace(/\s+/g, " "));
     if (matches.length === 0) return { ...base, status: "erro", message: "Aluno não encontrado nesta turma.", include: false };
     if (matches.length > 1) return { ...base, status: "erro", message: "Mais de um aluno corresponde (homônimos). Use a matrícula.", include: false };
     const stu = matches[0];

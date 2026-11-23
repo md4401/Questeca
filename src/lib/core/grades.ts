@@ -47,7 +47,6 @@ const fmt = (n: number) => n.toFixed(2).replace(".", ",");
 
 /** Média ponderada do período com origem dos valores (PRD cap. 19). */
 export function computeAverage(cells: GradeCell[], items: GradeItemMeta[], rules: Rules, opts: { expectedItems?: number } = {}): Computed {
-  const byItem = new Map(items.map((i) => [i.id, i]));
   const considered: Computed["considered"] = [];
   const ignored: Computed["ignored"] = [];
   let recoveryCell: { item: GradeItemMeta; value: number } | null = null;
@@ -79,7 +78,7 @@ export function computeAverage(cells: GradeCell[], items: GradeItemMeta[], rules
   }
 
   let result = raw;
-  let before: number | null = raw;
+  const before: number | null = raw;
   let recoveryApplied = false;
   if (recoveryCell && raw != null && rules.recovery !== "none" && rules.recovery !== "independent") {
     if (rules.recovery === "replace_if_higher" && recoveryCell.value > raw) { result = recoveryCell.value; recoveryApplied = true; }

@@ -147,7 +147,7 @@ export async function addObservationAction(classId: string, _: FormState, fd: Fo
   const { cls } = await loadClass(ctx, classId);
   const p = z.object({ text: z.string().trim().min(3, "Escreva a observação.").max(4000), studentId: z.string().optional(), observedOn: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).default(todayISO()), visibility: z.enum(["private", "school"]).default("private") }).safeParse(Object.fromEntries(fd));
   if (!p.success) return { error: p.error.issues[0].message };
-  let studentId: string | null = p.data.studentId || null;
+  const studentId: string | null = p.data.studentId || null;
   if (studentId) {
     const ok = (await classStudents(cls.id)).some((s) => s.id === studentId);
     if (!ok) return { error: "Aluno não pertence a esta turma." };
