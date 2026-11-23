@@ -17,9 +17,11 @@ export default async function Planos({ searchParams }: { searchParams: Promise<{
   const cls = await myClassesAllOrgs(ctx);
   const plans = await db.select().from(lessonPlans).where(eq(lessonPlans.authorId, ctx.user.id)).orderBy(desc(lessonPlans.updatedAt)).limit(30);
   return (
-    <div className="grid gap-6 lg:grid-cols-[1fr_1.2fr]">
+    <div>
+    <div className="page-head"><div><h1>Planos de aula</h1><p>Digite o tema e receba o plano pronto no formato escolar.</p></div></div>
+    <div className="grid items-start gap-6 lg:grid-cols-[1fr_1.2fr]">
       <section className="card">
-        <h1 className="mb-1 text-2xl">Gerar plano de aula</h1>
+        <h2 className="mb-1">Gerar plano de aula</h2>
         <p className="hint mb-3">Digite o tema e receba o plano no formato escolar: objetivos, habilidades, momentos com tempo, avaliação e adaptações. {aiAvailable() ? "Gerado com apoio de IA." : "Gerado por modelo; você edita depois."}</p>
         <Form action={createPlanAction}>
           <div className="field"><label htmlFor="theme">Tema da aula</label><input id="theme" name="theme" className="input" placeholder="Ex.: Porcentagem e descontos sucessivos" required /></div>
@@ -35,6 +37,7 @@ export default async function Planos({ searchParams }: { searchParams: Promise<{
       <section className="card"><h2 className="mb-2 text-lg">Meus planos</h2>
         {plans.length === 0 ? <p className="text-ink-soft">Nenhum plano ainda.</p> : <ul className="divide-y divide-line">{plans.map((p) => <li key={p.id} className="py-2"><Link href={`/app/planos-de-aula/${p.id}`}><strong>{p.theme}</strong></Link><span className="hint"> · {p.plannedFor ? fmtDate(p.plannedFor) : "sem data"}{p.sentAt ? " · enviado à coordenação" : ""}</span></li>)}</ul>}
       </section>
+    </div>
     </div>
   );
 }

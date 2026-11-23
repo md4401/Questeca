@@ -16,8 +16,8 @@ export default async function Turmas() {
   const nBy = new Map(counts.map((c) => [c.id, c.n]));
   return (
     <div>
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-        <div><h1>Turmas</h1><p className="hint">{ctx.org.name}</p></div>
+      <div className="page-head">
+        <div><h1>Turmas</h1><p>{ctx.org.name}</p></div>
         {can(ctx.org.role, "class.create") && <Link className="btn" href="/app/turmas/nova">Nova turma</Link>}
       </div>
       {ctx.org.role === "admin" && list.length === 0 && <p className="card-tint">A gestão institucional não tem acesso pedagógico por padrão. Para ver turmas, atribua-se a uma turma ou peça a permissão à coordenação.</p>}

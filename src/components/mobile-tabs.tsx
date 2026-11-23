@@ -19,7 +19,7 @@ export function MobileTabs({ tabs, more, orgs, activeOrgId, roleLabel, switchOrg
   const moreActive = more.some((m) => isActive(m.href));
   return (
     <>
-      <nav aria-label="Navegação principal" className="no-print fixed inset-x-0 bottom-0 z-40 border-t border-white/70 bg-white/85 pb-[env(safe-area-inset-bottom)] shadow-[0_-10px_30px_-18px_rgba(16,40,120,.5)] backdrop-blur-xl md:hidden">
+      <nav aria-label="Navegação principal" className="no-print fixed inset-x-0 bottom-0 z-40 border-t border-line bg-white/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden">
         <ul className="mx-auto grid max-w-lg grid-cols-4">
           {tabs.map((t) => (
             <li key={t.href}>

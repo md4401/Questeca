@@ -24,7 +24,7 @@ export default async function Agenda({ searchParams }: { searchParams: Promise<{
   const canSchool = ctx.org.role === "coordinator" || ctx.org.role === "admin" || ctx.org.kind === "personal";
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-3"><h1>Agenda</h1><Link className="btn btn-ghost btn-sm" href="/app/horarios">Grade de horários</Link></div>
+      <div className="page-head"><h1>Agenda</h1><Link className="btn btn-ghost btn-sm" href="/app/horarios">Grade de horários</Link></div>
       <AgendaWeek start={start} items={items} slots={slots} base="/app/agenda" today={today}
         renderAction={(key) => (<form action={deleteEventAction.bind(null, key.split("@")[0])} className="mt-1"><button className="link-btn text-danger" type="submit">Excluir</button></form>)} />
       <section className="card max-w-2xl"><h2 className="mb-2 text-lg">Novo evento</h2>

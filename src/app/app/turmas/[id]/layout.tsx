@@ -11,8 +11,8 @@ export default async function ClassLayout({ children, params }: { children: Reac
   return (
     <div>
       <p className="hint"><Link href="/app/turmas">Turmas</Link> › {ctx.org.name}</p>
-      <h1 className="mb-1">{cls.name} {cls.isDemo && <span className="badge badge-amber align-middle">Exemplo</span>}</h1>
-      <p className="hint mb-4">{gradeLabel(cls.grade)} · {subjectLabel(cls.subject)} · {cls.year}</p>
+      <div className="page-head !mb-3 mt-1"><div><h1>{cls.name} {cls.isDemo && <span className="badge badge-amber align-middle">Exemplo</span>}</h1>
+        <p>{gradeLabel(cls.grade)} · {subjectLabel(cls.subject)} · {cls.year}</p></div></div>
       <TabLinks base={`/app/turmas/${id}`} tabs={[{ slug: "", label: "Visão geral" }, { slug: "alunos", label: "Alunos" }, { slug: "avaliacoes", label: "Avaliações" }, { slug: "notas", label: "Notas" }, { slug: "frequencia", label: "Frequência" }, { slug: "boletins", label: "Boletins" }, { slug: "analitico", label: "Painel" }, { slug: "observacoes", label: "Observações" }, { slug: "pareceres", label: "Pareceres" }, { slug: "relatorios", label: "Relatórios" }]} />
       {children}
     </div>
