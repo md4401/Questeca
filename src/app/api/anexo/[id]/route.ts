@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
 import { db } from "@/db";
-import { taskAttachments, tasks, taskSubmissions } from "@/db/schema";
+import { taskAttachments, tasks, taskSubmissions, classPosts, messages, conversationMembers } from "@/db/schema";
 import { getCtx } from "@/lib/session";
 import { canAccessClass } from "@/lib/core/permissions";
 import { visibleStudents } from "@/lib/portal";
@@ -20,7 +20,16 @@ export async function GET(_: Request, { params }: { params: Promise<{ id: string
   const [a] = await db.select().from(taskAttachments).where(eq(taskAttachments.id, id)).limit(1);
   if (!a || a.orgId !== ctx.org.id) return NF();
   let classId: string; let ownerStudent: string | null = null; let published = true;
-  if (a.taskId) { const [t] = await db.select().from(tasks).where(eq(tasks.id, a.taskId)).limit(1); if (!t) return NF(); classId = t.classId; published = t.status !== "draft"; }
+  if (a.messageId) {
+    // anexo de mensagem: só quem é membro da conversa
+    const [m] = await db.select().from(messages).where(eq(messages.id, a.messageId)).limit(1);
+    if (!m || m.deletedAt) return NF();
+    const [mem] = await db.select().from(conversationMembers).where(and(eq(conversationMembers.conversationId, m.conversationId), eq(conversationMembers.userId, ctx.user.id))).limit(1);
+    if (!mem) return NF();
+    return new NextResponse(new Uint8Array(a.data), { headers: { "Content-Type": a.type, "Content-Disposition": `${a.type.startsWith("image/") || a.type.startsWith("audio/") ? "inline" : "attachment"}; filename*=UTF-8''${encodeURIComponent(a.name)}`, "X-Content-Type-Options": "nosniff", "Content-Security-Policy": "default-src 'none'; sandbox", "Cache-Control": "private, no-store" } });
+  }
+  if (a.postId) { const [pp] = await db.select().from(classPosts).where(eq(classPosts.id, a.postId)).limit(1); if (!pp) return NF(); classId = pp.classId; }
+  else if (a.taskId) { const [t] = await db.select().from(tasks).where(eq(tasks.id, a.taskId)).limit(1); if (!t) return NF(); classId = t.classId; published = t.status !== "draft"; }
   else if (a.submissionId) { const [s] = await db.select().from(taskSubmissions).where(eq(taskSubmissions.id, a.submissionId)).limit(1); if (!s) return NF(); const [t] = await db.select().from(tasks).where(eq(tasks.id, s.taskId)).limit(1); if (!t) return NF(); classId = t.classId; ownerStudent = s.studentId; }
   else return NF();
   let ok = false;

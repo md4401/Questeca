@@ -70,6 +70,12 @@ export type OrgSettings = {
     periods: string[]; weights?: Record<string, number>;
   };
   calendar?: { year: number };
+  /** Regras de comunicação definidas pela escola (aluno só fala com adultos se a política permitir). */
+  chat?: { studentToStaff?: boolean; guardianToStaff?: boolean; classGroups?: boolean; hoursFrom?: string; hoursTo?: string };
+  /** Gamificação por escola: pode ser desligada; ranking é opcional. */
+  gamification?: { enabled?: boolean; leaderboard?: boolean };
+  /** Faixas de alerta do painel pedagógico. */
+  risk?: { minAttendance?: number; minAverage?: number; maxLateTasks?: number };
 };
 
 /** Catálogo público de escolas (Inep/Censo Escolar). Escolha de busca é só contexto: não concede acesso. */
@@ -467,6 +473,14 @@ export const materials = pgTable("materials", {
   fileName: text("file_name"),
   fileType: text("file_type"),
   fromPostId: uuid("from_post_id"),
+  description: text("description"),
+  url: text("url"),
+  subject: text("subject"),
+  tags: jsonb("tags").$type<string[]>().notNull().default([]),
+  visibility: text("visibility").notNull().default("private"), // private | class | school
+  approval: text("approval").notNull().default("approved"), // approved | pending | rejected
+  approvedBy: uuid("approved_by").references(() => users.id),
+  downloads: integer("downloads").notNull().default(0),
   createdAt: created(),
 });
 
@@ -695,6 +709,8 @@ export const taskAttachments = pgTable("task_attachments", {
   orgId: uuid("org_id").notNull().references(() => orgs.id, { onDelete: "cascade" }),
   taskId: uuid("task_id").references(() => tasks.id, { onDelete: "cascade" }),
   submissionId: uuid("submission_id").references(() => taskSubmissions.id, { onDelete: "cascade" }),
+  postId: uuid("post_id"),
+  messageId: uuid("message_id"),
   name: text("name").notNull(),
   type: text("type").notNull(),
   data: bytea("data").notNull(),
@@ -732,3 +748,111 @@ export const timetableSlots = pgTable("timetable_slots", {
   createdBy: uuid("created_by").notNull().references(() => users.id),
   createdAt: created(),
 }, (t) => [index("timetable_org_idx").on(t.orgId, t.weekday)]);
+
+/* ---------- Fase 2: sala de aula, videoaulas, chat ---------- */
+export const classPosts = pgTable("class_posts", {
+  id: id(),
+  orgId: uuid("org_id").notNull().references(() => orgs.id, { onDelete: "cascade" }),
+  classId: uuid("class_id").notNull().references(() => classes.id, { onDelete: "cascade" }),
+  authorId: uuid("author_id").notNull().references(() => users.id),
+  kind: text("kind").notNull().default("aviso"), // aviso | atividade | recurso | formulario
+  title: text("title"),
+  body: text("body").notNull(),
+  linkUrl: text("link_url"),
+  pinned: boolean("pinned").notNull().default(false),
+  createdAt: created(),
+}, (t) => [index("class_posts_class_idx").on(t.classId, t.createdAt)]);
+
+export const classComments = pgTable("class_comments", {
+  id: id(),
+  postId: uuid("post_id").notNull().references(() => classPosts.id, { onDelete: "cascade" }),
+  authorId: uuid("author_id").notNull().references(() => users.id),
+  parentId: uuid("parent_id"),
+  body: text("body").notNull(),
+  deletedAt: timestamp("deleted_at", { withTimezone: true }),
+  createdAt: created(),
+}, (t) => [index("class_comments_post_idx").on(t.postId)]);
+
+export const contentReports = pgTable("content_reports", {
+  id: id(),
+  orgId: uuid("org_id").notNull().references(() => orgs.id, { onDelete: "cascade" }),
+  classId: uuid("class_id").references(() => classes.id, { onDelete: "cascade" }),
+  targetType: text("target_type").notNull(), // comment | message
+  targetId: uuid("target_id").notNull(),
+  reporterId: uuid("reporter_id").notNull().references(() => users.id),
+  reason: text("reason"),
+  status: text("status").notNull().default("open"), // open | removed | dismissed
+  resolvedBy: uuid("resolved_by").references(() => users.id),
+  resolvedAt: timestamp("resolved_at", { withTimezone: true }),
+  createdAt: created(),
+}, (t) => [uniqueIndex("content_reports_uq").on(t.targetType, t.targetId, t.reporterId)]);
+
+export const videoLessons = pgTable("video_lessons", {
+  id: id(),
+  orgId: uuid("org_id").notNull().references(() => orgs.id, { onDelete: "cascade" }),
+  classId: uuid("class_id").references(() => classes.id, { onDelete: "set null" }),
+  authorId: uuid("author_id").notNull().references(() => users.id),
+  subject: text("subject"),
+  title: text("title").notNull(),
+  description: text("description"),
+  url: text("url").notNull(),
+  thumbnailUrl: text("thumbnail_url"),
+  durationMin: integer("duration_min"),
+  tags: jsonb("tags").$type<string[]>().notNull().default([]),
+  published: boolean("published").notNull().default(false),
+  views: integer("views").notNull().default(0),
+  createdAt: created(),
+}, (t) => [index("video_lessons_org_idx").on(t.orgId, t.published)]);
+
+export const videoViews = pgTable("video_views", {
+  videoId: uuid("video_id").notNull().references(() => videoLessons.id, { onDelete: "cascade" }),
+  userId: uuid("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  count: integer("count").notNull().default(1),
+  lastAt: timestamp("last_at", { withTimezone: true }).notNull().defaultNow(),
+}, (t) => [primaryKey({ columns: [t.videoId, t.userId] })]);
+
+export const conversations = pgTable("conversations", {
+  id: id(),
+  orgId: uuid("org_id").notNull().references(() => orgs.id, { onDelete: "cascade" }),
+  kind: text("kind").notNull(), // direct | group | class
+  classId: uuid("class_id").references(() => classes.id, { onDelete: "cascade" }),
+  title: text("title"),
+  directKey: text("direct_key"), // "<userA>:<userB>" ordenado: uma conversa direta por par
+  createdBy: uuid("created_by").notNull().references(() => users.id),
+  createdAt: created(),
+  lastMessageAt: timestamp("last_message_at", { withTimezone: true }).notNull().defaultNow(),
+}, (t) => [uniqueIndex("conversations_direct_uq").on(t.orgId, t.directKey)]);
+
+export const conversationMembers = pgTable("conversation_members", {
+  conversationId: uuid("conversation_id").notNull().references(() => conversations.id, { onDelete: "cascade" }),
+  userId: uuid("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  lastReadAt: timestamp("last_read_at", { withTimezone: true }).notNull().defaultNow(),
+  muted: boolean("muted").notNull().default(false),
+  leftAt: timestamp("left_at", { withTimezone: true }),
+}, (t) => [primaryKey({ columns: [t.conversationId, t.userId] }), index("conversation_members_user_idx").on(t.userId)]);
+
+export const messages = pgTable("messages", {
+  id: id(),
+  conversationId: uuid("conversation_id").notNull().references(() => conversations.id, { onDelete: "cascade" }),
+  senderId: uuid("sender_id").notNull().references(() => users.id),
+  body: text("body").notNull(),
+  replyToId: uuid("reply_to_id"),
+  pinned: boolean("pinned").notNull().default(false),
+  editedAt: timestamp("edited_at", { withTimezone: true }),
+  deletedAt: timestamp("deleted_at", { withTimezone: true }),
+  createdAt: created(),
+}, (t) => [index("messages_conv_idx").on(t.conversationId, t.createdAt)]);
+
+export const messageReactions = pgTable("message_reactions", {
+  messageId: uuid("message_id").notNull().references(() => messages.id, { onDelete: "cascade" }),
+  userId: uuid("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  emoji: text("emoji").notNull(),
+}, (t) => [primaryKey({ columns: [t.messageId, t.userId, t.emoji] })]);
+
+export const chatBlocks = pgTable("chat_blocks", {
+  orgId: uuid("org_id").notNull().references(() => orgs.id, { onDelete: "cascade" }),
+  blockerId: uuid("blocker_id").references(() => users.id, { onDelete: "cascade" }), // null = bloqueio institucional
+  blockedId: uuid("blocked_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  createdBy: uuid("created_by").notNull().references(() => users.id),
+  createdAt: created(),
+}, (t) => [uniqueIndex("chat_blocks_uq").on(t.orgId, t.blockedId, t.blockerId)]);

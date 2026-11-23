@@ -12,6 +12,7 @@ import { switchOrgAction } from "./actions";
 import { ROLE_LABEL, isPortalRole } from "@/lib/core/permissions";
 import { redirect } from "next/navigation";
 import { SubmitButton } from "@/components/form";
+import { unreadMessages } from "@/lib/chat";
 
 type Item = { href: string; label: string; icon: IconName };
 
@@ -20,6 +21,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   if (isPortalRole(ctx.org.role)) redirect("/portal");
   const [n] = await db.select({ c: count() }).from(notifications).where(and(eq(notifications.userId, ctx.user.id), isNull(notifications.readAt)));
   const unread = Number(n?.c ?? 0);
+  const msgs = await unreadMessages(ctx.user.id);
   const role = ctx.org.role;
   const items: Item[] = [
     { href: "/app", label: "Início", icon: "home" },
@@ -29,9 +31,12 @@ export default async function AppLayout({ children }: { children: React.ReactNod
       { href: "/app/turmas", label: "Turmas", icon: "turmas" as const },
     ] : [{ href: "/app/turmas", label: "Turmas", icon: "turmas" as const }]),
     { href: "/app/agenda", label: "Agenda", icon: "agenda" },
+    { href: "/app/chat", label: `Mensagens${msgs ? ` (${msgs})` : ""}`, icon: "chat" },
+    { href: "/app/moderacao", label: "Moderação", icon: "interno" },
     { href: "/app/documentos", label: "Coordenação", icon: "coord" },
     { href: "/app/comunidade", label: "Comunidade", icon: "chat" },
     { href: "/app/materiais", label: "Materiais", icon: "material" },
+    { href: "/app/videoaulas", label: "Videoaulas", icon: "video" },
     ...(ctx.org.kind === "school" && (role === "admin" || role === "coordinator") ? [{ href: "/app/escola", label: "Escola", icon: "escola" as const }] : []),
     ...(ctx.org.kind === "personal" ? [{ href: "/app/escola", label: "Modelos e regras", icon: "ajustes" as const }] : []),
     ...(ctx.user.isStaff ? [{ href: "/admin", label: "Área interna", icon: "interno" as const }] : []),
