@@ -315,9 +315,9 @@ html[data-theme="dark"] .badge-gray { background: #26355F; color: #D6E0FA; }
 .app-shell .badge-gray { background: #EEF0F5; color: #3E485C; }
 .app-shell .nav-group { margin-top: .85rem; }
 .app-shell .nav-group:first-child { margin-top: 0; }
-.app-shell .nav-label { padding: 0 .75rem .3rem; font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #5F6A80; }
-.app-shell .nav-link { position: relative; display: flex; align-items: center; gap: .65rem; padding: .34rem .75rem; border-radius: .55rem; color: #2B3548; text-decoration: none; font-weight: 500; font-size: .92rem; transition: background .15s, color .15s; }
-.app-shell .nav-link svg { color: #7A8499; transition: color .15s; }
+.app-shell .nav-label { padding: 0 .75rem .3rem; font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--color-ink-soft); }
+.app-shell .nav-link { position: relative; display: flex; align-items: center; gap: .65rem; padding: .34rem .75rem; border-radius: .55rem; color: var(--color-ink); text-decoration: none; font-weight: 500; font-size: .92rem; transition: background .15s, color .15s; }
+.app-shell .nav-link svg { color: var(--color-ink-soft); transition: color .15s; }
 .app-shell .nav-link:hover { background: #F1F3F9; color: var(--color-ink); }
 .app-shell .nav-link[aria-current="page"] { background: var(--color-brand-tint); font-weight: 600; color: var(--color-brand-dark); }
 .app-shell .nav-link[aria-current="page"] svg { color: var(--color-brand); }
