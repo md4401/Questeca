@@ -31,13 +31,13 @@ export function GradeImport({ classId, items }: { classId: string; items: { id: 
     setMsg(r.errors.length ? { err: `${r.ok} salvas; ${r.errors.length} com erro.` } : { ok: `${r.ok} nota(s) importada(s).` });
     setLines(null); setSheet(null);
   });
-  const badge = (s: ImportLine["status"]) => ({ novo: <span key="n" className="badge">novo</span>, atualizacao: <span key="a" className="badge badge-amber">atualização</span>, igual: <span key="i" className="badge badge-gray">igual</span>, vazio: <span key="v" className="badge badge-gray">vazio</span>, erro: <span key="e" className="badge badge-danger">erro</span> })[s];
+  const badge = (s: ImportLine["status"]) => ({ incerto: <span key="u" className="badge badge-amber">incerto</span>, novo: <span key="n" className="badge">novo</span>, atualizacao: <span key="a" className="badge badge-amber">atualização</span>, igual: <span key="i" className="badge badge-gray">igual</span>, vazio: <span key="v" className="badge badge-gray">vazio</span>, erro: <span key="e" className="badge badge-danger">erro</span> })[s];
 
   if (!items.length) return <p className="hint">Crie uma atividade neste período para importar notas.</p>;
   return (
     <div>
       <form action={upload} className="flex flex-wrap items-end gap-3">
-        <div className="field mb-0"><label htmlFor="gfile">Arquivo (.csv ou .xlsx)</label><input id="gfile" name="file" type="file" accept=".csv,.xlsx,.txt,.tsv" className="input" /></div>
+        <div className="field mb-0"><label htmlFor="gfile">Arquivo (.csv ou .xlsx; foto de tabela quando houver IA)</label><input id="gfile" name="file" type="file" accept=".csv,.xlsx,.txt,.tsv,image/*" className="input" /></div>
         <button className="btn btn-sm" disabled={pending}>Ler arquivo</button>
       </form>
       <div aria-live="polite">{msg?.err && <p className="err mt-2" role="alert">{msg.err}</p>}{msg?.ok && <p className="ok mt-2">{msg.ok}</p>}</div>

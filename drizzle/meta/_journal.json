@@ -15,6 +15,13 @@
       "when": 1795397462378,
       "tag": "0001_simple_kat_farrell",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1795402584461,
+      "tag": "0002_free_james_howlett",
+      "breakpoints": true
     }
   ]
 }

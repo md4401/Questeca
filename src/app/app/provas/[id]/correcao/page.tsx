@@ -7,8 +7,13 @@ import { applications, answerSheets } from "@/db/schema";
 import { applicationData } from "@/lib/correction";
 import { ResponseGrid } from "@/components/response-grid";
 import { Form, Field, SubmitButton } from "@/components/form";
-import { publishGradesAction, uploadSheetsAction, confirmSheetAction, rejectSheetAction } from "../../correcao-actions";
+import { publishGradesAction, uploadSheetsAction, confirmSheetAction, rejectSheetAction, reprocessAnswerKeyAction } from "../../correcao-actions";
+import { assessmentVersions, questions } from "@/db/schema";
+import { inArray } from "drizzle-orm";
+import type { Snapshot } from "@/lib/assessments";
 import { rulesFrom } from "@/lib/gradebook";
+import { digitalLinks } from "@/db/schema";
+import { generateLinksAction, revokeLinksAction } from "../../digital-actions";
 import { fmtDate } from "@/lib/format";
 import { planInfo } from "@/lib/billing";
 
@@ -29,6 +34,15 @@ export default async function Correcao({ params, searchParams }: { params: Promi
   const info = await planInfo(ctx.org.id);
   const rules = rulesFrom(ctx.org.settings);
   const done = data.rows.filter((r) => r.complete || r.absent).length;
+  let keyChanges: { position: number; from: string | null; to: string | null }[] = [];
+  if (current.versionId) {
+    const [ver] = await db.select().from(assessmentVersions).where(eq(assessmentVersions.id, current.versionId)).limit(1);
+    const snap = (ver?.snapshot ?? { items: [] }) as Snapshot;
+    const cur = snap.items.length ? await db.select({ id: questions.id, answer: questions.answer }).from(questions).where(inArray(questions.id, snap.items.map((i) => i.questionId))) : [];
+    const am = new Map(cur.map((c) => [c.id, c.answer]));
+    keyChanges = snap.items.filter((i) => am.get(i.questionId) && am.get(i.questionId) !== i.answer).map((i) => ({ position: i.position, from: i.answer, to: am.get(i.questionId) ?? null }));
+  }
+  const links = current.kind === "external" ? [] : await db.select().from(digitalLinks).where(eq(digitalLinks.applicationId, current.id));
   const expectedCode = `${current.id.slice(0, 8).toUpperCase()}-V${data.key.versionNumber ?? 0}`;
   return (
     <div className="space-y-6">
@@ -36,6 +50,11 @@ export default async function Correcao({ params, searchParams }: { params: Promi
         <div><h1 className="text-xl">{current.title}</h1><p className="hint">{cls.name} · {fmtDate(current.appliedOn)} · {data.key.versionNumber ? `versão ${data.key.versionNumber}` : "avaliação externa"} · {done} de {data.rows.length} aluno(s) com leitura completa ou ausência</p></div>
         {apps.length > 1 && <nav aria-label="Aplicações" className="flex flex-wrap gap-1">{apps.map((x) => <Link key={x.id} className={`btn btn-sm ${x.id === current.id ? "" : "btn-ghost"}`} href={`/app/provas/${id}/correcao?app=${x.id}`}>{fmtDate(x.appliedOn)}</Link>)}</nav>}
       </div>
+
+      {keyChanges.length > 0 && (
+        <section className="card-amber" role="alert"><h2 className="mb-1 text-lg">Gabarito corrigido pela curadoria</h2>
+          <p className="text-sm">Questões afetadas: {keyChanges.map((c) => `Q${c.position} (${c.from} → ${c.to})`).join(", ")}. As notas já lançadas na turma <strong>não foram alteradas</strong>. Revise e, se concordar, aplique o novo gabarito: uma nova versão é criada, as respostas são recalculadas e o histórico é mantido. Depois confirme o lançamento das notas para atualizá-las.</p>
+          <form action={reprocessAnswerKeyAction.bind(null, current.id)} className="mt-2"><button className="btn btn-sm" type="submit">Aplicar gabarito corrigido e recalcular respostas</button></form></section>)}
 
       <section><h2 className="mb-2 text-lg">Lançamento manual de respostas</h2>
         <ResponseGrid key={current.id} appId={current.id} items={data.key.items.map((i) => ({ position: i.position, key: i.key, points: i.points, rubric: i.rubric }))}
@@ -72,6 +91,14 @@ export default async function Correcao({ params, searchParams }: { params: Promi
           </div>)}
         {sheets.length > 0 && <p className="hint mt-3">{sheets.filter((s) => s.status === "confirmed").length} confirmado(s) · {pendingSheets.length} a conferir · {sheets.filter((s) => s.status === "rejected").length} descartado(s)/substituído(s).</p>}
       </section>
+
+      {current.kind !== "external" && (
+        <section className="card"><h2 className="mb-1 text-lg">Aplicação digital (links individuais)</h2>
+          <p className="hint mb-3">Cada aluno recebe um link próprio, sem conta, que mostra só a prova dele e permite um único envio. Os links não listam a turma. Envie pelo canal oficial da escola; as respostas chegam corrigidas na grade acima.</p>
+          <Form action={generateLinksAction.bind(null, current.id)}>
+            <div className="flex flex-wrap items-end gap-3"><Field label="Validade (horas)" name="hours" type="number" defaultValue={24} min={1} max={168} /><SubmitButton>Gerar links</SubmitButton></div></Form>
+          {links.length > 0 && <div className="mt-3 text-sm">{links.length} link(s) · {links.filter((l) => l.submittedAt).length} enviado(s) · <a href={`/api/export/links?app=${current.id}`}>Baixar lista (CSV)</a> · <form action={revokeLinksAction.bind(null, current.id)} className="inline"><button className="link-btn text-danger" type="submit">Encerrar links agora</button></form></div>}
+        </section>)}
 
       <section className="card"><h2 className="mb-2 text-lg">Finalizar e lançar notas na turma</h2>
         <p className="hint mb-3">Mostra totais e pendências. A finalização pode ser parcial: alunos sem leitura completa ficam <strong>pendentes</strong> (não viram zero) e ausentes ficam como ausência.</p>

@@ -10,15 +10,17 @@ import { parseGradeInput } from "@/lib/core/grades";
 import { normalize } from "@/lib/taxonomy";
 import { saveGrade } from "./actions";
 import { audit } from "@/lib/audit";
+import { aiAvailable, readGradeTable } from "@/lib/ai";
 
 export type SheetData = { headers: string[]; rows: string[][] };
 export type ImportLine = {
   line: number; label: string; studentId: string | null; raw: string;
-  status: "novo" | "atualizacao" | "igual" | "vazio" | "erro";
+  status: "novo" | "atualizacao" | "igual" | "vazio" | "erro" | "incerto";
   message?: string; before?: string; include: boolean;
 };
 
 const MAX_BYTES = 2_000_000;
+const IMG_MAX = 4_000_000;
 
 export async function parseSheetFile(fd: FormData): Promise<SheetData | { error: string }> {
   await requireCtx();
@@ -28,6 +30,17 @@ export async function parseSheetFile(fd: FormData): Promise<SheetData | { error:
   const name = f.name.toLowerCase();
   const buf = Buffer.from(await f.arrayBuffer());
   let table: string[][] = [];
+  if (/\.(png|jpe?g|webp)$/.test(name) || f.type.startsWith("image/")) {
+    if (f.size > IMG_MAX) return { error: "Imagem muito grande (máximo 4 MB)." };
+    if (!aiAvailable()) return { error: "Leitura de fotos de tabelas exige um provedor de IA configurado neste ambiente. Use CSV/Excel ou digite na grade." };
+    try {
+      const r = await readGradeTable(buf.toString("base64"), f.type || "image/jpeg");
+      if (!r.rows.length) return { error: "Não foi possível identificar linhas na imagem. Tente uma foto mais nítida." };
+      return { headers: ["Identificação", "Nota", "Leitura incerta"], rows: r.rows.map((x) => [x.key, x.value, x.uncertain ? "1" : "0"]) };
+    } catch (e) {
+      return { error: e instanceof Error ? e.message : "Leitura indisponível. Tente novamente ou use planilha." };
+    }
+  }
   try {
     if (name.endsWith(".xlsx")) {
       const { readSheet } = await import("read-excel-file/node");
@@ -75,6 +88,7 @@ export async function previewGradeImport(
     if (raw === "") return { ...base, label: stu.name, studentId: stu.id, status: "vazio", message: "Célula vazia: ficará pendente (não vira zero).", include: false };
     const parsed = parseGradeInput(raw, Number(item.maxPoints));
     if ("error" in parsed) return { ...base, label: stu.name, studentId: stu.id, status: "erro", message: parsed.error, include: false };
+    if (r[2] === "1") return { ...base, label: stu.name, studentId: stu.id, status: "incerto", message: "Leitura incerta na imagem: confira o recorte e confirme o valor antes de salvar.", include: false };
     const ex = exMap.get(stu.id);
     const exLabel = ex && ex.state !== "pending" ? (ex.state === "value" ? String(ex.value).replace(".", ",") : ex.state === "zero" ? "0" : ex.state === "absent" ? "F" : "N") : undefined;
     if (ex && ex.state === parsed.state && Number(ex.value ?? -1) === Number(parsed.value ?? -1)) return { ...base, label: stu.name, studentId: stu.id, status: "igual", message: "Mesmo valor já lançado.", include: false };

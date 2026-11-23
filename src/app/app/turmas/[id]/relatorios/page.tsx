@@ -5,7 +5,7 @@ import { loadClass } from "@/lib/access";
 import { db } from "@/db";
 import { applications, responses } from "@/db/schema";
 import { applicationData } from "@/lib/correction";
-import { analyze } from "@/lib/core/analysis";
+import { analyze, supportGroups } from "@/lib/core/analysis";
 import { topicName, TOPICS } from "@/lib/taxonomy";
 import { createFollowUpAction } from "../../../provas/actions";
 import { SubmitButton } from "@/components/form";
@@ -21,11 +21,14 @@ export default async function Relatorios({ params, searchParams }: { params: Pro
   const apps = await db.select().from(applications).where(eq(applications.classId, id)).orderBy(desc(applications.appliedOn)).limit(8);
   const agg = new Map<string, { correct: number; n: number }>();
   const summaries: { title: string; date: string; valid: number }[] = [];
+  const groups: { app: string; g: ReturnType<typeof supportGroups> }[] = [];
   for (const app of apps) {
     const data = await applicationData(app);
     const rs = await db.select().from(responses).where(eq(responses.applicationId, app.id));
     const an = analyze(data.key.items, rs.map((r) => ({ studentId: r.studentId, position: r.position, value: r.value, status: r.status })), data.rows.filter((r) => r.absent).length, data.students.length);
     summaries.push({ title: app.title, date: app.appliedOn, valid: an.valid });
+    const g = supportGroups(data.key.items.map((i) => ({ position: i.position, key: i.key, points: i.points, topics: i.topics })), rs.map((r) => ({ studentId: r.studentId, position: r.position, value: r.value, status: r.status })), new Map(data.students.map((s) => [s.id, s.name])));
+    if (g.length) groups.push({ app: app.title, g });
     for (const t of an.topics) { const cur = agg.get(t.slug) ?? { correct: 0, n: 0 }; cur.correct += t.rate * t.n; cur.n += t.n; agg.set(t.slug, cur); }
   }
   const topics = [...agg].map(([slug, v]) => ({ slug, n: v.n, rate: v.n ? v.correct / v.n : 0 })).sort((a, b) => a.rate - b.rate);
@@ -48,6 +51,11 @@ export default async function Relatorios({ params, searchParams }: { params: Pro
           <div className="mt-4 flex flex-wrap gap-3"><SubmitButtonForm action={retomada} label="Criar retomada (6 questões)" /><SubmitButtonForm action={checagem} label="Checagem de 3 questões curtas" ghost /></div>
         </form>
       </section>
+      {groups.length > 0 && (
+        <section className="card"><h2 className="mb-1">Grupos de apoio sugeridos</h2>
+          <p className="hint mb-2">Sugestões temporárias e revisáveis, baseadas em respostas registradas (não são diagnóstico). Ajuste antes de usar.</p>
+          {groups.slice(0, 2).map(({ app, g }) => <div key={app} className="mb-3"><p className="text-sm font-bold">{app}</p><ul className="text-sm">{g.map((x) => <li key={x.topic}>{topicName(x.topic)} ({fmtNum(x.rate * 100, 0)}% de acerto, {x.n} respostas): {x.students.join(", ")}</li>)}</ul></div>)}
+        </section>)}
       <section className="card"><h2 className="mb-1">Relatório individual e documentos</h2>
         <p className="text-sm">Resumos por aluno e documentos no modelo da escola ficam em <Link href="/app/documentos">Coordenação</Link>. Eles usam apenas observações, avaliações e ações confirmadas por você.</p></section>
     </div>

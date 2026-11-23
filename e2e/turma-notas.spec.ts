@@ -30,7 +30,7 @@ test("SA-04: homônimos, célula vazia, zero e valor inválido na importação; 
   await page.getByRole("button", { name: "Adicionar", exact: true }).click();
   await expect(page.getByText("Prova 1 · peso 1 · máx 10")).toBeVisible();
   const csv = "Matrícula;Nota\n1001;7,5\n1002;\n1003;0\n9999;5\n1004;abc\n";
-  await page.getByLabel("Arquivo (.csv ou .xlsx)").setInputFiles({ name: "notas.csv", mimeType: "text/csv", buffer: Buffer.from(csv) });
+  await page.getByLabel(/^Arquivo \(\.csv ou \.xlsx/).setInputFiles({ name: "notas.csv", mimeType: "text/csv", buffer: Buffer.from(csv) });
   await page.getByRole("button", { name: "Ler arquivo" }).click();
   await expect(page.getByText(/5 linha\(s\) lidas/)).toBeVisible();
   await page.getByLabel("Identificar por").selectOption("registration");
@@ -46,7 +46,7 @@ test("SA-04: homônimos, célula vazia, zero e valor inválido na importação; 
   await expect(page.getByLabel("Carla Dias — Prova 1")).toHaveValue(""); // erro de leitura: pendente, não zero
 
   // reimportar o mesmo arquivo não duplica; mostra igual
-  await page.getByLabel("Arquivo (.csv ou .xlsx)").setInputFiles({ name: "notas.csv", mimeType: "text/csv", buffer: Buffer.from(csv) });
+  await page.getByLabel(/^Arquivo \(\.csv ou \.xlsx/).setInputFiles({ name: "notas.csv", mimeType: "text/csv", buffer: Buffer.from(csv) });
   await page.getByRole("button", { name: "Ler arquivo" }).click();
   await page.getByRole("button", { name: "Ver prévia" }).click();
   await expect(page.getByText(/Novos: 0/)).toBeVisible();

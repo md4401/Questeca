@@ -536,3 +536,15 @@ export const demoRequests = pgTable("demo_requests", {
   message: text("message"),
   createdAt: created(),
 });
+
+/* ---------- Aplicação digital (P2): link individual por aluno, sem conta ---------- */
+export const digitalLinks = pgTable("digital_links", {
+  id: id(),
+  applicationId: uuid("application_id").notNull().references(() => applications.id, { onDelete: "cascade" }),
+  studentId: uuid("student_id").notNull().references(() => students.id, { onDelete: "cascade" }),
+  token: text("token").notNull(),
+  expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
+  openedAt: timestamp("opened_at", { withTimezone: true }),
+  submittedAt: timestamp("submitted_at", { withTimezone: true }),
+  createdAt: created(),
+}, (t) => [uniqueIndex("digital_links_token_uq").on(t.token), uniqueIndex("digital_links_app_student_uq").on(t.applicationId, t.studentId)]);

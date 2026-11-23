@@ -4,6 +4,7 @@ import { loadClass, classStudents } from "@/lib/access";
 import { db } from "@/db";
 import { observations, users } from "@/db/schema";
 import { Form, SubmitButton } from "@/components/form";
+import { DictateButton } from "@/components/dictate";
 import { addObservationAction } from "../../actions";
 import { fmtDate, todayISO } from "@/lib/format";
 
@@ -27,7 +28,7 @@ export default async function Observacoes({ params }: { params: Promise<{ id: st
         <Form action={addObservationAction.bind(null, id)} resetOnOk>
           <div className="field"><label htmlFor="studentId">Sobre</label><select id="studentId" name="studentId" className="input"><option value="">A turma toda</option>{studs.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}</select></div>
           <div className="field"><label htmlFor="observedOn">Data</label><input id="observedOn" name="observedOn" type="date" defaultValue={todayISO()} className="input" /></div>
-          <div className="field"><label htmlFor="text">Observação</label><textarea id="text" name="text" required className="input" /></div>
+          <div className="field"><label htmlFor="text">Observação</label><textarea id="text" name="text" required className="input" /><DictateButton targetId="text" /><span className="hint">Você confirma e edita o texto antes de salvar.</span></div>
           <div className="field"><label htmlFor="visibility">Acesso</label><select id="visibility" name="visibility" className="input"><option value="private">Privada (só eu)</option><option value="school">Visível à coordenação</option></select></div>
           <SubmitButton>Salvar observação</SubmitButton></Form></section>
     </div>

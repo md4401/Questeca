@@ -25,6 +25,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
     { href: "/app/comunidade", label: "Comunidade", icon: "✉" },
     { href: "/app/materiais", label: "Materiais", icon: "▤" },
     ...(ctx.org.kind === "school" && (role === "admin" || role === "coordinator") ? [{ href: "/app/escola", label: "Escola", icon: "⌂" }] : []),
+    ...(ctx.org.kind === "personal" ? [{ href: "/app/escola", label: "Modelos e regras", icon: "⚙" }] : []),
     ...(ctx.user.isStaff ? [{ href: "/admin", label: "Área interna", icon: "⚙" }] : []),
   ];
   return (

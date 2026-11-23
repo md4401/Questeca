@@ -1,9 +1,10 @@
 "use server";
 import { revalidatePath } from "next/cache";
-import { and, eq } from "drizzle-orm";
+import { and, eq, desc, inArray } from "drizzle-orm";
 import { createHash } from "node:crypto";
 import { db } from "@/db";
-import { responses, studentPresence, gradeItems, grades, gradeChanges, answerSheets } from "@/db/schema";
+import { responses, studentPresence, gradeItems, grades, gradeChanges, answerSheets, assessmentVersions, applications, questions } from "@/db/schema";
+import type { Snapshot } from "@/lib/assessments";
 import { requireCtx } from "@/lib/session";
 import { loadApplication, classStudents } from "@/lib/access";
 import { applicationKey, scoreCell, applicationData } from "@/lib/correction";
@@ -98,11 +99,12 @@ export async function uploadSheetsAction(appId: string, _: FormState, fd: FormDa
   const files = fd.getAll("files").filter((f): f is File => f instanceof File && f.size > 0);
   if (!files.length) return { error: "Escolha uma ou mais fotos." };
   if (files.length > 60) return { error: "Envie no máximo 60 fotos por vez." };
+  if (files.reduce((a, f) => a + f.size, 0) > 4_000_000) return { error: "As fotos somam mais de 4 MB. Envie em lotes menores (ou reduza a resolução da câmera)." };
   const key = await applicationKey(app);
   let added = 0; let dup = 0; const errors: string[] = [];
   for (const f of files) {
     if (!/^image\/(png|jpe?g|webp)$/.test(f.type)) { errors.push(`${f.name}: formato inválido.`); continue; }
-    if (f.size > 8_000_000) { errors.push(`${f.name}: imagem muito grande (máx. 8 MB).`); continue; }
+    if (f.size > 4_000_000) { errors.push(`${f.name}: imagem muito grande (máx. 4 MB).`); continue; }
     const buf = Buffer.from(await f.arrayBuffer());
     const hash = createHash("sha256").update(buf).digest("hex");
     const [exists] = await db.select({ id: answerSheets.id }).from(answerSheets).where(and(eq(answerSheets.applicationId, appId), eq(answerSheets.imageHash, hash))).limit(1);
@@ -167,3 +169,35 @@ export async function rejectSheetAction(sheetId: string) {
   revalidatePath(`/app/provas`);
 }
 
+
+/**
+ * Gabarito retificado pela curadoria: cria nova versão com as respostas corretas atuais, recalcula os pontos das
+ * respostas e mantém o registro anterior. As notas já lançadas só mudam quando o professor confirmar o lançamento.
+ */
+export async function reprocessAnswerKeyAction(appId: string) {
+  const ctx = await requireCtx();
+  const { app } = await loadApplication(ctx, appId);
+  if (!app.versionId || !app.assessmentId) return;
+  const [ver] = await db.select().from(assessmentVersions).where(eq(assessmentVersions.id, app.versionId)).limit(1);
+  if (!ver) return;
+  const snap = ver.snapshot as Snapshot;
+  const ids = snap.items.map((i) => i.questionId);
+  const current = ids.length ? await db.select({ id: questions.id, answer: questions.answer }).from(questions).where(inArray(questions.id, ids)) : [];
+  const ans = new Map(current.map((c) => [c.id, c.answer]));
+  const changed = snap.items.filter((i) => ans.get(i.questionId) && ans.get(i.questionId) !== i.answer);
+  if (!changed.length) return;
+  const [last] = await db.select().from(assessmentVersions).where(eq(assessmentVersions.assessmentId, app.assessmentId)).orderBy(desc(assessmentVersions.number)).limit(1);
+  const next: Snapshot = { ...snap, items: snap.items.map((i) => ({ ...i, answer: ans.get(i.questionId) ?? i.answer })) };
+  const [nv] = await db.insert(assessmentVersions).values({ assessmentId: app.assessmentId, number: (last?.number ?? 0) + 1, snapshot: next }).returning();
+  await db.update(applications).set({ versionId: nv.id }).where(eq(applications.id, appId));
+  const key = await applicationKey({ ...app, versionId: nv.id });
+  const rs = await db.select().from(responses).where(eq(responses.applicationId, appId));
+  for (const r of rs) {
+    const it = key.items.find((i) => i.position === r.position);
+    if (!it || it.key === "*" || r.status === "pending") continue;
+    const sc = scoreResponse({ key: it.key, points: it.points, value: r.value, status: "answered" });
+    if (String(sc.points ?? "") !== String(r.points ?? "")) await db.update(responses).set({ points: sc.points == null ? null : String(sc.points), status: sc.status }).where(and(eq(responses.applicationId, r.applicationId), eq(responses.studentId, r.studentId), eq(responses.position, r.position)));
+  }
+  await audit(ctx.user.id, ctx.org.id, "application.key_reprocessed", appId, { questions: changed.map((c) => c.position), version: nv.number });
+  revalidatePath(`/app/provas/${app.assessmentId}/correcao`);
+}

@@ -61,14 +61,14 @@ function ResetOnOk({ state, formRef, enabled }: { state: FormState; formRef: Rea
   return null;
 }
 
-export function Field({ label, name, type = "text", required, hint, defaultValue, autoComplete, placeholder, min, max, step }: {
-  label: string; name: string; type?: string; required?: boolean; hint?: string; defaultValue?: string | number; autoComplete?: string; placeholder?: string; min?: number; max?: number; step?: string;
+export function Field({ label, name, id, type = "text", required, hint, defaultValue, autoComplete, placeholder, min, max, step }: {
+  label: string; name: string; id?: string; type?: string; required?: boolean; hint?: string; defaultValue?: string | number; autoComplete?: string; placeholder?: string; min?: number; max?: number; step?: string;
 }) {
   return (
     <div className="field">
-      <label htmlFor={name}>{label}</label>
-      <input id={name} name={name} type={type} required={required} defaultValue={defaultValue} autoComplete={autoComplete} placeholder={placeholder} min={min} max={max} step={step} className="input" aria-describedby={hint ? `${name}-hint` : undefined} />
-      {hint && <span id={`${name}-hint`} className="hint">{hint}</span>}
+      <label htmlFor={id ?? name}>{label}</label>
+      <input id={id ?? name} name={name} type={type} required={required} defaultValue={defaultValue} autoComplete={autoComplete} placeholder={placeholder} min={min} max={max} step={step} className="input" aria-describedby={hint ? `${id ?? name}-hint` : undefined} />
+      {hint && <span id={`${id ?? name}-hint`} className="hint">{hint}</span>}
     </div>
   );
 }

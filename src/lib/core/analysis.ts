@@ -27,3 +27,32 @@ export function analyze(items: AItem[], resp: AResp[], absent: number, totalStud
   const topics = [...tmap].map(([slug, v]) => ({ slug, items: v.items, n: v.n, rate: v.n ? v.correct / v.n : 0 })).sort((a, b) => a.rate - b.rate);
   return { valid, absent, pending, smallSample: valid > 0 && valid < 10, items: itemStats, topics, attention: topics.filter((t) => t.rate < 0.6 && t.n > 0) };
 }
+
+/**
+ * Grupos de apoio sugeridos (temporários e revisáveis): para cada conteúdo com baixo acerto, os alunos que erraram
+ * a maioria dos itens daquele conteúdo. Só considera alunos com leitura completa.
+ */
+export function supportGroups(items: AItem[], resp: AResp[], names: Map<string, string>, opts: { threshold?: number } = {}) {
+  const thr = opts.threshold ?? 0.6;
+  const byStudent = new Map<string, AResp[]>();
+  for (const r of resp) (byStudent.get(r.studentId) ?? byStudent.set(r.studentId, []).get(r.studentId)!).push(r);
+  const complete = [...byStudent].filter(([, rs]) => items.every((it) => rs.some((r) => r.position === it.position && r.status !== "pending"))).map(([id]) => id);
+  const topics = new Set(items.flatMap((i) => i.topics));
+  const groups: { topic: string; students: string[]; rate: number; n: number }[] = [];
+  for (const t of topics) {
+    const its = items.filter((i) => i.topics.includes(t));
+    let correct = 0; let total = 0; const missers: string[] = [];
+    for (const sid of complete) {
+      let c = 0;
+      for (const it of its) {
+        const r = byStudent.get(sid)!.find((x) => x.position === it.position);
+        const ok = r && it.key !== "*" ? (r.value ?? "").toUpperCase() === it.key : false;
+        if (ok) c++;
+      }
+      correct += c; total += its.length;
+      if (c / its.length < 0.5) missers.push(names.get(sid) ?? sid);
+    }
+    if (total && correct / total < thr && missers.length) groups.push({ topic: t, students: missers.sort(), rate: correct / total, n: total });
+  }
+  return groups.sort((a, b) => a.rate - b.rate);
+}

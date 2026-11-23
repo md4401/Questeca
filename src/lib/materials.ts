@@ -1,12 +1,12 @@
 import "server-only";
 import { aiAvailable, transcribeImage } from "@/lib/ai";
 
-const MAX = 5_000_000;
+const MAX = 4_000_000;
 
 /** Extrai texto de PDF, DOCX, TXT/MD ou (com IA) foto. Retorna texto ou erro legível. */
 export async function extractTextFromFile(f: File): Promise<{ text: string } | { error: string }> {
   if (f.size === 0) return { error: "Arquivo vazio." };
-  if (f.size > MAX) return { error: "Arquivo muito grande (máximo 5 MB)." };
+  if (f.size > MAX) return { error: "Arquivo muito grande (máximo 4 MB)." };
   const name = f.name.toLowerCase();
   const buf = Buffer.from(await f.arrayBuffer());
   try {
