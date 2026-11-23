@@ -14,15 +14,15 @@ export function can(role: Role | null | undefined, action: Action) {
   return !!role && MATRIX[role]?.includes(action);
 }
 
-/** Professor só enxerga turmas atribuídas; coordenação enxerga as da unidade; gestão não vê dados pedagógicos. */
+/** Professor só enxerga turmas atribuídas; coordenação enxerga as da unidade; gestão só com atribuição explícita. */
 export function canAccessClass(
   m: { role: Role; orgId: string; userId: string } | null,
   cls: { orgId: string; teacherIds: string[] },
 ) {
   if (!m || m.orgId !== cls.orgId) return false;
   if (m.role === "coordinator") return true;
-  if (m.role === "teacher") return cls.teacherIds.includes(m.userId);
-  return false;
+  // Professor e gestão só acessam turmas atribuídas a eles (gestão: permissão pedagógica própria).
+  return cls.teacherIds.includes(m.userId);
 }
 
 export const ROLE_LABEL: Record<Role, string> = { admin: "Gestão institucional", coordinator: "Coordenação", teacher: "Professor" };

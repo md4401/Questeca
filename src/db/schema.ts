@@ -220,6 +220,7 @@ export const assessmentItems = pgTable("assessment_items", {
   pinned: boolean("pinned").notNull().default(false),
   reason: text("reason"),
   manual: boolean("manual").notNull().default(false),
+  scopeAck: boolean("scope_ack").notNull().default(false),
 }, (t) => [index("assessment_items_idx").on(t.assessmentId)]);
 
 export const assessmentHistory = pgTable("assessment_history", {
@@ -248,7 +249,7 @@ export const applications = pgTable("applications", {
   kind: text("kind").notNull().default("regular"), // regular | second | external
   title: text("title").notNull(),
   appliedOn: date("applied_on").notNull(),
-  external: jsonb("external").$type<{ answerKey: string[]; points: number[]; format?: string; version?: string } | null>(),
+  external: jsonb("external").$type<{ answerKey: string[]; points: number[]; rubrics?: Record<number, { name: string; points: number }[]>; format?: string; version?: string } | null>(),
   parentApplicationId: uuid("parent_application_id"),
   createdAt: created(),
 }, (t) => [index("applications_class_idx").on(t.classId)]);

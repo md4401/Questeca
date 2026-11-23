@@ -1,0 +1,68 @@
+// Acervo-semente AUTORAL da Questeca (marcado como exemplo). Cada item tem gabarito conferido à mão.
+// Questões reais de Enem/vestibulares só entram pelo fluxo de importação com autorização (ver PENDING.md).
+export type SeedQ = {
+  t: string; s: string; alts: [string, string, string, string, string]; a: "A" | "B" | "C" | "D" | "E";
+  topics: string[]; pre?: string[]; methods?: string[]; d: number; sec: number; stim?: string;
+};
+
+const K = ["A", "B", "C", "D", "E"] as const;
+export const SEED: SeedQ[] = [
+  { t: "Desconto simples em camisa", s: "Uma camisa custa R$ 80,00 e está com 25% de desconto. Quanto ela passa a custar?", alts: ["R$ 55,00", "R$ 60,00", "R$ 62,00", "R$ 65,00", "R$ 70,00"], a: "B", topics: ["porcentagem-simples"], d: 1, sec: 90 },
+  { t: "Porcentagem de faltas", s: "Em uma turma de 40 alunos, 30% faltaram à aula. Quantos alunos compareceram?", alts: ["12", "18", "26", "28", "30"], a: "D", topics: ["porcentagem-simples"], d: 1, sec: 90 },
+  { t: "Aumento percentual de preço", s: "O preço de um livro subiu de R$ 40,00 para R$ 46,00. Qual foi o aumento percentual?", alts: ["6%", "12%", "15%", "18%", "20%"], a: "C", topics: ["porcentagem-simples"], d: 2, sec: 120 },
+  { t: "Dois descontos de 10%", s: "Um produto de R$ 200,00 recebe um desconto de 10% e, em seguida, mais 10% de desconto sobre o novo preço. Qual é o preço final?", alts: ["R$ 160,00", "R$ 162,00", "R$ 164,00", "R$ 170,00", "R$ 180,00"], a: "B", topics: ["descontos-sucessivos"], pre: ["porcentagem-simples"], d: 2, sec: 150 },
+  { t: "Aumento e desconto de 20%", s: "O preço de uma mercadoria sofreu um aumento de 20% e, depois, um desconto de 20%. Em relação ao preço original, o preço final ficou:", alts: ["igual", "4% menor", "4% maior", "2% menor", "10% menor"], a: "B", topics: ["descontos-sucessivos", "porcentagem-simples"], d: 3, sec: 150 },
+  { t: "Descontos de 20% e 30%", s: "Dois descontos sucessivos, de 20% e de 30%, equivalem a um único desconto de:", alts: ["50%", "48%", "46%", "44%", "40%"], a: "D", topics: ["descontos-sucessivos"], pre: ["porcentagem-simples"], d: 3, sec: 150 },
+  { t: "Juros simples em 5 meses", s: "Um capital de R$ 2.000,00 é aplicado a juros simples de 3% ao mês durante 5 meses. Qual o valor dos juros?", alts: ["R$ 150,00", "R$ 200,00", "R$ 300,00", "R$ 360,00", "R$ 600,00"], a: "C", topics: ["juros-simples"], pre: ["porcentagem-simples"], d: 2, sec: 150 },
+  { t: "Montante a juros compostos", s: "Um capital de R$ 1.000,00 é aplicado a juros compostos de 10% ao ano durante 2 anos. Qual é o montante ao final do período?", alts: ["R$ 1.200,00", "R$ 1.210,00", "R$ 1.220,00", "R$ 1.100,00", "R$ 1.331,00"], a: "B", topics: ["juros-compostos"], pre: ["porcentagem-simples", "potenciacao"], d: 3, sec: 180 },
+  { t: "Dívida com juros sobre juros", s: "Uma dívida de R$ 1.000,00 cresce 5% ao mês sobre o saldo do mês anterior (juros sobre juros). Depois de 2 meses, a dívida é de:", alts: ["R$ 1.100,00", "R$ 1.102,50", "R$ 1.105,00", "R$ 1.050,00", "R$ 1.200,00"], a: "B", topics: ["porcentagem-simples"], pre: ["juros-compostos"], d: 3, sec: 180 },
+  { t: "Receita proporcional", s: "Uma receita usa 3 xícaras de farinha para cada 2 xícaras de açúcar. Para 12 xícaras de farinha, quantas xícaras de açúcar são necessárias?", alts: ["6", "7", "8", "9", "10"], a: "C", topics: ["razao-proporcao"], d: 1, sec: 90 },
+  { t: "Escala de mapa", s: "Em um mapa de escala 1 : 50.000, uma distância de 4 cm representa, na realidade, quantos quilômetros?", alts: ["0,2 km", "2 km", "20 km", "200 km", "2.000 km"], a: "B", topics: ["razao-proporcao"], pre: ["unidades-medida"], d: 2, sec: 150 },
+  { t: "Máquinas e peças", s: "Três máquinas iguais produzem 120 peças em 4 horas. Seis dessas máquinas, no mesmo ritmo, produzem quantas peças em 2 horas?", alts: ["60", "90", "120", "180", "240"], a: "C", topics: ["grandezas-proporcionais"], pre: ["razao-proporcao"], d: 3, sec: 180 },
+  { t: "Operários e dias", s: "Quatro operários constroem um muro em 12 dias. Mantido o ritmo, seis operários levariam quantos dias para construir o mesmo muro?", alts: ["6", "8", "9", "10", "18"], a: "B", topics: ["grandezas-proporcionais"], d: 2, sec: 120 },
+  { t: "Fração do salário", s: "Joana gastou 1/3 do salário com aluguel e 1/4 com alimentação. Que fração do salário sobrou?", alts: ["5/12", "7/12", "1/2", "2/7", "5/7"], a: "A", topics: ["fracoes"], d: 2, sec: 150 },
+  { t: "Soma de frações", s: "O resultado de 2/3 + 3/4 é:", alts: ["5/7", "5/12", "17/12", "6/7", "1"], a: "C", topics: ["fracoes"], d: 1, sec: 90 },
+  { t: "Preço da gasolina", s: "Um litro de gasolina custa R$ 5,80. Quanto se paga por 12,5 litros?", alts: ["R$ 69,60", "R$ 70,00", "R$ 72,50", "R$ 75,00", "R$ 7,25"], a: "C", topics: ["decimais"], d: 2, sec: 120 },
+  { t: "Potências", s: "Qual é o valor de 2 elevado a 5 menos 3 ao quadrado?", alts: ["1", "7", "13", "23", "25"], a: "D", topics: ["potenciacao"], d: 1, sec: 90 },
+  { t: "Raízes quadradas", s: "A raiz quadrada de 144 somada à raiz quadrada de 25 vale:", alts: ["13", "15", "17", "19", "169"], a: "C", topics: ["potenciacao"], d: 1, sec: 90 },
+  { t: "Equação do 1º grau", s: "Se 3x + 7 = 25, qual é o valor de x?", alts: ["4", "5", "6", "8", "10"], a: "C", topics: ["equacao-1grau"], d: 1, sec: 90 },
+  { t: "Número e seu dobro", s: "A soma de um número com o seu dobro é 51. Qual é esse número?", alts: ["15", "16", "17", "25", "34"], a: "C", topics: ["equacao-1grau"], d: 2, sec: 120 },
+  { t: "Sistema caderno e caneta", s: "Um caderno e uma caneta custam juntos R$ 12,00. Dois cadernos e uma caneta custam R$ 20,00. Quanto custa um caderno?", alts: ["R$ 6,00", "R$ 7,00", "R$ 8,00", "R$ 9,00", "R$ 10,00"], a: "C", topics: ["sistemas-lineares"], pre: ["equacao-1grau"], d: 3, sec: 180 },
+  { t: "Quadrado da soma", s: "Desenvolvendo (x + 3)², obtém-se:", alts: ["x² + 9", "x² + 3x + 9", "x² + 6x + 9", "x² + 6x + 6", "x² + 9x + 6"], a: "C", topics: ["expressoes-algebricas"], d: 1, sec: 90 },
+  { t: "Raízes de equação do 2º grau", s: "As raízes da equação x² − 5x + 6 = 0 são:", alts: ["1 e 6", "2 e 3", "−2 e −3", "2 e −3", "3 e 5"], a: "B", topics: ["equacao-2grau"], d: 2, sec: 150 },
+  { t: "Terreno retangular", s: "Um terreno retangular tem área de 48 m² e seu comprimento excede a largura em 2 m. Qual é a largura do terreno?", alts: ["4 m", "6 m", "8 m", "12 m", "24 m"], a: "B", topics: ["equacao-2grau"], pre: ["geometria-plana-perimetro", "expressoes-algebricas"], d: 4, sec: 240 },
+  { t: "Corrida de táxi", s: "Uma corrida de táxi custa R$ 5,00 de bandeirada mais R$ 2,50 por quilômetro rodado. Quanto custa uma corrida de 12 km?", alts: ["R$ 30,00", "R$ 32,50", "R$ 35,00", "R$ 37,50", "R$ 40,00"], a: "C", topics: ["funcao-afim"], d: 2, sec: 120 },
+  { t: "Valor de uma função afim", s: "Dada a função f(x) = 2x − 3, qual é o valor de f(5)?", alts: ["3", "5", "7", "10", "13"], a: "C", topics: ["funcao-afim"], d: 1, sec: 60 },
+  { t: "Mínimo de função quadrática", s: "O valor mínimo da função f(x) = x² − 6x + 5 é:", alts: ["−9", "−5", "−4", "0", "5"], a: "C", topics: ["funcao-quadratica"], pre: ["equacao-2grau"], d: 4, sec: 240 },
+  { t: "Diagonal do retângulo", s: "Um retângulo mede 12 cm de comprimento e 5 cm de largura. Qual é a medida da sua diagonal?", alts: ["7 cm", "13 cm", "15 cm", "17 cm", "60 cm"], a: "B", topics: ["pitagoras"], d: 2, sec: 120 },
+  { t: "Escada apoiada na parede", s: "Uma escada de 5 m de comprimento está apoiada em uma parede vertical, com a base a 3 m da parede. A que altura da parede a escada toca?", alts: ["2 m", "3 m", "4 m", "6 m", "8 m"], a: "C", topics: ["pitagoras"], d: 2, sec: 120 },
+  { t: "Área do círculo", s: "Qual é a área de um círculo de raio 10 cm? (Use π = 3,14.)", alts: ["31,4 cm²", "62,8 cm²", "314 cm²", "628 cm²", "3.140 cm²"], a: "C", topics: ["geometria-plana-perimetro"], d: 2, sec: 120 },
+  { t: "Área do triângulo", s: "Um triângulo tem 10 cm de base e 6 cm de altura. Qual é a sua área?", alts: ["16 cm²", "30 cm²", "36 cm²", "60 cm²", "120 cm²"], a: "B", topics: ["geometria-plana-perimetro"], d: 1, sec: 60 },
+  { t: "Ângulos de um triângulo", s: "Em um triângulo, dois ângulos medem 50° e 70°. Quanto mede o terceiro ângulo?", alts: ["40°", "50°", "60°", "70°", "80°"], a: "C", topics: ["angulos"], d: 1, sec: 60 },
+  { t: "Sombra do poste", s: "No mesmo instante em que um poste projeta uma sombra de 6 m, uma vara de 2 m de altura projeta uma sombra de 1,5 m. Qual é a altura do poste?", alts: ["4 m", "6 m", "8 m", "9 m", "12 m"], a: "C", topics: ["semelhanca"], pre: ["razao-proporcao"], d: 3, sec: 150 },
+  { t: "Cateto oposto a 30°", s: "Em um triângulo retângulo, a hipotenusa mede 10 cm e um dos ângulos agudos mede 30°. Sabendo que sen 30° = 0,5, o cateto oposto a esse ângulo mede:", alts: ["2 cm", "4 cm", "5 cm", "8 cm", "10 cm"], a: "C", topics: ["trigonometria"], pre: ["pitagoras"], d: 3, sec: 150 },
+  { t: "Capacidade de caixa d'água", s: "Uma caixa d'água em forma de paralelepípedo tem 2 m de comprimento, 1,5 m de largura e 1 m de altura. Sabendo que 1 m³ equivale a 1.000 litros, sua capacidade é de:", alts: ["300 L", "3.000 L", "4.500 L", "30.000 L", "3 L"], a: "B", topics: ["volume"], pre: ["unidades-medida"], d: 2, sec: 150 },
+  { t: "Média das notas", s: "As notas de um aluno foram 6, 7, 8, 9 e 10. Qual é a média aritmética?", alts: ["7", "7,5", "8", "8,5", "9"], a: "C", topics: ["estatistica-basica"], d: 1, sec: 60 },
+  { t: "Mediana", s: "A mediana do conjunto de valores 3, 9, 4, 7 e 5 é:", alts: ["4", "5", "6", "7", "9"], a: "B", topics: ["estatistica-basica"], d: 2, sec: 90 },
+  { t: "Vendas mensais", s: "Uma loja registrou as vendas: janeiro, 120 unidades; fevereiro, 150; março, 90; abril, 180. Em relação a março, o aumento percentual das vendas em abril foi de:", alts: ["50%", "80%", "90%", "100%", "180%"], a: "D", topics: ["graficos-tabelas", "porcentagem-simples"], d: 3, sec: 150 },
+  { t: "Probabilidade de bola azul", s: "Uma urna contém 3 bolas vermelhas, 5 azuis e 2 verdes. Sorteando uma bola ao acaso, qual a probabilidade de ela ser azul?", alts: ["1/5", "3/10", "1/2", "2/5", "5/3"], a: "C", topics: ["probabilidade"], pre: ["fracoes"], d: 2, sec: 90 },
+  { t: "Senhas de 3 dígitos distintos", s: "Quantas senhas de 3 dígitos distintos podem ser formadas com os algarismos 1, 2, 3, 4 e 5?", alts: ["15", "20", "60", "120", "125"], a: "C", topics: ["contagem"], d: 3, sec: 150 },
+  { t: "Décimo termo de uma PA", s: "Em uma progressão aritmética, o primeiro termo é 4 e a razão é 3. O décimo termo vale:", alts: ["27", "30", "31", "34", "37"], a: "C", topics: ["sequencias"], d: 2, sec: 120 },
+  { t: "Mergulhador", s: "Um mergulhador está a 12 m abaixo do nível do mar (posição −12), sobe 5 m e depois desce 9 m. Em que posição ele fica?", alts: ["−26", "−16", "−8", "2", "16"], a: "B", topics: ["operacoes-inteiras"], d: 1, sec: 90 },
+  { t: "Horas em minutos", s: "Quantos minutos há em 2,5 horas?", alts: ["25", "125", "150", "250", "300"], a: "C", topics: ["unidades-medida"], d: 1, sec: 60 },
+  { t: "Parcelamento (valor da parcela)", s: "Texto-base: Um celular custa R$ 1.000,00 à vista. No cartão, pode ser pago em 2 parcelas iguais, com acréscimo de 10% sobre o preço à vista.\n\nQual é o valor de cada parcela?", alts: ["R$ 500,00", "R$ 510,00", "R$ 550,00", "R$ 600,00", "R$ 1.100,00"], a: "C", topics: ["porcentagem-simples"], d: 2, sec: 120, stim: "stim-celular" },
+  { t: "Parcelamento (custo extra)", s: "Texto-base: Um celular custa R$ 1.000,00 à vista. No cartão, pode ser pago em 2 parcelas iguais, com acréscimo de 10% sobre o preço à vista.\n\nQuanto o cliente paga a mais ao optar pelo parcelamento?", alts: ["R$ 10,00", "R$ 50,00", "R$ 100,00", "R$ 110,00", "R$ 200,00"], a: "C", topics: ["porcentagem-simples"], d: 2, sec: 90, stim: "stim-celular" },
+];
+
+export const REFERENCE_ONLY = [
+  {
+    institution: "Inep", exam: "Enem", year: 2013, phase: "Regular", day: "2º dia", booklet: "7 azul", number: 163, page: 26,
+    sourceUrl: "https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos",
+    title: "Enem 2013 · 2º dia · Caderno 7 azul · Questão 163", answer: "E",
+    answerSource: "Gabarito oficial do Inep, caderno 7 azul (conforme PRD v1.0, cap. 33)",
+    licenseNote: "Reprodução do enunciado depende de permissão aplicável. Consulte o caderno original no link do Inep.",
+    assessed: ["porcentagem-simples", "descontos-sucessivos"],
+  },
+];
+
+export { K };

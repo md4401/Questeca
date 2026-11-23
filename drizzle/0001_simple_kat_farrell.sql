@@ -1,0 +1,1 @@
+ALTER TABLE "assessment_items" ADD COLUMN "scope_ack" boolean DEFAULT false NOT NULL;

@@ -8,6 +8,13 @@
       "when": 1795396475006,
       "tag": "0000_happy_plazm",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1795397462378,
+      "tag": "0001_simple_kat_farrell",
+      "breakpoints": true
     }
   ]
 }

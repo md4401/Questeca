@@ -43,6 +43,7 @@ describe("SA-02 permissões", () => {
   });
   it("gestão não vê dados pedagógicos; coordenação vê da unidade", () => {
     expect(canAccessClass({ role: "admin", orgId: A, userId: "x" }, { orgId: A, teacherIds: [] })).toBe(false);
+    expect(canAccessClass({ role: "admin", orgId: A, userId: "x" }, { orgId: A, teacherIds: ["x"] })).toBe(true);
     expect(canAccessClass({ role: "coordinator", orgId: A, userId: "x" }, { orgId: A, teacherIds: [] })).toBe(true);
     expect(can("admin", "org.billing")).toBe(true);
     expect(can("coordinator", "org.billing")).toBe(false);

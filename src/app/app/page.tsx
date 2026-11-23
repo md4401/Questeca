@@ -1,0 +1,37 @@
+import Link from "next/link";
+import { and, eq, desc, isNull } from "drizzle-orm";
+import { requireCtx } from "@/lib/session";
+import { visibleClasses } from "@/lib/access";
+import { db } from "@/db";
+import { assessments, notifications, documents } from "@/db/schema";
+import { gradeLabel } from "@/lib/taxonomy";
+import { planInfo } from "@/lib/billing";
+import { PLANS } from "@/lib/core/plans";
+import { redirect } from "next/navigation";
+import { fmtDateTime } from "@/lib/format";
+
+export const metadata = { title: "Início" };
+
+export default async function Inicio() {
+  const ctx = await requireCtx();
+  const cls = await visibleClasses(ctx);
+  if (cls.length === 0 && ctx.org.role === "teacher") redirect("/app/primeiros-passos");
+  const drafts = await db.select().from(assessments).where(and(eq(assessments.orgId, ctx.org.id), eq(assessments.ownerId, ctx.user.id), eq(assessments.status, "draft"))).orderBy(desc(assessments.updatedAt)).limit(3);
+  const notes = await db.select().from(notifications).where(and(eq(notifications.userId, ctx.user.id), isNull(notifications.readAt))).orderBy(desc(notifications.createdAt)).limit(5);
+  const reviews = ctx.org.role === "coordinator" || ctx.org.role === "admin" ? await db.select().from(documents).where(and(eq(documents.orgId, ctx.org.id), eq(documents.status, "in_review"))).limit(5) : [];
+  const info = await planInfo(ctx.org.id);
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div><h1>Olá, {ctx.user.name.split(" ")[0]}</h1><p className="hint">{ctx.org.name} · período {new Date().getFullYear()}</p></div>
+        {ctx.org.role !== "admin" && <Link className="btn" href="/app/provas/nova">Criar prova</Link>}
+      </div>
+      {drafts.length > 0 && <section className="card"><h2 className="mb-2 text-lg">Rascunhos recentes</h2><ul className="space-y-1">{drafts.map((d) => <li key={d.id}><Link href={`/app/provas/${d.id}`}>{d.title}</Link> <span className="hint">· {fmtDateTime(d.updatedAt)}</span></li>)}</ul></section>}
+      <section className="card"><h2 className="mb-2 text-lg">Turmas ativas</h2>
+        {cls.length === 0 ? <p className="text-ink-soft">Nenhuma turma disponível neste contexto.</p> : <ul className="grid gap-2 md:grid-cols-3">{cls.map((c) => <li key={c.id}><Link href={`/app/turmas/${c.id}`} className="block rounded-lg border border-line p-3 no-underline hover:bg-brand-tint"><strong>{c.name}</strong><br /><span className="hint">{gradeLabel(c.grade)} · Matemática{c.isDemo ? " · exemplo" : ""}</span></Link></li>)}</ul>}
+      </section>
+      {(notes.length > 0 || reviews.length > 0) && <section className="card"><h2 className="mb-2 text-lg">Pendências de revisão</h2><ul className="space-y-1 text-sm">{reviews.map((r) => <li key={r.id}>Documento para revisar: <Link href="/app/documentos">{r.title}</Link></li>)}{notes.map((n) => <li key={n.id}>{n.href ? <Link href={n.href}>{n.title}</Link> : n.title}</li>)}</ul></section>}
+      <section className="card-tint text-sm">Plano <strong>{PLANS[info.plan].name}</strong>: {info.used.assemblies}/{info.limits.assemblies >= 10000 ? "∞" : info.limits.assemblies} montagens assistidas neste ciclo (renova em {info.cycleEnd.toLocaleDateString("pt-BR", { timeZone: "UTC" })}). <Link href="/app/plano">Ver plano</Link></section>
+    </div>
+  );
+}
