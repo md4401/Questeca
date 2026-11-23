@@ -15,7 +15,7 @@ export function buscar(edicoes: Edicao[], insts: Instituicao[], f: Filtro): Edic
     if (f.tipo && !e.arquivos.some((a) => a.tipo === f.tipo)) return false;
     if (!termos.length) return true;
     const i = porSlug.get(e.instituicao);
-    const alvo = normalizar(`${e.nome} ${e.ano} ${i?.sigla ?? ""} ${i?.nome ?? ""} ${e.arquivos.map((a) => a.rotulo).join(" ")}`);
+    const alvo = normalizar(`${e.nome} ${e.ano} ${i?.sigla ?? ""} ${i?.nome ?? ""} ${i?.descricao ?? ""} ${e.fase ?? ""} ${e.dia ?? ""} ${e.aplicacao ?? ""} ${e.arquivos.map((a) => `${a.tipo} ${a.rotulo} ${a.versao ?? ""}`).join(" ")}`);
     return termos.every((t) => alvo.includes(t));
   });
 }

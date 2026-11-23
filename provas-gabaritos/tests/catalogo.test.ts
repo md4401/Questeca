@@ -16,6 +16,20 @@ describe("catálogo real do projeto", () => {
     expect(r.erros).toEqual([]);
     expect(r.instituicoes.map((i) => i.slug).sort()).toEqual(["afa", "comvest", "enem", "espcex", "espm", "einstein", "fatec", "fgv", "fuvest", "ime", "insper", "ita", "mackenzie", "pas-unb", "puc-sp", "ufpr", "ufrgs", "uerj", "univesp", "vunesp"].sort());
   });
+
+  it("COMVEST/Unicamp: 1987–2027, só arquivos do domínio oficial, sem URLs repetidas e sem simulados/editais", () => {
+    const r = validarCatalogo({ instituicoes: INSTITUICOES_BRUTAS, edicoes: EDICOES_BRUTAS, verificacao: VERIFICACAO_BRUTA });
+    const c = r.edicoes.filter((e) => e.instituicao === "comvest");
+    const anos = [...new Set(c.map((e) => e.ano))];
+    expect(Math.min(...anos)).toBe(1987); expect(Math.max(...anos)).toBe(2027);
+    const arqs = c.flatMap((e) => e.arquivos);
+    expect(arqs.length).toBeGreaterThan(500);
+    expect(new Set(arqs.map((a) => a.url)).size).toBe(arqs.length);
+    expect(arqs.every((a) => new URL(a.url).hostname === "www.comvest.unicamp.br" && a.url.startsWith("https://"))).toBe(true);
+    expect(arqs.some((a) => /simulado|edital|manual|abstenc/i.test(a.url + a.rotulo))).toBe(false);
+    expect(arqs.filter((a) => a.tipo === "prova").length).toBeGreaterThan(300);
+    expect(arqs.filter((a) => a.tipo === "gabarito").length).toBeGreaterThan(150);
+  });
 });
 
 describe("validação", () => {
