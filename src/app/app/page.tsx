@@ -24,7 +24,7 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
   const cls = await visibleClasses(ctx);
   if (!ctx.user.onboardingDoneAt && cls.length === 0 && ctx.org.role === "teacher") redirect("/cadastro");
   await ensureReminders({ orgId: ctx.org.id, userId: ctx.user.id, classIds: cls.map((c) => c.id), href: "/app/agenda" });
-  const drafts = await db.select().from(assessments).where(and(eq(assessments.orgId, ctx.org.id), eq(assessments.ownerId, ctx.user.id), eq(assessments.status, "draft"))).orderBy(desc(assessments.updatedAt)).limit(3);
+  const drafts = await db.select({ id: assessments.id, title: assessments.title, updatedAt: assessments.updatedAt, className: classesT.name }).from(assessments).leftJoin(classesT, eq(classesT.id, assessments.classId)).where(and(eq(assessments.orgId, ctx.org.id), eq(assessments.ownerId, ctx.user.id), eq(assessments.status, "draft"))).orderBy(desc(assessments.updatedAt)).limit(3);
   const notes = await db.select().from(notifications).where(and(eq(notifications.userId, ctx.user.id), isNull(notifications.readAt))).orderBy(desc(notifications.createdAt)).limit(5);
   const reviews = ctx.org.role === "coordinator" || ctx.org.role === "admin" ? await db.select().from(documents).where(and(eq(documents.orgId, ctx.org.id), eq(documents.status, "in_review"))).limit(5) : [];
   const info = await planInfo(ctx.org.id);
@@ -40,8 +40,17 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
     <div className="space-y-6">
       <div className="page-head">
         <div><h1>Olá, {ctx.user.name.split(" ")[0]}</h1><p className="capitalize-first">{today} · {ctx.org.name}{ctx.org.city ? ` · ${ctx.org.city}/${ctx.org.uf}` : ""}</p></div>
-        {staffView && <div className="actions"><Link className="btn" href="/app/provas/nova">Criar prova</Link></div>}
       </div>
+      {staffView && (drafts[0] ? (
+        <section className="card flex flex-wrap items-center justify-between gap-3 border-brand" aria-label="Continuar prova" data-testid="continuar-prova">
+          <div className="min-w-0"><p className="hint">Continue de onde parou</p><p className="truncate text-lg font-bold">{drafts[0].title}</p><p className="hint">{drafts[0].className ?? "Sem turma"} · salvo em {fmtDateTime(drafts[0].updatedAt)}</p></div>
+          <Link className="btn btn-lg w-full sm:w-auto" href={`/app/provas/${drafts[0].id}`}>Continuar prova</Link>
+        </section>
+      ) : (
+        <section className="card flex flex-wrap items-center justify-between gap-3" aria-label="Criar prova">
+          <div><p className="text-lg font-bold">Crie sua próxima prova</p><p className="hint">Diga o que a turma estudou e revise as questões reais.</p></div>
+          <Link className="btn btn-lg w-full sm:w-auto" href="/app/provas/nova">Criar prova</Link>
+        </section>))}
       {sp.novo && cls.length > 0 && (
         <section className="card-tint space-y-2" aria-label="Cadastro concluído">
           <p className="font-semibold">Cadastro concluído. Sua turma está pronta.</p>
@@ -51,7 +60,7 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
         </section>)}
       {staffView && (
         <nav className="quick" aria-label="Atalhos">
-          <Link href="/app/provas/nova"><Icon name="prova" size={20} />Nova prova</Link>
+          <Link href="/app/banco"><Icon name="banco" size={20} />Banco de questões</Link>
           <Link href="/app/planos-de-aula"><Icon name="material" size={20} />Plano de aula</Link>
           <Link href="/app/escanear"><Icon name="chamada" size={20} />Escanear cartão</Link>
           <Link href="/app/turmas"><Icon name="turmas" size={20} />Turmas e notas</Link>
@@ -62,7 +71,7 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
           <section className="card" aria-label="Turmas ativas"><div className="section-title"><h2>Turmas ativas</h2><Link href="/app/turmas">Ver todas</Link></div>
             {cls.length === 0 ? <p className="empty">Nenhuma turma disponível neste contexto. <Link href="/app/turmas/nova">Criar turma</Link></p> : <ul className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">{cls.map((c) => <li key={c.id}><Link href={`/app/turmas/${c.id}`} className="block rounded-lg border border-line p-3 no-underline hover:border-sky hover:bg-brand-tint"><strong className="text-ink">{c.name}</strong><br /><span className="hint">{gradeLabel(c.grade)} · {subjectLabel(c.subject)}{c.isDemo ? " · exemplo" : ""}</span></Link></li>)}</ul>}
           </section>
-          {drafts.length > 0 && <section className="card"><div className="section-title"><h2>Rascunhos recentes</h2><Link href="/app/provas">Ver provas</Link></div><ul className="list-rows">{drafts.map((d) => <li key={d.id}><Link href={`/app/provas/${d.id}`}>{d.title}</Link> <span className="hint">· {fmtDateTime(d.updatedAt)}</span></li>)}</ul></section>}
+          {drafts.length > 0 && <section className="card"><div className="section-title"><h2>Trabalhos recentes</h2><Link href="/app/provas">Ver provas</Link></div><ul className="list-rows">{drafts.map((d) => <li key={d.id}><Link href={`/app/provas/${d.id}`}>{d.title}</Link><br /><span className="hint">{d.className ?? "Sem turma"} · {fmtDateTime(d.updatedAt)}</span></li>)}</ul></section>}
         </div>
         <div className="space-y-6">
           {radar.length > 0 && (

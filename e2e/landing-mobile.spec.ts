@@ -45,7 +45,7 @@ for (const [w, h] of [[360, 640], [390, 844], [430, 932]]) {
     await expect(sheet.getByText("3 de 4 entram na prova")).toBeVisible();
     await page.keyboard.press("Enter"); await expect(sheet.getByText("2 de 4 entram na prova")).toBeVisible();
     // exemplo completo: quatro temas e quatro itens, com as mesmas escolhas
-    const more = sheet.getByRole("button", { name: "Ver exemplo completo" });
+    const more = sheet.locator("button[aria-expanded]");
     await more.click();
     await expect(more).toHaveAttribute("aria-expanded", "true");
     await expect(sheet.getByRole("group", { name: "Conteúdos ensinados" }).getByRole("button")).toHaveCount(4);

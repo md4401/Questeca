@@ -7,7 +7,7 @@ export default async function PublicLayout({ children }: { children: React.React
   return (
     <>
       <header className="sticky top-0 z-50 border-b border-line bg-white/95 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-2">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-3 gap-y-1 px-4 py-2">
           <Logo />
           <nav aria-label="Principal" className="hidden items-center gap-1 text-sm font-medium lg:flex">
             {[["/#como-funciona", "Como funciona"], ["/#recursos", "Recursos"], ["/#planos", "Planos"], ["/escolas", "Para escolas"]].map(([h, l]) => (
