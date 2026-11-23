@@ -20,12 +20,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <a className="skip" href="#conteudo">Pular para o conteúdo</a>
         <header className="sticky top-0 z-30 border-b border-line bg-white/95 backdrop-blur">
-          <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-2.5">
+          <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-3 gap-y-1 px-4 py-2.5">
             <Marca />
-            <nav aria-label="Principal" className="flex items-center text-sm font-semibold">
-              <Link className="rounded-full px-2.5 py-2 no-underline hover:bg-brand-tint" href="/">Instituições</Link>
-              <Link className="rounded-full px-2.5 py-2 no-underline hover:bg-brand-tint" href="/buscar">Buscar</Link>
-              <Link className="rounded-full px-2.5 py-2 no-underline hover:bg-brand-tint" href="/sobre">Sobre</Link>
+            <nav aria-label="Principal" className="flex flex-wrap items-center text-sm font-semibold">
+              <Link className="rounded-full px-2 py-2 no-underline hover:bg-brand-tint" href="/">Instituições</Link>
+              <Link className="rounded-full px-2 py-2 no-underline hover:bg-brand-tint" href="/buscar">Buscar</Link>
+              <Link className="rounded-full px-2 py-2 no-underline hover:bg-brand-tint" href="/cobertura">Cobertura</Link>
+              <Link className="rounded-full px-2 py-2 no-underline hover:bg-brand-tint" href="/sobre">Sobre</Link>
             </nav>
           </div>
         </header>

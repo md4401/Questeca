@@ -9,7 +9,7 @@ export const dynamicParams = false;
 export const generateStaticParams = () => instituicoes.map((i) => ({ slug: i.slug }));
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const i = instituicao((await params).slug);
-  return i ? { title: `Provas e gabaritos ${i.sigla}`, description: `Baixe provas e gabaritos oficiais ${i.nome} (${i.sigla}), edição por edição.` } : {};
+  return i ? { title: `Provas e gabaritos ${i.sigla}`, description: `Provas e gabaritos oficiais ${i.nome} (${i.sigla}), edição por edição, com fase, dia e disciplina.`, alternates: { canonical: `/instituicao/${i.slug}` } } : {};
 }
 
 export default async function Pagina({ params }: { params: Promise<{ slug: string }> }) {
@@ -27,10 +27,11 @@ export default async function Pagina({ params }: { params: Promise<{ slug: strin
         <p className="mt-3 max-w-2xl text-ink-soft">{i.descricao}</p>
         <p className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-sm"><span><strong>{r.edicoes}</strong> edições · <strong>{r.arquivos}</strong> arquivos{r.de ? ` · de ${r.de} a ${r.ate}` : ""}</span>{i.primeiraEdicao && <span>Primeira edição: <strong>{i.primeiraEdicao}</strong></span>}{fonte && <a href={fonte} target="_blank" rel="noopener nofollow">Site oficial</a>}</p>
         {i.observacao && <p className="hint mt-2">{i.observacao}</p>}
+        <p className="hint mt-1"><Link href={`/cobertura#${i.slug}`}>Ver cobertura e lacunas de {i.sigla}</Link></p>
       </header>
       {lista.length === 0 ? (
-        <section className="card" aria-live="polite"><h2 className="text-xl">Ainda não há edições cadastradas</h2>
-          <p className="mt-1 text-ink-soft">Estamos reunindo os links oficiais de {i.sigla}. Enquanto isso, as provas costumam estar na página da própria instituição.</p>
+        <section className="card" aria-live="polite"><h2 className="text-xl">Nenhum documento coletado para {i.sigla}</h2>
+          <p className="mt-1 text-ink-soft">Ainda não há provas ou gabaritos de {i.sigla} neste catálogo. {i.observacao ?? ""} Nada foi inventado: enquanto não houver arquivos verificados, use a página oficial da instituição. Veja a <Link href="/cobertura">cobertura geral</Link>.</p>
           {fonte && <p className="mt-3"><a className="btn" href={fonte} target="_blank" rel="noopener nofollow">Abrir o site oficial</a></p>}</section>
       ) : <EdicoesFiltradas edicoes={lista} />}
     </div>

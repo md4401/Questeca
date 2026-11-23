@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { instituicoes, resumo } from "@/lib/catalogo";
+import { instituicoes, resumo, totais } from "@/lib/catalogo";
 import { CATEGORIAS, CATEGORIA_ROTULO } from "@/lib/tipos";
 
 export default function Home() {
+  const t = totais();
   return (
     <div className="space-y-10">
       <section className="py-4 text-center md:py-10">
@@ -10,9 +11,10 @@ export default function Home() {
         <p className="mx-auto mt-4 max-w-2xl text-lg text-ink-soft">Escolha o vestibular ou exame, veja todas as edições desde a primeira e baixe a prova e o gabarito direto do site oficial.</p>
         <form action="/buscar" role="search" className="mx-auto mt-6 flex max-w-xl gap-2">
           <label htmlFor="q" className="sr-only">Buscar prova ou gabarito</label>
-          <input id="q" name="q" type="search" className="input flex-1" placeholder="Ex.: ENEM 2019, Fuvest 2023" enterKeyHint="search" autoComplete="off" />
+          <input id="q" name="q" type="search" className="input flex-1" placeholder="Ex.: ENEM 2019, Unicamp 2023, PAS UnB" enterKeyHint="search" autoComplete="off" />
           <button className="btn" type="submit">Buscar</button>
         </form>
+        <p className="mt-4 text-sm text-ink-soft">{t.edicoes} edições e {t.arquivos} arquivos oficiais catalogados · <Link href="/cobertura">ver cobertura de cada instituição</Link></p>
       </section>
       {CATEGORIAS.map((c) => {
         const lista = instituicoes.filter((i) => i.categoria === c);
@@ -27,10 +29,10 @@ export default function Home() {
                   <li key={i.slug}>
                     <Link href={`/instituicao/${i.slug}`} className="card block h-full no-underline transition hover:-translate-y-0.5 hover:border-brand">
                       <div className="flex items-start justify-between gap-2"><span className="font-[family-name:var(--font-display)] text-2xl font-extrabold text-ink">{i.sigla}</span>
-                        {r.edicoes > 0 ? <span className="badge badge-ok">{r.edicoes} edições</span> : <span className="badge badge-warn">Em breve</span>}</div>
+                        {r.edicoes > 0 ? <span className="badge badge-ok">{r.edicoes} edições</span> : <span className="badge badge-warn">Sem documentos</span>}</div>
                       <p className="mt-1 text-sm font-semibold text-ink">{i.nome}</p>
                       <p className="hint mt-1">{i.descricao}</p>
-                      <p className="mt-3 text-sm font-semibold text-brand">{r.edicoes > 0 ? `${r.de}–${r.ate} · ver provas →` : "Ver página →"}</p>
+                      <p className="mt-3 text-sm font-semibold text-brand">{r.edicoes > 0 ? `${r.de}–${r.ate} · ver provas →` : "Ver situação →"}</p>
                     </Link>
                   </li>);
               })}
