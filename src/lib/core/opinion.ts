@@ -23,7 +23,7 @@ export function templateOpinion(i: OpinionInput): string | null {
   const uniq = [...new Set(i.tags)];
   const pos = uniq.map((t) => TAG.get(t)).filter((t): t is NonNullable<typeof t> => !!t && t.tone === "pos").map((t) => t.phrase);
   const att = uniq.map((t) => TAG.get(t)).filter((t): t is NonNullable<typeof t> => !!t && t.tone === "att").map((t) => t.phrase);
-  if (!pos.length && !att.length && !i.notes.length && i.attendancePct == null && i.average == null) return null;
+  if (!pos.length && !att.length && !i.notes.some((n) => n.trim())) return null; // sem registro do professor, nada a redigir
   const parts: string[] = [];
   if (pos.length) parts.push(`Em ${i.periodLabel}, ${first} ${join(pos)}.`);
   if (att.length) parts.push(`${pos.length ? "Por outro lado, " : `Em ${i.periodLabel}, `}${first} ${join(att)}.`);

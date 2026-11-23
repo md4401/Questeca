@@ -14,5 +14,6 @@ describe("Parecer descritivo por modelo", () => {
     const t = templateOpinion({ name: "Iara Dias", periodLabel: "novembro", tags: ["participou", "dificuldade"], notes: ["Foi à lousa na aula de frações."], attendancePct: 92.5, average: 7.4 })!;
     expect(t).toMatch(/Iara participou ativamente/); expect(t).toMatch(/Por outro lado, Iara demonstrou dificuldade/); expect(t).toMatch(/92,5%/); expect(t).toMatch(/média 7,4/); expect(t).toMatch(/Registros do professor: Foi à lousa/); expect(t).toMatch(/acompanhamento próximo/);
   });
+  it("só números (sem registro do professor) não gera parecer", () => { expect(templateOpinion({ name: "Lia", periodLabel: "novembro", tags: [], notes: [], attendancePct: 100, average: 9 })).toBeNull(); });
   it("sem registros não inventa nada", () => { expect(templateOpinion({ name: "João", periodLabel: "novembro", tags: [], notes: [], attendancePct: null, average: null })).toBeNull(); });
 });

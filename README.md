@@ -17,13 +17,14 @@ pnpm dev
 ```
 ## Testes
 ```bash
-pnpm test        # 70 testes de regras (filtro, notas, cotas, permissões, gabarito, análise, chat, quiz, gamificação, frequência, agenda)
+pnpm test        # 88 testes de regras (filtro, notas, cotas, permissões, gabarito, análise, chat, quiz, gamificação, frequência, agenda)
 pnpm build && pnpm start -p 3100   # com .env.test.local apontando para um branch de teste do banco
 pnpm e2e         # cenários AV-01..08 e SA-01..10 do PRD + P2, em navegador real; axe WCAG 2.2 AA
 ```
 ## Módulos
 **Professor e escola** (`/app`): provas com questões reais, correção, notas, relatórios, documentos, comunidade docente, planos e cobrança.
 **Rotina docente** (por turma, em `/app/turmas/[id]`): chamada com correção auditada, boletins em PDF (emitidos e guardados para imprimir), painel pedagógico com sinais explicados e limites da escola, observações. Também: agenda (`/app/agenda`), grade de horários com detecção de conflito, mensagens entre colegas, materiais compartilhados com aprovação da coordenação, moderação, gestão acadêmica (`/app/gestao`: cadastros, transferências com histórico, ano letivo), foto de perfil e tema escuro.
+**MVP do professor** (novidades): **cartão com QR** (`/app/escanear`, `/app/g/[token]`: escaneou, conferiu, a nota vai para a turma e a coordenação é avisada); **planos de aula** (`/app/planos-de-aula`: tema → documento escolar, edita, baixa em Word, envia à coordenação); **pareceres descritivos** (por turma, em `/pareceres`: registros rápidos do mês viram rascunho por aluno, você aprova); **Aula de Agora** no Início (grade de horários em todas as suas escolas → turma, plano e chamada de um toque); **Radar de alunos** (`/app/radar`: queda brusca de nota, faltas seguidas, frequência baixa; avisa a coordenação). Sem chave de IA tudo funciona por modelos; com `AI_PROVIDER=anthropic` planos e pareceres são redigidos pela IA.
 Decisões: mensagens atualizam por consulta a cada 4 s (sem WebSocket); lembretes de agenda surgem ao abrir o sistema (sem agendador).
 
 ## Estrutura
