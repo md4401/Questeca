@@ -30,6 +30,16 @@ describe("catálogo real do projeto", () => {
     expect(arqs.filter((a) => a.tipo === "prova").length).toBeGreaterThan(300);
     expect(arqs.filter((a) => a.tipo === "gabarito").length).toBeGreaterThan(150);
   });
+
+  it("Vunesp/Unesp: só PDFs do portal oficial da Unesp, 2019–2022, com prova e gabarito", () => {
+    const r = validarCatalogo({ instituicoes: INSTITUICOES_BRUTAS, edicoes: EDICOES_BRUTAS, verificacao: VERIFICACAO_BRUTA });
+    const v = r.edicoes.filter((e) => e.instituicao === "vunesp");
+    const arqs = v.flatMap((e) => e.arquivos);
+    expect([...new Set(v.map((e) => e.ano))].sort()).toEqual([2019, 2020, 2021, 2022]);
+    expect(arqs.every((a) => new URL(a.url).hostname === "vestibular.unesp.br")).toBe(true);
+    expect(arqs.some((a) => a.tipo === "prova") && arqs.some((a) => a.tipo === "gabarito")).toBe(true);
+    expect(arqs.some((a) => /manual|edital|convoc|resolu/i.test(a.url))).toBe(false);
+  });
 });
 
 describe("validação", () => {

@@ -3,7 +3,7 @@
 ## 1. Direitos autorais (decisão sua, antes de abrir ao público)  **[bloqueia o lançamento]**
 Provas e gabaritos são das instituições. A versão atual **só aponta** para os arquivos oficiais (não copia nem hospeda), o que é o caminho mais seguro. **Hospedar cópias** (ZIP por instituição, backup dos PDFs) exigiria autorização de cada titular; não implementei. Revise o texto de `/sobre` com um advogado e defina o e-mail de contato (`NEXT_PUBLIC_CONTATO`).
 
-## 2. Preencher o catálogo  **[em andamento — 3 de 20 instituições coletadas]**
+## 2. Preencher o catálogo  **[em andamento — 3 completas e 1 parcial (Vunesp) de 20]**
 Estado em 2026-11-23 (cada linha vem de páginas oficiais; nada foi inventado):
 
 | Instituição | Situação | Edições | Arquivos | Anos |
@@ -11,7 +11,8 @@ Estado em 2026-11-23 (cada linha vem de páginas oficiais; nada foi inventado):
 | ENEM | coletada (Inep) — ver ressalvas abaixo | 99 | 849 | 1998–2026 |
 | Fuvest | coletada (Acervo dos vestibulares) | 139 | 326 | 1977–2026 |
 | **COMVEST/Unicamp** | **coletada** (detalhes abaixo) | **114** | **571** | **1987–2027** |
-| Vunesp, Univesp, Fatec, UERJ, UFPR, UFRGS, PAS/UnB, ITA, IME, EsPCEx, AFA, FGV, Insper, PUC-SP, Mackenzie, Einstein, ESPM | **não coletadas** (arquivos JSON existem, vazios) | 0 | 0 | — |
+| **Vunesp/Unesp** | **parcial** (2019–2022 apenas; detalhes em 2.4) | **6** | **17** | **2019–2022** |
+| Univesp, Fatec, UERJ, UFPR, UFRGS, PAS/UnB, ITA, IME, EsPCEx, AFA, FGV, Insper, PUC-SP, Mackenzie, Einstein, ESPM | **não coletadas** (arquivos JSON existem, vazios) | 0 | 0 | — |
 
 Coletores: `scripts/coleta/<instituicao>.py` → `data/coleta/<instituicao>.csv` → `pnpm importar data/coleta/<instituicao>.csv` → `pnpm validar` → `pnpm links --instituicao <slug>`. (Atenção: o importador exige que `data/edicoes/<slug>.json` exista; não apague os vazios.)
 `pnpm links` precisa de `NODE_USE_ENV_PROXY=1` quando se está atrás de proxy (o `fetch` do Node não lê `HTTPS_PROXY` sozinho).
@@ -32,12 +33,23 @@ Coletores: `scripts/coleta/<instituicao>.py` → `data/coleta/<instituicao>.csv`
 - **Não importado — limitação:** a página "Provas comentadas" (`/vestibulares-anteriores/1a-fase-2a-fase-comentadas/`, 2021–2026) não separa os arquivos por ano; para não atribuir ano por palpite, ficou de fora. Importar exigiria conferir cada PDF. (As 9 "provas comentadas" já importadas são as de 2007, que a página do ano identifica.) Também não coletadas: provas de habilidades específicas de 2021–2023 e 2025–2026 (nas páginas conferidas — 2022, 2024, 2025, 2026 — a Comvest só publica os "informes" de local/horário; 2021 e 2023 não foram conferidas uma a uma) e, em 2024, as de Dança e Música (não listadas).
 - **Não verificável:** nenhuma URL ficou sem verificação. Limitação: o servidor aceita só ~1 req/s; o coletor respeita isso.
 
+### 2.4 Vunesp/Unesp — PARCIAL (não declarar completa)
+- **Importado:** 6 edições, 17 arquivos (8 provas, 9 gabaritos; 1 gabarito é "após recursos"), anos **2019–2022**. 2019 e 2020: 1ª fase (caderno e gabarito, versão 1) e 2ª fase (3 cadernos: Linguagens e Códigos, Ciências Humanas, Ciências da Natureza e Matemática). 2021: 2ª fase (caderno e gabarito, versão 1). 2022: 1ª fase (Biológicas; Exatas e Humanas — prova e gabarito de cada). Fonte: portal oficial `vestibular.unesp.br`, seção Arquivo.
+- **Verificação:** 17 links ok, 0 quebrados; 17 PDFs baixados e lidos — cada um é o caderno/gabarito do ano, fase e tipo classificados (cabeçalhos "VESTIBULAR 2019…2022", data da prova, "Versão 1"). Nada de HTML.
+- **Limitação de acesso:** `www.vunesp.com.br` responde **HTTP 403 "Access Denied" (Akamai)** a qualquer cliente automatizado; é controle de acesso e **não foi contornado**. Fontes de notícias dizem que as provas recentes ficam na "Área do candidato" (login) da Vunesp — também não acessada. Fontes secundárias (cursinhos, portais) existem, mas **não foram usadas** como substitutas.
+- **Anos sem prova/gabarito publicados no portal oficial da Unesp:** 2023, 2024, 2025, 2026, 2027 (páginas de documentos conferidas: vestibular, meio de ano, manuais; só listas de convocação, resoluções, manuais, notas de corte). **Anteriores a 2019:** o portal não tem arquivo, e a Vunesp está bloqueada. Primeira edição do Vestibular Unesp por esta via: não confirmada.
+- **Só versão 1:** a Unesp divulga publicamente apenas a versão 1 dos cadernos/gabaritos (as demais versões não estão publicadas).
+- **Dia da 2ª fase** (2019, 2020): as páginas não identificam dia 1/2; `dia` ficou vazio (os PDFs mostram datas diferentes, ex.: 16.12 e 17.12.2018).
+- **Provas de habilidades específicas** (2021 em diante, adiadas por comunicado): sem prova publicada no Arquivo.
+- **Não é Vunesp/Unesp:** Olimpíadas Científicas, Unesp-Enem, Provão Paulista (processos seletivos distintos) ficaram fora; não têm provas próprias publicadas.
+- **Como ampliar:** (1) o usuário/instituição pode fornecer as páginas da Vunesp salvas, ou liberar o acesso (allowlist/credencial legítima) — então basta ajustar `scripts/coleta/vunesp.py`; (2) repetir `python3 scripts/coleta/vunesp.py` a cada novo vestibular, caso a Unesp publique as provas no portal. Relatório: `data/coleta/vunesp-pendencias.txt`.
+
 ### 2.2 Ressalvas das outras coletas
 - **ENEM:** 1998–2008 só têm prova na página oficial do Inep (gabarito não listado). O servidor `download.inep.gov.br` envia cadeia de certificados incompleta: do ambiente de desenvolvimento a verificação de links do Inep pode sair "desconhecido" (agora tratado assim, e não como quebrado); navegadores abrem normalmente.
 - **Fuvest:** edições antigas (1977–1989 e várias 2ª fases) sem gabarito na página oficial (veja os avisos de `pnpm validar --avisos`).
 
 ### 2.3 Próximas instituições (nesta ordem sugerida)
-Vunesp/Unesp (o site `vunesp.com.br` respondeu 403 ao coletor — investigar páginas oficiais alternativas), Univesp, Fatec, UERJ, UFPR, UFRGS, PAS/UnB, ITA, IME, EsPCEx, AFA, FGV, Insper, PUC-SP, Mackenzie, Einstein, ESPM. Ainda por fazer no site: página de cobertura, relatórios, filtros de fase/dia, rotina periódica de atualização.
+Univesp, Fatec, UERJ, UFPR, UFRGS, PAS/UnB, ITA, IME, EsPCEx, AFA, FGV, Insper, PUC-SP, Mackenzie, Einstein, ESPM. Ainda por fazer no site: página de cobertura, relatórios, filtros de fase/dia, rotina periódica de atualização.
 
 ## 3. Confirmar dados das instituições
 Os endereços oficiais em `data/instituicoes.json` vieram de conhecimento geral, **não foram verificados online**; confirme todos. Fatec, ITA e AFA estão sem endereço (`null`). Confirme também a "primeira edição" de cada banca (só o ENEM, 1998, está preenchido) e a lista/descrições.

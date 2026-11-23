@@ -5,7 +5,7 @@ ENEM, Fuvest, Comvest, Vunesp, Univesp, Fatec, UERJ, UFPR, UFRGS, PAS/UnB, ITA, 
 
 **Como o download funciona:** o site é um *catálogo* de links oficiais. O botão "Baixar" passa por `/baixar/<edição>/<n>`, que redireciona ao arquivo **no site da própria instituição**. Nada é copiado nem hospedado aqui (ver `PENDING.md`, item 1). Quando um link cai, o botão passa a levar à página oficial e mostra "link fora do ar".
 
-**Estado atual:** a plataforma está pronta e **3 de 20 instituições têm catálogo coletado dos sites oficiais** (ENEM, Fuvest e COMVEST/Unicamp); as demais aparecem com "Em breve". Nenhum endereço foi inventado — veja o quadro e as lacunas em `PENDING.md`.
+**Estado atual:** a plataforma está pronta e **3 de 20 instituições têm catálogo coletado dos sites oficiais** (ENEM, Fuvest e COMVEST/Unicamp) e **1 parcial** (Vunesp/Unesp, 2019–2022; o site da Vunesp bloqueia acesso automatizado); as demais aparecem com "Em breve". Nenhum endereço foi inventado — veja o quadro e as lacunas em `PENDING.md`.
 
 ## Rodar
 ```bash
