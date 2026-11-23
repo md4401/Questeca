@@ -38,8 +38,9 @@
     "categoria": "vestibular",
     "descricao": "Banca do vestibular da Unesp e de outras seleções do Estado de São Paulo.",
     "site": "https://www.vunesp.com.br",
-    "paginaProvas": null,
-    "primeiraEdicao": null
+    "paginaProvas": "https://vestibular.unesp.br/portal#!/arquivo/",
+    "primeiraEdicao": null,
+    "observacao": "Catálogo do Vestibular Unesp (portal oficial da Unesp, Arquivo): só 2019–2022 trazem prova/gabarito publicados ali. O site www.vunesp.com.br bloqueia acesso automatizado e as provas recentes ficam na área do candidato (login)."
   },
   {
     "slug": "univesp",

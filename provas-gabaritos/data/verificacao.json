@@ -3454,5 +3454,107 @@
     "httpStatus": 200,
     "contentType": "application/pdf",
     "verificadoEm": "2026-11-23"
+  },
+  "https://vestibular.unesp.br/Home/documentos/provafase1_biologicas": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": null,
+    "verificadoEm": "2026-11-23"
+  },
+  "https://vestibular.unesp.br/Home/documentos/provafase1_biologicas_gabarito.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://vestibular.unesp.br/Home/documentos/provafase1_exatashumanas.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://vestibular.unesp.br/Home/documentos/provafase1_exatashumanas_gabarito.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://vestibular.unesp.br/Home/2021/gabarito_2afase_unesp2021_versao1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://vestibular.unesp.br/Home/2021/caderno_2afase_unesp2021_versao_1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://vestibular.unesp.br/Home/2020/gabarito_apos_recursos_vnsp1901_prova_1a_fase_15nov2019.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://vestibular.unesp.br/Home/2020/unesp_caderno_de_questoes_prova_de_conhecimentos_gerais_15_nov_2019__v1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://vestibular.unesp.br/Home/unesp-2a-fase-2020-caderno-linguagens.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://vestibular.unesp.br/Home/2020/unesp_gabarito_prova_de_conhecimentos_gerais_15_nov_2019__v1.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://vestibular.unesp.br/Home/unesp-2a-fase-2020-caderno_ciencias_humanas.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://vestibular.unesp.br/Home/unesp-2a-fase-2020-caderno_ciencias_natur_matem.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://vestibular.unesp.br/Home/2019/gabarito-cg-1a-fase-versao-1-2019.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://vestibular.unesp.br/Home/2019/caderno-cg-1a-fase-versao-1-2019.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://vestibular.unesp.br/Home/2019/2fase_caderno_linguagens.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://vestibular.unesp.br/Home/2019/2fase_caderno_ci_humanas.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
+  },
+  "https://vestibular.unesp.br/Home/2019/2fase_caderno_c_natureza_e_matematica.pdf": {
+    "status": "ok",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "verificadoEm": "2026-11-23"
   }
 }
