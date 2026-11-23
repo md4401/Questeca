@@ -1,7 +1,7 @@
 /**
  * Importa um CSV de links oficiais para data/edicoes/<instituicao>.json.
  *   pnpm importar caminho/arquivo.csv
- * Colunas: instituicao, ano, nome, tipo, rotulo, url, formato, fonte, observacao
+ * Colunas: instituicao, ano, nome, tipo, rotulo, url, fonte (+ opcionais: formato, fase, dia, aplicacao, versao, origem, observacao)
  * (tipo: prova | gabarito | caderno | comentada | edital | outro). Depois rode `pnpm validar`.
  */
 import { readFileSync, writeFileSync, existsSync } from "node:fs";

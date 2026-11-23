@@ -22,7 +22,7 @@ export function lerCsv(texto: string): Record<string, string>[] {
 export const idDe = (inst: string, ano: number, nome: string) => `${inst}-${ano}-${nome.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").replace(new RegExp(`^${inst}-?`), "").replace(new RegExp(`^${ano}-?`), "")}`.replace(/-+$/g, "");
 
 /**
- * Colunas: instituicao, ano, nome, tipo, rotulo, url, formato (opcional), fonte, observacao (opcional).
+ * Colunas: instituicao, ano, nome, tipo, rotulo, url, fonte; opcionais: formato, fase, dia, aplicacao, versao, origem, observacao.
  * Linhas com a mesma instituição + ano + nome viram uma única edição com vários arquivos.
  */
 export function agruparCsv(linhas: Record<string, string>[]): { edicoes: Edicao[]; erros: string[] } {
@@ -33,10 +33,10 @@ export function agruparCsv(linhas: Record<string, string>[]): { edicoes: Edicao[
     if (!l.instituicao || !Number.isInteger(ano) || !l.nome || !l.url || !l.tipo || !l.fonte) { erros.push(`${quando}: faltam colunas obrigatórias (instituicao, ano, nome, tipo, url, fonte)`); return; }
     const chave = `${l.instituicao}|${ano}|${l.nome}`;
     let e = mapa.get(chave);
-    if (!e) { e = { id: idDe(l.instituicao, ano, l.nome), instituicao: l.instituicao, ano, nome: l.nome, arquivos: [], fonte: l.fonte, ...(l.observacao ? { observacao: l.observacao } : {}) }; mapa.set(chave, e); }
+    if (!e) { e = { id: idDe(l.instituicao, ano, l.nome), instituicao: l.instituicao, ano, nome: l.nome, arquivos: [], fonte: l.fonte, ...(l.fase ? { fase: l.fase } : {}), ...(l.dia ? { dia: l.dia } : {}), ...(l.aplicacao ? { aplicacao: l.aplicacao } : {}), ...(l.observacao ? { observacao: l.observacao } : {}) }; mapa.set(chave, e); }
     if (l.observacao && !e.observacao) e.observacao = l.observacao;
     if (e.arquivos.some((a) => a.url === l.url)) return;
-    e.arquivos.push({ tipo: l.tipo as Edicao["arquivos"][number]["tipo"], rotulo: l.rotulo || l.tipo, url: l.url, formato: (l.formato || "pdf") as Edicao["arquivos"][number]["formato"] });
+    e.arquivos.push({ tipo: l.tipo as Edicao["arquivos"][number]["tipo"], rotulo: l.rotulo || l.tipo, url: l.url, formato: (l.formato || "pdf") as Edicao["arquivos"][number]["formato"], ...(l.versao ? { versao: l.versao } : {}), ...(l.origem === "secundaria" ? { origem: "secundaria" as const } : {}) });
   });
   return { edicoes: [...mapa.values()], erros };
 }

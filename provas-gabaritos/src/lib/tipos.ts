@@ -14,6 +14,10 @@ export const ArquivoSchema = z.object({
   rotulo: z.string().min(2).max(120),
   url: urlSegura,
   formato: z.enum(["pdf", "zip", "html", "docx", "outro"]).default("pdf"),
+  /** Caderno, cor ou variante (ex.: "Caderno 1 azul", "ampliada", "Libras"). */
+  versao: z.string().max(80).optional(),
+  /** "oficial" (padrão) ou "secundaria": fonte que não é a instituição; sempre sinalizada no site. */
+  origem: z.enum(["oficial", "secundaria"]).optional(),
 });
 
 export const EdicaoSchema = z.object({
@@ -22,6 +26,12 @@ export const EdicaoSchema = z.object({
   ano: z.number().int().min(1900).max(2100),
   /** Ex.: "Vestibular 2024 · 1ª fase", "ENEM 2019 · 1º dia". */
   nome: z.string().min(3).max(140),
+  /** "1ª fase", "2ª fase", "Fase única"… */
+  fase: z.string().max(40).optional(),
+  /** "1º dia", "2º dia"… */
+  dia: z.string().max(40).optional(),
+  /** Aplicação: "Regular", "Reaplicação (PPL)", "Digital"… */
+  aplicacao: z.string().max(60).optional(),
   arquivos: z.array(ArquivoSchema).min(1),
   /** Página oficial em que a edição está listada (de onde os links foram tirados). */
   fonte: urlSegura,
