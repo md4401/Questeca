@@ -7,6 +7,8 @@ export const PORTAL_NAV: PortalItem[] = [
   { href: "/portal/agenda", label: "Agenda", icon: "agenda" },
   { href: "/portal/mural", label: "Mural", icon: "chat" },
   { href: "/portal/chat", label: "Mensagens", icon: "chat" },
+  { href: "/portal/quizzes", label: "Quizzes", icon: "quiz" },
+  { href: "/portal/conquistas", label: "Conquistas", icon: "trofeu" },
   { href: "/portal/videoaulas", label: "Videoaulas", icon: "video" },
   { href: "/portal/materiais", label: "Materiais", icon: "material" },
   { href: "/portal/notas", label: "Notas", icon: "nota" },

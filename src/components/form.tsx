@@ -1,7 +1,7 @@
 "use client";
 import { createContext, startTransition, useActionState, useContext, useRef } from "react";
 import { useFormStatus } from "react-dom";
-import { useToastOn } from "@/components/ui/toast";
+import { useToast } from "@/components/ui/toast";
 
 export type FormState = { error?: string; ok?: string; fieldErrors?: Record<string, string> } | null;
 type Action = (prev: FormState, fd: FormData) => Promise<FormState>;
@@ -25,9 +25,14 @@ export function SubmitButton({ children, className = "btn", pendingLabel }: { ch
  * sucesso, e apenas quando `resetOnOk` é pedido.
  */
 export function Form({ action, children, className, resetOnOk, toast }: { action: Action; children: React.ReactNode; className?: string; resetOnOk?: boolean; toast?: boolean }) {
-  const [state, formAction, pending] = useActionState(action, null);
+  const push = useToast();
+  // O aviso é emitido quando o servidor responde, antes de a página nova renderizar: não se perde se o formulário sair da tela (ex.: revalidação).
+  const [state, formAction, pending] = useActionState(async (prev: FormState, fd: FormData) => {
+    const r = await action(prev, fd);
+    if (toast) { if (r?.ok) push(r.ok, "success"); else if (r?.error) push(r.error, "error"); }
+    return r;
+  }, null as FormState);
   const ref = useRef<HTMLFormElement>(null);
-  useToastOn(toast ? state : null);
   return (
     <form
       ref={ref}

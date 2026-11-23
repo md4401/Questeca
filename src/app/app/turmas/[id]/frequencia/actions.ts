@@ -9,6 +9,8 @@ import { validStatus, ATT_LABEL } from "@/lib/core/attendance";
 import { todayISO, fmtDate } from "@/lib/format";
 import { notifyPortal } from "@/lib/portal-notify";
 import { audit } from "@/lib/audit";
+import { awardXp } from "@/lib/gamification";
+import { XP_RULES } from "@/lib/core/gamification";
 import type { FormState } from "@/components/form";
 
 /**
@@ -53,6 +55,7 @@ export async function saveAttendanceAction(classId: string, _: FormState, fd: Fo
     }
     await audit(ctx.user.id, cls.orgId, "attendance.corrected", sess.id, { reason, count: diffs.length });
   }
+  for (const [sid, v] of incoming) if (v.status === "present") await awardXp({ orgId: cls.orgId, studentId: sid, kind: "attendance", refKey: `att:${sess.id}`, points: XP_RULES.attendance, label: `Presença em ${fmtDate(date)}` });
   for (const sid of newAbsent) {
     const [st] = await db.select({ name: students.name }).from(students).where(eq(students.id, sid)).limit(1);
     await notifyPortal([sid], "frequencia", `Falta registrada em ${fmtDate(date)}`, `${st?.name ?? "O estudante"}: ${ATT_LABEL.absent} em ${cls.name}.`, "/portal/frequencia", { groupKey: `freq:${sid}:${date}` });

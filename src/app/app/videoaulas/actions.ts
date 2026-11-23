@@ -9,6 +9,8 @@ import { loadClass } from "@/lib/access";
 import { visibleStudents } from "@/lib/portal";
 import { validHttpUrl } from "@/lib/core/chat";
 import { audit } from "@/lib/audit";
+import { awardXp } from "@/lib/gamification";
+import { XP_RULES } from "@/lib/core/gamification";
 import { classStudents } from "@/lib/access";
 import { notifyPortal } from "@/lib/portal-notify";
 import type { FormState } from "@/components/form";
@@ -53,4 +55,5 @@ export async function registerViewAction(id: string) {
   }
   await db.insert(videoViews).values({ videoId: id, userId: ctx.user.id }).onConflictDoUpdate({ target: [videoViews.videoId, videoViews.userId], set: { count: sql`${videoViews.count} + 1`, lastAt: new Date() } });
   await db.update(videoLessons).set({ views: sql`${videoLessons.views} + 1` }).where(eq(videoLessons.id, id));
+  if (ctx.org.role === "student") { const [me] = await visibleStudents(ctx); if (me) await awardXp({ orgId: ctx.org.id, studentId: me.id, kind: "study", refKey: `video:${id}`, points: XP_RULES.study, label: `Videoaula assistida: ${v.title}` }); }
 }

@@ -12,6 +12,10 @@ import { logoutAction } from "@/lib/auth-actions";
 import { switchOrgAction } from "@/app/app/actions";
 import { PORTAL_NAV } from "@/lib/portal-nav";
 import { unreadMessages } from "@/lib/chat";
+import { awardXp } from "@/lib/gamification";
+import { XP_RULES } from "@/lib/core/gamification";
+import { visibleStudents } from "@/lib/portal";
+import { todayISO } from "@/lib/format";
 
 export const metadata = { title: { default: "Portal", template: "%s · Portal Questeca" } };
 
@@ -20,6 +24,7 @@ export default async function PortalLayout({ children }: { children: React.React
   if (!isPortalRole(ctx.org.role)) redirect("/app");
   const [n] = await db.select({ c: count() }).from(notifications).where(and(eq(notifications.userId, ctx.user.id), isNull(notifications.readAt)));
   const unread = Number(n?.c ?? 0);
+  if (ctx.org.role === "student") { const [me] = await visibleStudents(ctx); if (me) await awardXp({ orgId: ctx.org.id, studentId: me.id, kind: "access", refKey: `access:${todayISO()}`, points: XP_RULES.access, label: "Acesso ao portal" }); }
   const msgs = await unreadMessages(ctx.user.id);
   const items = PORTAL_NAV.map((i) => (i.href === "/portal/chat" && msgs ? { ...i, label: `Mensagens (${msgs})` } : i)).filter((i) => !i.roles || i.roles.includes(ctx.org.role as "student" | "guardian"));
   const tabs = items.slice(0, 3); const more = [...items.slice(3), { href: "/portal/conta", label: "Meu perfil", icon: "conta" as const }];

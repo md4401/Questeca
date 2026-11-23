@@ -8,6 +8,8 @@ import { visibleStudents } from "@/lib/portal";
 import { canSubmit, autoScore } from "@/lib/core/tasks";
 import { MAX_FILE } from "@/lib/task-access";
 import { notify, audit, track } from "@/lib/audit";
+import { awardXp } from "@/lib/gamification";
+import { XP_RULES } from "@/lib/core/gamification";
 import type { FormState } from "@/components/form";
 
 /** Entrega do aluno. Responsável só acompanha. O estudante vem da conta, nunca do formulário. */
@@ -59,6 +61,8 @@ export async function submitTaskAction(taskId: string, _: FormState, fd: FormDat
   await db.insert(submissionVersions).values({ submissionId: sub.id, version, answerText, answers, late: can.late, submittedAt: now });
   const teachers = await db.select({ u: classTeachers.userId }).from(classTeachers).where(eq(classTeachers.classId, task.classId));
   await Promise.all(teachers.map((t) => notify(t.u, "tarefa", `Nova entrega: ${task.title}`, undefined, `/app/turmas/${task.classId}/tarefas/${task.id}`, { groupKey: `sub:${task.id}` })));
+  await awardXp({ orgId: task.orgId, studentId: me.id, kind: can.late ? "task_late" : "task_on_time", refKey: `task:${task.id}`, points: can.late ? XP_RULES.task_late : XP_RULES.task_on_time, label: `Tarefa entregue${can.late ? " com atraso" : ""}: ${task.title}` });
+  if (auto && Number(task.points) > 0 && sc.score >= Number(task.points)) await awardXp({ orgId: task.orgId, studentId: me.id, kind: "task_graded_perfect", refKey: `perfect:task:${task.id}`, points: XP_RULES.task_graded_perfect, label: `Nota máxima: ${task.title}` });
   await audit(ctx.user.id, task.orgId, "task.submitted", sub.id, { late: can.late, version });
   await track("task_submitted", ctx.user.id, task.orgId);
   revalidatePath(`/portal/tarefas/${task.id}`); revalidatePath("/portal/tarefas");

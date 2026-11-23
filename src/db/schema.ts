@@ -856,3 +856,66 @@ export const chatBlocks = pgTable("chat_blocks", {
   createdBy: uuid("created_by").notNull().references(() => users.id),
   createdAt: created(),
 }, (t) => [uniqueIndex("chat_blocks_uq").on(t.orgId, t.blockedId, t.blockerId)]);
+
+/* ---------- Fase 3: quizzes e gamificação ---------- */
+export type QuizItem = { id: string; type: "mc" | "tf" | "text" | "challenge"; prompt: string; options?: string[]; answer?: number | boolean | string[]; explanation?: string; points: number };
+export const quizzes = pgTable("quizzes", {
+  id: id(),
+  orgId: uuid("org_id").notNull().references(() => orgs.id, { onDelete: "cascade" }),
+  classId: uuid("class_id").notNull().references(() => classes.id, { onDelete: "cascade" }),
+  ownerId: uuid("owner_id").notNull().references(() => users.id),
+  title: text("title").notNull(),
+  description: text("description"),
+  status: text("status").notNull().default("draft"), // draft | published | closed
+  timeLimitMin: integer("time_limit_min"),
+  maxAttempts: integer("max_attempts").notNull().default(1),
+  dueAt: timestamp("due_at", { withTimezone: true }),
+  explanations: text("explanations").notNull().default("after_submit"), // after_submit | after_due | never
+  aiGenerated: boolean("ai_generated").notNull().default(false),
+  reviewed: boolean("reviewed").notNull().default(true),
+  items: jsonb("items").$type<QuizItem[]>().notNull().default([]),
+  publishedAt: timestamp("published_at", { withTimezone: true }),
+  createdAt: created(),
+}, (t) => [index("quizzes_class_idx").on(t.classId, t.status)]);
+
+export const quizAttempts = pgTable("quiz_attempts", {
+  id: id(),
+  quizId: uuid("quiz_id").notNull().references(() => quizzes.id, { onDelete: "cascade" }),
+  studentId: uuid("student_id").notNull().references(() => students.id, { onDelete: "cascade" }),
+  attemptNo: integer("attempt_no").notNull(),
+  startedAt: timestamp("started_at", { withTimezone: true }).notNull().defaultNow(),
+  deadlineAt: timestamp("deadline_at", { withTimezone: true }),
+  submittedAt: timestamp("submitted_at", { withTimezone: true }),
+  status: text("status").notNull().default("in_progress"), // in_progress | submitted | expired
+  answers: jsonb("answers").$type<Record<string, string | number | boolean>>().notNull().default({}),
+  manualScores: jsonb("manual_scores").$type<Record<string, number>>().notNull().default({}),
+  score: numeric("score", { precision: 7, scale: 2 }),
+  maxScore: numeric("max_score", { precision: 7, scale: 2 }),
+  needsReview: boolean("needs_review").notNull().default(false),
+}, (t) => [uniqueIndex("quiz_attempts_uq").on(t.quizId, t.studentId, t.attemptNo)]);
+
+/** Extrato de XP: cada linha explica uma recompensa. `refKey` torna o evento idempotente (sem XP duplicado por reenvio, refresh ou repetição). */
+export const xpEvents = pgTable("xp_events", {
+  id: id(),
+  orgId: uuid("org_id").notNull().references(() => orgs.id, { onDelete: "cascade" }),
+  studentId: uuid("student_id").notNull().references(() => students.id, { onDelete: "cascade" }),
+  kind: text("kind").notNull(),
+  points: integer("points").notNull(),
+  refKey: text("ref_key").notNull(),
+  day: date("day").notNull(),
+  label: text("label").notNull(),
+  createdAt: created(),
+}, (t) => [uniqueIndex("xp_events_uq").on(t.studentId, t.refKey), index("xp_events_student_idx").on(t.studentId, t.day)]);
+
+export const achievementUnlocks = pgTable("achievement_unlocks", {
+  studentId: uuid("student_id").notNull().references(() => students.id, { onDelete: "cascade" }),
+  achievementId: text("achievement_id").notNull(),
+  unlockedAt: timestamp("unlocked_at", { withTimezone: true }).notNull().defaultNow(),
+}, (t) => [primaryKey({ columns: [t.studentId, t.achievementId] })]);
+
+export const missionClaims = pgTable("mission_claims", {
+  studentId: uuid("student_id").notNull().references(() => students.id, { onDelete: "cascade" }),
+  missionId: text("mission_id").notNull(),
+  periodKey: text("period_key").notNull(), // dia (YYYY-MM-DD) ou segunda-feira da semana
+  claimedAt: timestamp("claimed_at", { withTimezone: true }).notNull().defaultNow(),
+}, (t) => [primaryKey({ columns: [t.studentId, t.missionId, t.periodKey] })]);

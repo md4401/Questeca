@@ -13,6 +13,8 @@ import { notifyPortal } from "@/lib/portal-notify";
 import { audit, track } from "@/lib/audit";
 import { rulesFrom } from "@/lib/gradebook";
 import { saveGrade } from "@/app/app/turmas/actions";
+import { awardXp } from "@/lib/gamification";
+import { XP_RULES } from "@/lib/core/gamification";
 import type { TaskQuestion } from "@/db/schema";
 import type { FormState } from "@/components/form";
 
@@ -116,6 +118,7 @@ export async function gradeSubmissionAction(classId: string, taskId: string, stu
   if (!sub || sub.status === "draft") return { error: "Este aluno ainda não entregou." };
   await db.update(taskSubmissions).set({ grade: String(grade), feedback: String(fd.get("feedback") ?? "").trim().slice(0, 3000) || null, status: "graded", gradedAt: new Date(), gradedBy: ctx.user.id, updatedAt: new Date() }).where(eq(taskSubmissions.id, sub.id));
   await notifyPortal([studentId], "nota", `Tarefa corrigida: ${task.title}`, undefined, `/portal/tarefas/${task.id}`, { groupKey: `graded:${task.id}:${studentId}` });
+  if (grade >= Number(task.points) && grade > 0) await awardXp({ orgId: cls.orgId, studentId, kind: "task_graded_perfect", refKey: `perfect:task:${task.id}`, points: XP_RULES.task_graded_perfect, label: `Nota máxima: ${task.title}` });
   await audit(ctx.user.id, cls.orgId, "task.graded", sub.id);
   revalidatePath(`/app/turmas/${classId}/tarefas/${taskId}`);
   return { ok: "Correção salva." };

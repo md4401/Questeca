@@ -12,6 +12,10 @@ import { notify, audit } from "@/lib/audit";
 import { isPortalRole } from "@/lib/core/permissions";
 import { validHttpUrl } from "@/lib/core/chat";
 import { MAX_FILE } from "@/lib/task-access";
+import { awardXp } from "@/lib/gamification";
+import { XP_RULES, PARTICIPATION_DAILY_CAP } from "@/lib/core/gamification";
+import { xpEvents } from "@/db/schema";
+import { todayISO } from "@/lib/format";
 import type { FormState } from "@/components/form";
 
 const BLOCKED_TYPES = ["text/html", "image/svg+xml", "application/xhtml+xml", "text/javascript"];
@@ -77,6 +81,10 @@ export async function commentAction(postId: string, _: FormState, fd: FormData):
   const parentId = String(fd.get("parentId") ?? "") || null;
   await db.insert(classComments).values({ postId, authorId: c.ctx.user.id, parentId, body });
   const teachers = await db.select({ u: classTeachers.userId }).from(classTeachers).where(eq(classTeachers.classId, c.post.classId));
+  if (c.kind === "student") {
+    const [me] = await visibleStudents(c.ctx);
+    if (me) { const today = todayISO(); const done = await db.select({ id: xpEvents.id }).from(xpEvents).where(and(eq(xpEvents.studentId, me.id), eq(xpEvents.kind, "participation"), eq(xpEvents.day, today))); if (done.length < PARTICIPATION_DAILY_CAP) await awardXp({ orgId: c.ctx.org.id, studentId: me.id, kind: "participation", refKey: `part:${today}:${done.length + 1}`, points: XP_RULES.participation, label: "Participação no mural" }); }
+  }
   if (c.kind === "student") await Promise.all(teachers.filter((t) => t.u !== c.ctx.user.id).map((t) => notify(t.u, "mensagem", "Novo comentário no mural", undefined, `/app/turmas/${c.post.classId}/mural`, { groupKey: `cmt:${postId}` })));
   revalidatePath(`/app/turmas/${c.post.classId}/mural`); revalidatePath("/portal/mural");
   return { ok: "Comentário enviado." };
