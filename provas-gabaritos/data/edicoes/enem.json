@@ -6377,24 +6377,6 @@
     "aplicacao": "Reaplicação (PPL)"
   },
   {
-    "id": "enem-2012-prova-unica",
-    "instituicao": "enem",
-    "ano": 2012,
-    "nome": "ENEM 2012 · Prova única",
-    "arquivos": [
-      {
-        "tipo": "gabarito",
-        "rotulo": "Gabarito — (cinza)",
-        "url": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2011/06_CINZA_GABARITO.pdf",
-        "formato": "pdf",
-        "versao": "(cinza)"
-      }
-    ],
-    "fonte": "https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos/2012",
-    "fase": "Fase única",
-    "aplicacao": "Aplicação regular"
-  },
-  {
     "id": "enem-2011-1-dia",
     "instituicao": "enem",
     "ano": 2011,

@@ -21,7 +21,7 @@ for s in subs:
         if not arqs:
             pend.append(f"PAS {e['etapa']} {s['periodo']} ({e['anoEtapa']}): etapa sem arquivos de prova/gabarito na API (prova realizada em {det.get('dataProva','?')[:10]})"); continue
         for a in arqs:
-            d = a["descricaoArquivo"]; dn = sem_acento(d)
+            d = re.sub(r"\s+", " ", a["descricaoArquivo"].replace("_", " ")).strip(); d = re.sub(r"\.(pdf|PDF)$", "", d); dn = sem_acento(d)
             if not re.search(r"\.(pdf|zip)$", a["nomeArquivo"], re.I) and a["tipoExtensaoArquivo"].upper() not in ("PDF", "ZIP"): continue
             if re.search(r"justificativa", dn): pend.append(f"{e['anoEtapa']} PAS {e['etapa']}: EXCLUÍDO (justificativas de alteração, não é gabarito): {d[:60]}"); continue
             if re.search(r"gabar?ito|gabrito", dn): tipo, pref = "gabarito", "Gabarito"

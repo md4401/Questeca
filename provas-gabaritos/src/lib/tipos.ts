@@ -53,6 +53,8 @@ export const InstituicaoSchema = z.object({
   paginaProvas: urlSegura.nullable(),
   primeiraEdicao: z.number().int().min(1900).max(2100).nullable(),
   observacao: z.string().max(300).optional(),
+  /** Nomes alternativos e siglas usados na busca (ex.: Unicamp para a COMVEST). */
+  aliases: z.array(z.string().min(2).max(80)).optional(),
 });
 
 export const VerificacaoSchema = z.record(z.string(), z.object({

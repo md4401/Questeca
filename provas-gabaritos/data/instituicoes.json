@@ -8,7 +8,11 @@
     "site": "https://www.gov.br/inep/pt-br",
     "paginaProvas": null,
     "primeiraEdicao": 1998,
-    "observacao": "Provas e gabaritos são publicados pelo Inep."
+    "observacao": "Provas e gabaritos são publicados pelo Inep.",
+    "aliases": [
+      "Inep",
+      "Exame Nacional do Ensino Médio"
+    ]
   },
   {
     "slug": "fuvest",
@@ -18,7 +22,12 @@
     "descricao": "Vestibular da Universidade de São Paulo (USP), em duas fases.",
     "site": "https://www.fuvest.br",
     "paginaProvas": null,
-    "primeiraEdicao": null
+    "primeiraEdicao": null,
+    "aliases": [
+      "USP",
+      "Universidade de São Paulo",
+      "Vestibular USP"
+    ]
   },
   {
     "slug": "comvest",
@@ -29,7 +38,12 @@
     "site": "https://www.comvest.unicamp.br",
     "paginaProvas": "https://www.comvest.unicamp.br/vestibulares-anteriores/",
     "primeiraEdicao": 1987,
-    "observacao": "Acervo oficial a partir do Vestibular 1987. Gabaritos das provas discursivas aparecem como \"respostas esperadas\" publicadas pela banca."
+    "observacao": "Acervo oficial a partir do Vestibular 1987. Gabaritos das provas discursivas aparecem como \"respostas esperadas\" publicadas pela banca.",
+    "aliases": [
+      "Unicamp",
+      "Universidade Estadual de Campinas",
+      "Vestibular Unicamp"
+    ]
   },
   {
     "slug": "vunesp",
@@ -40,7 +54,12 @@
     "site": "https://www.vunesp.com.br",
     "paginaProvas": "https://vestibular.unesp.br/portal#!/arquivo/",
     "primeiraEdicao": null,
-    "observacao": "Catálogo do Vestibular Unesp (portal oficial da Unesp, Arquivo): só 2019–2022 trazem prova/gabarito publicados ali. O site www.vunesp.com.br bloqueia acesso automatizado e as provas recentes ficam na área do candidato (login)."
+    "observacao": "Vestibular Unesp (portal oficial da Unesp): provas/gabaritos só 2019–2022. www.vunesp.com.br bloqueia acesso automatizado (HTTP 403).",
+    "aliases": [
+      "Unesp",
+      "Universidade Estadual Paulista",
+      "Vestibular Unesp"
+    ]
   },
   {
     "slug": "univesp",
@@ -50,7 +69,10 @@
     "descricao": "Vestibular da Univesp para cursos a distância.",
     "site": "https://univesp.br",
     "paginaProvas": null,
-    "primeiraEdicao": null
+    "primeiraEdicao": null,
+    "aliases": [
+      "Universidade Virtual do Estado de São Paulo"
+    ]
   },
   {
     "slug": "fatec",
@@ -58,10 +80,15 @@
     "sigla": "Fatec",
     "categoria": "vestibular",
     "descricao": "Vestibular das Fatecs, do Centro Paula Souza.",
-    "site": null,
+    "site": "https://vestibular.fatec.sp.gov.br",
     "paginaProvas": null,
     "primeiraEdicao": null,
-    "observacao": "Endereço oficial a confirmar."
+    "observacao": "Endereço oficial a confirmar.",
+    "aliases": [
+      "Faculdade de Tecnologia",
+      "Centro Paula Souza",
+      "CPS"
+    ]
   },
   {
     "slug": "uerj",
@@ -69,9 +96,14 @@
     "sigla": "UERJ",
     "categoria": "vestibular",
     "descricao": "Vestibular da UERJ, com exame de qualificação e exame discursivo.",
-    "site": "https://vestibular.uerj.br",
-    "paginaProvas": null,
-    "primeiraEdicao": null
+    "site": "https://www.vestibular.uerj.br",
+    "paginaProvas": "https://www.vestibular.uerj.br/?page_id=7069",
+    "primeiraEdicao": 2012,
+    "aliases": [
+      "Universidade do Estado do Rio de Janeiro",
+      "Vestibular Estadual do Rio de Janeiro"
+    ],
+    "observacao": "Acervo oficial localizado a partir de 2012 (provas e gabaritos anteriores); 1º e 2º Exame de Qualificação, Exame Discursivo e Exame Único (2021–2023)."
   },
   {
     "slug": "ufpr",
@@ -79,9 +111,15 @@
     "sigla": "UFPR",
     "categoria": "vestibular",
     "descricao": "Vestibular da UFPR, realizado pelo Núcleo de Concursos (NC-UFPR).",
-    "site": "https://www.nc.ufpr.br",
+    "site": "https://servicos.nc.ufpr.br/PortalNC/Home",
     "paginaProvas": null,
-    "primeiraEdicao": null
+    "primeiraEdicao": null,
+    "aliases": [
+      "Universidade Federal do Paraná",
+      "NC UFPR",
+      "Núcleo de Concursos"
+    ],
+    "observacao": "Portal do Núcleo de Concursos publica pouquíssimas provas (apenas 2 documentos localizados)."
   },
   {
     "slug": "ufrgs",
@@ -89,9 +127,14 @@
     "sigla": "UFRGS",
     "categoria": "vestibular",
     "descricao": "Vestibular da UFRGS, organizado pela Coperse.",
-    "site": "https://www.ufrgs.br/coperse",
+    "site": "https://www.ufrgs.br/coperse/",
     "paginaProvas": null,
-    "primeiraEdicao": null
+    "primeiraEdicao": null,
+    "aliases": [
+      "Universidade Federal do Rio Grande do Sul",
+      "COPERSE"
+    ],
+    "observacao": "Site oficial inacessível a partir do ambiente de coleta (conexão encerrada); nada foi coletado."
   },
   {
     "slug": "pas-unb",
@@ -99,9 +142,18 @@
     "sigla": "PAS/UnB",
     "categoria": "vestibular",
     "descricao": "Avaliação seriada em três etapas para ingresso na Universidade de Brasília.",
-    "site": "https://www.cebraspe.org.br",
-    "paginaProvas": null,
-    "primeiraEdicao": null
+    "site": "https://www.cebraspe.org.br/pas/",
+    "paginaProvas": "https://www.cebraspe.org.br/pas/subprogramas",
+    "primeiraEdicao": 2014,
+    "aliases": [
+      "PAS",
+      "UnB",
+      "Universidade de Brasília",
+      "Cebraspe",
+      "Cespe",
+      "Programa de Avaliação Seriada"
+    ],
+    "observacao": "Só o PAS (3 etapas por subprograma); vestibular tradicional da UnB fora do escopo."
   },
   {
     "slug": "ita",
@@ -109,10 +161,13 @@
     "sigla": "ITA",
     "categoria": "militar",
     "descricao": "Vestibular do ITA, em quatro fases, com provas de Matemática, Física, Química, Português e Inglês.",
-    "site": null,
-    "paginaProvas": null,
-    "primeiraEdicao": null,
-    "observacao": "Endereço oficial a confirmar."
+    "site": "https://www.vestibular.ita.br",
+    "paginaProvas": "https://www.vestibular.ita.br/provas.htm",
+    "primeiraEdicao": 2008,
+    "observacao": "Acervo oficial listado a partir de 2008 ('alguns anos anteriores').",
+    "aliases": [
+      "Instituto Tecnológico de Aeronáutica"
+    ]
   },
   {
     "slug": "ime",
@@ -122,7 +177,12 @@
     "descricao": "Concurso de admissão ao IME, com provas objetivas e discursivas.",
     "site": "https://www.ime.eb.br",
     "paginaProvas": null,
-    "primeiraEdicao": null
+    "primeiraEdicao": null,
+    "aliases": [
+      "Instituto Militar de Engenharia",
+      "Exército"
+    ],
+    "observacao": "Site oficial inacessível a partir do ambiente de coleta; nada foi coletado."
   },
   {
     "slug": "espcex",
@@ -132,7 +192,13 @@
     "descricao": "Concurso de admissão à EsPCEx, do Exército Brasileiro.",
     "site": "https://www.espcex.eb.mil.br",
     "paginaProvas": null,
-    "primeiraEdicao": null
+    "primeiraEdicao": null,
+    "aliases": [
+      "Escola Preparatória de Cadetes do Exército",
+      "Exército",
+      "Cadetes"
+    ],
+    "observacao": "Site oficial inacessível a partir do ambiente de coleta; nada foi coletado."
   },
   {
     "slug": "afa",
@@ -140,10 +206,15 @@
     "sigla": "AFA",
     "categoria": "militar",
     "descricao": "Concurso de admissão à Academia da Força Aérea.",
-    "site": null,
+    "site": "https://www.fab.mil.br",
     "paginaProvas": null,
     "primeiraEdicao": null,
-    "observacao": "Endereço oficial a confirmar."
+    "observacao": "Site da FAB protegido por desafio anti-bot (Cloudflare), não contornado; nada foi coletado.",
+    "aliases": [
+      "Academia da Força Aérea",
+      "Força Aérea Brasileira",
+      "FAB"
+    ]
   },
   {
     "slug": "fgv",
@@ -151,9 +222,14 @@
     "sigla": "FGV",
     "categoria": "faculdade-privada",
     "descricao": "Vestibular e processos seletivos da FGV.",
-    "site": "https://www.fgv.br",
-    "paginaProvas": null,
-    "primeiraEdicao": null
+    "site": "https://vestibular.fgv.br",
+    "paginaProvas": "https://vestibular.fgv.br/provas-gabaritos",
+    "primeiraEdicao": null,
+    "aliases": [
+      "Fundação Getulio Vargas",
+      "Getúlio Vargas"
+    ],
+    "observacao": "A página oficial 'Provas e Gabaritos' não lista arquivos na data da coleta."
   },
   {
     "slug": "insper",
@@ -163,7 +239,11 @@
     "descricao": "Processo seletivo do Insper para graduação.",
     "site": "https://www.insper.edu.br",
     "paginaProvas": null,
-    "primeiraEdicao": null
+    "primeiraEdicao": null,
+    "aliases": [
+      "Insper Instituto de Ensino e Pesquisa"
+    ],
+    "observacao": "Site oficial bloqueia acesso automatizado (Akamai, HTTP 403), não contornado; nada foi coletado."
   },
   {
     "slug": "puc-sp",
@@ -172,8 +252,15 @@
     "categoria": "faculdade-privada",
     "descricao": "Vestibular da PUC-SP.",
     "site": "https://www.pucsp.br",
-    "paginaProvas": null,
-    "primeiraEdicao": null
+    "paginaProvas": "https://nucvest.com.br/processos-anteriores.html",
+    "primeiraEdicao": null,
+    "aliases": [
+      "PUC",
+      "PUCSP",
+      "Pontifícia Universidade Católica de São Paulo",
+      "NucVest"
+    ],
+    "observacao": "Vestibulares publicados pelo NucVest (organizador oficial): Verão/Inverno, 2015–2027, de forma parcial."
   },
   {
     "slug": "mackenzie",
@@ -182,8 +269,14 @@
     "categoria": "faculdade-privada",
     "descricao": "Vestibular do Mackenzie.",
     "site": "https://www.mackenzie.br",
-    "paginaProvas": null,
-    "primeiraEdicao": null
+    "paginaProvas": "https://www.mackenzie.br/processos-seletivos/vestibular-graduacao/sao-paulo-higienopolis",
+    "primeiraEdicao": null,
+    "aliases": [
+      "Universidade Presbiteriana Mackenzie",
+      "UPM",
+      "Presbiteriana"
+    ],
+    "observacao": "Só a edição mais recente (2026/2) está publicada nas páginas oficiais."
   },
   {
     "slug": "einstein",
@@ -191,9 +284,16 @@
     "sigla": "Albert Einstein",
     "categoria": "faculdade-privada",
     "descricao": "Processo seletivo da Faculdade Albert Einstein (graduação em Medicina e Enfermagem).",
-    "site": "https://www.einstein.br",
+    "site": "https://ensino.einstein.br",
     "paginaProvas": null,
-    "primeiraEdicao": null
+    "primeiraEdicao": null,
+    "aliases": [
+      "Albert Einstein",
+      "Faculdade Israelita de Ciências da Saúde Albert Einstein",
+      "Medicina Einstein",
+      "FICSAE"
+    ],
+    "observacao": "Páginas oficiais de vestibular exigem JavaScript/estão bloqueadas; nenhum arquivo localizado."
   },
   {
     "slug": "espm",
@@ -202,7 +302,11 @@
     "categoria": "faculdade-privada",
     "descricao": "Vestibular da ESPM.",
     "site": "https://www.espm.br",
-    "paginaProvas": null,
-    "primeiraEdicao": null
+    "paginaProvas": "https://www.espm.br/cursos-de-graduacao/processos-seletivos/vestibular/",
+    "primeiraEdicao": null,
+    "aliases": [
+      "Escola Superior de Propaganda e Marketing"
+    ],
+    "observacao": "Só as provas dos dois últimos semestres (2026/1 e 2026/2) estão publicadas."
   }
 ]
