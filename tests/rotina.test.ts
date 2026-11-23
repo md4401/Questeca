@@ -1,7 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { summarize, isLow } from "@/lib/core/attendance";
 import { expand, slotConflicts, weekStart, isoWeekday, fromSP, spISO, type EventLike } from "@/lib/core/calendar";
-import { studentStatus, canSubmit, autoScore, validateQuestions } from "@/lib/core/tasks";
 
 describe("frequência", () => {
   it("só conta chamadas registradas e falta justificada não é presença", () => {
@@ -40,34 +39,3 @@ describe("agenda", () => {
   });
 });
 
-describe("tarefas", () => {
-  const due = new Date("2026-03-10T15:00:00Z"); const before = new Date("2026-03-09T12:00:00Z"); const after = new Date("2026-03-11T12:00:00Z");
-  const t = { status: "published", dueAt: due, allowLate: true, allowResubmit: false };
-  it("estados sem confundir atraso com nota", () => {
-    expect(studentStatus(t, null, before)).toBe("pendente");
-    expect(studentStatus(t, null, after)).toBe("atrasada");
-    expect(studentStatus(t, { status: "draft", submittedAt: null, grade: null }, before)).toBe("rascunho");
-    expect(studentStatus(t, { status: "submitted", submittedAt: before, grade: null }, after)).toBe("entregue");
-    expect(studentStatus(t, { status: "late", submittedAt: after, grade: null }, after)).toBe("entregue_atrasada");
-    expect(studentStatus(t, { status: "graded", submittedAt: before, grade: "8" }, after)).toBe("corrigida");
-  });
-  it("regras de entrega: prazo, atraso, reenvio e rascunho", () => {
-    expect(canSubmit(t, null, before)).toEqual({ ok: true, late: false });
-    expect(canSubmit(t, null, after)).toEqual({ ok: true, late: true });
-    expect(canSubmit({ ...t, allowLate: false }, null, after)).toMatchObject({ ok: false });
-    expect(canSubmit({ ...t, status: "draft" }, null, before)).toMatchObject({ ok: false });
-    expect(canSubmit({ ...t, status: "closed" }, null, before)).toMatchObject({ ok: false });
-    const sent = { status: "submitted", submittedAt: before, grade: null };
-    expect(canSubmit(t, sent, before)).toMatchObject({ ok: false });
-    expect(canSubmit({ ...t, allowResubmit: true }, sent, before)).toEqual({ ok: true, late: false });
-    expect(canSubmit({ ...t, allowResubmit: true }, { ...sent, status: "graded" }, before)).toMatchObject({ ok: false });
-  });
-  it("correção automática de múltipla escolha e validação", () => {
-    const qs = [{ id: "a", type: "mc" as const, prompt: "1+1", options: ["1", "2"], answer: 1, points: 2 }, { id: "b", type: "mc" as const, prompt: "2+2", options: ["3", "4"], answer: 1, points: 3 }, { id: "c", type: "text" as const, prompt: "Explique", points: 5 }];
-    expect(autoScore(qs, { a: 1, b: 0, c: "texto" })).toEqual({ score: 2, auto: 5, manual: 5, needsReview: true });
-    expect(autoScore(qs.slice(0, 2), { a: 1, b: 1 })).toMatchObject({ score: 5, needsReview: false });
-    expect(validateQuestions(qs)).toBeNull();
-    expect(validateQuestions([{ id: "x", type: "mc", prompt: "?", options: ["a"], answer: 0, points: 1 }])).toMatch(/duas alternativas/);
-    expect(validateQuestions([{ id: "x", type: "mc", prompt: "?", options: ["a", "b"], points: 1 }])).toMatch(/correta/);
-  });
-});

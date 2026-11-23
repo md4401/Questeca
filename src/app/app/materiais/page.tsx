@@ -9,7 +9,7 @@ import { addMaterialAction, deleteMaterialAction, useAsTheoryAction, approveMate
 import { fmtDateTime } from "@/lib/format";
 
 export const metadata = { title: "Materiais" };
-const VIS: Record<string, string> = { private: "Só eu", class: "Alunos da turma", school: "Professores da escola" };
+const VIS: Record<string, string> = { private: "Só eu", school: "Professores da escola" };
 const KIND: Record<string, string> = { didatico: "Material didático", teoria: "Teoria de referência", planejamento: "Planejamento", prova_exportada: "Prova exportada", outro: "Outro" };
 
 export default async function Materiais({ searchParams }: { searchParams: Promise<{ tipo?: string; turma?: string; tag?: string }> }) {
@@ -43,7 +43,7 @@ export default async function Materiais({ searchParams }: { searchParams: Promis
           <Field label="Título" name="title" />
           <div className="field"><label htmlFor="kind">Tipo</label><select id="kind" name="kind" className="input">{Object.entries(KIND).map(([k, v]) => <option key={k} value={k}>{v}</option>)}</select></div>
           <div className="field"><label htmlFor="classId">Turma (opcional)</label><select id="classId" name="classId" className="input"><option value="">—</option>{cls.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}</select></div>
-          <div className="field"><label htmlFor="visibility">Compartilhar com</label><select id="visibility" name="visibility" className="input" defaultValue="private"><option value="private">Só eu</option><option value="class">Alunos da turma escolhida</option><option value="school">Professores da escola</option></select></div>
+          <div className="field"><label htmlFor="visibility">Compartilhar com</label><select id="visibility" name="visibility" className="input" defaultValue="private"><option value="private">Só eu</option><option value="school">Professores da escola</option></select></div>
           <Field label="Disciplina (opcional)" name="subject" />
           <Field label="Etiquetas (separadas por vírgula)" name="tags" />
           <div className="field"><label htmlFor="description">Descrição</label><input id="description" name="description" className="input" /></div>

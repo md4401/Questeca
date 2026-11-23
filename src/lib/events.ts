@@ -1,10 +1,10 @@
 import "server-only";
 import { and, eq, gte, inArray, isNotNull, lte, or } from "drizzle-orm";
 import { db } from "@/db";
-import { calendarEvents, timetableSlots, classes, notifications, tasks } from "@/db/schema";
+import { calendarEvents, timetableSlots, classes, notifications } from "@/db/schema";
 import { expand, type EventLike, type Occurrence } from "@/lib/core/calendar";
 import { notify } from "@/lib/audit";
-import { anyOf } from "@/lib/portal";
+import { anyOf } from "@/lib/util";
 
 /** Eventos visíveis: da escola, das turmas indicadas e pessoais do próprio usuário. */
 export async function loadOccurrences(opts: { orgId: string; userId: string; classIds: string[]; from: Date; to: Date }): Promise<Occurrence[]> {
@@ -38,14 +38,8 @@ export async function ensureReminders(opts: { orgId: string; userId: string; cla
 
 export type AgendaItem = { key: string; title: string; category: string; scope: string; start: Date; end: Date | null; allDay: boolean; href?: string };
 
-/** Agenda da semana: eventos (com recorrência) + prazos de tarefas publicadas. */
-export async function loadAgenda(opts: { orgId: string; userId: string; classIds: string[]; from: Date; to: Date; taskHref: (id: string, classId: string) => string }): Promise<AgendaItem[]> {
+/** Agenda da semana: eventos (com recorrência) visíveis ao usuário. */
+export async function loadAgenda(opts: { orgId: string; userId: string; classIds: string[]; from: Date; to: Date }): Promise<AgendaItem[]> {
   const occ = await loadOccurrences(opts);
-  const ts = await db.select({ id: tasks.id, title: tasks.title, dueAt: tasks.dueAt, classId: tasks.classId }).from(tasks)
-    .where(and(eq(tasks.orgId, opts.orgId), inArray(tasks.classId, anyOf(opts.classIds)), eq(tasks.status, "published"), isNotNull(tasks.dueAt), gte(tasks.dueAt, opts.from), lte(tasks.dueAt, opts.to)));
-  const items: AgendaItem[] = [
-    ...occ.map((o) => ({ key: o.key, title: o.title, category: o.category, scope: o.scope, start: o.start, end: o.end, allDay: o.allDay })),
-    ...ts.map((t) => ({ key: `task:${t.id}`, title: `Prazo: ${t.title}`, category: "tarefa", scope: "class", start: t.dueAt!, end: null, allDay: false, href: opts.taskHref(t.id, t.classId) })),
-  ];
-  return items.sort((a, b) => a.start.getTime() - b.start.getTime());
+  return occ.map((o) => ({ key: o.key, title: o.title, category: o.category, scope: o.scope, start: o.start, end: o.end, allDay: o.allDay }));
 }

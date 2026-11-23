@@ -1,65 +1,24 @@
 import "server-only";
 import { and, eq, inArray, isNull, gt, ne, sql, count } from "drizzle-orm";
 import { db } from "@/db";
-import { memberships, users, classTeachers, enrollments, classes, studentAccounts, guardianLinks, students, conversations, conversationMembers, messages, chatBlocks } from "@/db/schema";
+import { memberships, users, conversations, conversationMembers, messages, chatBlocks } from "@/db/schema";
 import type { Ctx } from "@/lib/session";
-import { visibleStudents, anyOf } from "@/lib/portal";
-import { visibleClasses } from "@/lib/access";
-import { canStart, policyFrom, isStaff, type ChatRole, type Policy } from "@/lib/core/chat";
 
-export type Contact = { userId: string; name: string; role: ChatRole; detail: string };
-export const policyOf = (ctx: Ctx): Policy => policyFrom(ctx.org.settings.chat);
+export type Contact = { userId: string; name: string; role: "admin" | "coordinator" | "teacher"; detail: string };
 
-/** Quem este usuário pode procurar para conversar. Já aplica a política da escola; o envio revalida. */
+/** Colegas da escola ativa com quem se pode conversar (professores, coordenação e gestão). */
 export async function allowedContacts(ctx: Ctx): Promise<Contact[]> {
-  const policy = policyOf(ctx);
-  const role = ctx.org.role as ChatRole;
-  const out = new Map<string, Contact>();
-  const add = (c: Contact) => { if (c.userId !== ctx.user.id && !out.has(c.userId)) out.set(c.userId, c); };
-  const staffRows = await db.select({ id: users.id, name: users.name, role: memberships.role }).from(memberships).innerJoin(users, eq(users.id, memberships.userId))
+  const rows = await db.select({ id: users.id, name: users.name, role: memberships.role }).from(memberships).innerJoin(users, eq(users.id, memberships.userId))
     .where(and(eq(memberships.orgId, ctx.org.id), eq(memberships.status, "active"), inArray(memberships.role, ["admin", "coordinator", "teacher"])));
-  if (isStaff(role)) {
-    for (const r of staffRows) add({ userId: r.id, name: r.name, role: r.role as ChatRole, detail: r.role === "teacher" ? "Professor" : r.role === "coordinator" ? "Coordenação" : "Gestão" });
-    const cls = role === "admin" ? [] : await visibleClasses(ctx);
-    const classIds = cls.map((c) => c.id);
-    if (classIds.length) {
-      const enr = await db.select({ studentId: enrollments.studentId, classId: enrollments.classId }).from(enrollments).where(and(inArray(enrollments.classId, classIds), eq(enrollments.status, "active")));
-      const sids = [...new Set(enr.map((e) => e.studentId))];
-      if (sids.length) {
-        const [acc, gl, st] = await Promise.all([
-          db.select({ u: studentAccounts.userId, s: studentAccounts.studentId, n: users.name }).from(studentAccounts).innerJoin(users, eq(users.id, studentAccounts.userId)).where(inArray(studentAccounts.studentId, sids)),
-          db.select({ u: guardianLinks.userId, s: guardianLinks.studentId, n: users.name }).from(guardianLinks).innerJoin(users, eq(users.id, guardianLinks.userId)).where(inArray(guardianLinks.studentId, sids)),
-          db.select({ id: students.id, name: students.name }).from(students).where(inArray(students.id, sids)),
-        ]);
-        const sname = (id: string) => st.find((x) => x.id === id)?.name ?? "";
-        for (const a of acc) add({ userId: a.u, name: a.n, role: "student", detail: `Aluno(a) · ${sname(a.s)}` });
-        for (const g of gl) add({ userId: g.u, name: g.n, role: "guardian", detail: `Responsável de ${sname(g.s)}` });
-      }
-    }
-    return [...out.values()];
-  }
-  // aluno/responsável: equipe das turmas do estudante (+ coordenação), conforme a política
-  const mine = await visibleStudents(ctx);
-  const sids = mine.map((m) => m.id);
-  const cls = sids.length ? await db.select({ classId: enrollments.classId }).from(enrollments).where(and(inArray(enrollments.studentId, anyOf(sids)), eq(enrollments.status, "active"))) : [];
-  const classIds = [...new Set(cls.map((c) => c.classId))];
-  const teachers = classIds.length ? await db.select({ u: classTeachers.userId, c: classes.name }).from(classTeachers).innerJoin(classes, eq(classes.id, classTeachers.classId)).where(inArray(classTeachers.classId, classIds)) : [];
-  for (const t of teachers) {
-    const r = staffRows.find((s) => s.id === t.u); if (!r) continue;
-    if (canStart(role, r.role as ChatRole, true, policy).ok) add({ userId: r.id, name: r.name, role: r.role as ChatRole, detail: `Professor · ${t.c}` });
-  }
-  for (const r of staffRows) if (r.role === "coordinator" && canStart(role, "coordinator", true, policy).ok) add({ userId: r.id, name: r.name, role: "coordinator", detail: "Coordenação" });
-  return [...out.values()];
+  return rows.filter((r) => r.id !== ctx.user.id).map((r) => ({ userId: r.id, name: r.name, role: r.role as Contact["role"], detail: r.role === "teacher" ? "Professor" : r.role === "coordinator" ? "Coordenação" : "Gestão" }));
 }
 
 export async function isBlocked(orgId: string, senderId: string, otherIds: string[]) {
-  const rows = await db.select().from(chatBlocks).where(and(eq(chatBlocks.orgId, orgId)));
-  const inst = rows.some((b) => b.blockerId === null && b.blockedId === senderId);
-  const personal = rows.some((b) => b.blockerId !== null && otherIds.includes(b.blockerId) && b.blockedId === senderId);
-  return { inst, personal };
+  const rows = await db.select().from(chatBlocks).where(eq(chatBlocks.orgId, orgId));
+  return { inst: rows.some((b) => b.blockerId === null && b.blockedId === senderId), personal: rows.some((b) => b.blockerId !== null && otherIds.includes(b.blockerId) && b.blockedId === senderId) };
 }
 
-/** Mensagens não lidas do usuário (de outras pessoas, em conversas que ele integra e não silenciou). */
+/** Mensagens não lidas (de outras pessoas, em conversas de que participa). */
 export async function unreadMessages(userId: string): Promise<number> {
   const [r] = await db.select({ n: count() }).from(messages)
     .innerJoin(conversationMembers, and(eq(conversationMembers.conversationId, messages.conversationId), eq(conversationMembers.userId, userId)))
@@ -68,7 +27,7 @@ export async function unreadMessages(userId: string): Promise<number> {
 }
 
 export async function myConversations(userId: string, orgId: string) {
-  const rows = await db.select({ c: conversations, lastReadAt: conversationMembers.lastReadAt, muted: conversationMembers.muted }).from(conversationMembers)
+  const rows = await db.select({ c: conversations, muted: conversationMembers.muted }).from(conversationMembers)
     .innerJoin(conversations, eq(conversations.id, conversationMembers.conversationId))
     .where(and(eq(conversationMembers.userId, userId), eq(conversations.orgId, orgId), isNull(conversationMembers.leftAt))).orderBy(sql`${conversations.lastMessageAt} desc`).limit(50);
   const ids = rows.map((r) => r.c.id);

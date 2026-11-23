@@ -3,11 +3,10 @@ import { revalidatePath } from "next/cache";
 import { and, eq } from "drizzle-orm";
 import { z } from "zod";
 import { db } from "@/db";
-import { calendarEvents, timetableSlots, classTeachers, enrollments } from "@/db/schema";
+import { calendarEvents, timetableSlots, classTeachers } from "@/db/schema";
 import { requireCtx } from "@/lib/session";
 import { loadClass } from "@/lib/access";
 import { fromSP, validTime, slotConflicts, type Slot } from "@/lib/core/calendar";
-import { notifyPortal } from "@/lib/portal-notify";
 import { audit } from "@/lib/audit";
 import type { FormState } from "@/components/form";
 
@@ -37,10 +36,6 @@ export async function createEventAction(_: FormState, fd: FormData): Promise<For
     orgId: ctx.org.id, scope: d.scope, classId, ownerId: d.scope === "personal" ? ctx.user.id : null, title: d.title, description: d.description || null, category: d.category,
     startsAt, endsAt, allDay, recurrence: d.freq === "none" ? null : { freq: d.freq, until: d.until! }, reminderMin: d.reminder ? Number(d.reminder) || null : null, createdBy: ctx.user.id,
   }).returning();
-  if (d.scope === "class" && classId) {
-    const ids = (await db.select({ s: enrollments.studentId }).from(enrollments).where(and(eq(enrollments.classId, classId), eq(enrollments.status, "active")))).map((r) => r.s);
-    await notifyPortal(ids, "evento", `Novo evento: ${d.title}`, undefined, "/portal/agenda", { groupKey: `evt:${ev.id}` });
-  }
   await audit(ctx.user.id, ctx.org.id, "event.created", ev.id);
   revalidatePath("/app/agenda");
   return { ok: "Evento criado." };
@@ -76,8 +71,6 @@ export async function createSlotAction(_: FormState, fd: FormData): Promise<Form
   const conflicts = slotConflicts(slot, existing.map((s) => ({ id: s.id, classId: s.classId, teacherId: s.teacherId, room: s.room, weekday: s.weekday, startTime: s.startTime, endTime: s.endTime })));
   if (conflicts.length) return { error: `Conflito de horário: ${[...new Set(conflicts.map((c) => c.kind))].join(", ")} já ocupado(a) nesse intervalo (${conflicts[0].with.startTime}–${conflicts[0].with.endTime}).` };
   await db.insert(timetableSlots).values({ orgId: ctx.org.id, classId: cls.id, subject: d.subject || cls.subject, teacherId, weekday: d.weekday, startTime: d.startTime, endTime: d.endTime, room: d.room || null, createdBy: ctx.user.id });
-  const ids = (await db.select({ s: enrollments.studentId }).from(enrollments).where(and(eq(enrollments.classId, cls.id), eq(enrollments.status, "active")))).map((r) => r.s);
-  await notifyPortal(ids, "evento", "Horário de aulas atualizado", undefined, "/portal/agenda", { groupKey: `slot:${cls.id}` });
   revalidatePath("/app/horarios");
   return { ok: "Horário adicionado." };
 }

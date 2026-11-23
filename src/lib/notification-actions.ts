@@ -10,12 +10,12 @@ import type { FormState } from "@/components/form";
 export async function markNotificationAction(id: string) {
   const ctx = await requireAnyCtx();
   await db.update(notifications).set({ readAt: new Date() }).where(and(eq(notifications.id, id), eq(notifications.userId, ctx.user.id)));
-  revalidatePath("/app", "layout"); revalidatePath("/portal", "layout");
+  revalidatePath("/app", "layout");
 }
 export async function markAllNotificationsAction() {
   const ctx = await requireAnyCtx();
   await db.update(notifications).set({ readAt: new Date() }).where(eq(notifications.userId, ctx.user.id));
-  revalidatePath("/app", "layout"); revalidatePath("/portal", "layout");
+  revalidatePath("/app", "layout");
 }
 /** Preferências por categoria. Segurança e pagamento não podem ser silenciados. */
 export async function saveNotificationPrefsAction(_: FormState, fd: FormData): Promise<FormState> {
@@ -23,6 +23,6 @@ export async function saveNotificationPrefsAction(_: FormState, fd: FormData): P
   const cats = Object.keys(NOTIFY_LABEL) as NotifyCategory[];
   const mute = cats.filter((c) => c !== "seguranca" && c !== "pagamento" && fd.get(`c_${c}`) !== "on");
   await db.update(users).set({ prefs: { ...(ctx.user.prefs ?? {}), mute } }).where(eq(users.id, ctx.user.id));
-  revalidatePath("/app", "layout"); revalidatePath("/portal", "layout");
+  revalidatePath("/app", "layout");
   return { ok: "Preferências salvas." };
 }

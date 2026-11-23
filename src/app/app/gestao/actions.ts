@@ -3,7 +3,7 @@ import { revalidatePath } from "next/cache";
 import { and, eq } from "drizzle-orm";
 import { z } from "zod";
 import { db } from "@/db";
-import { students, classes, enrollments, enrollmentHistory, accessInvites, classTeachers } from "@/db/schema";
+import { students, classes, enrollments, enrollmentHistory, classTeachers } from "@/db/schema";
 import { requireCtx } from "@/lib/session";
 import { audit } from "@/lib/audit";
 import type { FormState } from "@/components/form";
@@ -43,13 +43,6 @@ export async function transferStudentAction(studentId: string, _: FormState, fd:
   await audit(ctx.user.id, ctx.org.id, "student.transferred", st.id, { from: from.id, to: to.id });
   revalidatePath("/app/gestao");
   return { ok: `${st.name} agora está em ${to.name}.` };
-}
-
-export async function revokeAccessInviteAction(id: string) {
-  const ctx = await manager();
-  await db.update(accessInvites).set({ revokedAt: new Date() }).where(and(eq(accessInvites.id, id), eq(accessInvites.orgId, ctx.org.id)));
-  await audit(ctx.user.id, ctx.org.id, "access.invite_revoked", id);
-  revalidatePath("/app/gestao");
 }
 
 /** Cria as turmas do próximo ano letivo (sem alunos), mantendo nome, série e disciplina, e atribuindo os mesmos professores. */

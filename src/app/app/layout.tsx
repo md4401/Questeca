@@ -10,8 +10,7 @@ import { db } from "@/db";
 import { notifications } from "@/db/schema";
 import { logoutAction, resendVerificationAction } from "@/lib/auth-actions";
 import { switchOrgAction } from "./actions";
-import { ROLE_LABEL, isPortalRole } from "@/lib/core/permissions";
-import { redirect } from "next/navigation";
+import { ROLE_LABEL } from "@/lib/core/permissions";
 import { SubmitButton } from "@/components/form";
 import { unreadMessages } from "@/lib/chat";
 
@@ -19,7 +18,6 @@ type Item = { href: string; label: string; icon: IconName };
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
   const ctx = await requireCtx();
-  if (isPortalRole(ctx.org.role)) redirect("/portal");
   const [n] = await db.select({ c: count() }).from(notifications).where(and(eq(notifications.userId, ctx.user.id), isNull(notifications.readAt)));
   const unread = Number(n?.c ?? 0);
   const msgs = await unreadMessages(ctx.user.id);
@@ -37,7 +35,6 @@ export default async function AppLayout({ children }: { children: React.ReactNod
     { href: "/app/documentos", label: "Coordenação", icon: "coord" },
     { href: "/app/comunidade", label: "Comunidade", icon: "chat" },
     { href: "/app/materiais", label: "Materiais", icon: "material" },
-    { href: "/app/videoaulas", label: "Videoaulas", icon: "video" },
     ...(ctx.org.kind === "school" && (role === "admin" || role === "coordinator") ? [{ href: "/app/escola", label: "Escola", icon: "escola" as const }, { href: "/app/gestao", label: "Gestão acadêmica", icon: "turmas" as const }] : []),
     ...(ctx.org.kind === "personal" ? [{ href: "/app/escola", label: "Modelos e regras", icon: "ajustes" as const }] : []),
     ...(ctx.user.isStaff ? [{ href: "/admin", label: "Área interna", icon: "interno" as const }] : []),

@@ -87,7 +87,7 @@ export async function requireAnyCtx(): Promise<Ctx> {
 /** Padrão das telas e ações da equipe: aluno e responsável são desviados para o portal (nega por padrão). */
 export async function requireCtx(): Promise<Ctx> {
   const ctx = await requireAnyCtx();
-  if (ctx.org.role === "student" || ctx.org.role === "guardian") redirect("/portal");
+  if (ctx.org.role === "student" || ctx.org.role === "guardian") redirect("/entrar");
   return ctx;
 }
 

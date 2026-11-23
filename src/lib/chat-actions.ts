@@ -3,15 +3,14 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { and, eq, isNull, inArray } from "drizzle-orm";
 import { db } from "@/db";
-import { conversations, conversationMembers, messages, messageReactions, taskAttachments, contentReports, chatBlocks, memberships, enrollments, studentAccounts, classTeachers } from "@/db/schema";
-import { requireAnyCtx } from "@/lib/session";
-import { allowedContacts, policyOf, isBlocked } from "@/lib/chat";
-import { canStart, canPostInGroup, withinHours, directKey, attachmentProblem, canEdit, isStaff, REACTIONS, type ChatRole } from "@/lib/core/chat";
-import { loadClass } from "@/lib/access";
+import { conversations, conversationMembers, messages, messageReactions, taskAttachments, contentReports, chatBlocks, memberships } from "@/db/schema";
+import { requireCtx as requireAnyCtx } from "@/lib/session";
+import { allowedContacts, isBlocked } from "@/lib/chat";
+import { directKey, attachmentProblem, canEdit, REACTIONS } from "@/lib/core/chat";
 import { notify, audit } from "@/lib/audit";
 import type { FormState } from "@/components/form";
 
-const base = (role: string) => (role === "student" || role === "guardian" ? "/portal/chat" : "/app/chat");
+const base = (_role: string) => "/app/chat";
 async function memberOf(convId: string, userId: string) {
   if (!/^[0-9a-f-]{36}$/i.test(convId)) return null;
   const [m] = await db.select().from(conversationMembers).where(and(eq(conversationMembers.conversationId, convId), eq(conversationMembers.userId, userId), isNull(conversationMembers.leftAt))).limit(1);
@@ -25,8 +24,6 @@ export async function startDirectAction(_: FormState, fd: FormData): Promise<For
   const contacts = await allowedContacts(ctx);
   const c = contacts.find((x) => x.userId === to);
   if (!c) return { error: "Você não pode conversar com esta pessoa." };
-  const v = canStart(ctx.org.role as ChatRole, c.role, true, policyOf(ctx));
-  if (!v.ok) return { error: v.reason };
   const blocked = await isBlocked(ctx.org.id, ctx.user.id, [to]);
   if (blocked.inst || blocked.personal) return { error: "Você não pode enviar mensagens para este contato." };
   const key = directKey(ctx.user.id, to);
@@ -44,43 +41,24 @@ export async function startDirectAction(_: FormState, fd: FormData): Promise<For
 /** Grupo da equipe (professores/coordenação) com títulos livres. */
 export async function createGroupAction(_: FormState, fd: FormData): Promise<FormState> {
   const ctx = await requireAnyCtx();
-  if (!isStaff(ctx.org.role as ChatRole)) return { error: "Somente a equipe cria grupos." };
   const title = String(fd.get("title") ?? "").trim().slice(0, 100);
   if (title.length < 2) return { error: "Dê um nome ao grupo." };
   const ids = fd.getAll("members").map(String);
   const contacts = await allowedContacts(ctx);
-  const members = ids.filter((id) => contacts.some((c) => c.userId === id && (isStaff(c.role)))); // grupos livres: só equipe
+  const members = ids.filter((id) => contacts.some((c) => c.userId === id && (true))); // grupos livres: só equipe
   if (members.length === 0) return { error: "Escolha ao menos um colega da equipe." };
   const [conv] = await db.insert(conversations).values({ orgId: ctx.org.id, kind: "group", title, createdBy: ctx.user.id }).returning();
   await db.insert(conversationMembers).values([ctx.user.id, ...members].map((u) => ({ conversationId: conv.id, userId: u })));
   redirect(`${base(ctx.org.role)}/${conv.id}`);
 }
 
-/** Grupo da turma: só quando a escola habilitou. Reúne a equipe da turma e os alunos com conta. */
-export async function createClassGroupAction(classId: string) {
-  const ctx = await requireAnyCtx();
-  if (!isStaff(ctx.org.role as ChatRole)) return;
-  if (!policyOf(ctx).classGroups) return;
-  const { cls } = await loadClass(ctx, classId);
-  const [ex] = await db.select().from(conversations).where(and(eq(conversations.orgId, ctx.org.id), eq(conversations.classId, cls.id), eq(conversations.kind, "class"))).limit(1);
-  if (ex) redirect(`/app/chat/${ex.id}`);
-  const [conv] = await db.insert(conversations).values({ orgId: ctx.org.id, kind: "class", classId: cls.id, title: `Turma ${cls.name}`, createdBy: ctx.user.id }).returning();
-  const teachers = await db.select({ u: classTeachers.userId }).from(classTeachers).where(eq(classTeachers.classId, cls.id));
-  const sids = (await db.select({ s: enrollments.studentId }).from(enrollments).where(and(eq(enrollments.classId, cls.id), eq(enrollments.status, "active")))).map((r) => r.s);
-  const studs = sids.length ? await db.select({ u: studentAccounts.userId }).from(studentAccounts).where(inArray(studentAccounts.studentId, sids)) : [];
-  const all = [...new Set([ctx.user.id, ...teachers.map((t) => t.u), ...studs.map((s) => s.u)])];
-  await db.insert(conversationMembers).values(all.map((u) => ({ conversationId: conv.id, userId: u })));
-  redirect(`/app/chat/${conv.id}`);
-}
-
-const ROLE_HREF = (role: string) => (role === "student" || role === "guardian" ? "/portal/chat" : "/app/chat");
+const ROLE_HREF = (_role: string) => "/app/chat";
 
 export async function sendMessageAction(convId: string, _: FormState, fd: FormData): Promise<FormState> {
   const ctx = await requireAnyCtx();
   const mem = await memberOf(convId, ctx.user.id); if (!mem) return { error: "Conversa não encontrada." };
   const [conv] = await db.select().from(conversations).where(and(eq(conversations.id, convId), eq(conversations.orgId, ctx.org.id))).limit(1);
   if (!conv) return { error: "Conversa não encontrada." };
-  const role = ctx.org.role as ChatRole; const policy = policyOf(ctx);
   const body = String(fd.get("body") ?? "").trim();
   const f = fd.get("file"); const hasFile = f instanceof File && f.size > 0;
   if (!body && !hasFile) return { error: "Escreva uma mensagem." };
@@ -90,13 +68,6 @@ export async function sendMessageAction(convId: string, _: FormState, fd: FormDa
   const bl = await isBlocked(ctx.org.id, ctx.user.id, others);
   if (bl.inst) return { error: "Seu envio de mensagens está bloqueado pela escola." };
   if (conv.kind === "direct" && bl.personal) return { error: "Você não pode enviar mensagens para este contato." };
-  if (!isStaff(role)) {
-    if (!withinHours(new Date(), policy)) return { error: `Mensagens de alunos e responsáveis são recebidas entre ${policy.hoursFrom} e ${policy.hoursTo}.` };
-    if (conv.kind === "direct") {
-      const contacts = await allowedContacts(ctx);
-      if (!others.every((o) => contacts.some((c) => c.userId === o))) return { error: "Você não pode mais enviar mensagens para este contato." };
-    } else { const v = canPostInGroup(role, conv.kind, policy); if (!v.ok) return { error: v.reason }; }
-  }
   const [msg] = await db.insert(messages).values({ conversationId: convId, senderId: ctx.user.id, body: body || "(anexo)", replyToId: String(fd.get("replyTo") ?? "") || null }).returning();
   if (hasFile) await db.insert(taskAttachments).values({ orgId: ctx.org.id, messageId: msg.id, name: f.name.slice(0, 160), type: f.type, data: Buffer.from(await f.arrayBuffer()) });
   await db.update(conversations).set({ lastMessageAt: new Date() }).where(eq(conversations.id, convId));
@@ -134,7 +105,6 @@ export async function deleteMessageAction(msgId: string) {
 /** Fixar: só a equipe, em conversas de que participa. */
 export async function pinMessageAction(msgId: string, pinned: boolean) {
   const ctx = await requireAnyCtx();
-  if (!isStaff(ctx.org.role as ChatRole)) return;
   const [m] = await db.select().from(messages).where(eq(messages.id, msgId)).limit(1);
   if (!m || !(await memberOf(m.conversationId, ctx.user.id))) return;
   await db.update(messages).set({ pinned }).where(eq(messages.id, msgId));

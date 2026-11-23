@@ -8,7 +8,6 @@ import { rulesFrom } from "@/lib/gradebook";
 import { ROLE_LABEL, can } from "@/lib/core/permissions";
 import { fmtDate } from "@/lib/format";
 import { savePortalSettingsAction } from "./actions";
-import { policyFrom } from "@/lib/core/chat";
 import { gradeLabel } from "@/lib/taxonomy";
 import { planInfo } from "@/lib/billing";
 import { PLANS } from "@/lib/core/plans";
@@ -63,21 +62,14 @@ export default async function Escola({ searchParams }: { searchParams: Promise<{
     </section>
   );
 
-  const pol = policyFrom(ctx.org.settings.chat); const gam = ctx.org.settings.gamification; const risk = ctx.org.settings.risk;
+  const risk = ctx.org.settings.risk;
   const portal = editSettings && (
     <section className="card" aria-labelledby="portal">
-      <h2 id="portal" className="mb-1 text-lg">Portal, mensagens e engajamento</h2>
-      <p className="hint mb-3">Alunos só falam com a equipe se você permitir. Responsáveis falam com professores das turmas do estudante. Aluno e responsável nunca conversam entre si.</p>
+      <h2 id="portal" className="mb-1 text-lg">Painel pedagógico</h2>
+      <p className="hint mb-3">Limites que acendem os sinais de atenção. São apoio ao professor e à coordenação, nunca diagnóstico.</p>
       <Form action={savePortalSettingsAction}>
-        <label className="mb-2 flex gap-2 font-normal"><input type="checkbox" name="guardianToStaff" defaultChecked={pol.guardianToStaff} />Responsáveis podem enviar mensagens aos professores</label>
-        <label className="mb-2 flex gap-2 font-normal"><input type="checkbox" name="studentToStaff" defaultChecked={pol.studentToStaff} />Alunos podem enviar mensagens aos professores</label>
-        <label className="mb-3 flex gap-2 font-normal"><input type="checkbox" name="classGroups" defaultChecked={pol.classGroups} />Permitir grupo de conversa da turma (alunos participam)</label>
-        <div className="grid gap-3 sm:grid-cols-2"><Field label="Atendimento a partir de (HH:MM)" name="hoursFrom" defaultValue={pol.hoursFrom ?? ""} placeholder="07:00" /><Field label="Atendimento até (HH:MM)" name="hoursTo" defaultValue={pol.hoursTo ?? ""} placeholder="19:00" /></div>
-        <label className="mb-2 flex gap-2 font-normal"><input type="checkbox" name="gamEnabled" defaultChecked={gam?.enabled ?? true} />Ativar conquistas, XP e missões para os alunos</label>
-        <label className="mb-3 flex gap-2 font-normal"><input type="checkbox" name="leaderboard" defaultChecked={gam?.leaderboard ?? false} />Mostrar ranking da turma (por padrão desligado)</label>
-        <p className="mb-1 text-sm font-semibold">Faixas de alerta do painel pedagógico</p>
-        <div className="grid gap-3 sm:grid-cols-3"><Field label="Frequência mínima (%)" name="minAttendance" type="number" step="any" defaultValue={risk?.minAttendance ?? 75} /><Field label="Média mínima" name="minAverage" type="number" step="any" defaultValue={risk?.minAverage ?? rules.passMark} /><Field label="Tarefas atrasadas (máx.)" name="maxLateTasks" type="number" defaultValue={risk?.maxLateTasks ?? 2} /></div>
-        <SubmitButton>Salvar regras do portal</SubmitButton>
+        <div className="grid gap-3 sm:grid-cols-2"><Field label="Frequência mínima (%)" name="minAttendance" type="number" step="any" defaultValue={risk?.minAttendance ?? 75} /><Field label="Média mínima" name="minAverage" type="number" step="any" defaultValue={risk?.minAverage ?? rules.passMark} /></div>
+        <SubmitButton>Salvar regras do painel</SubmitButton>
       </Form>
     </section>
   );

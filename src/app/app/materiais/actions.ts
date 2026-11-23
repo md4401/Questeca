@@ -29,8 +29,7 @@ export async function addMaterialAction(_: FormState, fd: FormData): Promise<For
   if (!title && !fileName) return { error: "Informe um título ou envie um arquivo." };
   const url = String(fd.get("url") ?? "").trim();
   if (url && !validHttpUrl(url)) return { error: "O link deve começar com http:// ou https://." };
-  const visibility = ["private", "class", "school"].includes(String(fd.get("visibility"))) ? String(fd.get("visibility")) : "private";
-  if (visibility === "class" && !classId) return { error: "Para compartilhar com alunos, escolha a turma." };
+  const visibility = ["private", "school"].includes(String(fd.get("visibility"))) ? String(fd.get("visibility")) : "private";
   if (!text && !file && !url) return { error: "Escreva um texto, envie um arquivo ou informe um link." };
   const tags = String(fd.get("tags") ?? "").split(/[,;]/).map((s) => s.trim().toLowerCase()).filter(Boolean).slice(0, 10);
   // Em escola, compartilhar (turma ou colegas) depende de aprovação da coordenação; no espaço pessoal não há aprovador.

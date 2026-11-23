@@ -2,15 +2,12 @@
 import { revalidatePath } from "next/cache";
 import { and, eq } from "drizzle-orm";
 import { db } from "@/db";
-import { attendanceSessions, attendanceRecords, attendanceChanges, students } from "@/db/schema";
+import { attendanceSessions, attendanceRecords, attendanceChanges } from "@/db/schema";
 import { requireCtx } from "@/lib/session";
 import { loadClass, classStudents } from "@/lib/access";
-import { validStatus, ATT_LABEL } from "@/lib/core/attendance";
-import { todayISO, fmtDate } from "@/lib/format";
-import { notifyPortal } from "@/lib/portal-notify";
+import { validStatus } from "@/lib/core/attendance";
+import { todayISO } from "@/lib/format";
 import { audit } from "@/lib/audit";
-import { awardXp } from "@/lib/gamification";
-import { XP_RULES } from "@/lib/core/gamification";
 import type { FormState } from "@/components/form";
 
 /**
@@ -35,12 +32,11 @@ export async function saveAttendanceAction(classId: string, _: FormState, fd: Fo
   if (incoming.size === 0) return { error: "Marque a presença de ao menos um aluno." };
 
   let [sess] = await db.select().from(attendanceSessions).where(and(eq(attendanceSessions.classId, classId), eq(attendanceSessions.date, date), eq(attendanceSessions.lesson, lesson))).limit(1);
-  const newAbsent: string[] = [];
+  
   if (!sess) {
     [sess] = await db.insert(attendanceSessions).values({ orgId: cls.orgId, classId, subject: cls.subject, date, lesson, takenBy: ctx.user.id }).onConflictDoNothing().returning();
     if (!sess) return { error: "Esta chamada acabou de ser registrada por outra pessoa. Recarregue a página." };
     await db.insert(attendanceRecords).values([...incoming].map(([studentId, v]) => ({ sessionId: sess.id, studentId, status: v.status, note: v.note || null, updatedBy: ctx.user.id })));
-    for (const [sid, v] of incoming) if (v.status === "absent") newAbsent.push(sid);
   } else {
     const before = new Map((await db.select().from(attendanceRecords).where(eq(attendanceRecords.sessionId, sess.id))).map((r) => [r.studentId, r]));
     const diffs = [...incoming].filter(([sid, v]) => before.get(sid)?.status !== v.status || (before.get(sid)?.note ?? "") !== (v.note || ""));
@@ -51,14 +47,8 @@ export async function saveAttendanceAction(classId: string, _: FormState, fd: Fo
       await db.insert(attendanceRecords).values({ sessionId: sess.id, studentId: sid, status: v.status, note: v.note || null, updatedBy: ctx.user.id })
         .onConflictDoUpdate({ target: [attendanceRecords.sessionId, attendanceRecords.studentId], set: { status: v.status, note: v.note || null, updatedBy: ctx.user.id, updatedAt: new Date() } });
       if (b?.status !== v.status) await db.insert(attendanceChanges).values({ sessionId: sess.id, studentId: sid, before: b?.status ?? null, after: v.status, reason, changedBy: ctx.user.id });
-      if (v.status === "absent" && b?.status !== "absent") newAbsent.push(sid);
     }
     await audit(ctx.user.id, cls.orgId, "attendance.corrected", sess.id, { reason, count: diffs.length });
-  }
-  for (const [sid, v] of incoming) if (v.status === "present") await awardXp({ orgId: cls.orgId, studentId: sid, kind: "attendance", refKey: `att:${sess.id}`, points: XP_RULES.attendance, label: `Presença em ${fmtDate(date)}` });
-  for (const sid of newAbsent) {
-    const [st] = await db.select({ name: students.name }).from(students).where(eq(students.id, sid)).limit(1);
-    await notifyPortal([sid], "frequencia", `Falta registrada em ${fmtDate(date)}`, `${st?.name ?? "O estudante"}: ${ATT_LABEL.absent} em ${cls.name}.`, "/portal/frequencia", { groupKey: `freq:${sid}:${date}` });
   }
   revalidatePath(`/app/turmas/${classId}/frequencia`);
   return { ok: sess ? "Chamada salva." : "Chamada salva." };

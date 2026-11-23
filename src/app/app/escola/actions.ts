@@ -154,20 +154,15 @@ export async function leaveOrgAction() {
 }
 
 
-/** Regras do portal: comunicação, engajamento e faixas de alerta. Só quem edita regras da escola. */
+/** Limites dos alertas do painel pedagógico (apoio ao professor; não é diagnóstico). */
 export async function savePortalSettingsAction(_: FormState, fd: FormData): Promise<FormState> {
   const ctx = await requireCtx();
   if (!canEditSettings(ctx)) return { error: "Seu papel não permite alterar estas regras." };
-  const time = z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/).or(z.literal("")).optional();
-  const p = z.object({ hoursFrom: time, hoursTo: time, minAttendance: z.coerce.number().min(0).max(100), minAverage: z.coerce.number().min(0).max(1000), maxLateTasks: z.coerce.number().int().min(0).max(50) }).safeParse(Object.fromEntries(fd));
-  if (!p.success) return { error: "Confira os valores (horários no formato HH:MM)." };
-  if ((p.data.hoursFrom && !p.data.hoursTo) || (!p.data.hoursFrom && p.data.hoursTo)) return { error: "Informe o início e o fim do horário de atendimento, ou deixe os dois vazios." };
-  if (p.data.hoursFrom && p.data.hoursTo && p.data.hoursTo <= p.data.hoursFrom) return { error: "O fim do atendimento deve ser depois do início." };
+  const p = z.object({ minAttendance: z.coerce.number().min(0).max(100), minAverage: z.coerce.number().min(0).max(1000) }).safeParse(Object.fromEntries(fd));
+  if (!p.success) return { error: "Confira os valores informados." };
   const cur = ctx.org.settings;
-  const chat = { studentToStaff: fd.get("studentToStaff") === "on", guardianToStaff: fd.get("guardianToStaff") === "on", classGroups: fd.get("classGroups") === "on", hoursFrom: p.data.hoursFrom || undefined, hoursTo: p.data.hoursTo || undefined };
-  const gamification = { enabled: fd.get("gamEnabled") === "on", leaderboard: fd.get("leaderboard") === "on" };
-  const risk = { minAttendance: p.data.minAttendance, minAverage: p.data.minAverage, maxLateTasks: p.data.maxLateTasks };
-  await db.update(orgs).set({ settings: { ...cur, chat, gamification, risk } }).where(eq(orgs.id, ctx.org.id));
-  await audit(ctx.user.id, ctx.org.id, "org.portal_settings_saved", undefined, { chat, gamification, risk });
-  return { ok: "Regras do portal salvas." };
+  const risk = { minAttendance: p.data.minAttendance, minAverage: p.data.minAverage , maxLateTasks: 2 };
+  await db.update(orgs).set({ settings: { ...cur, risk } }).where(eq(orgs.id, ctx.org.id));
+  await audit(ctx.user.id, ctx.org.id, "org.risk_settings_saved", undefined, risk);
+  return { ok: "Regras do painel salvas." };
 }

@@ -35,11 +35,3 @@ export async function saveAvatarAction(_: FormState, fd: FormData): Promise<Form
   return { ok: "Foto atualizada." };
 }
 
-export async function savePortalProfileAction(_: FormState, fd: FormData): Promise<FormState> {
-  const ctx = await requireAnyCtx();
-  const name = String(fd.get("name") ?? "").trim();
-  if (name.length < 2 || name.length > 120) return { error: "Informe seu nome." };
-  await db.update(users).set({ name, prefs: { ...(ctx.user.prefs ?? {}), largeFont: fd.get("largeFont") === "on" } }).where(eq(users.id, ctx.user.id));
-  revalidatePath("/portal", "layout");
-  return { ok: "Perfil salvo." };
-}

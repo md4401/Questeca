@@ -71,26 +71,3 @@ export async function pdfText(request: APIRequestContext, urlPath: string) {
   return Array.isArray(text) ? text.join("\n") : text;
 }
 
-/** Gera o link de acesso (portal) pela tela da turma e devolve o caminho /acesso/<token>. */
-export async function inviteLink(page: Page, classId: string, studentName: string, kind: "guardian" | "student") {
-  await page.goto(`/app/turmas/${classId}/acessos`);
-  await page.getByLabel("Aluno").selectOption({ label: studentName });
-  await page.getByLabel("Quem vai acessar").selectOption(kind);
-  await page.getByRole("button", { name: "Gerar link" }).click();
-  const msg = await page.locator("form .ok").first().innerText();
-  return msg.match(/\/acesso\/[\w-]+/)![0];
-}
-
-/** Resgata o link em um contexto novo e devolve a página já dentro do portal. */
-export async function portalAccount(browser: import("@playwright/test").Browser, link: string, name: string) {
-  const ctx = await browser.newContext(); const p = await ctx.newPage();
-  const email = `${name.split(" ")[0].toLowerCase()}-${uid()}@test.questeca.dev`;
-  await p.goto(link);
-  await p.getByLabel("Seu nome").fill(name);
-  await p.getByLabel("E-mail").fill(email);
-  await p.getByLabel("Senha", { exact: true }).fill(PASSWORD);
-  await p.getByLabel(/Li e aceito/).check();
-  await p.getByRole("button", { name: "Criar acesso" }).click();
-  await p.waitForURL(/\/portal/);
-  return { ctx, page: p, email };
-}

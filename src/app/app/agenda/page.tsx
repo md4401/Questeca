@@ -19,14 +19,14 @@ export default async function Agenda({ searchParams }: { searchParams: Promise<{
   const today = todayISO();
   const start = weekStart(/^\d{4}-\d{2}-\d{2}$/.test(sp.semana ?? "") ? sp.semana! : today);
   await ensureReminders({ orgId: ctx.org.id, userId: ctx.user.id, classIds, href: "/app/agenda" });
-  const items = await loadAgenda({ orgId: ctx.org.id, userId: ctx.user.id, classIds, from: fromSP(start), to: fromSP(addDaysISO(start, 6), "23:59"), taskHref: (id, classId) => `/app/turmas/${classId}/tarefas/${id}` });
+  const items = await loadAgenda({ orgId: ctx.org.id, userId: ctx.user.id, classIds, from: fromSP(start), to: fromSP(addDaysISO(start, 6), "23:59") });
   const slots = (await loadSlots(ctx.org.id, classIds)).map(({ s, className }) => ({ ...s, subject: subjectLabel(s.subject), className }));
   const canSchool = ctx.org.role === "coordinator" || ctx.org.role === "admin" || ctx.org.kind === "personal";
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3"><h1>Agenda</h1><Link className="btn btn-ghost btn-sm" href="/app/horarios">Grade de horários</Link></div>
       <AgendaWeek start={start} items={items} slots={slots} base="/app/agenda" today={today}
-        renderAction={(key) => (key.startsWith("task:") ? null : <form action={deleteEventAction.bind(null, key.split("@")[0])} className="mt-1"><button className="link-btn text-danger" type="submit">Excluir</button></form>)} />
+        renderAction={(key) => (<form action={deleteEventAction.bind(null, key.split("@")[0])} className="mt-1"><button className="link-btn text-danger" type="submit">Excluir</button></form>)} />
       <section className="card max-w-2xl"><h2 className="mb-2 text-lg">Novo evento</h2>
         <Form action={createEventAction} resetOnOk toast>
           <div className="field"><label htmlFor="title">Título</label><input id="title" name="title" className="input" required /></div>

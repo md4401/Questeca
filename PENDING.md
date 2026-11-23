@@ -32,23 +32,10 @@ Escolha na busca é só contexto de perfil: **não dá acesso** à escola instit
 O cadastro cria todas as turmas escolhidas (ex.: 3 turmas), mesmo que o plano Gratuito permita 1 turma ativa. O limite continua valendo para criar turmas novas depois (`/app/turmas/nova`). Decida se o gratuito deve aceitar várias turmas no cadastro (como está), ou limitar.
 Outras disciplinas além de Matemática ficam salvas no perfil e nas turmas, mas **o acervo de questões é só de Matemática**: o Início avisa isso.
 
-## 2d. Nova rodada (portal, rotina escolar, engajamento)  **[bloqueia o lançamento]**
-Entregue no código (commits `f121d90`…): portais de aluno/responsável, notificações centrais, frequência, tarefas, agenda e horários, mural, materiais, videoaulas, mensagens, quizzes, gamificação, gestão acadêmica, boletim em PDF, painel pedagógico, foto e tema. Cada fase tem testes de regra e de ponta a ponta.
-**Antes de publicar:**
-1. **Aplicar as migrações 0003 a 0008 no banco de produção** (`DATABASE_URL=… pnpm tsx scripts/migrate.ts`). São só adições (tabelas e colunas novas + extensão `pg_trgm`). Sem isso o site publicado quebra, porque o código novo lê colunas novas. O sistema bloqueou essa execução automática; rode você ou libere a regra.
-2. Carregar o catálogo de escolas (item 2b).
-3. Decidir o item 2c (turmas do cadastro × plano gratuito).
-4. Revisar com a escola piloto as **regras de comunicação com menores** (padrão: responsável fala com professor da turma; aluno não fala com ninguém até a escola habilitar; aluno e responsável nunca conversam). Revisão jurídica da política de privacidade para contas de alunos e responsáveis.
-**Limites conhecidos desta rodada (não escondidos):**
-- **Sem envio automático**: lembretes da agenda e avisos só aparecem dentro do sistema (nada por e-mail, push ou WhatsApp). Mensagens usam consulta a cada 4 s, não tempo real verdadeiro (sem WebSocket na hospedagem atual).
-- **Vídeos só por link** (YouTube e Vimeo incorporam; outros abrem em nova aba). Não há upload de vídeo (limite de ~4 MB por envio). Anexos de mensagem: até 2 MB (imagem, PDF, áudio, texto). Áudio é por arquivo; não há gravação no navegador.
-- **Quiz por IA**: o código existe, mas **não foi testado com chave real** (sem IA configurada o botão fica desligado). Questões sugeridas ficam marcadas e exigem a confirmação "revisei tudo" para publicar; nunca entram no banco de provas oficiais.
-- **Aprovação de materiais** (coordenação aprova o que o professor compartilha): lógica implementada, mas o **fluxo pendente→aprovado não tem teste de ponta a ponta** (só o caminho do espaço pessoal, sem aprovador).
-- **Isolamento**: continua por verificação de permissão no código a cada acesso (testado: aluno × responsável × outra turma × outra escola, anexos, mensagens, boletins), **não por RLS** do Postgres. Recomendo RLS como defesa extra antes de escolas reais.
-- **Tema escuro** é uma camada de cores sobre o visual existente: passou na auditoria de contraste nas telas testadas, mas outras telas podem ter detalhes a ajustar.
-- **XP**: pontos por tarefa/quiz são calculados na entrega (antes da correção manual das discursivas) e nunca diminuem; ajustes de nota depois não mexem no XP. Regras e valores estão em `src/lib/core/gamification.ts`.
-- Fuso fixo de Brasília (UTC−3) nas datas e na sequência de dias; fins de semana e feriados cadastrados na agenda (categoria "feriado") não quebram a sequência.
-- Dados pessoais de alunos agora circulam em mensagens, mural e boletins: **definir retenção e exclusão por escola** (hoje a exclusão é por pedido ao suporte).
+## 2d. Versão professores (esta ramificação)
+Esta ramificação **não tem** área de aluno ou responsável, e por isso não precisa de nenhuma regra jurídica sobre contas de menores. Continua valendo o que está nos itens 2b e 2c e nos demais itens abaixo.
+**Antes de publicar:** aplicar as migrações 0003 a 0008 no banco de produção (`DATABASE_URL=… pnpm tsx scripts/migrate.ts`). São só adições; as tabelas dos recursos de aluno ficam vazias e inofensivas, o que mantém o banco compatível com a ramificação `versao-completa`.
+**Limites conhecidos:** sem envio automático (lembretes e avisos só dentro do sistema); mensagens por consulta a cada 4 s; aprovação de materiais pela coordenação sem teste de ponta a ponta no fluxo pendente→aprovado; isolamento por checagem no código, não por RLS (recomendo RLS antes de escolas reais); tema escuro é uma camada de cores que passou na auditoria de contraste nas telas testadas.
 
 ## 3. Acervo real de questões e direitos de uso  **[bloqueia o lançamento]**
 - O acervo atual tem **46 itens autorais de exemplo** (gabarito conferido) + a Q163/Enem 2013 **só como referência** (sem enunciado).
