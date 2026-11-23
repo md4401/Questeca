@@ -250,3 +250,14 @@ html[data-theme="dark"] .tab-item[aria-current] { color: var(--color-brand); }
   html[data-theme="system"] .tab-item { color: var(--color-ink-soft); }
   html[data-theme="system"] .tab-item[aria-current] { color: var(--color-brand); }
 }
+
+html[data-theme="dark"] .card-amber { color: #FFE2A8; border-color: #6B5316; }
+html[data-theme="dark"] .card-danger { color: #FFC9C3; border-color: #7A2A22; }
+html[data-theme="dark"] .card-tint { border-color: #2A3E7A; }
+html[data-theme="dark"] .badge-gray { background: #26355F; color: #D6E0FA; }
+@media (prefers-color-scheme: dark) {
+  html[data-theme="system"] .card-amber { color: #FFE2A8; border-color: #6B5316; }
+  html[data-theme="system"] .card-danger { color: #FFC9C3; border-color: #7A2A22; }
+  html[data-theme="system"] .card-tint { border-color: #2A3E7A; }
+  html[data-theme="system"] .badge-gray { background: #26355F; color: #D6E0FA; }
+}

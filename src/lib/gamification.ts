@@ -28,15 +28,9 @@ export async function awardXp(a: { orgId: string; studentId: string; kind: strin
   } catch (e) { console.error("gamificação falhou", e); return false; } // engajamento nunca quebra o fluxo principal
 }
 
-async function counters(studentId: string, orgId: string): Promise<Counters> {
-  const rows = await db.select({ kind: xpEvents.kind, day: xpEvents.day, points: xpEvents.points }).from(xpEvents).where(eq(xpEvents.studentId, studentId));
-  const today = todayISO();
+type Row = { kind: string; day: string; points: number };
+function countersFrom(rows: Row[], pause: Set<string>, today: string): Counters {
   const activity = new Set(rows.filter((r) => !REWARD_KINDS.includes(r.kind)).map((r) => r.day));
-  const from = addDaysISO(today, -60);
-  const hol = await db.select().from(calendarEvents).where(and(eq(calendarEvents.orgId, orgId), eq(calendarEvents.scope, "school"), eq(calendarEvents.category, "feriado")));
-  const pause = new Set<string>();
-  for (const o of expand(hol.map((h) => ({ id: h.id, title: h.title, category: h.category, scope: h.scope, startsAt: h.startsAt, endsAt: h.endsAt, allDay: h.allDay, recurrence: h.recurrence })), fromSP(from), fromSP(today, "23:59")))
-    pause.add(new Date(o.start.getTime() - 3 * 3600e3).toISOString().slice(0, 10));
   const n = (f: (k: string) => boolean) => rows.filter((r) => f(r.kind)).length;
   return {
     access: n((k) => k === "access"), tasks: n((k) => k === "task_on_time" || k === "task_late"), tasksOnTime: n((k) => k === "task_on_time"),
@@ -45,28 +39,51 @@ async function counters(studentId: string, orgId: string): Promise<Counters> {
   };
 }
 
-/** Desbloqueia conquistas e conclui missões (cada uma uma única vez) e credita as recompensas. */
+/** Feriados cadastrados (últimos 60 dias) pausam a sequência sem quebrá-la. */
+async function pauseDays(orgId: string, today: string) {
+  const hol = await db.select().from(calendarEvents).where(and(eq(calendarEvents.orgId, orgId), eq(calendarEvents.scope, "school"), eq(calendarEvents.category, "feriado")));
+  const pause = new Set<string>();
+  for (const o of expand(hol.map((h) => ({ id: h.id, title: h.title, category: h.category, scope: h.scope, startsAt: h.startsAt, endsAt: h.endsAt, allDay: h.allDay, recurrence: h.recurrence })), fromSP(addDaysISO(today, -60)), fromSP(today, "23:59")))
+    pause.add(new Date(o.start.getTime() - 3 * 3600e3).toISOString().slice(0, 10));
+  return pause;
+}
+async function counters(studentId: string, orgId: string): Promise<Counters> {
+  const today = todayISO();
+  const [rows, pause] = await Promise.all([db.select({ kind: xpEvents.kind, day: xpEvents.day, points: xpEvents.points }).from(xpEvents).where(eq(xpEvents.studentId, studentId)), pauseDays(orgId, today)]);
+  return countersFrom(rows, pause, today);
+}
+
+/** Desbloqueia conquistas e conclui missões (cada uma uma única vez) e credita as recompensas. Poucas consultas: o extrato é lido uma vez por rodada. */
 async function evaluate(orgId: string, studentId: string) {
+  const today = todayISO();
+  const pause = await pauseDays(orgId, today);
+  const [have0, claims0] = await Promise.all([
+    db.select({ id: achievementUnlocks.achievementId }).from(achievementUnlocks).where(eq(achievementUnlocks.studentId, studentId)),
+    db.select().from(missionClaims).where(eq(missionClaims.studentId, studentId)),
+  ]);
+  const have = new Set(have0.map((r) => r.id)); const claimed = new Set(claims0.map((c) => `${c.missionId}|${c.periodKey}`));
   for (let pass = 0; pass < 3; pass++) {
+    const rows = await db.select({ kind: xpEvents.kind, day: xpEvents.day, points: xpEvents.points }).from(xpEvents).where(eq(xpEvents.studentId, studentId));
+    const c = countersFrom(rows, pause, today);
     let changed = false;
-    const c = await counters(studentId, orgId);
-    const have = new Set((await db.select({ id: achievementUnlocks.achievementId }).from(achievementUnlocks).where(eq(achievementUnlocks.studentId, studentId))).map((r) => r.id));
     for (const a of newlyUnlocked(c, have)) {
+      have.add(a.id);
       const ins = await db.insert(achievementUnlocks).values({ studentId, achievementId: a.id }).onConflictDoNothing().returning();
       if (!ins.length) continue;
       changed = true;
-      await db.insert(xpEvents).values({ orgId, studentId, kind: "achievement", points: a.reward, refKey: `ach:${a.id}`, day: todayISO(), label: `Conquista: ${a.name}` }).onConflictDoNothing();
+      await db.insert(xpEvents).values({ orgId, studentId, kind: "achievement", points: a.reward, refKey: `ach:${a.id}`, day: today, label: `Conquista: ${a.name}` }).onConflictDoNothing();
       await notifyPortal([studentId], "conquista", `Conquista desbloqueada: ${a.name}`, `+${a.reward} XP`, "/portal/conquistas", { groupKey: `ach:${a.id}:${studentId}` });
     }
-    const today = todayISO();
     for (const m of MISSIONS) {
+      const key = periodKey(m, today);
+      if (claimed.has(`${m.id}|${key}`)) continue;
       const { from, to } = periodRange(m, today);
-      const ev = await db.select({ kind: xpEvents.kind, day: xpEvents.day }).from(xpEvents).where(and(eq(xpEvents.studentId, studentId), gte(xpEvents.day, from), lte(xpEvents.day, to)));
-      if (!missionProgress(m, ev).done) continue;
-      const ins = await db.insert(missionClaims).values({ studentId, missionId: m.id, periodKey: periodKey(m, today) }).onConflictDoNothing().returning();
+      if (!missionProgress(m, rows.filter((r) => r.day >= from && r.day <= to)).done) continue;
+      claimed.add(`${m.id}|${key}`);
+      const ins = await db.insert(missionClaims).values({ studentId, missionId: m.id, periodKey: key }).onConflictDoNothing().returning();
       if (!ins.length) continue;
       changed = true;
-      await db.insert(xpEvents).values({ orgId, studentId, kind: "mission", points: m.reward, refKey: `mission:${m.id}:${periodKey(m, today)}`, day: today, label: `Missão: ${m.name}` }).onConflictDoNothing();
+      await db.insert(xpEvents).values({ orgId, studentId, kind: "mission", points: m.reward, refKey: `mission:${m.id}:${key}`, day: today, label: `Missão: ${m.name}` }).onConflictDoNothing();
       await notifyPortal([studentId], "conquista", `Missão concluída: ${m.name}`, `+${m.reward} XP`, "/portal/conquistas", { groupKey: `mis:${m.id}:${studentId}` });
     }
     if (!changed) break;

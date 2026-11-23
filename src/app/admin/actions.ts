@@ -38,7 +38,8 @@ export async function correctAnswerAction(id: string, _: FormState, fd: FormData
   const items = await db.select({ aid: assessmentItems.assessmentId }).from(assessmentItems).where(eq(assessmentItems.questionId, id));
   const aids = [...new Set(items.map((i) => i.aid))];
   const affected = aids.length ? await db.select().from(assessments).where(inArray(assessments.id, aids)) : [];
-  for (const a of affected) await notify(a.ownerId, "correcao", "Gabarito retificado em uma questão da sua prova", `“${a.title}”: a resposta correta mudou de ${q.answer} para ${answer}. Revise e, se for o caso, reprocesse a correção.`, `/app/provas/${a.id}/correcao`);
+  // em paralelo: a retificação não deve esperar uma consulta por prova afetada
+  await Promise.all(affected.map((a) => notify(a.ownerId, "correcao", "Gabarito retificado em uma questão da sua prova", `“${a.title}”: a resposta correta mudou de ${q.answer} para ${answer}. Revise e, se for o caso, reprocesse a correção.`, `/app/provas/${a.id}/correcao`)));
   await audit(ctx.user.id, null, "question.answer_corrected", id, { from: q.answer, to: answer, affected: affected.length });
   revalidatePath("/admin");
   return { ok: `Gabarito retificado. ${affected.length} avaliação(ões) afetada(s); os professores foram avisados e as notas finalizadas só mudam após a revisão deles.` };

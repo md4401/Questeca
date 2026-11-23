@@ -207,5 +207,6 @@ test("acessibilidade (axe WCAG 2.2 AA) em cada etapa, no início com navegação
   await audit("início (celular)");
   await page.getByRole("button", { name: "Mais" }).click();
   await expect(page.getByRole("dialog")).toBeVisible();
+  await page.waitForTimeout(700); // fim da animação da folha
   await audit("folha Mais");
 });

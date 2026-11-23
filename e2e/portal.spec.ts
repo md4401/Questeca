@@ -75,7 +75,7 @@ test("portal: convite de uso único, isolamento por estudante, equipe protegida 
   await gp.goto("/portal/notificacoes");
   await expect(gp.getByText("Nova tarefa publicada")).toBeVisible();
   await expect(gp.getByText("Importante", { exact: true })).toBeVisible();
-  await gp.getByRole("link", { name: "Tarefas", exact: true }).click();
+  await gp.getByRole("group", { name: "Filtros" }).getByRole("link", { name: "Tarefas", exact: true }).click();
   await expect(gp.getByText("Aviso importante da escola")).toHaveCount(0);
   await gp.getByRole("button", { name: /Marcar como lida: Nova tarefa/ }).click();
   await gp.getByRole("link", { name: "Só não lidas" }).click();
