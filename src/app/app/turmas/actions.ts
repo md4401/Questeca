@@ -87,6 +87,7 @@ export async function previewStudents(classId: string, text: string): Promise<{ 
   const inClass = await classStudents(cls.id);
   const inClassIds = new Set(inClass.map((s) => s.id));
   const seen = new Set<string>();
+  const seenNames = new Map<string, string | null>();
   const rows: StudentRow[] = parsed.map((r) => {
     if (!r.name || r.name.length < 2) return { ...r, status: "erro", message: "Nome vazio ou muito curto.", include: false };
     if (r.name.length > 160) return { ...r, status: "erro", message: "Nome muito longo.", include: false };
@@ -94,8 +95,11 @@ export async function previewStudents(classId: string, text: string): Promise<{ 
     const dupKey = `${nk}|${r.registration ?? ""}`;
     if (seen.has(dupKey)) return { ...r, status: "repetido", message: "Linha repetida nesta lista.", include: false };
     seen.add(dupKey);
+    const earlier = seenNames.has(nk);
+    seenNames.set(nk, r.registration);
     const sameReg = r.registration ? orgStudents.find((s) => s.registration === r.registration) : undefined;
     if (sameReg) return { ...r, status: "repetido", message: inClassIds.has(sameReg.id) ? "Matrícula já está nesta turma." : `Matrícula já cadastrada na escola (${sameReg.name}).`, include: false };
+    if (earlier) return { ...r, status: "homonimo", message: "Mesmo nome de outra linha da lista (matrículas diferentes). A fusão nunca é automática — confirme se é outra pessoa.", include: false };
     const sameName = orgStudents.filter((s) => normalize(s.name).replace(/\s+/g, " ") === nk);
     if (sameName.length) return { ...r, status: "homonimo", message: "Já existe aluno com este nome. A fusão nunca é automática — confirme se é outra pessoa.", include: false };
     return { ...r, status: "novo", include: true };
@@ -202,6 +206,7 @@ export async function deleteGradeItemAction(classId: string, itemId: string) {
 export async function saveGrade(classId: string, itemId: string, studentId: string, raw: string, opts: { source?: string; reason?: string } = {}) {
   const ctx = await requireCtx();
   const { cls } = await loadClass(ctx, classId);
+  if (!/^[0-9a-f-]{36}$/i.test(itemId) || !/^[0-9a-f-]{36}$/i.test(studentId)) return { error: "Registro inválido." };
   const [it] = await db.select().from(gradeItems).where(and(eq(gradeItems.id, itemId), eq(gradeItems.classId, cls.id))).limit(1);
   if (!it) return { error: "Atividade não encontrada." };
   const closed = await db.select().from(periodCloses).where(and(eq(periodCloses.classId, cls.id), eq(periodCloses.period, it.period))).limit(1);

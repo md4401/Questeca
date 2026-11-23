@@ -16,21 +16,24 @@ import type { FormState } from "@/components/form";
 export async function saveResponse(appId: string, studentId: string, position: number, raw: string) {
   const ctx = await requireCtx();
   const { app } = await loadApplication(ctx, appId);
-  const key = await applicationKey(app);
+  // consultas independentes em paralelo: reduz a latência de cada célula salva
+  const [key, studs] = await Promise.all([applicationKey(app), classStudents(app.classId)]);
   const item = key.items.find((i) => i.position === position);
   if (!item) return { error: "Questão inexistente." };
-  if (!(await classStudents(app.classId)).some((s) => s.id === studentId)) return { error: "Aluno não pertence à turma." };
+  if (!studs.some((s) => s.id === studentId)) return { error: "Aluno não pertence à turma." };
   const norm = normalizeResponse(raw, item.key);
   if (norm.error) return { error: norm.error };
-  if (norm.value === "" && item.key === "D") {
+  if (norm.value === "" && item.key === "*") {
     await db.delete(responses).where(and(eq(responses.applicationId, appId), eq(responses.studentId, studentId), eq(responses.position, position)));
     return { ok: true as const, points: null as number | null };
   }
   const sc = scoreCell(item, norm.value);
-  await db.insert(responses).values({ applicationId: appId, studentId, position, value: norm.value, status: sc.status, points: sc.points == null ? null : String(sc.points) })
-    .onConflictDoUpdate({ target: [responses.applicationId, responses.studentId, responses.position], set: { value: norm.value, status: sc.status, points: sc.points == null ? null : String(sc.points) } });
-  // se estava marcado ausente e agora há resposta, volta a presente
-  await db.delete(studentPresence).where(and(eq(studentPresence.applicationId, appId), eq(studentPresence.studentId, studentId)));
+  await Promise.all([
+    db.insert(responses).values({ applicationId: appId, studentId, position, value: norm.value, status: sc.status, points: sc.points == null ? null : String(sc.points) })
+      .onConflictDoUpdate({ target: [responses.applicationId, responses.studentId, responses.position], set: { value: norm.value, status: sc.status, points: sc.points == null ? null : String(sc.points) } }),
+    // se estava marcado ausente e agora há resposta, volta a presente
+    db.delete(studentPresence).where(and(eq(studentPresence.applicationId, appId), eq(studentPresence.studentId, studentId))),
+  ]);
   return { ok: true as const, points: sc.points };
 }
 

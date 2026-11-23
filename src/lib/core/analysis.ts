@@ -13,7 +13,7 @@ export function analyze(items: AItem[], resp: AResp[], absent: number, totalStud
       if (r.position !== it.position || !complete.has(r.studentId)) continue;
       n++;
       const v = (r.value ?? "-").toUpperCase();
-      if (it.key === "D") { if (Number(v.replace(",", ".")) >= it.points) correct++; else if (v === "-" || v === "") blank++; else wrong++; continue; }
+      if (it.key === "*") { if (Number(v.replace(",", ".")) >= it.points) correct++; else if (v === "-" || v === "") blank++; else wrong++; continue; }
       dist[v] = (dist[v] ?? 0) + 1;
       if (v === "-" || v === "") blank++; else if (v === it.key) correct++; else wrong++;
     }

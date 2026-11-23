@@ -1,12 +1,16 @@
 "use client";
-import { useActionState, useEffect, useRef } from "react";
+import { createContext, startTransition, useActionState, useContext, useRef } from "react";
 import { useFormStatus } from "react-dom";
 
 export type FormState = { error?: string; ok?: string; fieldErrors?: Record<string, string> } | null;
 type Action = (prev: FormState, fd: FormData) => Promise<FormState>;
 
+const PendingCtx = createContext<boolean | null>(null);
+
 export function SubmitButton({ children, className = "btn", pendingLabel }: { children: React.ReactNode; className?: string; pendingLabel?: string }) {
-  const { pending } = useFormStatus();
+  const fromCtx = useContext(PendingCtx);
+  const fs = useFormStatus();
+  const pending = fromCtx ?? fs.pending;
   return (
     <button type="submit" className={className} disabled={pending} aria-busy={pending}>
       {pending ? (pendingLabel ?? "Aguarde…") : children}
@@ -14,20 +18,47 @@ export function SubmitButton({ children, className = "btn", pendingLabel }: { ch
   );
 }
 
-/** Formulário com ação de servidor, mensagens de erro/sucesso acessíveis e reset opcional. */
+/**
+ * Formulário com ação de servidor. Não usa a prop `action` do <form>: o React 19 limparia os campos
+ * depois de qualquer resultado (inclusive erro de validação). Aqui os campos só são limpos em caso de
+ * sucesso, e apenas quando `resetOnOk` é pedido.
+ */
 export function Form({ action, children, className, resetOnOk }: { action: Action; children: React.ReactNode; className?: string; resetOnOk?: boolean }) {
-  const [state, formAction] = useActionState(action, null);
+  const [state, formAction, pending] = useActionState(action, null);
   const ref = useRef<HTMLFormElement>(null);
-  useEffect(() => { if (state?.ok && resetOnOk) ref.current?.reset(); }, [state, resetOnOk]);
   return (
-    <form ref={ref} action={formAction} className={className}>
-      {children}
-      <div aria-live="polite" role="status">
-        {state?.error && <p className="err" role="alert">{state.error}</p>}
-        {state?.ok && <p className="ok">{state.ok}</p>}
-      </div>
+    <form
+      ref={ref}
+      className={className}
+      onSubmit={(e) => {
+        e.preventDefault();
+        const form = e.currentTarget;
+        const fd = new FormData(form, (e.nativeEvent as SubmitEvent).submitter);
+        startTransition(async () => {
+          await formAction(fd);
+          // sucesso: o estado novo chega no próximo render; resetamos de forma otimista só se pedido
+        });
+      }}
+    >
+      <PendingCtx.Provider value={pending}>
+        {children}
+        <ResetOnOk state={state} formRef={ref} enabled={!!resetOnOk} />
+        <div aria-live="polite" role="status">
+          {state?.error && <p className="err" role="alert">{state.error}</p>}
+          {state?.ok && <p className="ok">{state.ok}</p>}
+        </div>
+      </PendingCtx.Provider>
     </form>
   );
+}
+
+function ResetOnOk({ state, formRef, enabled }: { state: FormState; formRef: React.RefObject<HTMLFormElement | null>; enabled: boolean }) {
+  const last = useRef<FormState>(null);
+  if (enabled && state?.ok && state !== last.current) {
+    last.current = state;
+    queueMicrotask(() => formRef.current?.reset());
+  }
+  return null;
 }
 
 export function Field({ label, name, type = "text", required, hint, defaultValue, autoComplete, placeholder, min, max, step }: {

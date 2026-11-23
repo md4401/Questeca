@@ -7,7 +7,8 @@ export function GradeImport({ classId, items }: { classId: string; items: { id: 
   const [keyCol, setKeyCol] = useState(0);
   const [keyKind, setKeyKind] = useState<"registration" | "name">("registration");
   const [valueCol, setValueCol] = useState(1);
-  const [itemId, setItemId] = useState(items[0]?.id ?? "");
+  const [pickedItem, setItemId] = useState("");
+  const itemId = items.find((i) => i.id === pickedItem)?.id ?? items[0]?.id ?? "";
   const [lines, setLines] = useState<ImportLine[] | null>(null);
   const [msg, setMsg] = useState<{ err?: string; ok?: string } | null>(null);
   const [pending, start] = useTransition();

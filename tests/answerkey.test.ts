@@ -9,7 +9,7 @@ describe("gabarito externo e correção", () => {
   it("discursiva com critérios explícitos (1 ponto conclusão + 2 justificativa)", () => {
     const r = parseAnswerKey("A,D(Conclusão=1;Justificativa=2),B", 10);
     if ("error" in r) throw new Error(r.error);
-    expect(r.key).toEqual(["A", "D", "B"]);
+    expect(r.key).toEqual(["A", "*", "B"]);
     expect(r.points).toEqual([3.5, 3, 3.5]);
     expect(r.rubrics[1].map((c) => c.points)).toEqual([1, 2]);
   });
@@ -24,13 +24,21 @@ describe("gabarito externo e correção", () => {
     expect(scoreResponse({ key: "C", points: 2, value: "B", status: "answered" })).toEqual({ points: 0, status: "answered" });
     expect(scoreResponse({ key: "C", points: 2, value: "-", status: "answered" })).toEqual({ points: 0, status: "blank" });
     expect(scoreResponse({ key: "C", points: 2, value: null, status: "pending" })).toEqual({ points: null, status: "pending" });
-    expect(scoreResponse({ key: "D", points: 3, value: "2,5", status: "answered" }).points).toBe(2.5);
-    expect(scoreResponse({ key: "D", points: 3, value: "9", status: "answered" }).points).toBe(3);
+    expect(scoreResponse({ key: "*", points: 3, value: "2,5", status: "answered" }).points).toBe(2.5);
+    expect(scoreResponse({ key: "*", points: 3, value: "9", status: "answered" }).points).toBe(3);
+  });
+  it("alternativa D é objetiva e não se confunde com discursiva", () => {
+    expect(scoreResponse({ key: "D", points: 2, value: "D", status: "answered" })).toEqual({ points: 2, status: "answered" });
+    expect(scoreResponse({ key: "D", points: 2, value: "C", status: "answered" })).toEqual({ points: 0, status: "answered" });
+    expect(normalizeResponse("d", "D").value).toBe("D");
+    const r = parseAnswerKey("D,D,A", 9);
+    if ("error" in r) throw new Error(r.error);
+    expect(r.points).toEqual([3, 3, 3]);
   });
   it("normaliza entrada", () => {
     expect(normalizeResponse("b", "A").value).toBe("B");
     expect(normalizeResponse("", "A").value).toBe("-");
     expect(normalizeResponse("Z", "A").error).toBeTruthy();
-    expect(normalizeResponse("2,5", "D").value).toBe("2.5");
+    expect(normalizeResponse("2,5", "*").value).toBe("2.5");
   });
 });

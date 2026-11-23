@@ -4,6 +4,7 @@ import { sql } from "drizzle-orm";
 
 /** Limite por janela fixa, persistido no banco (funciona em serverless). Retorna true se permitido. */
 export async function rateLimit(key: string, max: number, windowSec: number) {
+  max = max * (Number(process.env.RATE_LIMIT_MULTIPLIER) || 1); // só ambientes de teste aumentam o teto
   const rows = await db.execute(sql`
     insert into rate_limits (key, count, window_start) values (${key}, 1, now())
     on conflict (key) do update set

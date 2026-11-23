@@ -20,7 +20,7 @@ export default async function ExternalCorrection({ params }: { params: Promise<{
     <div className="space-y-6">
       <p className="hint"><Link href={`/app/turmas/${id}/avaliacoes`}>← Avaliações</Link></p>
       <h2>{app.title} <span className="badge badge-gray">externa</span></h2>
-      <p className="hint">{fmtDate(app.appliedOn)} · gabarito confirmado pelo professor: {data.key.items.map((i) => `${i.position}${i.key === "D" ? "(disc.)" : i.key}`).join(" · ")}</p>
+      <p className="hint">{fmtDate(app.appliedOn)} · gabarito confirmado pelo professor: {data.key.items.map((i) => `${i.position}${i.key === "*" ? "(disc.)" : i.key}`).join(" · ")}</p>
       {data.key.items.some((i) => i.rubric) && <div className="card-tint text-sm"><strong>Rubricas:</strong> {data.key.items.filter((i) => i.rubric).map((i) => `Q${i.position}: ${i.rubric!.map((c) => `${c.name} (${c.points})`).join(", ")}`).join(" · ")}. Lance a pontuação total de cada discursiva (máximo = soma dos critérios).</div>}
       <ResponseGrid key={app.id} appId={app.id} items={data.key.items.map((i) => ({ position: i.position, key: i.key, points: i.points, rubric: i.rubric }))}
         rows={data.rows.map((r) => ({ studentId: r.student.id, name: r.student.name, absent: r.absent, cells: Object.fromEntries(r.cells.filter((c) => c.value !== "").map((c) => [c.position, c.value])), total: r.total, complete: r.complete }))} />

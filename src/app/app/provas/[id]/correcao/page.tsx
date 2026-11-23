@@ -40,7 +40,7 @@ export default async function Correcao({ params, searchParams }: { params: Promi
       <section><h2 className="mb-2 text-lg">Lançamento manual de respostas</h2>
         <ResponseGrid key={current.id} appId={current.id} items={data.key.items.map((i) => ({ position: i.position, key: i.key, points: i.points, rubric: i.rubric }))}
           rows={data.rows.map((r) => ({ studentId: r.student.id, name: r.student.name, absent: r.absent, cells: Object.fromEntries(r.cells.filter((c) => c.value !== "").map((c) => [c.position, c.value])), total: r.total, complete: r.complete }))} />
-        <p className="hint mt-2">Gabarito da versão aplicada: {data.key.items.map((i) => `${i.position}${i.key === "D" ? "(disc.)" : i.key}`).join(" · ")}. Em branco e pendente são situações diferentes: só células confirmadas entram na nota.</p>
+        <p className="hint mt-2">Gabarito da versão aplicada: {data.key.items.map((i) => `${i.position}${i.key === "*" ? "(disc.)" : i.key}`).join(" · ")}. Em branco e pendente são situações diferentes: só células confirmadas entram na nota.</p>
       </section>
 
       <section className="card"><h2 className="mb-2 text-lg">Cartões-resposta por foto</h2>
@@ -64,7 +64,7 @@ export default async function Correcao({ params, searchParams }: { params: Promi
                   </div>
                   <div className="flex flex-wrap gap-2">{data.key.items.map((it, i) => (
                     <div key={it.position} className="field mb-1"><label htmlFor={`a${it.position}-${s.id}`} className="text-xs">Q{it.position}{(s.detected?.confidence?.[i] ?? 1) < 0.8 && <span className="badge badge-amber ml-1">revisar</span>}</label>
-                      <input id={`a${it.position}-${s.id}`} name={`a${it.position}`} defaultValue={s.detected?.answers?.[i] ?? ""} maxLength={it.key === "D" ? 5 : 1} className="input text-center uppercase" style={{ width: 54, minHeight: 34, padding: ".2rem" }} /></div>))}</div>
+                      <input id={`a${it.position}-${s.id}`} name={`a${it.position}`} defaultValue={s.detected?.answers?.[i] ?? ""} maxLength={it.key === "*" ? 5 : 1} className="input text-center uppercase" style={{ width: 54, minHeight: 34, padding: ".2rem" }} /></div>))}</div>
                   <div className="flex gap-3"><SubmitButton>Confirmar cartão</SubmitButton></div>
                 </Form>
                 <form action={rejectSheetAction.bind(null, s.id)}><button className="link-btn text-danger" type="submit">Descartar foto</button></form>

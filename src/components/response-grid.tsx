@@ -24,7 +24,7 @@ export function ResponseGrid({ appId, items, rows: initial }: { appId: string; i
       setState("Salvo");
       setRows((prev) => prev.map((r, i) => {
         if (i !== ri) return r;
-        const cells = { ...r.cells, [it.position]: v.trim() === "" ? (it.key === "D" ? "" : "-") : v.trim().toUpperCase().replace(",", ".") };
+        const cells = { ...r.cells, [it.position]: v.trim() === "" ? (it.key === "*" ? "" : "-") : v.trim().toUpperCase().replace(",", ".") };
         return { ...r, absent: false, cells, total: recompute(cells), complete: items.every((x) => (cells[x.position] ?? "") !== "") };
       }));
     });
@@ -32,7 +32,7 @@ export function ResponseGrid({ appId, items, rows: initial }: { appId: string; i
   const recompute = (cells: Record<number, string>) => Math.round(items.reduce((a, it) => {
     const v = cells[it.position];
     if (!v || v === "-") return a;
-    if (it.key === "D") return a + Math.min(Number(v) || 0, it.points);
+    if (it.key === "*") return a + Math.min(Number(v) || 0, it.points);
     return a + (v === it.key ? it.points : 0);
   }, 0) * 100) / 100;
 
@@ -67,10 +67,8 @@ export function ResponseGrid({ appId, items, rows: initial }: { appId: string; i
   };
 
   const toggleAbsent = (ri: number, absent: boolean) => {
-    start(async () => {
-      await setPresence(appId, rows[ri].studentId, absent);
-      setRows((prev) => prev.map((r, i) => (i === ri ? { ...r, absent, cells: absent ? {} : r.cells, total: absent ? 0 : r.total, complete: absent ? false : r.complete } : r)));
-    });
+    setRows((prev) => prev.map((r, i) => (i === ri ? { ...r, absent, cells: absent ? {} : r.cells, total: absent ? 0 : r.total, complete: absent ? false : r.complete } : r)));
+    start(async () => { await setPresence(appId, rows[ri].studentId, absent); setState("Salvo"); });
   };
 
   if (!rows.length) return <p className="text-ink-soft">Cadastre os alunos da turma para registrar respostas.</p>;
@@ -80,7 +78,7 @@ export function ResponseGrid({ appId, items, rows: initial }: { appId: string; i
       <div className="overflow-auto rounded-lg border border-line bg-white" style={{ maxHeight: "65vh" }}>
         <table className="t">
           <thead className="sticky top-0 z-10"><tr><th className="sticky left-0 z-20 min-w-44 bg-brand-tint">Aluno</th><th>Ausente</th>
-            {items.map((it) => <th key={it.position} title={it.rubric ? it.rubric.map((c) => `${c.name}: ${c.points}`).join(" · ") : `Gabarito ${it.key}`}>Q{it.position}<div className="text-xs font-normal">{it.key === "D" ? `0–${it.points}` : `${it.points} pt`}</div></th>)}
+            {items.map((it) => <th key={it.position} title={it.rubric ? it.rubric.map((c) => `${c.name}: ${c.points}`).join(" · ") : `Gabarito ${it.key}`}>Q{it.position}<div className="text-xs font-normal">{it.key === "*" ? `0–${it.points}` : `${it.points} pt`}</div></th>)}
             <th>Total</th></tr></thead>
           <tbody>{rows.map((r, ri) => (
             <tr key={r.studentId} className={r.absent ? "opacity-60" : ""}>
@@ -89,15 +87,15 @@ export function ResponseGrid({ appId, items, rows: initial }: { appId: string; i
               {items.map((it, ci) => {
                 const k = `${r.studentId}:${it.position}`;
                 const v = r.cells[it.position] ?? "";
-                const ok = it.key !== "D" && v && v !== "-" && v === it.key;
-                const wrong = it.key !== "D" && v && v !== "-" && v !== it.key;
+                const ok = it.key !== "*" && v && v !== "-" && v === it.key;
+                const wrong = it.key !== "*" && v && v !== "-" && v !== it.key;
                 return (
                   <td key={it.position}>
                     <input ref={(el) => { refs.current[`${ri}:${ci}`] = el; }} aria-label={`${r.name} — questão ${it.position}`} aria-invalid={!!errors[k]}
-                      className={`input text-center uppercase ${ok ? "bg-brand-tint" : wrong ? "bg-danger-tint" : ""}`} style={{ width: it.key === "D" ? 64 : 48, minHeight: 34, padding: ".2rem" }}
-                      defaultValue={v} disabled={r.absent} maxLength={it.key === "D" ? 5 : 1}
+                      className={`input text-center uppercase ${ok ? "bg-brand-tint" : wrong ? "bg-danger-tint" : ""}`} style={{ width: it.key === "*" ? 64 : 48, minHeight: 34, padding: ".2rem" }}
+                      defaultValue={v} disabled={r.absent} maxLength={it.key === "*" ? 5 : 1}
                       onBlur={(e) => commit(ri, it, e.target.value)} onKeyDown={(e) => move(e, ri, ci)} onPaste={(e) => onPaste(e, ri, ci)}
-                      onInput={(e) => { if (it.key !== "D" && e.currentTarget.value.length === 1) refs.current[`${ri + 1}:${ci}`]?.focus(); }} />
+                      onInput={(e) => { if (it.key !== "*" && e.currentTarget.value.length === 1) refs.current[`${ri + 1}:${ci}`]?.focus(); }} />
                     {errors[k] && <span role="alert" className="err block text-xs">{errors[k]}</span>}
                   </td>);
               })}

@@ -16,7 +16,7 @@ export async function applicationKey(app: typeof applications.$inferSelect): Pro
   }
   const [v] = app.versionId ? await db.select().from(assessmentVersions).where(eq(assessmentVersions.id, app.versionId)).limit(1) : [];
   const snap = (v?.snapshot ?? { items: [] }) as Snapshot;
-  const items = snap.items.map((it) => ({ position: it.position, key: it.alternatives.length ? it.answer ?? "" : "D", points: Number(it.points), label: `Questão ${it.position}`, topics: it.assessed, title: it.title }));
+  const items = snap.items.map((it) => ({ position: it.position, key: it.alternatives.length ? it.answer ?? "" : "*", points: Number(it.points), label: `Questão ${it.position}`, topics: it.assessed, title: it.title }));
   return { items, versionNumber: v?.number ?? null, total: items.reduce((a, b) => a + b.points, 0) };
 }
 

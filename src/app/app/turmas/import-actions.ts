@@ -54,6 +54,7 @@ export async function previewGradeImport(
 ): Promise<{ lines: ImportLine[] } | { error: string }> {
   const ctx = await requireCtx();
   const { cls } = await loadClass(ctx, classId);
+  if (!/^[0-9a-f-]{36}$/i.test(itemId)) return { error: "Escolha a atividade de destino." };
   const [item] = await db.select().from(gradeItems).where(and(eq(gradeItems.id, itemId), eq(gradeItems.classId, cls.id))).limit(1);
   if (!item) return { error: "Escolha a atividade de destino." };
   const studs = await classStudents(cls.id);

@@ -25,15 +25,15 @@ export function parseAnswerKey(input: string, total: number): ParsedKey {
         if (!name?.trim() || !isFinite(v) || v <= 0) return { error: `Critério inválido em “${t}”. Use D(Critério=pontos;Outro=pontos).` };
         crit.push({ name: name.trim(), points: v });
       }
-      key.push("D"); rubrics[i] = crit; continue;
+      key.push("*"); rubrics[i] = crit; continue;
     }
     return { error: `Item ${i + 1}: “${t}” inválido. Use A–E ou D(Critério=pontos).` };
   }
   const dSum = Object.values(rubrics).reduce((s, r) => s + r.reduce((a, c) => a + c.points, 0), 0);
-  const nObj = key.filter((k) => k !== "D").length;
+  const nObj = key.filter((k) => k !== "*").length;
   if (dSum > total + 1e-9) return { error: "A soma dos critérios das discursivas excede o total da prova." };
   const each = nObj ? Math.floor(((total - dSum) / nObj) * 100) / 100 : 0;
-  const points = key.map((k, i) => (k === "D" ? rubrics[i].reduce((a, c) => a + c.points, 0) : each));
+  const points = key.map((k, i) => (k === "*" ? rubrics[i].reduce((a, c) => a + c.points, 0) : each));
   return { key, points, rubrics };
 }
 
@@ -42,7 +42,7 @@ export type ScoreInput = { key: string; points: number; value: string | null; st
 /** Pontuação de uma resposta objetiva; discursivas usam o valor numérico lançado pelo professor. */
 export function scoreResponse(i: ScoreInput): { points: number | null; status: "answered" | "blank" | "pending" } {
   if (i.status === "pending") return { points: null, status: "pending" };
-  if (i.key === "D") {
+  if (i.key === "*") {
     if (i.value == null || i.value === "") return { points: null, status: "pending" };
     const v = Number(String(i.value).replace(",", "."));
     if (!isFinite(v) || v < 0) return { points: null, status: "pending" };
@@ -54,7 +54,7 @@ export function scoreResponse(i: ScoreInput): { points: number | null; status: "
 
 export function normalizeResponse(raw: string, key: string): { value: string; error?: string } {
   const t = raw.trim().toUpperCase().replace(",", ".");
-  if (key === "D") {
+  if (key === "*") {
     if (t === "") return { value: "" };
     if (!/^\d+(\.\d+)?$/.test(t)) return { value: "", error: "Informe a pontuação numérica." };
     return { value: t };
