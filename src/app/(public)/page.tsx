@@ -43,8 +43,8 @@ export default function Home() {
       {/* Primeira tela: título, uma frase e um botão */}
       <section className="border-b border-line bg-white pb-10 pt-8 md:pb-16 md:pt-14">
         <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 md:grid-cols-[1fr_1fr] md:gap-12">
-          <div>
-            <h1 className="text-[2rem] font-extrabold leading-[1.1] tracking-tight md:text-5xl">Crie provas com o que sua turma estudou</h1>
+          <div className="min-w-0">
+            <h1 className="break-words text-[2rem] font-extrabold leading-[1.1] tracking-tight md:text-5xl">Crie provas com o que sua turma estudou</h1>
             <p className="mt-4 max-w-xl text-base text-ink-soft md:text-lg">Revise questões reais e baixe a prova com o gabarito separado.</p>
             <div className="mt-6"><Link id="cta-principal" className="btn btn-lg w-full sm:w-auto" href="/criar-conta">Criar minha primeira prova</Link></div>
             <p className="mt-3 text-base text-ink-soft">Grátis para começar. Sem cartão de crédito e sem cadastrar alunos.</p>

@@ -29,7 +29,7 @@ export function HeroFilter() {
   const okCount = rows.filter((r) => r.ok).length;
   const shown = full ? rows : rows.filter((r) => r.n === "03");
   return (
-    <section className="rounded-xl border border-line bg-white p-4 md:p-6" aria-label="Exemplo da folha da prova">
+    <section className="min-w-0 rounded-xl border border-line bg-white p-4 md:p-6" aria-label="Exemplo da folha da prova">
       <div className="mb-3 flex items-start justify-between gap-3">
         <div>
           <p className="text-xs font-semibold uppercase tracking-wide text-ink-soft">9º B · Matemática</p>
