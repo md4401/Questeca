@@ -1,5 +1,9 @@
 import Link from "next/link";
+import { ScrollFX } from "@/components/landing/scroll-fx";
 import { HeroFilter } from "@/components/landing/hero-filter";
+import { StickySteps } from "@/components/landing/sticky-steps";
+import { HorizontalFeatures } from "@/components/landing/horizontal-features";
+import { CountUp } from "@/components/landing/count-up";
 import { DemoButton } from "@/components/landing/demo-modal";
 import { Tooltip } from "@/components/ui/tooltip";
 import { PLANS, brl } from "@/lib/core/plans";
@@ -12,146 +16,164 @@ const FAQ: [string, string][] = [
   ["E os dados dos alunos?", "Ficam restritos à turma e à escola, com acesso por papel. Notas e fotos não podem ser publicadas na comunidade, e documentos de aula e dados de estudantes não são usados para treinar modelos."],
 ];
 
-const STEPS: [string, string][] = [
-  ["Diga o que a turma estudou", "Cole suas anotações, envie o PDF da apostila ou use o diário da turma. Você confirma o que vai cair e o que ainda não ensinou."],
-  ["Revise um rascunho explicado", "A prova usa só questões reais e mostra por que cada uma foi escolhida. Troque, fixe e reordene."],
-  ["Baixe a prova e o gabarito", "A folha do aluno sai com o cabeçalho da escola; o gabarito do professor vai em outro arquivo."],
-  ["Corrija e decida a próxima aula", "Lance as respostas pela grade, planilha ou foto do cartão. O acerto por conteúdo indica o que retomar."],
-];
-
-const FEATURE_GROUPS: { title: string; items: [string, string][] }[] = [
-  { title: "Preparar a prova", items: [
-    ["Segunda chamada", "Outra versão com as mesmas habilidades, pontos e tempo, com itens diferentes e sem variantes da questão original."],
-    ["Troca entre professores", "Mural geral ou da escola, com moderação. Dados de alunos são bloqueados antes de publicar."],
-  ] },
-  { title: "Aplicar e corrigir", items: [
-    ["Aplicação digital por link", "Cada estudante responde pelo próprio link, uma única vez, sem criar conta. As respostas chegam corrigidas."],
-    ["Cartão-resposta por foto", "Fotografe pelo celular. Leituras duvidosas ficam ao lado da imagem para você confirmar; nada entra na nota sozinho."],
-    ["Média com a fórmula à vista", "Pesos, ausências, recuperação e arredondamento seguem a regra da escola. Zero, falta e pendente nunca se confundem."],
-  ] },
-  { title: "Acompanhar a turma", items: [
-    ["Próxima aula com questões reais", "O acerto por conteúdo aponta o que retomar e a Questeca separa itens do acervo para prática e checagem."],
-    ["Documentos no modelo da escola", "Diário, relatório individual e conselho de classe a partir do que você registrou. O que não tem evidência fica em aberto."],
-  ] },
-];
-
 export default function Home() {
   const order = ["free", "teacher", "school"] as const;
   return (
     <>
-      {/* Primeira tela: título, uma frase e um botão */}
-      <section className="border-b border-line bg-white pb-10 pt-8 md:pb-16 md:pt-14">
-        <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 md:grid-cols-[1fr_1fr] md:gap-12">
+      <ScrollFX />
+
+      {/* HERO — a tese: o filtro de conteúdo ao vivo */}
+      <section className="relative -mt-20 overflow-hidden pb-20 pt-32 md:pb-28 md:pt-40">
+        <div aria-hidden className="pointer-events-none absolute inset-0">
+          <div data-parallax="0.25" className="absolute -left-32 -top-24 h-[34rem] w-[34rem] rounded-full bg-[radial-gradient(circle,#BCD3FF_0%,transparent_65%)] opacity-90" />
+          <div data-parallax="-0.15" className="absolute -right-24 top-24 h-[30rem] w-[30rem] rounded-full bg-[radial-gradient(circle,#D6E4FF_0%,transparent_60%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(#C9D6F2_1px,transparent_1px)] [background-size:22px_22px] [mask-image:linear-gradient(to_bottom,black,transparent_75%)] opacity-60" />
+        </div>
+        <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 md:grid-cols-[1.05fr_1fr]">
           <div>
-            <h1 className="text-[2rem] font-extrabold leading-[1.1] tracking-tight md:text-5xl">Crie provas com o que sua turma estudou</h1>
-            <p className="mt-4 max-w-xl text-base text-ink-soft md:text-lg">Revise questões reais e baixe a prova com o gabarito separado.</p>
-            <div className="mt-6"><Link className="btn btn-lg w-full sm:w-auto" href="/criar-conta">Criar minha primeira prova</Link></div>
-            <p className="mt-3 text-base text-ink-soft">Grátis para começar. Sem cartão de crédito e sem cadastrar alunos.</p>
+            <p className="reveal inline-flex items-center gap-2 rounded-full border border-white bg-white/70 px-3 py-1 text-sm font-semibold text-brand-dark shadow-sm backdrop-blur">
+              <span className="h-2 w-2 rounded-full bg-brand" aria-hidden />Para professores do 6º ano ao Ensino Médio
+            </p>
+            <h1 className="reveal mt-5 text-[2.6rem] font-extrabold leading-[1.02] md:text-[4.2rem]" style={{ ["--d" as string]: "80ms" }}>
+              A prova que só cobra o que você{" "}
+              <span className="relative whitespace-nowrap text-brand">
+                ensinou.
+                <svg aria-hidden viewBox="0 0 220 18" className="absolute -bottom-2 left-0 w-full" preserveAspectRatio="none"><path d="M3 13 C 60 4, 140 4, 217 10" fill="none" stroke="#8DB6FF" strokeWidth="6" strokeLinecap="round" /></svg>
+              </span>
+            </h1>
+            <p className="reveal mt-6 max-w-xl text-lg text-ink-soft md:text-xl" style={{ ["--d" as string]: "160ms" }}>
+              Questões reais de provas públicas, escolhidas pelo raciocínio que exigem. Você diz o que a turma estudou; a Questeca monta a prova, separa o gabarito e acompanha a correção até a próxima aula.
+            </p>
+            <div className="reveal mt-8 flex flex-wrap gap-3" style={{ ["--d" as string]: "240ms" }}>
+              <Link className="btn btn-lg" href="/criar-conta">Criar primeira prova grátis</Link>
+              <DemoButton />
+            </div>
+            <p className="reveal mt-4 text-sm text-ink-soft" style={{ ["--d" as string]: "300ms" }}>Sem cartão de crédito. Dá para começar sem cadastrar alunos.</p>
           </div>
-          <HeroFilter />
+          <div className="reveal relative" style={{ ["--d" as string]: "200ms" }}>
+            <div aria-hidden className="absolute -inset-6 -z-10 rounded-[2rem] bg-gradient-to-br from-[#7FA6FF]/40 via-white/0 to-[#B9CEFF]/50 blur-2xl" />
+            <HeroFilter />
+          </div>
         </div>
       </section>
 
-      {/* Como funciona */}
-      <section id="como-funciona" className="mx-auto mt-14 max-w-6xl scroll-mt-24 px-4">
-        <h2 className="text-2xl md:text-3xl">Como funciona</h2>
-        <ol className="mt-5 grid gap-3 md:grid-cols-4">
-          {STEPS.map(([t, d], i) => (
-            <li key={t} className="card"><span className="badge">Passo {i + 1}</span><h3 className="mt-2">{t}</h3><p className="mt-1 text-base text-ink-soft">{d}</p></li>))}
-        </ol>
-      </section>
-
-      {/* Recursos por tarefa */}
-      <section id="recursos" className="mx-auto mt-14 max-w-6xl scroll-mt-24 px-4">
-        <h2 className="text-2xl md:text-3xl">Recursos</h2>
-        <p className="mt-1 text-ink-soft">Toque em um recurso para ver os detalhes.</p>
-        <div className="mt-5 grid gap-6 md:grid-cols-3">
-          {FEATURE_GROUPS.map((g) => (
-            <div key={g.title}>
-              <h3 className="mb-2 text-sm font-semibold uppercase tracking-wide text-ink-soft">{g.title}</h3>
-              <div className="space-y-2">
-                {g.items.map(([t, d]) => (
-                  <details key={t} className="card group !p-0 [&_summary::-webkit-details-marker]:hidden">
-                    <summary className="flex min-h-[48px] cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 font-semibold">{t}<span aria-hidden className="text-brand transition-transform group-open:rotate-45">+</span></summary>
-                    <p className="px-4 pb-4 text-base text-ink-soft">{d}</p>
-                  </details>))}
-              </div>
+      {/* O problema, com dados da TALIS 2024 (gatilho de rolagem + contagem) */}
+      <section aria-labelledby="dados" className="mx-auto max-w-6xl px-4">
+        <div className="glass grid gap-px overflow-hidden md:grid-cols-[1.2fr_1fr_1fr_1fr]">
+          <div className="bg-white/50 p-6">
+            <h2 id="dados" className="text-2xl">Onde vai a semana do professor</h2>
+            <p className="mt-2 text-sm text-ink-soft">Médias declaradas por docentes brasileiros dos anos finais do Fundamental, em tempo integral.</p>
+          </div>
+          {[[9.3, " h", "preparando aulas"], [6.1, " h", "corrigindo trabalhos"], [59.8, "%", "citam o volume de provas para corrigir como fonte de estresse"]].map(([n, s, l]) => (
+            <div key={String(l)} className="reveal bg-white/50 p-6">
+              <p className="display text-5xl font-extrabold text-brand-dark"><CountUp to={Number(n)} decimals={1} suffix={String(s)} /></p>
+              <p className="mt-2 text-sm text-ink-soft">{l}</p>
             </div>))}
         </div>
+        <p className="mt-3 text-right text-xs text-ink-soft">Fonte: OCDE/Inep, TALIS 2024 — Relatório nacional.</p>
       </section>
 
-      {/* Confiança */}
-      <section aria-labelledby="confianca" className="mx-auto mt-14 max-w-6xl px-4">
-        <h2 id="confianca" className="text-2xl md:text-3xl">A IA escolhe e explica. Nunca inventa questão.</h2>
-        <div className="mt-5 grid gap-3 md:grid-cols-3">
-          {[
-            ["Origem verificável", "Banca, edição, caderno, número e página de cada item, com o gabarito oficial da versão aplicada."],
-            ["Direito de uso por item", "Cada questão tem um estado: em curadoria, só referência, liberada, em revisão ou bloqueada. Só as liberadas entram na prova."],
-            ["Dados da turma protegidos", "Acesso por escola, turma e papel. Notas, fotos e observações são privadas e não treinam modelos de IA."],
-          ].map(([t, d]) => (<div key={t} className="card"><h3>{t}</h3><p className="mt-1 text-base text-ink-soft">{d}</p></div>))}
+      {/* COMO FUNCIONA — sticky + scroll linked */}
+      <section id="como-funciona" className="mx-auto mt-28 max-w-6xl scroll-mt-28 px-4">
+        <div className="reveal mb-10 max-w-2xl">
+          <p className="mono text-sm text-brand">Como funciona</p>
+          <h2 className="display mt-2 text-4xl md:text-5xl">Do conteúdo da aula ao gabarito, em quatro passos.</h2>
+        </div>
+        <StickySteps />
+      </section>
+
+      {/* RECURSOS — horizontal scroll */}
+      <section id="recursos" className="mt-20 scroll-mt-20">
+        <HorizontalFeatures />
+      </section>
+
+      {/* CONFIANÇA — parallax em vidro escuro */}
+      <section aria-labelledby="confianca" className="relative mx-3 mt-24 overflow-hidden rounded-[2rem] bg-gradient-to-br from-[#0B1E52] via-[#122C7A] to-[#1F4FE0] py-24 text-white md:mx-6">
+        <div aria-hidden className="pointer-events-none absolute inset-0">
+          <div data-parallax="0.3" className="absolute -left-10 top-10 grid grid-cols-6 gap-4 opacity-25">{Array.from({ length: 24 }, (_, k) => <span key={k} className="h-6 w-6 rounded-full border-2 border-white/80" style={{ background: k % 7 === 2 ? "#fff" : "transparent" }} />)}</div>
+          <div data-parallax="-0.2" className="absolute -bottom-20 right-0 h-96 w-96 rounded-full bg-[radial-gradient(circle,#5B8CFF_0%,transparent_65%)] opacity-70" />
+        </div>
+        <div className="relative mx-auto max-w-6xl px-4">
+          <p className="reveal mono text-sm text-[#BFD3FF]">Procedência</p>
+          <h2 id="confianca" className="reveal display mt-3 max-w-3xl text-4xl leading-tight md:text-6xl">A IA escolhe e explica. Nunca inventa questão.</h2>
+          <div className="mt-12 grid gap-5 md:grid-cols-3">
+            {[
+              ["Origem verificável", "Banca, edição, caderno, número e página de cada item, com o gabarito oficial da versão aplicada."],
+              ["Direito de uso por item", "Cada questão tem um estado: em curadoria, só referência, liberada, em revisão ou bloqueada. Só as liberadas entram na prova."],
+              ["Dados da turma protegidos", "Acesso por escola, turma e papel. Notas, fotos e observações são privadas e não treinam modelos de IA."],
+            ].map(([t, d], i) => (
+              <div key={t} className="reveal glass-dark hover-lift rounded-[1.25rem] p-6" style={{ ["--d" as string]: `${i * 90}ms` }}>
+                <span aria-hidden className="mb-4 grid h-10 w-10 place-items-center rounded-full bg-white/15 ring-1 ring-white/30"><span className="h-3.5 w-3.5 rounded-full bg-white" /></span>
+                <h3 className="display text-xl">{t}</h3>
+                <p className="mt-2 text-[#D5E1FF]">{d}</p>
+              </div>))}
+          </div>
         </div>
       </section>
 
-      {/* Planos */}
-      <section id="planos" aria-labelledby="planos-h" className="mx-auto mt-14 max-w-6xl scroll-mt-24 px-4">
-        <h2 id="planos-h" className="text-2xl md:text-3xl">Planos</h2>
-        <p className="mt-1 text-ink-soft">Comece grátis e cresça quando a rotina pedir. Valores em fase de validação com professores e escolas.</p>
-        <div className="mt-5 grid items-stretch gap-4 md:grid-cols-3">
-          {order.map((id) => {
-            const p = PLANS[id];
-            const featured = id === "teacher";
-            return (
-              <article key={id} aria-labelledby={`plan-${id}`} className={`card flex flex-col ${featured ? "border-brand ring-1 ring-brand" : ""}`}>
-                {featured && <span className="badge mb-2 self-start">Para quem tem várias turmas</span>}
-                <h3 id={`plan-${id}`} className="text-xl">{p.name}</h3>
-                <p className="mt-1 text-base text-ink-soft">{p.blurb}</p>
-                <p className="mt-4 text-4xl font-extrabold tracking-tight">
-                  {p.priceCents === null ? <span className="text-2xl">Sob proposta</span> : p.priceCents === 0 ? "R$ 0" : brl(p.priceCents).replace(/\s/, " ")}
-                  {p.priceCents ? <span className="text-base font-medium text-ink-soft">/mês</span> : null}
-                </p>
-                <ul className="mt-4 flex-1 space-y-2.5 text-sm">
-                  <li className="flex items-center gap-2"><Check /><span>{p.assemblies >= 10000 ? "Montagens conforme contrato" : `${p.assemblies} montagens por ciclo`}</span>
-                    <Tooltip text="Conta na primeira gravação de uma prova nova com pelo menos uma questão. Revisar, trocar ou exportar a mesma prova não consome outra."><button type="button" className="grid h-6 w-6 place-items-center rounded-full border border-line text-xs text-ink-soft" aria-label="O que é uma montagem?">?</button></Tooltip></li>
-                  <li className="flex items-center gap-2"><Check /><span>{p.classes >= 10000 ? "Turmas conforme contrato" : `${p.classes} turma${p.classes > 1 ? "s" : ""} ativa${p.classes > 1 ? "s" : ""}`}</span></li>
-                  <li className="flex items-center gap-2"><Check /><span>{p.cards >= 100000 ? "Correção de cartões em volume" : `${p.cards} cartões corrigidos por ciclo`}</span></li>
-                  <li className="flex items-center gap-2"><Check /><span>PDF do aluno, gabarito e notas</span></li>
-                  <li className={`flex items-center gap-2 ${p.features.word ? "" : "text-ink-soft"}`}>{p.features.word ? <Check /> : <Dash />}<span>Word, segunda chamada e correção por foto</span></li>
-                  {id === "school" && <li className="flex items-center gap-2"><Check /><span>Modelos da escola, convites e coordenação</span></li>}
-                </ul>
-                <div className="mt-5">
-                  {id === "school" ? <Link className="btn btn-ghost w-full" href="/escolas">Conhecer o plano Escola</Link> : <Link className={`btn w-full ${featured ? "" : "btn-ghost"}`} href="/criar-conta">{id === "free" ? "Começar grátis" : "Assinar o Professor"}</Link>}
-                </div>
-              </article>);
-          })}
-        </div>
-        <p className="mt-4 text-center text-sm"><Link href="/planos">Comparar planos em detalhe</Link></p>
-      </section>
-
-      {/* Para escolas */}
-      <section id="para-escolas" aria-labelledby="escolas-h" className="mx-auto mt-14 max-w-6xl scroll-mt-24 px-4">
-        <div className="card flex flex-wrap items-center justify-between gap-4 !p-6">
-          <div className="max-w-xl"><h2 id="escolas-h" className="text-xl">Para escolas</h2><p className="mt-1 text-base text-ink-soft">Cabeçalho e regras de nota da escola, convites e coordenação. Mostramos o fluxo com dados de exemplo e combinamos um piloto.</p></div>
-          <div className="flex flex-wrap gap-2"><DemoButton className="btn" /><Link className="btn btn-ghost" href="/escolas">Saiba mais</Link></div>
+      {/* PLANOS — preço em vidro */}
+      <section id="planos" aria-labelledby="planos-h" className="relative mt-28 scroll-mt-28 overflow-hidden px-4">
+        <div aria-hidden className="pointer-events-none absolute left-1/2 top-24 -z-10 h-[30rem] w-[60rem] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse,#C5D7FF_0%,transparent_65%)]" />
+        <div className="mx-auto max-w-6xl">
+          <div className="reveal mx-auto mb-12 max-w-2xl text-center">
+            <p className="mono text-sm text-brand">Planos</p>
+            <h2 id="planos-h" className="display mt-2 text-4xl md:text-5xl">Comece grátis. Cresça quando a rotina pedir.</h2>
+            <p className="mt-3 text-ink-soft">Valores em fase de validação com professores e escolas.</p>
+          </div>
+          <div className="grid items-stretch gap-5 md:grid-cols-3">
+            {order.map((id, i) => {
+              const p = PLANS[id];
+              const featured = id === "teacher";
+              return (
+                <article key={id} aria-labelledby={`plan-${id}`} className={`reveal glass hover-lift relative flex flex-col p-7 ${featured ? "glass-strong ring-2 ring-brand/70 md:-translate-y-3" : ""}`} style={{ ["--d" as string]: `${i * 90}ms` }}>
+                  {featured && <span className="absolute -top-3 left-7 rounded-full bg-brand px-3 py-1 text-xs font-bold text-white shadow">Para quem tem várias turmas</span>}
+                  <h3 id={`plan-${id}`} className="display text-2xl">{p.name}</h3>
+                  <p className="mt-1 text-sm text-ink-soft">{p.blurb}</p>
+                  <p className="display mt-6 text-5xl font-extrabold tracking-tight">
+                    {p.priceCents === null ? <span className="text-3xl">Sob proposta</span> : p.priceCents === 0 ? "R$ 0" : brl(p.priceCents).replace(/\s/, " ")}
+                    {p.priceCents ? <span className="text-base font-medium text-ink-soft">/mês</span> : null}
+                  </p>
+                  <ul className="mt-6 flex-1 space-y-3 text-sm">
+                    <li className="flex items-center gap-2"><Check /><span>{p.assemblies >= 10000 ? "Montagens conforme contrato" : `${p.assemblies} montagens por ciclo`}</span>
+                      <Tooltip text="Conta na primeira gravação de uma prova nova com pelo menos uma questão. Revisar, trocar ou exportar a mesma prova não consome outra."><button type="button" className="grid h-5 w-5 place-items-center rounded-full border border-line text-[11px] font-bold text-ink-soft hover:border-brand hover:text-brand" aria-label="O que é uma montagem assistida">?</button></Tooltip></li>
+                    <li className="flex items-center gap-2"><Check /><span>{p.classes >= 10000 ? "Turmas conforme contrato" : `${p.classes} turma${p.classes > 1 ? "s" : ""} ativa${p.classes > 1 ? "s" : ""}`}</span></li>
+                    <li className="flex items-center gap-2"><Check /><span>{p.cards >= 100000 ? "Correção de cartões em volume" : `${p.cards} cartões corrigidos por ciclo`}</span></li>
+                    <li className="flex items-center gap-2"><Check /><span>PDF do aluno, gabarito e notas</span></li>
+                    <li className={`flex items-center gap-2 ${p.features.word ? "" : "text-ink-soft"}`}>{p.features.word ? <Check /> : <Dash />}<span>Word, segunda chamada e correção por foto</span></li>
+                    {id === "school" && <li className="flex items-center gap-2"><Check /><span>Modelos da escola, convites e coordenação</span></li>}
+                  </ul>
+                  <div className="mt-7">
+                    {id === "school" ? <DemoButton label="Falar com a equipe" className="btn btn-glass w-full" /> : <Link className={`btn w-full ${featured ? "" : "btn-glass"}`} href="/criar-conta">{id === "free" ? "Começar grátis" : "Assinar o Professor"}</Link>}
+                  </div>
+                </article>);
+            })}
+          </div>
+          <p className="mt-6 text-center text-sm"><Link href="/planos">Comparar planos em detalhe</Link></p>
         </div>
       </section>
 
       {/* FAQ */}
-      <section aria-labelledby="faq" className="mx-auto mt-14 max-w-3xl px-4">
-        <h2 id="faq" className="mb-4 text-2xl md:text-3xl">Perguntas frequentes</h2>
-        <div className="space-y-2">
+      <section aria-labelledby="faq" className="mx-auto mt-28 max-w-3xl px-4">
+        <h2 id="faq" className="reveal display mb-8 text-center text-4xl">Perguntas frequentes</h2>
+        <div className="space-y-3">
           {FAQ.map(([q, a]) => (
-            <details key={q} className="card group !p-0 [&_summary::-webkit-details-marker]:hidden">
-              <summary className="flex min-h-[48px] cursor-pointer list-none items-center justify-between gap-4 px-4 py-3 font-semibold">{q}<span aria-hidden className="text-brand transition-transform group-open:rotate-45">+</span></summary>
-              <p className="px-4 pb-4 text-ink-soft">{a}</p>
+            <details key={q} className="reveal glass group p-5 [&_summary::-webkit-details-marker]:hidden">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-semibold">
+                {q}
+                <span aria-hidden className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-brand-tint text-brand transition-transform duration-300 group-open:rotate-45">+</span>
+              </summary>
+              <p className="mt-3 text-ink-soft">{a}</p>
             </details>))}
         </div>
       </section>
 
       {/* CTA final */}
-      <section className="mx-auto mt-14 max-w-6xl px-4">
-        <div className="card flex flex-wrap items-center justify-between gap-4 !p-6 md:!p-8">
-          <div><h2 className="text-xl md:text-2xl">Sua próxima prova pode ficar pronta hoje.</h2><p className="mt-1 text-ink-soft">Crie a conta, informe a turma e diga o que ensinou.</p></div>
-          <Link className="btn btn-lg" href="/criar-conta">Criar minha primeira prova</Link>
+      <section className="mx-auto mt-28 max-w-6xl px-4">
+        <div className="reveal glass glass-strong relative overflow-hidden p-10 text-center md:p-16">
+          <div aria-hidden className="absolute -right-10 -top-10 flex gap-3 opacity-60">{["A", "B", "C", "D", "E"].map((L) => <span key={L} className="bubble" data-on={L === "C"}>{L}</span>)}</div>
+          <h2 className="display mx-auto max-w-2xl text-4xl md:text-5xl">Sua próxima prova pode ficar pronta hoje.</h2>
+          <p className="mx-auto mt-3 max-w-xl text-lg text-ink-soft">Crie a conta, informe a turma e diga o que ensinou. O primeiro rascunho chega explicado, questão por questão.</p>
+          <div className="mt-8 flex flex-wrap justify-center gap-3"><Link className="btn btn-lg" href="/criar-conta">Criar primeira prova grátis</Link><Link className="btn btn-glass btn-lg" href="/escolas">Conhecer o plano Escola</Link></div>
         </div>
       </section>
     </>
