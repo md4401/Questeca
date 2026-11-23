@@ -64,6 +64,13 @@
       "when": 1795439731956,
       "tag": "0008_fase4",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1795462987443,
+      "tag": "0009_mvp_professores",
+      "breakpoints": true
     }
   ]
 }

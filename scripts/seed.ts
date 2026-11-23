@@ -9,7 +9,8 @@ import { SEED, REFERENCE_ONLY } from "../src/db/seed-questions";
 
 const url = process.env.DATABASE_URL;
 if (!url) throw new Error("DATABASE_URL ausente");
-if (process.env.NEON_FETCH_VIA_HOST === "1") neonConfig.fetchEndpoint = `https://${new URL(url).host}/sql`;
+if (process.env.NEON_FETCH_ENDPOINT) neonConfig.fetchEndpoint = process.env.NEON_FETCH_ENDPOINT;
+else if (process.env.NEON_FETCH_VIA_HOST === "1") neonConfig.fetchEndpoint = `https://${new URL(url).host}/sql`;
 const db = drizzle(neon(url));
 
 let inserted = 0;

@@ -4,7 +4,8 @@ import { config } from "dotenv";
 config({ path: ".env.test.local" });
 
 const url = process.env.DATABASE_URL!;
-if (process.env.NEON_FETCH_VIA_HOST === "1") neonConfig.fetchEndpoint = `https://${new URL(url).host}/sql`;
+if (process.env.NEON_FETCH_ENDPOINT) neonConfig.fetchEndpoint = process.env.NEON_FETCH_ENDPOINT;
+else if (process.env.NEON_FETCH_VIA_HOST === "1") neonConfig.fetchEndpoint = `https://${new URL(url).host}/sql`;
 export const sql = neon(url);
 
 export const uid = () => Math.random().toString(36).slice(2, 8);

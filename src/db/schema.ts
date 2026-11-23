@@ -366,6 +366,7 @@ export const observations = pgTable("observations", {
   studentId: uuid("student_id").references(() => students.id, { onDelete: "set null" }),
   authorId: uuid("author_id").notNull().references(() => users.id),
   text: text("text").notNull(),
+  tags: jsonb("tags").$type<string[]>().notNull().default([]), // registros rápidos (ex.: "participou", "dificuldade")
   visibility: text("visibility").notNull().default("private"), // private | school | family
   observedOn: date("observed_on").notNull(),
   createdAt: created(),
@@ -950,3 +951,70 @@ export const reportCards = pgTable("report_cards", {
   generatedBy: uuid("generated_by").notNull().references(() => users.id),
   createdAt: created(),
 }, (t) => [index("report_cards_student_idx").on(t.studentId, t.createdAt)]);
+
+
+/* ---------- MVP professores: plano de aula, parecer, notas por QR, radar ---------- */
+export type LessonPlanContent = {
+  identificacao: { escola: string; turma: string; disciplina: string; professor: string; data: string; duracaoMin: number };
+  tema: string;
+  objetivos: string[];
+  habilidades: string[];
+  recursos: string[];
+  momentos: { titulo: string; minutos: number; descricao: string }[];
+  avaliacao: string;
+  adaptacoes: string;
+  referencias: string[];
+  origem: "ia" | "modelo";
+};
+export const lessonPlans = pgTable("lesson_plans", {
+  id: id(),
+  orgId: uuid("org_id").notNull().references(() => orgs.id, { onDelete: "cascade" }),
+  classId: uuid("class_id").references(() => classes.id, { onDelete: "set null" }),
+  authorId: uuid("author_id").notNull().references(() => users.id),
+  theme: text("theme").notNull(),
+  plannedFor: date("planned_for"),
+  durationMin: integer("duration_min").notNull().default(50),
+  content: jsonb("content").$type<LessonPlanContent>().notNull(),
+  sentAt: timestamp("sent_at", { withTimezone: true }),
+  createdAt: created(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+}, (t) => [index("lesson_plans_class_idx").on(t.classId, t.plannedFor), index("lesson_plans_author_idx").on(t.authorId)]);
+
+export const descriptiveOpinions = pgTable("descriptive_opinions", {
+  id: id(),
+  classId: uuid("class_id").notNull().references(() => classes.id, { onDelete: "cascade" }),
+  studentId: uuid("student_id").notNull().references(() => students.id, { onDelete: "cascade" }),
+  period: text("period").notNull(), // YYYY-MM
+  text: text("text").notNull(),
+  origin: text("origin").notNull().default("modelo"), // ia | modelo | manual
+  status: text("status").notNull().default("draft"), // draft | approved
+  evidence: jsonb("evidence").$type<{ observations: number; attendancePct: number | null; average: number | null }>(),
+  updatedBy: uuid("updated_by").references(() => users.id),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+}, (t) => [uniqueIndex("descriptive_opinions_uq").on(t.classId, t.studentId, t.period)]);
+
+/** Nota enviada à escola a partir do cartão (QR). Uma por aplicação e aluno; reenviar atualiza e mantém o histórico em grade_changes. */
+export const gradeSubmissions = pgTable("grade_submissions", {
+  id: id(),
+  orgId: uuid("org_id").notNull().references(() => orgs.id, { onDelete: "cascade" }),
+  classId: uuid("class_id").notNull().references(() => classes.id, { onDelete: "cascade" }),
+  applicationId: uuid("application_id").notNull().references(() => applications.id, { onDelete: "cascade" }),
+  studentId: uuid("student_id").notNull().references(() => students.id, { onDelete: "cascade" }),
+  gradeItemId: uuid("grade_item_id").references(() => gradeItems.id, { onDelete: "set null" }),
+  value: numeric("value", { precision: 6, scale: 2 }).notNull(),
+  maxPoints: numeric("max_points", { precision: 6, scale: 2 }).notNull(),
+  submittedBy: uuid("submitted_by").notNull().references(() => users.id),
+  submittedAt: timestamp("submitted_at", { withTimezone: true }).notNull().defaultNow(),
+}, (t) => [uniqueIndex("grade_submissions_uq").on(t.applicationId, t.studentId), index("grade_submissions_org_idx").on(t.orgId, t.submittedAt)]);
+
+export const riskAlerts = pgTable("risk_alerts", {
+  id: id(),
+  orgId: uuid("org_id").notNull().references(() => orgs.id, { onDelete: "cascade" }),
+  classId: uuid("class_id").notNull().references(() => classes.id, { onDelete: "cascade" }),
+  studentId: uuid("student_id").notNull().references(() => students.id, { onDelete: "cascade" }),
+  reasons: jsonb("reasons").$type<string[]>().notNull().default([]),
+  note: text("note"),
+  sentBy: uuid("sent_by").notNull().references(() => users.id),
+  notified: integer("notified").notNull().default(0), // coordenadores notificados
+  createdAt: created(),
+}, (t) => [index("risk_alerts_student_idx").on(t.studentId, t.createdAt)]);

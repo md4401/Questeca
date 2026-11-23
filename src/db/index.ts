@@ -7,7 +7,8 @@ function make() {
   if (!url) throw new Error("DATABASE_URL não configurada");
   // Em ambientes com proxy restrito, aponta o endpoint HTTP para o host do próprio banco.
   const host = new URL(url).host;
-  if (process.env.NEON_FETCH_VIA_HOST === "1") neonConfig.fetchEndpoint = `https://${host}/sql`;
+  if (process.env.NEON_FETCH_ENDPOINT) neonConfig.fetchEndpoint = process.env.NEON_FETCH_ENDPOINT;
+  else if (process.env.NEON_FETCH_VIA_HOST === "1") neonConfig.fetchEndpoint = `https://${host}/sql`;
   return drizzle(neon(url), { schema });
 }
 
