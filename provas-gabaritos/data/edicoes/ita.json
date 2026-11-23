@@ -1,0 +1,1047 @@
+[
+  {
+    "id": "ita-2027-1-fase",
+    "instituicao": "ita",
+    "ano": 2027,
+    "nome": "ITA 2027 · 1ª fase",
+    "arquivos": [
+      {
+        "tipo": "gabarito",
+        "rotulo": "Gabarito",
+        "url": "https://www.vestibular.ita.br/provas/gabarito_2027.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova",
+        "url": "https://www.vestibular.ita.br/provas/2027_fase1.pdf",
+        "formato": "pdf"
+      }
+    ],
+    "fonte": "https://www.vestibular.ita.br/principal.htm",
+    "fase": "1ª fase"
+  },
+  {
+    "id": "ita-2027-2-fase",
+    "instituicao": "ita",
+    "ano": 2027,
+    "nome": "ITA 2027 · 2ª fase",
+    "arquivos": [
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Matemática",
+        "url": "https://www.vestibular.ita.br/provas/matematica_2027_2f.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Química",
+        "url": "https://www.vestibular.ita.br/provas/quimica_2027_2f.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Física",
+        "url": "https://www.vestibular.ita.br/provas/fisica_2027_2f.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Português",
+        "url": "https://www.vestibular.ita.br/provas/portugues_2027_2f.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "gabarito",
+        "rotulo": "Gabarito — critérios de pontuação",
+        "url": "https://www.vestibular.ita.br/provas/2027_gabaritos_e_criterios_de_pontuacao.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "gabarito",
+        "rotulo": "Gabarito — expectativas da banca de redação",
+        "url": "https://www.vestibular.ita.br/provas/2027_expectativas_da_banca_de_redacao.pdf",
+        "formato": "pdf"
+      }
+    ],
+    "fonte": "https://www.vestibular.ita.br/principal.htm",
+    "fase": "2ª fase"
+  },
+  {
+    "id": "ita-2026-1-fase",
+    "instituicao": "ita",
+    "ano": 2026,
+    "nome": "ITA 2026 · 1ª fase",
+    "arquivos": [
+      {
+        "tipo": "prova",
+        "rotulo": "Prova",
+        "url": "https://www.vestibular.ita.br/provas/2026_fase1.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "gabarito",
+        "rotulo": "Gabarito",
+        "url": "https://www.vestibular.ita.br/provas/gabarito_2026.pdf",
+        "formato": "pdf"
+      }
+    ],
+    "fonte": "https://www.vestibular.ita.br/provas.htm",
+    "fase": "1ª fase"
+  },
+  {
+    "id": "ita-2026-2-fase",
+    "instituicao": "ita",
+    "ano": 2026,
+    "nome": "ITA 2026 · 2ª fase",
+    "arquivos": [
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Matemática",
+        "url": "https://www.vestibular.ita.br/provas/matematica_2026_2f.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Física",
+        "url": "https://www.vestibular.ita.br/provas/fisica_2026_2f.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Química",
+        "url": "https://www.vestibular.ita.br/provas/quimica_2026_2f.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Português",
+        "url": "https://www.vestibular.ita.br/provas/portugues_2026_2f.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "gabarito",
+        "rotulo": "Gabarito",
+        "url": "https://www.vestibular.ita.br/provas/gabarito_2026_2f.pdf",
+        "formato": "pdf"
+      }
+    ],
+    "fonte": "https://www.vestibular.ita.br/provas.htm",
+    "fase": "2ª fase"
+  },
+  {
+    "id": "ita-2025-1-fase",
+    "instituicao": "ita",
+    "ano": 2025,
+    "nome": "ITA 2025 · 1ª fase",
+    "arquivos": [
+      {
+        "tipo": "prova",
+        "rotulo": "Prova",
+        "url": "https://www.vestibular.ita.br/provas/2025_fase1.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "gabarito",
+        "rotulo": "Gabarito",
+        "url": "https://www.vestibular.ita.br/provas/gabarito_2025.pdf",
+        "formato": "pdf"
+      }
+    ],
+    "fonte": "https://www.vestibular.ita.br/provas.htm",
+    "fase": "1ª fase"
+  },
+  {
+    "id": "ita-2025-2-fase",
+    "instituicao": "ita",
+    "ano": 2025,
+    "nome": "ITA 2025 · 2ª fase",
+    "arquivos": [
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Matemática",
+        "url": "https://www.vestibular.ita.br/provas/matematica_2025_2f.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Física",
+        "url": "https://www.vestibular.ita.br/provas/fisica_2025_2f.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Química",
+        "url": "https://www.vestibular.ita.br/provas/quimica_2025_2f.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Português",
+        "url": "https://www.vestibular.ita.br/provas/portugues_2025_2f.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "gabarito",
+        "rotulo": "Gabarito",
+        "url": "https://www.vestibular.ita.br/provas/gabarito_2025_2f.pdf",
+        "formato": "pdf"
+      }
+    ],
+    "fonte": "https://www.vestibular.ita.br/provas.htm",
+    "fase": "2ª fase"
+  },
+  {
+    "id": "ita-2024-1-fase",
+    "instituicao": "ita",
+    "ano": 2024,
+    "nome": "ITA 2024 · 1ª fase",
+    "arquivos": [
+      {
+        "tipo": "prova",
+        "rotulo": "Prova",
+        "url": "https://www.vestibular.ita.br/provas/2024_fase1.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "gabarito",
+        "rotulo": "Gabarito",
+        "url": "https://www.vestibular.ita.br/provas/gabarito_2024.pdf",
+        "formato": "pdf"
+      }
+    ],
+    "fonte": "https://www.vestibular.ita.br/provas.htm",
+    "fase": "1ª fase"
+  },
+  {
+    "id": "ita-2024-2-fase",
+    "instituicao": "ita",
+    "ano": 2024,
+    "nome": "ITA 2024 · 2ª fase",
+    "arquivos": [
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Matemática",
+        "url": "https://www.vestibular.ita.br/provas/matematica_2024_2f.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Física",
+        "url": "https://www.vestibular.ita.br/provas/fisica_2024_2f.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Química",
+        "url": "https://www.vestibular.ita.br/provas/quimica_2024_2f.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Redação",
+        "url": "https://www.vestibular.ita.br/provas/redacao_2024_2f.pdf",
+        "formato": "pdf"
+      }
+    ],
+    "fonte": "https://www.vestibular.ita.br/provas.htm",
+    "fase": "2ª fase"
+  },
+  {
+    "id": "ita-2023-1-fase",
+    "instituicao": "ita",
+    "ano": 2023,
+    "nome": "ITA 2023 · 1ª fase",
+    "arquivos": [
+      {
+        "tipo": "prova",
+        "rotulo": "Prova",
+        "url": "https://www.vestibular.ita.br/provas/2023_fase1.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "gabarito",
+        "rotulo": "Gabarito",
+        "url": "https://www.vestibular.ita.br/provas/gabarito_2023.pdf",
+        "formato": "pdf"
+      }
+    ],
+    "fonte": "https://www.vestibular.ita.br/provas.htm",
+    "fase": "1ª fase"
+  },
+  {
+    "id": "ita-2023-2-fase",
+    "instituicao": "ita",
+    "ano": 2023,
+    "nome": "ITA 2023 · 2ª fase",
+    "arquivos": [
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Matemática",
+        "url": "https://www.vestibular.ita.br/provas/matematica_2023_2f.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Física",
+        "url": "https://www.vestibular.ita.br/provas/fisica_2023_2f.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Química",
+        "url": "https://www.vestibular.ita.br/provas/quimica_2023_2f.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Redação",
+        "url": "https://www.vestibular.ita.br/provas/redacao_2023_2f.pdf",
+        "formato": "pdf"
+      }
+    ],
+    "fonte": "https://www.vestibular.ita.br/provas.htm",
+    "fase": "2ª fase"
+  },
+  {
+    "id": "ita-2022-1-fase",
+    "instituicao": "ita",
+    "ano": 2022,
+    "nome": "ITA 2022 · 1ª fase",
+    "arquivos": [
+      {
+        "tipo": "prova",
+        "rotulo": "Prova",
+        "url": "https://www.vestibular.ita.br/provas/2022_fase1.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "gabarito",
+        "rotulo": "Gabarito",
+        "url": "https://www.vestibular.ita.br/provas/gabarito_2022.pdf",
+        "formato": "pdf"
+      }
+    ],
+    "fonte": "https://www.vestibular.ita.br/provas.htm",
+    "fase": "1ª fase"
+  },
+  {
+    "id": "ita-2022-2-fase",
+    "instituicao": "ita",
+    "ano": 2022,
+    "nome": "ITA 2022 · 2ª fase",
+    "arquivos": [
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Matemática",
+        "url": "https://www.vestibular.ita.br/provas/matematica_2022_2f.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Física",
+        "url": "https://www.vestibular.ita.br/provas/fisica_2022_2f.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Química",
+        "url": "https://www.vestibular.ita.br/provas/quimica_2022_2f.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Redação",
+        "url": "https://www.vestibular.ita.br/provas/redacao_2022_2f.pdf",
+        "formato": "pdf"
+      }
+    ],
+    "fonte": "https://www.vestibular.ita.br/provas.htm",
+    "fase": "2ª fase"
+  },
+  {
+    "id": "ita-2021-1-fase",
+    "instituicao": "ita",
+    "ano": 2021,
+    "nome": "ITA 2021 · 1ª fase",
+    "arquivos": [
+      {
+        "tipo": "prova",
+        "rotulo": "Prova",
+        "url": "https://www.vestibular.ita.br/provas/2021_fase1.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "gabarito",
+        "rotulo": "Gabarito",
+        "url": "https://www.vestibular.ita.br/provas/gabarito_2021.pdf",
+        "formato": "pdf"
+      }
+    ],
+    "fonte": "https://www.vestibular.ita.br/provas.htm",
+    "fase": "1ª fase"
+  },
+  {
+    "id": "ita-2021-2-fase",
+    "instituicao": "ita",
+    "ano": 2021,
+    "nome": "ITA 2021 · 2ª fase",
+    "arquivos": [
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Matemática",
+        "url": "https://www.vestibular.ita.br/provas/matematica_2021_2f.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Física",
+        "url": "https://www.vestibular.ita.br/provas/fisica_2021_2f.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Química",
+        "url": "https://www.vestibular.ita.br/provas/quimica_2021_2f.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Redação",
+        "url": "https://www.vestibular.ita.br/provas/redacao_2021_2f.pdf",
+        "formato": "pdf"
+      }
+    ],
+    "fonte": "https://www.vestibular.ita.br/provas.htm",
+    "fase": "2ª fase"
+  },
+  {
+    "id": "ita-2020-1-fase",
+    "instituicao": "ita",
+    "ano": 2020,
+    "nome": "ITA 2020 · 1ª fase",
+    "arquivos": [
+      {
+        "tipo": "prova",
+        "rotulo": "Prova",
+        "url": "https://www.vestibular.ita.br/provas/2020_fase1.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "gabarito",
+        "rotulo": "Gabarito",
+        "url": "https://www.vestibular.ita.br/provas/gabarito_2020.pdf",
+        "formato": "pdf"
+      }
+    ],
+    "fonte": "https://www.vestibular.ita.br/provas.htm",
+    "fase": "1ª fase"
+  },
+  {
+    "id": "ita-2020-2-fase",
+    "instituicao": "ita",
+    "ano": 2020,
+    "nome": "ITA 2020 · 2ª fase",
+    "arquivos": [
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Matemática",
+        "url": "https://www.vestibular.ita.br/provas/matematica_2020_2f.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Física",
+        "url": "https://www.vestibular.ita.br/provas/fisica_2020_2f.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Química",
+        "url": "https://www.vestibular.ita.br/provas/quimica_2020_2f.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Redação",
+        "url": "https://www.vestibular.ita.br/provas/redacao_2020_2f.pdf",
+        "formato": "pdf"
+      }
+    ],
+    "fonte": "https://www.vestibular.ita.br/provas.htm",
+    "fase": "2ª fase"
+  },
+  {
+    "id": "ita-2019-1-fase",
+    "instituicao": "ita",
+    "ano": 2019,
+    "nome": "ITA 2019 · 1ª fase",
+    "arquivos": [
+      {
+        "tipo": "prova",
+        "rotulo": "Prova",
+        "url": "https://www.vestibular.ita.br/provas/2019_fase1.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "gabarito",
+        "rotulo": "Gabarito",
+        "url": "https://www.vestibular.ita.br/provas/gabarito_2019.pdf",
+        "formato": "pdf"
+      }
+    ],
+    "fonte": "https://www.vestibular.ita.br/provas.htm",
+    "fase": "1ª fase"
+  },
+  {
+    "id": "ita-2019-2-fase",
+    "instituicao": "ita",
+    "ano": 2019,
+    "nome": "ITA 2019 · 2ª fase",
+    "arquivos": [
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Matemática",
+        "url": "https://www.vestibular.ita.br/provas/matematica_2019_2f.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Física",
+        "url": "https://www.vestibular.ita.br/provas/fisica_2019_2f.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Química",
+        "url": "https://www.vestibular.ita.br/provas/quimica_2019_2f.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Redação",
+        "url": "https://www.vestibular.ita.br/provas/redacao_2019_2f.pdf",
+        "formato": "pdf"
+      }
+    ],
+    "fonte": "https://www.vestibular.ita.br/provas.htm",
+    "fase": "2ª fase"
+  },
+  {
+    "id": "ita-2018-prova-por-disciplina",
+    "instituicao": "ita",
+    "ano": 2018,
+    "nome": "ITA 2018 · Prova por disciplina",
+    "arquivos": [
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Física",
+        "url": "https://www.vestibular.ita.br/provas/fisica_2018.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Português",
+        "url": "https://www.vestibular.ita.br/provas/portugues_2018.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Inglês",
+        "url": "https://www.vestibular.ita.br/provas/ingles_2018.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Matemática",
+        "url": "https://www.vestibular.ita.br/provas/matematica_2018.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Química",
+        "url": "https://www.vestibular.ita.br/provas/quimica_2018.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "gabarito",
+        "rotulo": "Gabarito",
+        "url": "https://www.vestibular.ita.br/provas/gabarito_2018.pdf",
+        "formato": "pdf"
+      }
+    ],
+    "fonte": "https://www.vestibular.ita.br/provas.htm",
+    "fase": "Prova por disciplina",
+    "observacao": "A página oficial não distingue a fase nas provas por disciplina anteriores a 2019."
+  },
+  {
+    "id": "ita-2017-prova-por-disciplina",
+    "instituicao": "ita",
+    "ano": 2017,
+    "nome": "ITA 2017 · Prova por disciplina",
+    "arquivos": [
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Física",
+        "url": "https://www.vestibular.ita.br/provas/fisica_2017.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Português",
+        "url": "https://www.vestibular.ita.br/provas/portugues_2017.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Inglês",
+        "url": "https://www.vestibular.ita.br/provas/ingles_2017.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Matemática",
+        "url": "https://www.vestibular.ita.br/provas/matematica_2017.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Química",
+        "url": "https://www.vestibular.ita.br/provas/quimica_2017.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "gabarito",
+        "rotulo": "Gabarito",
+        "url": "https://www.vestibular.ita.br/provas/gabarito_2017.pdf",
+        "formato": "pdf"
+      }
+    ],
+    "fonte": "https://www.vestibular.ita.br/provas.htm",
+    "fase": "Prova por disciplina",
+    "observacao": "A página oficial não distingue a fase nas provas por disciplina anteriores a 2019."
+  },
+  {
+    "id": "ita-2016-prova-por-disciplina",
+    "instituicao": "ita",
+    "ano": 2016,
+    "nome": "ITA 2016 · Prova por disciplina",
+    "arquivos": [
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Física",
+        "url": "https://www.vestibular.ita.br/provas/fisica_2016.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Português",
+        "url": "https://www.vestibular.ita.br/provas/portugues_2016.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Inglês",
+        "url": "https://www.vestibular.ita.br/provas/ingles_2016.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Matemática",
+        "url": "https://www.vestibular.ita.br/provas/matematica_2016.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Química",
+        "url": "https://www.vestibular.ita.br/provas/quimica_2016.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "gabarito",
+        "rotulo": "Gabarito",
+        "url": "https://www.vestibular.ita.br/provas/gabarito_2016.pdf",
+        "formato": "pdf"
+      }
+    ],
+    "fonte": "https://www.vestibular.ita.br/provas.htm",
+    "fase": "Prova por disciplina",
+    "observacao": "A página oficial não distingue a fase nas provas por disciplina anteriores a 2019."
+  },
+  {
+    "id": "ita-2015-prova-por-disciplina",
+    "instituicao": "ita",
+    "ano": 2015,
+    "nome": "ITA 2015 · Prova por disciplina",
+    "arquivos": [
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Física",
+        "url": "https://www.vestibular.ita.br/provas/fisica_2015.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Português",
+        "url": "https://www.vestibular.ita.br/provas/portugues_2015.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Inglês",
+        "url": "https://www.vestibular.ita.br/provas/ingles_2015.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Matemática",
+        "url": "https://www.vestibular.ita.br/provas/matematica_2015.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Química",
+        "url": "https://www.vestibular.ita.br/provas/quimica_2015.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "gabarito",
+        "rotulo": "Gabarito",
+        "url": "https://www.vestibular.ita.br/provas/gabarito_2015.pdf",
+        "formato": "pdf"
+      }
+    ],
+    "fonte": "https://www.vestibular.ita.br/provas.htm",
+    "fase": "Prova por disciplina",
+    "observacao": "A página oficial não distingue a fase nas provas por disciplina anteriores a 2019."
+  },
+  {
+    "id": "ita-2014-prova-por-disciplina",
+    "instituicao": "ita",
+    "ano": 2014,
+    "nome": "ITA 2014 · Prova por disciplina",
+    "arquivos": [
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Física",
+        "url": "https://www.vestibular.ita.br/provas/fisica_2014.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Português",
+        "url": "https://www.vestibular.ita.br/provas/portugues_2014.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Inglês",
+        "url": "https://www.vestibular.ita.br/provas/ingles_2014.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Matemática",
+        "url": "https://www.vestibular.ita.br/provas/matematica_2014.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Química",
+        "url": "https://www.vestibular.ita.br/provas/quimica_2014.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "gabarito",
+        "rotulo": "Gabarito",
+        "url": "https://www.vestibular.ita.br/provas/gabarito_2014.pdf",
+        "formato": "pdf"
+      }
+    ],
+    "fonte": "https://www.vestibular.ita.br/provas.htm",
+    "fase": "Prova por disciplina",
+    "observacao": "A página oficial não distingue a fase nas provas por disciplina anteriores a 2019."
+  },
+  {
+    "id": "ita-2013-prova-por-disciplina",
+    "instituicao": "ita",
+    "ano": 2013,
+    "nome": "ITA 2013 · Prova por disciplina",
+    "arquivos": [
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Física",
+        "url": "https://www.vestibular.ita.br/provas/fisica_2013.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Português",
+        "url": "https://www.vestibular.ita.br/provas/portugues_2013.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Inglês",
+        "url": "https://www.vestibular.ita.br/provas/ingles_2013.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Matemática",
+        "url": "https://www.vestibular.ita.br/provas/matematica_2013.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Química",
+        "url": "https://www.vestibular.ita.br/provas/quimica_2013.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "gabarito",
+        "rotulo": "Gabarito",
+        "url": "https://www.vestibular.ita.br/provas/gabarito_2013.pdf",
+        "formato": "pdf"
+      }
+    ],
+    "fonte": "https://www.vestibular.ita.br/provas.htm",
+    "fase": "Prova por disciplina",
+    "observacao": "A página oficial não distingue a fase nas provas por disciplina anteriores a 2019."
+  },
+  {
+    "id": "ita-2012-prova-por-disciplina",
+    "instituicao": "ita",
+    "ano": 2012,
+    "nome": "ITA 2012 · Prova por disciplina",
+    "arquivos": [
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Física",
+        "url": "https://www.vestibular.ita.br/provas/fisica_2012.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Português",
+        "url": "https://www.vestibular.ita.br/provas/portugues_2012.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Inglês",
+        "url": "https://www.vestibular.ita.br/provas/ingles_2012.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Matemática",
+        "url": "https://www.vestibular.ita.br/provas/matematica_2012.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Química",
+        "url": "https://www.vestibular.ita.br/provas/quimica_2012.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "gabarito",
+        "rotulo": "Gabarito",
+        "url": "https://www.vestibular.ita.br/provas/gabarito_2012.pdf",
+        "formato": "pdf"
+      }
+    ],
+    "fonte": "https://www.vestibular.ita.br/provas.htm",
+    "fase": "Prova por disciplina",
+    "observacao": "A página oficial não distingue a fase nas provas por disciplina anteriores a 2019."
+  },
+  {
+    "id": "ita-2011-prova-por-disciplina",
+    "instituicao": "ita",
+    "ano": 2011,
+    "nome": "ITA 2011 · Prova por disciplina",
+    "arquivos": [
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Física",
+        "url": "https://www.vestibular.ita.br/provas/fisica_2011.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Português",
+        "url": "https://www.vestibular.ita.br/provas/portugues_2011.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Inglês",
+        "url": "https://www.vestibular.ita.br/provas/ingles_2011.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Matemática",
+        "url": "https://www.vestibular.ita.br/provas/matematica_2011.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Química",
+        "url": "https://www.vestibular.ita.br/provas/quimica_2011.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "gabarito",
+        "rotulo": "Gabarito",
+        "url": "https://www.vestibular.ita.br/provas/gabarito_2011.pdf",
+        "formato": "pdf"
+      }
+    ],
+    "fonte": "https://www.vestibular.ita.br/provas.htm",
+    "fase": "Prova por disciplina",
+    "observacao": "A página oficial não distingue a fase nas provas por disciplina anteriores a 2019."
+  },
+  {
+    "id": "ita-2010-prova-por-disciplina",
+    "instituicao": "ita",
+    "ano": 2010,
+    "nome": "ITA 2010 · Prova por disciplina",
+    "arquivos": [
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Física",
+        "url": "https://www.vestibular.ita.br/provas/fisica_2010.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Português",
+        "url": "https://www.vestibular.ita.br/provas/portugues_2010.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Inglês",
+        "url": "https://www.vestibular.ita.br/provas/ingles_2010.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Matemática",
+        "url": "https://www.vestibular.ita.br/provas/matematica_2010.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Química",
+        "url": "https://www.vestibular.ita.br/provas/quimica_2010.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "gabarito",
+        "rotulo": "Gabarito",
+        "url": "https://www.vestibular.ita.br/provas/gabarito_2010.pdf",
+        "formato": "pdf"
+      }
+    ],
+    "fonte": "https://www.vestibular.ita.br/provas.htm",
+    "fase": "Prova por disciplina",
+    "observacao": "A página oficial não distingue a fase nas provas por disciplina anteriores a 2019."
+  },
+  {
+    "id": "ita-2009-prova-por-disciplina",
+    "instituicao": "ita",
+    "ano": 2009,
+    "nome": "ITA 2009 · Prova por disciplina",
+    "arquivos": [
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Física",
+        "url": "https://www.vestibular.ita.br/provas/fisica_2009.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Português",
+        "url": "https://www.vestibular.ita.br/provas/portugues_2009.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Inglês",
+        "url": "https://www.vestibular.ita.br/provas/ingles_2009.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Matemática",
+        "url": "https://www.vestibular.ita.br/provas/matematica_2009.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Química",
+        "url": "https://www.vestibular.ita.br/provas/quimica_2009.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "gabarito",
+        "rotulo": "Gabarito",
+        "url": "https://www.vestibular.ita.br/provas/gabarito_2009.pdf",
+        "formato": "pdf"
+      }
+    ],
+    "fonte": "https://www.vestibular.ita.br/provas.htm",
+    "fase": "Prova por disciplina",
+    "observacao": "A página oficial não distingue a fase nas provas por disciplina anteriores a 2019."
+  },
+  {
+    "id": "ita-2008-prova-por-disciplina",
+    "instituicao": "ita",
+    "ano": 2008,
+    "nome": "ITA 2008 · Prova por disciplina",
+    "arquivos": [
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Física",
+        "url": "https://www.vestibular.ita.br/provas/fisica_2008.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Português",
+        "url": "https://www.vestibular.ita.br/provas/portugues_2008.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Inglês",
+        "url": "https://www.vestibular.ita.br/provas/ingles_2008.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Matemática",
+        "url": "https://www.vestibular.ita.br/provas/matematica_2008.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "prova",
+        "rotulo": "Prova — Química",
+        "url": "https://www.vestibular.ita.br/provas/quimica_2008.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "gabarito",
+        "rotulo": "Gabarito",
+        "url": "https://www.vestibular.ita.br/provas/gabarito_2008.pdf",
+        "formato": "pdf"
+      }
+    ],
+    "fonte": "https://www.vestibular.ita.br/provas.htm",
+    "fase": "Prova por disciplina",
+    "observacao": "A página oficial não distingue a fase nas provas por disciplina anteriores a 2019."
+  }
+]
