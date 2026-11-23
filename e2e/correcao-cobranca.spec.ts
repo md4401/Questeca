@@ -75,7 +75,7 @@ test("correção, resultados, notas, cartões, segunda chamada, versões e cobra
 
   // retomada com questões reais do acervo e checagem
   await page.goto(`/app/turmas/${classId}/relatorios`);
-  await expect(page.getByText(/% de acerto/)).toBeVisible();
+  await expect(page.getByRole("columnheader", { name: "% de acerto" })).toBeVisible();
   await page.getByRole("button", { name: "Checagem de 3 questões curtas" }).click();
   await page.waitForURL(/\/app\/provas\/[0-9a-f-]{36}\?/);
   await expect(page.getByRole("heading", { name: /Checagem/ })).toBeVisible();
