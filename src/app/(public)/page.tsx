@@ -3,7 +3,6 @@ import { HeroFilter } from "@/components/landing/hero-filter";
 import { DemoButton } from "@/components/landing/demo-modal";
 import { Tooltip } from "@/components/ui/tooltip";
 import { PLANS, brl } from "@/lib/core/plans";
-import { StickyCta } from "@/components/landing/sticky-cta";
 
 const FAQ: [string, string][] = [
   ["De onde vêm as questões?", "De provas públicas e de acervos autorizados. Cada item mostra banca, edição, caderno, número e gabarito oficial. Itens cujo direito cobre só a consulta aparecem com o link da fonte e não entram na prova."],
@@ -46,7 +45,7 @@ export default function Home() {
           <div>
             <h1 className="text-[2rem] font-extrabold leading-[1.1] tracking-tight md:text-5xl">Crie provas com o que sua turma estudou</h1>
             <p className="mt-4 max-w-xl text-base text-ink-soft md:text-lg">Revise questões reais e baixe a prova com o gabarito separado.</p>
-            <div className="mt-6"><Link id="cta-principal" className="btn btn-lg w-full sm:w-auto" href="/criar-conta">Criar minha primeira prova</Link></div>
+            <div className="mt-6"><Link className="btn btn-lg w-full sm:w-auto" href="/criar-conta">Criar minha primeira prova</Link></div>
             <p className="mt-3 text-base text-ink-soft">Grátis para começar. Sem cartão de crédito e sem cadastrar alunos.</p>
           </div>
           <HeroFilter />
@@ -55,7 +54,7 @@ export default function Home() {
 
       {/* Como funciona */}
       <section id="como-funciona" className="mx-auto mt-14 max-w-6xl scroll-mt-24 px-4">
-        <h2 className="text-[1.5rem] md:text-3xl">Como funciona</h2>
+        <h2 className="text-2xl md:text-3xl">Como funciona</h2>
         <ol className="mt-5 grid gap-3 md:grid-cols-4">
           {STEPS.map(([t, d], i) => (
             <li key={t} className="card"><span className="badge">Passo {i + 1}</span><h3 className="mt-2">{t}</h3><p className="mt-1 text-base text-ink-soft">{d}</p></li>))}
@@ -64,7 +63,7 @@ export default function Home() {
 
       {/* Recursos por tarefa */}
       <section id="recursos" className="mx-auto mt-14 max-w-6xl scroll-mt-24 px-4">
-        <h2 className="text-[1.5rem] md:text-3xl">Recursos</h2>
+        <h2 className="text-2xl md:text-3xl">Recursos</h2>
         <p className="mt-1 text-ink-soft">Toque em um recurso para ver os detalhes.</p>
         <div className="mt-5 grid gap-6 md:grid-cols-3">
           {FEATURE_GROUPS.map((g) => (
@@ -83,7 +82,7 @@ export default function Home() {
 
       {/* Confiança */}
       <section aria-labelledby="confianca" className="mx-auto mt-14 max-w-6xl px-4">
-        <h2 id="confianca" className="text-[1.5rem] md:text-3xl">A IA escolhe e explica. Nunca inventa questão.</h2>
+        <h2 id="confianca" className="text-2xl md:text-3xl">A IA escolhe e explica. Nunca inventa questão.</h2>
         <div className="mt-5 grid gap-3 md:grid-cols-3">
           {[
             ["Origem verificável", "Banca, edição, caderno, número e página de cada item, com o gabarito oficial da versão aplicada."],
@@ -95,7 +94,7 @@ export default function Home() {
 
       {/* Planos */}
       <section id="planos" aria-labelledby="planos-h" className="mx-auto mt-14 max-w-6xl scroll-mt-24 px-4">
-        <h2 id="planos-h" className="text-[1.5rem] md:text-3xl">Planos</h2>
+        <h2 id="planos-h" className="text-2xl md:text-3xl">Planos</h2>
         <p className="mt-1 text-ink-soft">Comece grátis e cresça quando a rotina pedir. Valores em fase de validação com professores e escolas.</p>
         <div className="mt-5 grid items-stretch gap-4 md:grid-cols-3">
           {order.map((id) => {
@@ -138,7 +137,7 @@ export default function Home() {
 
       {/* FAQ */}
       <section aria-labelledby="faq" className="mx-auto mt-14 max-w-3xl px-4">
-        <h2 id="faq" className="mb-4 text-[1.5rem] md:text-3xl">Perguntas frequentes</h2>
+        <h2 id="faq" className="mb-4 text-2xl md:text-3xl">Perguntas frequentes</h2>
         <div className="space-y-2">
           {FAQ.map(([q, a]) => (
             <details key={q} className="card group !p-0 [&_summary::-webkit-details-marker]:hidden">
@@ -155,7 +154,6 @@ export default function Home() {
           <Link className="btn btn-lg" href="/criar-conta">Criar minha primeira prova</Link>
         </div>
       </section>
-      <StickyCta targetId="cta-principal" />
     </>
   );
 }
