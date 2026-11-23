@@ -1,0 +1,11 @@
+PAS 1 2026_2028 (2026): etapa sem arquivos de prova/gabarito na API (prova realizada em 2026-12-06)
+PAS 2 2025_2027 (2026): etapa sem arquivos de prova/gabarito na API (prova realizada em 2026-01-01)
+PAS 3 2024_2026 (2026): etapa sem arquivos de prova/gabarito na API (prova realizada em 2026-11-29)
+2017 PAS 1: EXCLUÍDO (justificativas de alteração, não é gabarito): Justificativas_de_alteração_de_gabarito_de_itens
+2017 PAS 2: EXCLUÍDO (justificativas de alteração, não é gabarito): Justificativas_de_alteração_de_gabarito_de_itens
+PAS 1 2015_2017 (2015): etapa sem arquivos de prova/gabarito na API (prova realizada em 2015-02-05)
+2017 PAS 3: EXCLUÍDO (justificativas de alteração, não é gabarito): PAS_2015_3_Justificativas_de_alteração_de_gabarito_Itens
+PAS 1 2014_2016 (2014): etapa sem arquivos de prova/gabarito na API (prova realizada em 2014-12-01)
+PAS 2 2014_2016 (2015): etapa sem arquivos de prova/gabarito na API (prova realizada em 2015-02-05)
+2016 PAS 3: EXCLUÍDO (justificativas de alteração, não é gabarito): Justificativas de alteração do gabarito de itens (com base n
+Subprogramas anteriores a 2014–2016 não constam da API do Cebraspe (primeiro subprograma listado: 2014-2016).
