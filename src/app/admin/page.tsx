@@ -1,3 +1,4 @@
+import { aiAvailable } from "@/lib/ai";
 import Link from "next/link";
 import { eq, desc, count, sql, and, gte, inArray } from "drizzle-orm";
 import { db } from "@/db";
@@ -147,7 +148,7 @@ async function Saude() {
   const recent = await db.select().from(auditLog).orderBy(desc(auditLog.createdAt)).limit(40);
   const dbOk = await db.execute(sql`select 1 as ok`);
   return (
-    <div className="space-y-6"><section className="card"><h2 className="mb-2 text-lg">Saúde do serviço</h2><ul className="text-sm"><li>Banco de dados: {dbOk.rows.length ? "ok" : "falha"}</li><li>Usuários: {Number(u.n)} · Contas/escolas: {Number(o.n)} · Questões: {Number(q.n)}</li><li>E-mail: {process.env.RESEND_API_KEY ? "configurado" : "não configurado"} · IA: {process.env.AI_PROVIDER === "anthropic" && process.env.ANTHROPIC_API_KEY ? "configurada" : "não configurada"} · Pagamentos: {process.env.BILLING_PROVIDER ?? "não configurado"}</li></ul></section>
+    <div className="space-y-6"><section className="card"><h2 className="mb-2 text-lg">Saúde do serviço</h2><ul className="text-sm"><li>Banco de dados: {dbOk.rows.length ? "ok" : "falha"}</li><li>Usuários: {Number(u.n)} · Contas/escolas: {Number(o.n)} · Questões: {Number(q.n)}</li><li>E-mail: {process.env.RESEND_API_KEY ? "configurado" : "não configurado"} · IA: {aiAvailable() ? `configurada (${process.env.AI_PROVIDER})` : "não configurada"} · Pagamentos: {process.env.BILLING_PROVIDER ?? "não configurado"}</li></ul></section>
       <section className="card overflow-x-auto"><h2 className="mb-2 text-lg">Histórico de operações (auditoria)</h2><p className="hint mb-2">Sem expor nomes, fotos ou conteúdo de anexos.</p><table className="t"><thead><tr><th>Quando</th><th>Ação</th><th>Alvo</th></tr></thead><tbody>{recent.map((a) => <tr key={a.id}><td>{fmtDateTime(a.createdAt)}</td><td>{a.action}</td><td className="text-xs">{a.target ?? ""}</td></tr>)}</tbody></table></section></div>
   );
 }

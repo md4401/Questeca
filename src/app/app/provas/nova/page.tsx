@@ -4,6 +4,7 @@ import { visibleClasses } from "@/lib/access";
 import { Form, Field, SubmitButton } from "@/components/form";
 import { createDraftAction } from "../actions";
 import { gradeLabel } from "@/lib/taxonomy";
+import { aiAvailable } from "@/lib/ai";
 
 export const metadata = { title: "Nova prova" };
 
@@ -26,7 +27,7 @@ export default async function NovaProva({ searchParams }: { searchParams: Promis
         <div className="field"><label htmlFor="text">O que a turma estudou?</label>
           <textarea id="text" name="text" className="input" style={{ minHeight: 140 }} placeholder="Ex.: Matemática, 9º B. Ensinei porcentagem simples e descontos sucessivos. Ainda não trabalhei juros compostos." />
           <span className="hint">Cole texto, anotações ou o planejamento. Exclusões como “ainda não ensinei X” são reconhecidas.</span></div>
-        <div className="field"><label htmlFor="file">Ou envie o material (PDF, DOCX, TXT{process.env.AI_PROVIDER === "anthropic" ? " ou foto" : ""})</label><input id="file" name="file" type="file" accept=".pdf,.docx,.txt,.md,image/*" className="input" /></div>
+        <div className="field"><label htmlFor="file">Ou envie o material (PDF, DOCX, TXT{aiAvailable() ? " ou foto" : ""})</label><input id="file" name="file" type="file" accept=".pdf,.docx,.txt,.md,image/*" className="input" /></div>
         <label className="mb-4 flex gap-2 font-normal"><input type="checkbox" name="useLog" defaultChecked />Incluir conteúdos registrados no diário desta turma como pré-requisitos sugeridos</label>
         <SubmitButton pendingLabel="Lendo o material…">Continuar</SubmitButton>
       </Form>

@@ -20,18 +20,29 @@ export async function generateOpinionsAction(classId: string, _: FormState, fd: 
   const data = await gatherOpinionData(ctx, classId, period);
   const existing = new Map((await db.select().from(descriptiveOpinions).where(and(eq(descriptiveOpinions.classId, classId), eq(descriptiveOpinions.period, period)))).map((o) => [o.studentId, o]));
   let made = 0, kept = 0, empty = 0, ai = 0;
+  const jobs: { d: (typeof data)[number]; input: Parameters<typeof templateOpinion>[0]; base: string }[] = [];
   for (const d of data) {
     const ex = existing.get(d.student.id);
     if (ex && (ex.status === "approved" || ex.origin === "manual")) { kept++; continue; }
     const input = { name: d.student.name, periodLabel: periodLabel(period), tags: d.tags, notes: d.notes, attendancePct: d.attendancePct, average: d.average };
-    let text = templateOpinion(input); let origin = "modelo";
-    if (!text) { empty++; continue; }
-    if (aiAvailable()) { try { text = await aiOpinion(input); origin = "ia"; ai++; } catch { /* mantém o modelo */ } }
-    const evidence = { observations: d.observations, attendancePct: d.attendancePct, average: d.average };
-    await db.insert(descriptiveOpinions).values({ classId, studentId: d.student.id, period, text, origin, status: "draft", evidence, updatedBy: ctx.user.id })
-      .onConflictDoUpdate({ target: [descriptiveOpinions.classId, descriptiveOpinions.studentId, descriptiveOpinions.period], set: { text, origin, status: "draft", evidence, updatedBy: ctx.user.id, updatedAt: new Date() } });
-    made++;
+    const base = templateOpinion(input);
+    if (!base) { empty++; continue; }
+    jobs.push({ d, input, base });
   }
+  // IA em paralelo (até 6 por vez) com orçamento de tempo; o que não terminar fica com o texto por modelo.
+  const started = Date.now(); const useAi = aiAvailable(); let next = 0;
+  const worker = async () => {
+    while (next < jobs.length) {
+      const j = jobs[next++];
+      let text = j.base; let origin = "modelo";
+      if (useAi && Date.now() - started < 90_000) { try { text = await aiOpinion(j.input); origin = "ia"; ai++; } catch { /* mantém o modelo */ } }
+      const evidence = { observations: j.d.observations, attendancePct: j.d.attendancePct, average: j.d.average };
+      await db.insert(descriptiveOpinions).values({ classId, studentId: j.d.student.id, period, text, origin, status: "draft", evidence, updatedBy: ctx.user.id })
+        .onConflictDoUpdate({ target: [descriptiveOpinions.classId, descriptiveOpinions.studentId, descriptiveOpinions.period], set: { text, origin, status: "draft", evidence, updatedBy: ctx.user.id, updatedAt: new Date() } });
+      made++;
+    }
+  };
+  await Promise.all(Array.from({ length: Math.min(6, jobs.length) }, worker));
   await track("opinions_generated", ctx.user.id, ctx.org.id, { made, ai });
   revalidatePath(`/app/turmas/${classId}/pareceres`);
   return { ok: `${made} rascunho(s) gerado(s)${ai ? ` (${ai} com IA)` : ""}. ${kept ? `${kept} já aprovado(s)/editado(s), mantido(s). ` : ""}${empty ? `${empty} aluno(s) sem registros no mês: nada foi inventado.` : ""}`.trim() };
