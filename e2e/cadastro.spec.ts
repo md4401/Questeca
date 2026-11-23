@@ -182,6 +182,7 @@ for (const width of [360, 430]) {
 test("acessibilidade (axe WCAG 2.2 AA) em cada etapa, no início com navegação inferior e nos textos legais", async ({ page }) => {
   test.setTimeout(180_000);
   const audit = async (name: string) => {
+    await page.waitForTimeout(400); // deixa as transições de cor terminarem antes de medir contraste
     const r = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"]).analyze();
     const bad = r.violations.filter((v) => v.impact === "serious" || v.impact === "critical");
     if (bad.length) console.log(`A11Y ${name}:`, bad.map((v) => `${v.id} (${v.nodes.length}) ${v.nodes[0]?.target?.join(" ")}`).join(" | "));

@@ -106,6 +106,7 @@ test("Versão professores: chamada, agenda e horários, gestão, boletim, painel
   await expect(t.getByRole("row", { name: /Iara Dias/ })).toContainText(/Média 2 abaixo de 6/);
   await expect(t.getByText(/apoio/).first()).toBeVisible();
   await t.goto("/app/escola");
+  await t.getByLabel("Frequência mínima (%)").fill("40");
   await t.getByLabel("Média mínima").fill("1");
   await t.getByRole("button", { name: "Salvar regras do painel" }).click();
   await expect(t.getByText("Regras do painel salvas.")).toBeVisible();
