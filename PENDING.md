@@ -3,7 +3,17 @@
 Tudo abaixo foi deixado de fora porque exige conta, chave, decisão ou conteúdo que eu não tenho.
 Itens marcados **[bloqueia o lançamento]** devem ser resolvidos antes de abrir para usuários reais.
 
-## 1. Deploy na Vercel  **[bloqueia o lançamento]**
+## 0. Deploy no Stay Cloud (feito até onde a CLI permite)  **[bloqueia o lançamento]**
+O projeto **Questeca** foi criado no Stay Cloud (`deploy --new`, subdomínio `questeca`) e os 158 arquivos foram enviados, mas o
+deploy parou em `missing_env`: a plataforma pede variáveis que só podem ser criadas no painel (**Cloud > Variáveis**; a CLI não cria variáveis).
+Crie lá, depois rode `npx @staysdev/setup deploy` (ou republique pelo painel):
+- `DATABASE_URL` (string pooled do Neon, ver item 1), `AUTH_SECRET` (`openssl rand -hex 32`)
+- `NEXT_PUBLIC_APP_URL` e `APP_URL` = URL pública do projeto no Stay Cloud
+- `REQUIRE_EMAIL_VERIFICATION=false`, `AI_PROVIDER=none`, `BILLING_PROVIDER=none` (até configurar e-mail/IA/cobrança)
+Não verifiquei se o Stay Cloud executa Next.js com funções de servidor (o app precisa); confira em `npx @staysdev/setup status` / `logs`.
+Não consegui validar o app publicado (status atual: `draft`). A credencial local fica em `.staycloud/` (ignorada pelo git).
+
+## 1. Deploy na Vercel (alternativa)  **[bloqueia o lançamento, se for usar Vercel]**
 O conector da Vercel recusou criar o projeto (`403 forbidden` ao criar em `mdinizmarques1-6271s-projects`).
 1. Em vercel.com → *Add New Project* → importe `md4401/Questeca` (instale o app GitHub da Vercel no repositório, se pedir).
 2. Branch de produção: faça merge de `claude/confident-dirac-3qebne` em `main` (ou defina essa branch como produção).
