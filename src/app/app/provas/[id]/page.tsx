@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { EditorTabs } from "@/components/editor-tabs";
 import { eq, desc } from "drizzle-orm";
 import { requireCtx } from "@/lib/session";
 import { loadAssessment } from "@/lib/access";
@@ -69,8 +70,7 @@ export default async function Editor({ params, searchParams }: { params: Promise
       {parentCompare && (
         <div className="card-tint mb-4 text-sm"><strong>Comparação com a prova original:</strong> {parentCompare.n} vs {items.length} itens · {parentCompare.minutes} vs {map.minutes} min · dificuldade média {fmtNum(parentCompare.avgDiff, 1)} vs {fmtNum(myDiff, 1)}. Os itens são diferentes dos originais.</div>)}
 
-      <div className="grid gap-6 lg:grid-cols-[1fr_300px]">
-        <div className="space-y-4">
+      <EditorTabs count={items.length} main={<>
           {items.length === 0 && <div className="card"><p>A prova ainda não tem questões. Refaça a busca ou adicione manualmente.</p></div>}
           {items.map(({ item, q }, idx) => (
             <article key={item.id} className={`card ${conflictIds.has(item.id) ? "border-danger" : ""}`} aria-label={`Questão ${idx + 1}`}>
@@ -119,9 +119,7 @@ export default async function Editor({ params, searchParams }: { params: Promise
                   <form action={addManualFormAction.bind(null, id, q.id)}><button className="link-btn" type="submit">Adicionar</button></form></li>))}</ul>)}
             <Link className="link-btn mt-2 inline-block" href="/app/banco">Abrir busca completa do banco</Link>
           </section>
-        </div>
-
-        <aside className="space-y-4 lg:sticky lg:top-6 lg:max-h-[calc(100vh-3rem)] lg:self-start lg:overflow-y-auto lg:pr-1">
+        </>} side={<>
           <section className="card-tint" aria-labelledby="mapa-h">
             <h2 id="mapa-h" className="mb-2 text-lg">Mapa da prova</h2>
             <p className="text-sm font-bold">Por conteúdo</p>
@@ -146,8 +144,7 @@ export default async function Editor({ params, searchParams }: { params: Promise
           <section className="card"><h2 className="mb-2 text-lg">Histórico</h2>
             {hist.length === 0 ? <p className="text-sm text-ink-soft">Sem alterações registradas.</p> : <ul className="space-y-1 text-sm">{hist.map((h) => <li key={h.id} className="flex items-center justify-between gap-2"><span>{h.label} <span className="hint">{fmtDateTime(h.createdAt)}</span></span><form action={restoreAction.bind(null, id, h.id)}><button className="link-btn" type="submit">Restaurar</button></form></li>)}</ul>}</section>
           <form action={deleteAssessmentAction.bind(null, id)}><ConfirmButton className="link-btn text-danger" message="Excluir este rascunho?">Excluir prova</ConfirmButton></form>
-        </aside>
-      </div>
+        </>} />
     </div>
   );
 }

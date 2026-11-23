@@ -28,14 +28,14 @@ async function joinViaInvite(browser: import("@playwright/test").Browser, email:
   await page.getByRole("button", { name: "Criar conta" }).click();
   await page.waitForURL(/\/convite\//);
   await page.getByRole("button", { name: "Aceitar convite" }).click();
-  await page.waitForURL(/\/app\/primeiros-passos|\/app/);
+  await page.waitForURL(/\/(app|cadastro)/);
   return { ctx, page };
 }
 
 test("SA-02: convite, trocar de escola, isolamento entre escolas e turmas; SA-08: comunidade", async ({ page, browser, context }) => {
   test.setTimeout(420_000);
   // Escola A (admin cria o ambiente institucional)
-  await signup(page, { name: "Gestora A", school: "Meu espaço" });
+  await signup(page, { name: "Gestora A" });
   await page.goto("/app/escola");
   await page.getByLabel("Nome da escola", { exact: true }).last().fill("Colégio A");
   await page.getByRole("button", { name: "Criar ambiente da escola" }).click();

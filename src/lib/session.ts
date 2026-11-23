@@ -34,7 +34,7 @@ export type Ctx = {
   sessionId: string;
   user: typeof users.$inferSelect;
   orgs: { id: string; name: string; kind: string; role: Role }[];
-  org: { id: string; name: string; kind: string; role: Role; settings: typeof orgs.$inferSelect.settings };
+  org: { id: string; name: string; kind: string; role: Role; settings: typeof orgs.$inferSelect.settings; city: string | null; uf: string | null };
 };
 
 export const getSession = cache(async (): Promise<{ sessionId: string; user: typeof users.$inferSelect; activeOrgId: string | null } | null> => {
@@ -57,7 +57,7 @@ export const getCtx = cache(async (): Promise<Ctx | null> => {
   const s = await getSession();
   if (!s) return null;
   const list = await db
-    .select({ id: orgs.id, name: orgs.name, kind: orgs.kind, role: memberships.role, settings: orgs.settings })
+    .select({ id: orgs.id, name: orgs.name, kind: orgs.kind, role: memberships.role, settings: orgs.settings, city: orgs.city, uf: orgs.uf })
     .from(memberships)
     .innerJoin(orgs, eq(orgs.id, memberships.orgId))
     .where(and(eq(memberships.userId, s.user.id), eq(memberships.status, "active")));
@@ -67,7 +67,7 @@ export const getCtx = cache(async (): Promise<Ctx | null> => {
     sessionId: s.sessionId,
     user: s.user,
     orgs: list.map((o) => ({ id: o.id, name: o.name, kind: o.kind, role: o.role as Role })),
-    org: { id: active.id, name: active.name, kind: active.kind, role: active.role as Role, settings: active.settings },
+    org: { id: active.id, name: active.name, kind: active.kind, role: active.role as Role, settings: active.settings, city: active.city, uf: active.uf },
   };
 });
 

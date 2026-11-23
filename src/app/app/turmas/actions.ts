@@ -5,7 +5,7 @@ import { and, eq } from "drizzle-orm";
 import { z } from "zod";
 import { db } from "@/db";
 import {
-  classes, classTeachers, students, enrollments, observations, lessonLogs, gradeItems, grades, gradeChanges, periodCloses,
+  users, classes, classTeachers, students, enrollments, observations, lessonLogs, gradeItems, grades, gradeChanges, periodCloses,
 } from "@/db/schema";
 import { requireCtx } from "@/lib/session";
 import { loadClass, classStudents } from "@/lib/access";
@@ -49,6 +49,7 @@ export async function createDemoClassAction() {
   await db.insert(classTeachers).values({ classId: c.id, userId: ctx.user.id });
   const st = await db.insert(students).values(DEMO_NAMES.map((n, i) => ({ orgId: ctx.org.id, name: n, registration: `EX${String(i + 1).padStart(3, "0")}` }))).returning();
   await db.insert(enrollments).values(st.map((s) => ({ classId: c.id, studentId: s.id })));
+  await db.update(users).set({ onboardingDoneAt: new Date() }).where(eq(users.id, ctx.user.id));
   redirect(`/app/provas/nova?turma=${c.id}`);
 }
 

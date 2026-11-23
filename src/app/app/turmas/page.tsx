@@ -4,7 +4,7 @@ import { requireCtx } from "@/lib/session";
 import { visibleClasses } from "@/lib/access";
 import { db } from "@/db";
 import { enrollments } from "@/db/schema";
-import { gradeLabel } from "@/lib/taxonomy";
+import { gradeLabel, subjectLabel } from "@/lib/taxonomy";
 import { can } from "@/lib/core/permissions";
 
 export const metadata = { title: "Turmas" };
@@ -28,7 +28,7 @@ export default async function Turmas() {
           {list.map((c) => (
             <li key={c.id} className="card">
               <h2 className="text-lg"><Link href={`/app/turmas/${c.id}`}>{c.name}</Link></h2>
-              <p className="hint">{gradeLabel(c.grade)} · Matemática · {c.year}</p>
+              <p className="hint">{gradeLabel(c.grade)} · {subjectLabel(c.subject)} · {c.year}</p>
               <p className="mt-2 text-sm">{nBy.get(c.id) ?? 0} aluno(s) {c.isDemo && <span className="badge badge-amber ml-1">Exemplo</span>}</p>
             </li>
           ))}

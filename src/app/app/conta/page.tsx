@@ -21,6 +21,9 @@ export default async function Conta({ searchParams }: { searchParams: Promise<{ 
     <div className="max-w-3xl space-y-6">
       <h1>Minha conta</h1>
       {sp.ok && <p className="card-tint" role="status">{sp.ok}</p>}
+      <section className="card"><h2 className="mb-1 text-lg">Colégio, disciplinas e turmas</h2>
+        <p className="hint mb-3">{ctx.org.name}{ctx.org.city ? ` · ${ctx.org.city}/${ctx.org.uf}` : ""}</p>
+        <Link className="btn btn-ghost" href="/cadastro?editar=1">Editar esses dados</Link></section>
       <section className="card"><h2 className="mb-2 text-lg">Perfil e preferências</h2>
         <Form action={updateProfileAction}>
           <Field label="Nome" name="name" defaultValue={ctx.user.name} required />

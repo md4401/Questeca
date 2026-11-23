@@ -42,7 +42,19 @@ export const GRADES: { value: string; label: string }[] = [
 ];
 export const gradeLabel = (v: string) => GRADES.find((g) => g.value === v)?.label ?? v;
 
-export const SUBJECTS = [{ value: "matematica", label: "Matemática" }];
+export const SUBJECTS: { value: string; label: string; main?: boolean }[] = [
+  { value: "matematica", label: "Matemática", main: true }, { value: "lingua-portuguesa", label: "Língua Portuguesa", main: true },
+  { value: "historia", label: "História", main: true }, { value: "geografia", label: "Geografia", main: true },
+  { value: "ciencias", label: "Ciências", main: true }, { value: "biologia", label: "Biologia", main: true },
+  { value: "fisica", label: "Física", main: true }, { value: "quimica", label: "Química", main: true },
+  { value: "ingles", label: "Inglês", main: true },
+  { value: "arte", label: "Arte" }, { value: "educacao-fisica", label: "Educação Física" }, { value: "espanhol", label: "Espanhol" },
+  { value: "filosofia", label: "Filosofia" }, { value: "sociologia", label: "Sociologia" }, { value: "redacao", label: "Redação" },
+  { value: "literatura", label: "Literatura" }, { value: "projeto-de-vida", label: "Projeto de vida" }, { value: "tecnologia", label: "Tecnologia e computação" },
+  { value: "ensino-religioso", label: "Ensino religioso" }, { value: "geometria", label: "Geometria" },
+];
+/** "custom:Robótica" guarda disciplina fora do catálogo. */
+export const subjectLabel = (v: string) => (v.startsWith("custom:") ? v.slice(7) : SUBJECTS.find((s) => s.value === v)?.label ?? v);
 
 export function normalize(s: string) {
   return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();

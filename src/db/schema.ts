@@ -28,6 +28,8 @@ export const users = pgTable("users", {
   termsAcceptedAt: timestamp("terms_accepted_at", { withTimezone: true }).notNull(),
   isStaff: boolean("is_staff").notNull().default(false),
   prefs: jsonb("prefs").$type<{ notifyMarketing?: boolean; notifyCommunity?: boolean; largeFont?: boolean }>().notNull().default({}),
+  onboardingDraft: jsonb("onboarding_draft").$type<Record<string, unknown>>(),
+  onboardingDoneAt: timestamp("onboarding_done_at", { withTimezone: true }),
   failedLogins: integer("failed_logins").notNull().default(0),
   lockedUntil: timestamp("locked_until", { withTimezone: true }),
   createdAt: created(),
@@ -70,10 +72,34 @@ export type OrgSettings = {
   calendar?: { year: number };
 };
 
+/** Catálogo público de escolas (Inep/Censo Escolar). Escolha de busca é só contexto: não concede acesso. */
+export const schools = pgTable("schools", {
+  id: id(),
+  inepCode: text("inep_code"),
+  name: text("name").notNull(),
+  nameNorm: text("name_norm").notNull(),
+  city: text("city").notNull(),
+  cityNorm: text("city_norm").notNull(),
+  uf: text("uf").notNull(),
+  neighborhood: text("neighborhood"),
+  dependency: text("dependency"),
+  source: text("source").notNull(),
+  sourceYear: integer("source_year"),
+  createdAt: created(),
+}, (t) => [
+  uniqueIndex("schools_inep_uq").on(t.inepCode),
+  index("schools_uf_city_idx").on(t.uf, t.cityNorm),
+  index("schools_name_trgm").using("gin", sql`${t.nameNorm} gin_trgm_ops`),
+]);
+
 export const orgs = pgTable("orgs", {
   id: id(),
   name: text("name").notNull(),
   kind: text("kind").notNull(), // school | personal
+  schoolId: uuid("school_id").references(() => schools.id),
+  city: text("city"),
+  uf: text("uf"),
+  schoolManual: boolean("school_manual").notNull().default(false),
   ownerId: uuid("owner_id").notNull().references(() => users.id),
   settings: jsonb("settings").$type<OrgSettings>().notNull().default({}),
   createdAt: created(),

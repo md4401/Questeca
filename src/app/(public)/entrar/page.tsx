@@ -17,7 +17,7 @@ export default async function Entrar({ searchParams }: { searchParams: Promise<{
         <input type="hidden" name="next" value={sp.next ?? ""} />
         <Field label="E-mail" name="email" type="email" required autoComplete="email" />
         <Field label="Senha" name="password" type="password" required autoComplete="current-password" />
-        <SubmitButton pendingLabel="Entrando…">Entrar</SubmitButton>
+        <SubmitButton className="btn w-full sm:w-auto" pendingLabel="Entrando…">Entrar</SubmitButton>
       </Form>
       <p className="mt-4 text-sm"><Link href="/recuperar">Esqueci minha senha</Link> · <Link href="/criar-conta">Criar conta</Link></p>
     </div>

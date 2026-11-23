@@ -10,16 +10,15 @@ export const sql = neon(url);
 export const uid = () => Math.random().toString(36).slice(2, 8);
 export const PASSWORD = "Senha1234";
 
-export async function signup(page: Page, opts: { name?: string; email?: string; school?: string } = {}) {
+export async function signup(page: Page, opts: { name?: string; email?: string } = {}) {
   const email = opts.email ?? `prof-${uid()}@test.questeca.dev`;
   await page.goto("/criar-conta");
   await page.getByLabel("Nome", { exact: true }).fill(opts.name ?? "Professora Teste");
   await page.getByLabel("E-mail").fill(email);
   await page.getByLabel("Senha", { exact: true }).fill(PASSWORD);
-  if (opts.school) await page.getByLabel(/Escola \(opcional\)/).fill(opts.school);
   await page.getByLabel(/Li e aceito/).check();
   await page.getByRole("button", { name: "Criar conta" }).click();
-  await page.waitForURL(/\/app/);
+  await page.waitForURL(/\/(app|cadastro)/);
   return email;
 }
 

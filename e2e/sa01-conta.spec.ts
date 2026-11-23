@@ -3,7 +3,8 @@ import { signup, login, lastDevEmail, linkFrom, uid, PASSWORD, sql } from "./hel
 
 test("SA-01 criar conta, verificar e-mail, recuperar acesso e sair", async ({ page, browser }) => {
   const email = await signup(page);
-  await expect(page).toHaveURL(/primeiros-passos/);
+  await expect(page).toHaveURL(/cadastro/);
+  await page.goto("/app/conta");
   await expect(page.getByText(/Confirme seu e-mail/)).toBeVisible();
 
   // confirmar e-mail pelo link

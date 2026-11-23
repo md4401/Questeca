@@ -1,7 +1,7 @@
 import { requireCtx } from "@/lib/session";
 import { loadClass } from "@/lib/access";
 import { TabLinks } from "@/components/nav";
-import { gradeLabel } from "@/lib/taxonomy";
+import { gradeLabel, subjectLabel } from "@/lib/taxonomy";
 import Link from "next/link";
 
 export default async function ClassLayout({ children, params }: { children: React.ReactNode; params: Promise<{ id: string }> }) {
@@ -12,7 +12,7 @@ export default async function ClassLayout({ children, params }: { children: Reac
     <div>
       <p className="hint"><Link href="/app/turmas">Turmas</Link> › {ctx.org.name}</p>
       <h1 className="mb-1">{cls.name} {cls.isDemo && <span className="badge badge-amber align-middle">Exemplo</span>}</h1>
-      <p className="hint mb-4">{gradeLabel(cls.grade)} · Matemática · {cls.year}</p>
+      <p className="hint mb-4">{gradeLabel(cls.grade)} · {subjectLabel(cls.subject)} · {cls.year}</p>
       <TabLinks base={`/app/turmas/${id}`} tabs={[{ slug: "", label: "Visão geral" }, { slug: "alunos", label: "Alunos" }, { slug: "avaliacoes", label: "Avaliações" }, { slug: "notas", label: "Notas" }, { slug: "observacoes", label: "Observações" }, { slug: "relatorios", label: "Relatórios" }]} />
       {children}
     </div>

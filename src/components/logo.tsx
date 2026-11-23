@@ -1,14 +1,32 @@
 import Link from "next/link";
 
-/** Marca: a bolha preenchida do cartão-resposta com o "Q". */
-export function Logo({ href = "/", light }: { href?: string; light?: boolean }) {
+type Tone = "brand" | "light" | "mono";
+const TONES: Record<Tone, { ring: string; ribbon: string }> = {
+  brand: { ring: "#1F4FE0", ribbon: "#0A1A3F" },
+  light: { ring: "#7FA6FF", ribbon: "#FFFFFF" },
+  mono: { ring: "currentColor", ribbon: "currentColor" },
+};
+
+/** Símbolo: anel do "Q" (bolha do cartão-resposta) com uma fita de marcador de página como cauda. Legível a 16 px. */
+export function LogoMark({ size = 36, tone = "brand", className }: { size?: number; tone?: Tone; className?: string }) {
+  const t = TONES[tone];
   return (
-    <Link href={href} className="group inline-flex items-center gap-2 no-underline">
-      <span aria-hidden className="relative grid h-9 w-9 place-items-center rounded-full bg-gradient-to-br from-[#4C7BFF] to-brand text-white shadow-[inset_0_1px_0_rgba(255,255,255,.45),0_8px_18px_-8px_rgba(31,79,224,.9)] transition-transform duration-300 group-hover:scale-105">
-        <span className="display text-lg font-extrabold leading-none">Q</span>
-        <span className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full border-2 border-white bg-[#8DB6FF]" />
-      </span>
-      <span className={`display text-xl font-bold tracking-tight ${light ? "text-white" : "text-ink"}`}>Questeca</span>
+    <svg viewBox="0 0 48 48" width={size} height={size} aria-hidden className={className} focusable="false">
+      <mask id="qs-cut" maskUnits="userSpaceOnUse" x="0" y="0" width="48" height="48">
+        <rect width="48" height="48" fill="#fff" />
+        <path d="M24.2 29.2h13.6v19.3l-6.8-5.6-6.8 5.6z" fill="#000" stroke="#000" strokeWidth="2.4" strokeLinejoin="round" />
+      </mask>
+      <circle cx="22" cy="22" r="15.5" fill="none" stroke={t.ring} strokeWidth="7" mask="url(#qs-cut)" />
+      <path d="M26.4 30h9v14.4l-4.5-3.7-4.5 3.7z" fill={t.ribbon} />
+    </svg>
+  );
+}
+
+export function Logo({ href = "/", light, size = 36 }: { href?: string; light?: boolean; size?: number }) {
+  return (
+    <Link href={href} aria-label="Questeca — início" className="group inline-flex items-center gap-2 no-underline">
+      <LogoMark size={size} tone={light ? "light" : "brand"} className="transition-transform duration-300 group-hover:scale-105" />
+      <span className={`display text-xl font-extrabold tracking-tight ${light ? "text-white" : "text-ink"}`}>Questeca</span>
     </Link>
   );
 }

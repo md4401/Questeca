@@ -18,7 +18,6 @@ const signupSchema = z.object({
   name: z.string().trim().min(2, "Informe seu nome.").max(120),
   email: z.string().trim().toLowerCase().email("E-mail inválido."),
   password: z.string(),
-  school: z.string().trim().max(160).optional(),
   accept: z.literal("on", { error: "É necessário aceitar os termos e a política de privacidade." }),
   invite: z.string().optional(),
 });
@@ -40,7 +39,7 @@ export async function signupAction(_: FormState, fd: FormData): Promise<FormStat
     termsVersion: TERMS_VERSION, termsAcceptedAt: new Date(), isStaff: staff,
   }).returning();
 
-  const [org] = await db.insert(orgs).values({ name: d.school?.trim() || "Espaço pessoal", kind: "personal", ownerId: u.id }).returning();
+  const [org] = await db.insert(orgs).values({ name: "Espaço pessoal", kind: "personal", ownerId: u.id }).returning();
   await db.insert(memberships).values({ orgId: org.id, userId: u.id, role: "teacher" });
   const now = new Date();
   await db.insert(subscriptions).values({ orgId: org.id, plan: "free", periodStart: now, periodEnd: new Date(now.getTime() + 365 * 864e5) });
@@ -48,7 +47,7 @@ export async function signupAction(_: FormState, fd: FormData): Promise<FormStat
   await audit(u.id, org.id, "user.signup");
   await track("signup", u.id, org.id);
   await createSession(u.id, org.id);
-  redirect(d.invite ? `/convite/${d.invite}` : "/app/primeiros-passos");
+  redirect(d.invite ? `/convite/${d.invite}` : "/cadastro");
 }
 
 export async function loginAction(_: FormState, fd: FormData): Promise<FormState> {
@@ -154,5 +153,5 @@ export async function acceptInviteAction(token: string): Promise<FormState> {
   await db.update(invitations).set({ status: "accepted" }).where(eq(invitations.id, inv.id));
   await audit(ctx.user.id, inv.orgId, "invite.accepted", inv.id);
   await db.update(sessions).set({ activeOrgId: inv.orgId }).where(eq(sessions.id, ctx.sessionId));
-  redirect("/app/primeiros-passos");
+  redirect("/cadastro");
 }

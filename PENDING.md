@@ -19,6 +19,19 @@ Passos quando houver domínio:
 4. Opcional: apontar o site para o domínio (ex.: `app.SEU_DOMINIO`) e atualizar `APP_URL` e `NEXT_PUBLIC_APP_URL`.
 Enquanto isso: quem esquecer a senha precisa de redefinição manual (via `/admin` ou banco).
 
+## 2b. Catálogo de escolas (busca do cadastro)  **[bloqueia o lançamento]**
+A busca de colégios do cadastro (etapa 1) lê a tabela `schools`, que **começa vazia**: sem ela o professor só consegue "Não encontrei meu colégio" (cadastro manual) ou "sem escola fixa".
+Não consegui carregar os dados do Inep daqui: o servidor `download.inep.gov.br` envia a cadeia de certificados incompleta (`UNABLE_TO_VERIFY_LEAF_SIGNATURE`) e não vou desativar a verificação de TLS. O importador está pronto e foi testado com um CSV sintético (zip, latin1, idempotente, filtros), **mas não com o arquivo real do Inep** (confira os nomes das colunas; o script falha listando as colunas encontradas se algo diferir).
+1. No seu computador, baixe "Microdados do Censo Escolar" (zip) em https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados/censo-escolar
+2. Com a `DATABASE_URL` de **produção** (Neon, a mesma do painel): `pnpm tsx scripts/import-schools.ts caminho/microdados_censo_escolar_2024.zip 2024` (requer `unzip`; aceita o CSV `microdados_ed_basica_2024.csv` direto).
+3. Entram ~100–150 mil escolas ativas com anos finais do fundamental ou ensino médio, com origem "Inep — Censo Escolar" e o ano. Rodar de novo atualiza. A busca passa a avisar "cobertura parcial" enquanto a tabela tiver menos de 100 mil linhas.
+4. O Inep não publica unidade/filial: escolas com o mesmo nome se distinguem por bairro e município. Escolas novas ou que fecharam dependem da atualização anual.
+Escolha na busca é só contexto de perfil: **não dá acesso** à escola institucional (isso continua só por convite).
+
+## 2c. Decisão de produto a validar: turmas do cadastro × limite do plano gratuito
+O cadastro cria todas as turmas escolhidas (ex.: 3 turmas), mesmo que o plano Gratuito permita 1 turma ativa. O limite continua valendo para criar turmas novas depois (`/app/turmas/nova`). Decida se o gratuito deve aceitar várias turmas no cadastro (como está), ou limitar.
+Outras disciplinas além de Matemática ficam salvas no perfil e nas turmas, mas **o acervo de questões é só de Matemática**: o Início avisa isso.
+
 ## 3. Acervo real de questões e direitos de uso  **[bloqueia o lançamento]**
 - O acervo atual tem **46 itens autorais de exemplo** (gabarito conferido) + a Q163/Enem 2013 **só como referência** (sem enunciado).
   Não reproduzi questões do Enem/vestibulares de memória: poderiam sair erradas ou sem autorização.
