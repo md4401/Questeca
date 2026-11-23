@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getCtx } from "@/lib/session";
+import { getStaffCtx as getCtx } from "@/lib/session";
 import { rateLimit } from "@/lib/ratelimit";
 import { searchSchools, catalogSize, FULL_CATALOG_MIN } from "@/lib/schools";
 

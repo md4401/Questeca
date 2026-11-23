@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { and, eq } from "drizzle-orm";
 import { db } from "@/db";
 import { materials } from "@/db/schema";
-import { getCtx } from "@/lib/session";
+import { getStaffCtx as getCtx } from "@/lib/session";
 
 export const runtime = "nodejs";
 

@@ -71,9 +71,23 @@ export const getCtx = cache(async (): Promise<Ctx | null> => {
   };
 });
 
-export async function requireCtx(): Promise<Ctx> {
+/** Contexto só para equipe (professor/coordenação/gestão). Alunos e responsáveis recebem null: rotas de arquivos e exportações da equipe nunca atendem o portal. */
+export const getStaffCtx = cache(async (): Promise<Ctx | null> => {
+  const c = await getCtx();
+  return c && c.org.role !== "student" && c.org.role !== "guardian" ? c : null;
+});
+
+/** Qualquer conta autenticada, inclusive aluno/responsável. Use só nas rotas do portal. */
+export async function requireAnyCtx(): Promise<Ctx> {
   const ctx = await getCtx();
   if (!ctx) redirect("/entrar");
+  return ctx;
+}
+
+/** Padrão das telas e ações da equipe: aluno e responsável são desviados para o portal (nega por padrão). */
+export async function requireCtx(): Promise<Ctx> {
+  const ctx = await requireAnyCtx();
+  if (ctx.org.role === "student" || ctx.org.role === "guardian") redirect("/portal");
   return ctx;
 }
 

@@ -13,7 +13,7 @@ export default function Termos() {
       <p>A Questeca é operada por <b>{l.nome}</b>, CNPJ {l.cnpj}, com sede em {l.endereco} (“Questeca”, “nós”). Contato: {l.email}.</p>
 
       <h2>2. O serviço</h2>
-      <p>Serviço web para professores e escolas montarem avaliações com questões existentes, gerarem PDF e Word, corrigirem, calcularem notas, planejarem a retomada de conteúdos, produzirem documentos de coordenação e trocarem materiais em comunidade. O serviço é destinado a maiores de 18 anos responsáveis pelo trabalho docente ou pela gestão escolar. Estudantes não têm conta; seus dados são lançados por professores e escolas.</p>
+      <p>Serviço web para professores e escolas montarem avaliações com questões existentes, gerarem PDF e Word, corrigirem, calcularem notas, planejarem a retomada de conteúdos, produzirem documentos de coordenação e trocarem materiais em comunidade. O serviço é destinado a maiores de 18 anos responsáveis pelo trabalho docente ou pela gestão escolar. Estudantes só têm conta se a escola ativar o portal e os convidar (ou a seus responsáveis); sem isso, seus dados são lançados por professores e escolas.</p>
 
       <h2>3. Conta, escolas e papéis</h2>
       <ul className="list-disc space-y-1 pl-6">

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { eq, inArray } from "drizzle-orm";
-import { getCtx } from "@/lib/session";
+import { getStaffCtx as getCtx } from "@/lib/session";
 import { can } from "@/lib/core/permissions";
 import { db } from "@/db";
 import { classes, students, enrollments, gradeItems, grades, memberships, users, assessments, applications } from "@/db/schema";

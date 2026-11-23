@@ -2,14 +2,14 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Form, Field, SubmitButton } from "@/components/form";
 import { signupAction } from "@/lib/auth-actions";
-import { getSession } from "@/lib/session";
+import { getCtx } from "@/lib/session";
 import { loadInvite } from "@/lib/auth-core";
 
 export const metadata = { title: "Criar conta" };
 
 export default async function CriarConta({ searchParams }: { searchParams: Promise<{ invite?: string }> }) {
   const sp = await searchParams;
-  if (await getSession()) redirect(sp.invite ? `/convite/${sp.invite}` : "/app");
+  if (await getCtx()) redirect(sp.invite ? `/convite/${sp.invite}` : "/app");
   const invite = sp.invite ? await loadInvite(sp.invite) : null;
   return (
     <div className="mx-auto max-w-md px-4 py-12">

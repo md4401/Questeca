@@ -2,13 +2,13 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Form, Field, SubmitButton } from "@/components/form";
 import { loginAction } from "@/lib/auth-actions";
-import { getSession } from "@/lib/session";
+import { getCtx } from "@/lib/session";
 
 export const metadata = { title: "Entrar" };
 
 export default async function Entrar({ searchParams }: { searchParams: Promise<{ next?: string; reset?: string }> }) {
   const sp = await searchParams;
-  if (await getSession()) redirect("/app");
+  if (await getCtx()) redirect("/app");
   return (
     <div className="mx-auto max-w-md px-4 py-12">
       <h1>Entrar</h1>

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getCtx } from "@/lib/session";
+import { getStaffCtx as getCtx } from "@/lib/session";
 import { loadClass } from "@/lib/access";
 import { loadGradebook, rulesFrom, cellLabel } from "@/lib/gradebook";
 import { slug } from "@/lib/export-helpers";

@@ -27,7 +27,7 @@ export const users = pgTable("users", {
   termsVersion: text("terms_version").notNull(),
   termsAcceptedAt: timestamp("terms_accepted_at", { withTimezone: true }).notNull(),
   isStaff: boolean("is_staff").notNull().default(false),
-  prefs: jsonb("prefs").$type<{ notifyMarketing?: boolean; notifyCommunity?: boolean; largeFont?: boolean }>().notNull().default({}),
+  prefs: jsonb("prefs").$type<{ notifyMarketing?: boolean; notifyCommunity?: boolean; largeFont?: boolean; mute?: string[]; theme?: "light" | "dark" | "system" }>().notNull().default({}),
   onboardingDraft: jsonb("onboarding_draft").$type<Record<string, unknown>>(),
   onboardingDoneAt: timestamp("onboarding_done_at", { withTimezone: true }),
   failedLogins: integer("failed_logins").notNull().default(0),
@@ -520,9 +520,12 @@ export const notifications = pgTable("notifications", {
   title: text("title").notNull(),
   body: text("body"),
   href: text("href"),
+  priority: text("priority").notNull().default("normal"), // normal | high
+  groupKey: text("group_key"),
+  count: integer("count").notNull().default(1),
   readAt: timestamp("read_at", { withTimezone: true }),
   createdAt: created(),
-});
+}, (t) => [index("notifications_user_idx").on(t.userId, t.readAt)]);
 
 export const tickets = pgTable("tickets", {
   id: id(),
@@ -574,3 +577,35 @@ export const digitalLinks = pgTable("digital_links", {
   submittedAt: timestamp("submitted_at", { withTimezone: true }),
   createdAt: created(),
 }, (t) => [uniqueIndex("digital_links_token_uq").on(t.token), uniqueIndex("digital_links_app_student_uq").on(t.applicationId, t.studentId)]);
+
+/* ---------- Portais (aluno e responsável) ---------- */
+/** Conta de aluno: uma pessoa, um estudante. Criada por convite de acesso. */
+export const studentAccounts = pgTable("student_accounts", {
+  userId: uuid("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  studentId: uuid("student_id").notNull().references(() => students.id, { onDelete: "cascade" }),
+  orgId: uuid("org_id").notNull().references(() => orgs.id, { onDelete: "cascade" }),
+  createdAt: created(),
+}, (t) => [primaryKey({ columns: [t.userId, t.studentId] }), uniqueIndex("student_accounts_student_uq").on(t.studentId)]);
+
+export const guardianLinks = pgTable("guardian_links", {
+  userId: uuid("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  studentId: uuid("student_id").notNull().references(() => students.id, { onDelete: "cascade" }),
+  orgId: uuid("org_id").notNull().references(() => orgs.id, { onDelete: "cascade" }),
+  relation: text("relation"),
+  createdAt: created(),
+}, (t) => [primaryKey({ columns: [t.userId, t.studentId] })]);
+
+export const accessInvites = pgTable("access_invites", {
+  id: id(),
+  orgId: uuid("org_id").notNull().references(() => orgs.id, { onDelete: "cascade" }),
+  studentId: uuid("student_id").notNull().references(() => students.id, { onDelete: "cascade" }),
+  kind: text("kind").notNull(), // student | guardian
+  relation: text("relation"),
+  tokenHash: text("token_hash").notNull(),
+  createdBy: uuid("created_by").notNull().references(() => users.id),
+  expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
+  usedAt: timestamp("used_at", { withTimezone: true }),
+  usedBy: uuid("used_by").references(() => users.id),
+  revokedAt: timestamp("revoked_at", { withTimezone: true }),
+  createdAt: created(),
+}, (t) => [uniqueIndex("access_invites_token_uq").on(t.tokenHash), index("access_invites_student_idx").on(t.studentId)]);

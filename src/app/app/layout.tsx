@@ -9,13 +9,15 @@ import { db } from "@/db";
 import { notifications } from "@/db/schema";
 import { logoutAction, resendVerificationAction } from "@/lib/auth-actions";
 import { switchOrgAction } from "./actions";
-import { ROLE_LABEL } from "@/lib/core/permissions";
+import { ROLE_LABEL, isPortalRole } from "@/lib/core/permissions";
+import { redirect } from "next/navigation";
 import { SubmitButton } from "@/components/form";
 
 type Item = { href: string; label: string; icon: IconName };
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
   const ctx = await requireCtx();
+  if (isPortalRole(ctx.org.role)) redirect("/portal");
   const [n] = await db.select({ c: count() }).from(notifications).where(and(eq(notifications.userId, ctx.user.id), isNull(notifications.readAt)));
   const unread = Number(n?.c ?? 0);
   const role = ctx.org.role;
@@ -40,6 +42,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   const tabHrefs = new Set(tabs.map((t) => t.href));
   const more: Item[] = [
     ...items.filter((i) => !tabHrefs.has(i.href)),
+    { href: "/app/notificacoes", label: `Notificações${unread ? ` (${unread})` : ""}`, icon: "sino" },
     { href: "/app/plano", label: "Plano e cobrança", icon: "plano" },
     { href: "/app/conta", label: `Minha conta${unread ? ` (${unread})` : ""}`, icon: "conta" },
     { href: "/app/ajuda", label: "Ajuda", icon: "ajuda" },
@@ -70,6 +73,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
         </form>
         <NavLinks items={items} />
         <div className="mt-6 text-sm">
+          <Link className="nav-link" href="/app/notificacoes"><Icon name="sino" size={20} />Notificações{unread ? ` (${unread})` : ""}</Link>
           <Link className="nav-link" href="/app/plano"><Icon name="plano" size={20} />Plano e cobrança</Link>
           <Link className="nav-link" href="/app/conta"><Icon name="conta" size={20} />Minha conta{unread ? ` (${unread})` : ""}</Link>
           <Link className="nav-link" href="/app/ajuda"><Icon name="ajuda" size={20} />Ajuda</Link>

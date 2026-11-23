@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getCtx } from "@/lib/session";
+import { getStaffCtx as getCtx } from "@/lib/session";
 import { loadApplication, classStudents } from "@/lib/access";
 import { applicationKey } from "@/lib/correction";
 import { renderAnswerCards } from "@/lib/pdf";

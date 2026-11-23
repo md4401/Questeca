@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { and, eq } from "drizzle-orm";
-import { getCtx } from "@/lib/session";
+import { getStaffCtx as getCtx } from "@/lib/session";
 import { db } from "@/db";
 import { documents } from "@/db/schema";
 import { renderTextDocument } from "@/lib/pdf-text";
