@@ -2,7 +2,7 @@ import Link from "next/link";
 
 type Tone = "brand" | "light" | "mono";
 const TONES: Record<Tone, { ring: string; ribbon: string }> = {
-  brand: { ring: "#1F4FE0", ribbon: "#0A1A3F" },
+  brand: { ring: "var(--color-brand, #1F4FE0)", ribbon: "var(--color-ink, #0A1A3F)" },
   light: { ring: "#7FA6FF", ribbon: "#FFFFFF" },
   mono: { ring: "currentColor", ribbon: "currentColor" },
 };
@@ -16,8 +16,8 @@ export function LogoMark({ size = 36, tone = "brand", className }: { size?: numb
         <rect width="48" height="48" fill="#fff" />
         <path d="M24.2 29.2h13.6v19.3l-6.8-5.6-6.8 5.6z" fill="#000" stroke="#000" strokeWidth="2.4" strokeLinejoin="round" />
       </mask>
-      <circle cx="22" cy="22" r="15.5" fill="none" stroke={t.ring} strokeWidth="7" mask="url(#qs-cut)" />
-      <path d="M26.4 30h9v14.4l-4.5-3.7-4.5 3.7z" fill={t.ribbon} />
+      <circle cx="22" cy="22" r="15.5" fill="none" style={{ stroke: t.ring }} strokeWidth="7" mask="url(#qs-cut)" />
+      <path d="M26.4 30h9v14.4l-4.5-3.7-4.5 3.7z" style={{ fill: t.ribbon }} />
     </svg>
   );
 }
