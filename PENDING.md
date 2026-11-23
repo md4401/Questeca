@@ -8,10 +8,16 @@ Publicado no Stay Cloud: https://questeca.stayai.space/ (variáveis criadas no p
 Alternativa Vercel: o conector recusou (403); se quiser, importe `md4401/Questeca` em vercel.com e repita as variáveis do `.env.example`.
 Banco: schema e acervo-semente já aplicados no Neon. **Gire a senha do role `neondb_owner`** (passou pela conversa) e atualize `DATABASE_URL` no painel.
 
-## 2. E-mail transacional  **[bloqueia o lançamento]**
-Sem `RESEND_API_KEY` + domínio verificado: não chegam e-mails de verificação, recuperação de senha nem convites
-(o convite mostra o link para copiar; a recuperação de senha **não funciona**). Crie conta no Resend, verifique o domínio,
-defina `RESEND_API_KEY` e `EMAIL_FROM`; depois, se quiser, `REQUIRE_EMAIL_VERIFICATION=true`.
+## 2. E-mail transacional e domínio próprio  **[bloqueia o lançamento]**
+Sem e-mail **não funcionam** verificação de conta, recuperação de senha nem convites por e-mail (o convite mostra o link para copiar).
+**Falta um domínio próprio.** Estado atual: no Resend já existe o domínio `questeca.stayai.space` (região sa-east-1, status *não verificado*),
+criado por engano: `stayai.space` é da Stay Cloud e você não controla o DNS, então ele nunca vai verificar. Pode ser removido do Resend.
+Passos quando houver domínio:
+1. Registre um domínio (ex.: `questeca.com.br` no Registro.br, ~R$ 40/ano).
+2. Peça-me para criá-lo no Resend (sa-east-1); cadastre no DNS os registros DKIM (TXT), SPF (MX e TXT) e CNAME que ele mostrar; peça a verificação.
+3. Crie uma chave de API "sending access" restrita ao domínio e, no painel do Stay Cloud, as variáveis `RESEND_API_KEY` e `EMAIL_FROM` (`Questeca <nao-responda@SEU_DOMINIO>`); opcional `REQUIRE_EMAIL_VERIFICATION=true`.
+4. Opcional: apontar o site para o domínio (ex.: `app.SEU_DOMINIO`) e atualizar `APP_URL` e `NEXT_PUBLIC_APP_URL`.
+Enquanto isso: quem esquecer a senha precisa de redefinição manual (via `/admin` ou banco).
 
 ## 3. Acervo real de questões e direitos de uso  **[bloqueia o lançamento]**
 - O acervo atual tem **46 itens autorais de exemplo** (gabarito conferido) + a Q163/Enem 2013 **só como referência** (sem enunciado).
