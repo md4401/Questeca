@@ -11,7 +11,8 @@ export const viewport: Viewport = { width: "device-width", initialScale: 1, them
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" data-theme="light" suppressHydrationWarning>
+      <head><script dangerouslySetInnerHTML={{ __html: "try{var t=localStorage.getItem('qs_theme');if(t==='dark'||t==='system'||t==='light')document.documentElement.dataset.theme=t}catch(e){}" }} /></head>
       <body>
         <a className="skip" href="#conteudo">Pular para o conteúdo</a>
         <ToastProvider>{children}</ToastProvider>

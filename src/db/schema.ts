@@ -366,7 +366,7 @@ export const observations = pgTable("observations", {
   studentId: uuid("student_id").references(() => students.id, { onDelete: "set null" }),
   authorId: uuid("author_id").notNull().references(() => users.id),
   text: text("text").notNull(),
-  visibility: text("visibility").notNull().default("private"), // private | school
+  visibility: text("visibility").notNull().default("private"), // private | school | family
   observedOn: date("observed_on").notNull(),
   createdAt: created(),
 });
@@ -919,3 +919,34 @@ export const missionClaims = pgTable("mission_claims", {
   periodKey: text("period_key").notNull(), // dia (YYYY-MM-DD) ou segunda-feira da semana
   claimedAt: timestamp("claimed_at", { withTimezone: true }).notNull().defaultNow(),
 }, (t) => [primaryKey({ columns: [t.studentId, t.missionId, t.periodKey] })]);
+
+/* ---------- Fase 4: perfil, gestão acadêmica e boletim ---------- */
+export const userAvatars = pgTable("user_avatars", {
+  userId: uuid("user_id").primaryKey().references(() => users.id, { onDelete: "cascade" }),
+  type: text("type").notNull(),
+  data: bytea("data").notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+export const enrollmentHistory = pgTable("enrollment_history", {
+  id: id(),
+  orgId: uuid("org_id").notNull().references(() => orgs.id, { onDelete: "cascade" }),
+  studentId: uuid("student_id").notNull().references(() => students.id, { onDelete: "cascade" }),
+  fromClassId: uuid("from_class_id").references(() => classes.id, { onDelete: "set null" }),
+  toClassId: uuid("to_class_id").references(() => classes.id, { onDelete: "set null" }),
+  reason: text("reason"),
+  actorId: uuid("actor_id").notNull().references(() => users.id),
+  createdAt: created(),
+}, (t) => [index("enrollment_history_student_idx").on(t.studentId)]);
+
+/** Boletim emitido: o PDF fica guardado como foi gerado (histórico preservado). Só aparece no portal depois de publicado. */
+export const reportCards = pgTable("report_cards", {
+  id: id(),
+  orgId: uuid("org_id").notNull().references(() => orgs.id, { onDelete: "cascade" }),
+  studentId: uuid("student_id").notNull().references(() => students.id, { onDelete: "cascade" }),
+  period: text("period").notNull(),
+  pdf: bytea("pdf").notNull(),
+  published: boolean("published").notNull().default(false),
+  generatedBy: uuid("generated_by").notNull().references(() => users.id),
+  createdAt: created(),
+}, (t) => [index("report_cards_student_idx").on(t.studentId, t.createdAt)]);

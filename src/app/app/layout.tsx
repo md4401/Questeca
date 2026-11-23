@@ -4,6 +4,7 @@ import { requireCtx } from "@/lib/session";
 import { Logo, LogoMark } from "@/components/logo";
 import { NavLinks } from "@/components/nav";
 import { MobileTabs } from "@/components/mobile-tabs";
+import { ThemeSync } from "@/components/theme";
 import { Icon, type IconName } from "@/components/icons";
 import { db } from "@/db";
 import { notifications } from "@/db/schema";
@@ -37,7 +38,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
     { href: "/app/comunidade", label: "Comunidade", icon: "chat" },
     { href: "/app/materiais", label: "Materiais", icon: "material" },
     { href: "/app/videoaulas", label: "Videoaulas", icon: "video" },
-    ...(ctx.org.kind === "school" && (role === "admin" || role === "coordinator") ? [{ href: "/app/escola", label: "Escola", icon: "escola" as const }] : []),
+    ...(ctx.org.kind === "school" && (role === "admin" || role === "coordinator") ? [{ href: "/app/escola", label: "Escola", icon: "escola" as const }, { href: "/app/gestao", label: "Gestão acadêmica", icon: "turmas" as const }] : []),
     ...(ctx.org.kind === "personal" ? [{ href: "/app/escola", label: "Modelos e regras", icon: "ajustes" as const }] : []),
     ...(ctx.user.isStaff ? [{ href: "/admin", label: "Área interna", icon: "interno" as const }] : []),
   ];
@@ -57,6 +58,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
 
   return (
     <div className="min-h-screen bg-[radial-gradient(60rem_30rem_at_100%_-10%,#DCE7FF_0%,transparent_60%)] md:grid md:grid-cols-[250px_1fr]">
+      <ThemeSync theme={ctx.user.prefs?.theme} large={!!ctx.user.prefs?.largeFont} />
       {/* celular: barra superior compacta */}
       <header className="no-print sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-white/70 bg-white/95 px-4 pb-2 pt-[calc(.5rem+env(safe-area-inset-top))] backdrop-blur-xl md:hidden">
         <Link href="/app" aria-label="Questeca — início" className="inline-flex items-center gap-2 no-underline">

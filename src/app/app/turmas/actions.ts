@@ -146,7 +146,7 @@ export async function removeStudentAction(classId: string, studentId: string, mo
 export async function addObservationAction(classId: string, _: FormState, fd: FormData): Promise<FormState> {
   const ctx = await requireCtx();
   const { cls } = await loadClass(ctx, classId);
-  const p = z.object({ text: z.string().trim().min(3, "Escreva a observação.").max(4000), studentId: z.string().optional(), observedOn: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).default(todayISO()), visibility: z.enum(["private", "school"]).default("private") }).safeParse(Object.fromEntries(fd));
+  const p = z.object({ text: z.string().trim().min(3, "Escreva a observação.").max(4000), studentId: z.string().optional(), observedOn: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).default(todayISO()), visibility: z.enum(["private", "school", "family"]).default("private") }).safeParse(Object.fromEntries(fd));
   if (!p.success) return { error: p.error.issues[0].message };
   const studentId: string | null = p.data.studentId || null;
   if (studentId) {

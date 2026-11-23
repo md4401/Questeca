@@ -12,6 +12,8 @@ export const PORTAL_NAV: PortalItem[] = [
   { href: "/portal/videoaulas", label: "Videoaulas", icon: "video" },
   { href: "/portal/materiais", label: "Materiais", icon: "material" },
   { href: "/portal/notas", label: "Notas", icon: "nota" },
+  { href: "/portal/boletim", label: "Boletim", icon: "prova" },
+  { href: "/portal/desempenho", label: "Desempenho", icon: "nota" },
   { href: "/portal/frequencia", label: "Frequência", icon: "chamada" },
   { href: "/portal/notificacoes", label: "Avisos", icon: "sino" },
 ];

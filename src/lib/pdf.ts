@@ -215,3 +215,33 @@ export async function renderGradesSummary(opts: { title: string; school: string;
   d.footer("Questeca · resumo de notas");
   return d.doc.save();
 }
+
+export type ReportCardOpts = {
+  school: string; student: string; period: string; issuedOn: string;
+  disciplines: { subject: string; className: string; items: { title: string; label: string; max: string; weight: string }[]; average: string; partial: boolean; formula: string; attendance: string; notes: string[] }[];
+};
+/** Boletim individual: notas com origem, média com fórmula, frequência e observações autorizadas para a família. Zero, falta e pendente aparecem distintos. */
+export async function renderReportCard(o: ReportCardOpts): Promise<Uint8Array> {
+  const d = await Doc.create();
+  d.text(o.school, { font: d.f.sansBold, size: 13 });
+  d.text(`Boletim — ${o.period}`, { font: d.f.serifBold, size: 16 });
+  d.text(`Estudante: ${o.student}`, { size: 11 });
+  d.text(`Emitido em ${o.issuedOn}`, { size: 9, color: [0.35, 0.35, 0.35] });
+  d.gap(6);
+  for (const x of o.disciplines) {
+    d.need(70);
+    d.rule();
+    d.text(`${x.subject} · ${x.className}`, { font: d.f.sansBold, size: 11 });
+    if (x.items.length === 0) d.text("Sem avaliações lançadas neste período.", { size: 9.5, color: [0.35, 0.35, 0.35] });
+    for (const it of x.items) d.text(`${it.title}: ${it.label} (máx. ${it.max}, peso ${it.weight})`, { size: 9.5, x: M.l + 10, maxW: d.width - 10 });
+    d.text(`Média do período: ${x.average}${x.partial ? " (parcial)" : ""}`, { font: d.f.sansBold, size: 10 });
+    if (x.items.length) d.text(`Cálculo: ${x.formula}`, { size: 8.5, color: [0.3, 0.3, 0.3], maxW: d.width });
+    d.text(`Frequência: ${x.attendance}`, { size: 9.5 });
+    for (const n of x.notes) d.text(`Observação: ${n}`, { size: 9, x: M.l + 10, maxW: d.width - 10, color: [0.2, 0.2, 0.2] });
+    d.gap(4);
+  }
+  d.gap(6);
+  d.text("Legenda: F = ausência na avaliação · N = não entregue · pendente = ainda sem nota. Zero, falta e pendente não se confundem. A escola é responsável pelos registros oficiais.", { size: 8, color: [0.35, 0.35, 0.35] });
+  d.footer(`${o.school} · boletim de ${o.student}`);
+  return d.doc.save();
+}

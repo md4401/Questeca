@@ -4,6 +4,7 @@ import { requireAnyCtx } from "@/lib/session";
 import { isPortalRole, ROLE_LABEL } from "@/lib/core/permissions";
 import { redirect } from "next/navigation";
 import { LogoMark } from "@/components/logo";
+import { ThemeSync } from "@/components/theme";
 import { MobileTabs } from "@/components/mobile-tabs";
 import { Icon } from "@/components/icons";
 import { db } from "@/db";
@@ -30,6 +31,7 @@ export default async function PortalLayout({ children }: { children: React.React
   const tabs = items.slice(0, 3); const more = [...items.slice(3), { href: "/portal/conta", label: "Meu perfil", icon: "conta" as const }];
   return (
     <div className="min-h-screen bg-[radial-gradient(60rem_30rem_at_100%_-10%,#DCE7FF_0%,transparent_60%)]">
+      <ThemeSync theme={ctx.user.prefs?.theme} large={!!ctx.user.prefs?.largeFont} />
       <header className="no-print sticky top-0 z-30 border-b border-white/70 bg-white/95 px-4 pb-2 pt-[calc(.5rem+env(safe-area-inset-top))] backdrop-blur-xl">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-3">
           <Link href="/portal" aria-label="Questeca — portal" className="inline-flex items-center gap-2 no-underline"><LogoMark size={30} /><span className="display text-lg font-extrabold text-ink">Questeca</span></Link>

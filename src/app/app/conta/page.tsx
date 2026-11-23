@@ -8,6 +8,9 @@ import { changeEmailVerificationAction, logoutAllAction, resendVerificationActio
 import { fmtDateTime } from "@/lib/format";
 import { ROLE_LABEL } from "@/lib/core/permissions";
 import Link from "next/link";
+import { userAvatars } from "@/db/schema";
+import { AvatarForm } from "@/components/avatar-form";
+import { ThemePicker, ThemeSync } from "@/components/theme";
 
 export const metadata = { title: "Minha conta" };
 
@@ -17,6 +20,7 @@ export default async function Conta({ searchParams }: { searchParams: Promise<{ 
   const ss = await db.select().from(sessions).where(eq(sessions.userId, ctx.user.id)).orderBy(desc(sessions.createdAt));
   const notes = await db.select().from(notifications).where(eq(notifications.userId, ctx.user.id)).orderBy(desc(notifications.createdAt)).limit(15);
   const p = ctx.user.prefs ?? {};
+  const [av] = await db.select({ at: userAvatars.updatedAt }).from(userAvatars).where(eq(userAvatars.userId, ctx.user.id)).limit(1);
   return (
     <div className="max-w-3xl space-y-6">
       <h1>Minha conta</h1>
@@ -24,6 +28,9 @@ export default async function Conta({ searchParams }: { searchParams: Promise<{ 
       <section className="card"><h2 className="mb-1 text-lg">Colégio, disciplinas e turmas</h2>
         <p className="hint mb-3">{ctx.org.name}{ctx.org.city ? ` · ${ctx.org.city}/${ctx.org.uf}` : ""}</p>
         <Link className="btn btn-ghost" href="/cadastro?editar=1">Editar esses dados</Link></section>
+      <ThemeSync theme={p.theme} />
+      <AvatarForm userId={ctx.user.id} name={ctx.user.name} has={!!av} v={av?.at.getTime()} />
+      <section className="card"><ThemePicker initial={p.theme ?? "light"} /><p className="hint mt-2">Notificações por categoria: <Link href="/app/notificacoes">Central de notificações</Link>.</p></section>
       <section className="card"><h2 className="mb-2 text-lg">Perfil e preferências</h2>
         <Form action={updateProfileAction}>
           <Field label="Nome" name="name" defaultValue={ctx.user.name} required />

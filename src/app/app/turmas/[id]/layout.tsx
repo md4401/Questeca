@@ -13,7 +13,7 @@ export default async function ClassLayout({ children, params }: { children: Reac
       <p className="hint"><Link href="/app/turmas">Turmas</Link> › {ctx.org.name}</p>
       <h1 className="mb-1">{cls.name} {cls.isDemo && <span className="badge badge-amber align-middle">Exemplo</span>}</h1>
       <p className="hint mb-4">{gradeLabel(cls.grade)} · {subjectLabel(cls.subject)} · {cls.year}</p>
-      <TabLinks base={`/app/turmas/${id}`} tabs={[{ slug: "", label: "Visão geral" }, { slug: "alunos", label: "Alunos" }, { slug: "avaliacoes", label: "Avaliações" }, { slug: "notas", label: "Notas" }, { slug: "observacoes", label: "Observações" }, { slug: "relatorios", label: "Relatórios" }, { slug: "mural", label: "Mural" }, { slug: "frequencia", label: "Frequência" }, { slug: "tarefas", label: "Tarefas" }, { slug: "quizzes", label: "Quizzes" }, { slug: "engajamento", label: "Engajamento" }, { slug: "acessos", label: "Acessos" }]} />
+      <TabLinks base={`/app/turmas/${id}`} tabs={[{ slug: "", label: "Visão geral" }, { slug: "alunos", label: "Alunos" }, { slug: "avaliacoes", label: "Avaliações" }, { slug: "notas", label: "Notas" }, { slug: "observacoes", label: "Observações" }, { slug: "relatorios", label: "Relatórios" }, { slug: "mural", label: "Mural" }, { slug: "frequencia", label: "Frequência" }, { slug: "tarefas", label: "Tarefas" }, { slug: "quizzes", label: "Quizzes" }, { slug: "boletins", label: "Boletins" }, { slug: "analitico", label: "Painel" }, { slug: "engajamento", label: "Engajamento" }, { slug: "acessos", label: "Acessos" }]} />
       {children}
     </div>
   );
