@@ -29,8 +29,8 @@ export default async function AppLayout({ children }: { children: React.ReactNod
     ...(ctx.user.isStaff ? [{ href: "/admin", label: "Área interna", icon: "⚙" }] : []),
   ];
   return (
-    <div className="min-h-screen md:grid md:grid-cols-[250px_1fr]">
-      <aside className="no-print border-b border-line bg-brand-tint p-3 md:border-b-0 md:border-r md:p-4">
+    <div className="min-h-screen bg-[radial-gradient(60rem_30rem_at_100%_-10%,#DCE7FF_0%,transparent_60%)] md:grid md:grid-cols-[250px_1fr]">
+      <aside className="no-print border-b border-white/70 bg-gradient-to-b from-[#EAF0FF]/90 to-[#F5F8FF]/80 p-3 backdrop-blur-xl md:sticky md:top-0 md:h-screen md:overflow-y-auto md:border-b-0 md:border-r md:p-4">
         <div className="mb-3 flex items-center justify-between md:mb-6"><Logo href="/app" /></div>
         <form action={switchOrgAction} className="mb-3">
           <label htmlFor="org" className="hint">Escola ativa</label>

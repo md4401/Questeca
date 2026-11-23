@@ -1,19 +1,20 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { ToastProvider } from "@/components/ui/toast";
 
 export const metadata: Metadata = {
   title: { default: "Questeca — provas com questões reais", template: "%s · Questeca" },
   description: "Monte provas com questões reais alinhadas ao que a turma estudou. Da seleção à correção, às notas e à próxima aula.",
   applicationName: "Questeca",
 };
-export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#135B4E" };
+export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#1F4FE0" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR">
       <body>
         <a className="skip" href="#conteudo">Pular para o conteúdo</a>
-        {children}
+        <ToastProvider>{children}</ToastProvider>
       </body>
     </html>
   );
