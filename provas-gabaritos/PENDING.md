@@ -3,11 +3,41 @@
 ## 1. Direitos autorais (decisão sua, antes de abrir ao público)  **[bloqueia o lançamento]**
 Provas e gabaritos são das instituições. A versão atual **só aponta** para os arquivos oficiais (não copia nem hospeda), o que é o caminho mais seguro. **Hospedar cópias** (ZIP por instituição, backup dos PDFs) exigiria autorização de cada titular; não implementei. Revise o texto de `/sobre` com um advogado e defina o e-mail de contato (`NEXT_PUBLIC_CONTATO`).
 
-## 2. Preencher o catálogo  **[bloqueia o lançamento]**
-O catálogo está vazio de propósito: do ambiente de desenvolvimento não alcancei os sites oficiais (o servidor do Inep, por exemplo, está fora da rede liberada e envia o certificado incompleto), e **não invento endereços de provas**. "Desde a primeira edição" de 20 instituições são milhares de arquivos. Caminhos:
-- **Você ou uma pessoa de apoio** monta os CSVs a partir das páginas oficiais (instruções no README) e roda `pnpm importar`.
-- **Comigo**, instituição por instituição: libere a rede para o domínio oficial (ou me envie o HTML/lista salvos da página) e eu monto o CSV, importo e valido. Recomendo começar por ENEM e Fuvest.
-Depois de importar, rode `pnpm links` (no seu computador) para marcar links quebrados e repita de tempos em tempos (por exemplo, a cada mês), porque as bancas movem arquivos.
+## 2. Preencher o catálogo  **[em andamento — 3 de 20 instituições coletadas]**
+Estado em 2026-11-23 (cada linha vem de páginas oficiais; nada foi inventado):
+
+| Instituição | Situação | Edições | Arquivos | Anos |
+|---|---|---|---|---|
+| ENEM | coletada (Inep) — ver ressalvas abaixo | 99 | 849 | 1998–2026 |
+| Fuvest | coletada (Acervo dos vestibulares) | 139 | 326 | 1977–2026 |
+| **COMVEST/Unicamp** | **coletada** (detalhes abaixo) | **114** | **571** | **1987–2027** |
+| Vunesp, Univesp, Fatec, UERJ, UFPR, UFRGS, PAS/UnB, ITA, IME, EsPCEx, AFA, FGV, Insper, PUC-SP, Mackenzie, Einstein, ESPM | **não coletadas** (arquivos JSON existem, vazios) | 0 | 0 | — |
+
+Coletores: `scripts/coleta/<instituicao>.py` → `data/coleta/<instituicao>.csv` → `pnpm importar data/coleta/<instituicao>.csv` → `pnpm validar` → `pnpm links --instituicao <slug>`. (Atenção: o importador exige que `data/edicoes/<slug>.json` exista; não apague os vazios.)
+`pnpm links` precisa de `NODE_USE_ENV_PROXY=1` quando se está atrás de proxy (o `fetch` do Node não lê `HTTPS_PROXY` sozinho).
+
+### 2.1 COMVEST/Unicamp — concluída com lacunas que são do próprio acervo oficial
+- **Importado:** 114 edições, 571 arquivos (377 provas, 181 gabaritos/respostas esperadas, 9 provas comentadas, 4 erratas), anos **1987–2027** (41 anos, sem salto). Cada edição foi lida na sua própria página oficial (`/vestibulares-anteriores/vestibular-AAAA/`, subpáginas de provas/respostas esperadas e `ingresso-AAAA`). Os 20 conjuntos de **provas de habilidades específicas** (Arquitetura, Artes, Música, Odontologia…) aparecem como edições "· Habilidades Específicas".
+- **Verificação:** `pnpm links --instituicao comvest` → 571 ok, 0 quebrados (resposta 2xx **e** `content-type` de arquivo; resposta HTML conta como quebrada). Amostra de 30 PDFs baixados e lidos (1987–2027, prova e gabarito): todos são o documento esperado do ano/fase.
+- **Convenção de ano:** o ano é o do nome oficial do vestibular ("Vestibular 2019" = ingresso 2019, aplicado em nov/2018–jan/2019).
+- **Gabarito:** a Comvest chama de "respostas esperadas" os gabaritos das provas discursivas e de "gabarito" o da prova objetiva (1ª fase). Aparecem com esses rótulos.
+- **Edições SEM gabarito/respostas esperadas no acervo oficial (nada foi fabricado):**
+  - **1987–2002**, 1ª e 2ª fases (1988 teve dois vestibulares, ambos sem) e **2003 – 2ª fase**: a Comvest só publica as provas. (2003 – 1ª fase tem a "expectativa da banca de redação".)
+  - **2023 – 1ª fase**: a página oficial publica as provas Q/Z/R/Y/S/X/T/W mas não o gabarito objetivo.
+  - As edições de habilidades específicas não têm gabarito (a prova é prática/discursiva).
+- **2027 está incompleto de propósito:** só a 1ª fase (provas e gabaritos) está publicada; a 2ª fase ainda não saiu. Rode o coletor de novo depois.
+- **Classificação inferida (conferir se quiser):** 2016 e 2017 – "Expectativas da Banca de Redação" ficou com fase "Não informada" (a página não diz); "gabaritoAAAA" foi tratado como 1ª fase e "<disciplina>resp" como 2ª fase quando a página não indica a fase; 2021 – 1ª fase teve dois dias (6/1 e 7/1), identificados pelo texto oficial ("Dia 6/1", "Dia 7/1").
+- **Links oficiais retirados por estarem indisponíveis** (listados em `data/coleta/comvest-pendencias.txt`): `2020-Musica-Licenciatura.docx`, `2018-Musica-Licenciatura.docx`, `PHE-Musica-2018-Teoria.docx` (HTTP 403 também no navegador); `vest2004/F2/provas/Musica.zip` (404, prova de Música 2004); `vest2002/F2/solucao_enigma.pdf` (404 e não é prova). 2019 – Arquitetura: a página oficial tem o link com erro de protocolo (`p://www…`); foi corrigido para `https://` e o arquivo foi conferido (registrado em `observacao`).
+- **Excluídos de propósito** (49 itens em `comvest-pendencias.txt`): editais/resoluções, manuais, programas de prova, listas de aprovados/chamadas, abstenção, notas de corte, relação candidato-vaga, isenção, diretrizes de redação, informes de habilidades específicas (local/horário), notas de esclarecimento.
+- **Não importado — limitação:** a página "Provas comentadas" (`/vestibulares-anteriores/1a-fase-2a-fase-comentadas/`, 2021–2026) não separa os arquivos por ano; para não atribuir ano por palpite, ficou de fora. Importar exigiria conferir cada PDF. (As 9 "provas comentadas" já importadas são as de 2007, que a página do ano identifica.) Também não coletadas: provas de habilidades específicas de 2021–2023 e 2025–2026 (nas páginas conferidas — 2022, 2024, 2025, 2026 — a Comvest só publica os "informes" de local/horário; 2021 e 2023 não foram conferidas uma a uma) e, em 2024, as de Dança e Música (não listadas).
+- **Não verificável:** nenhuma URL ficou sem verificação. Limitação: o servidor aceita só ~1 req/s; o coletor respeita isso.
+
+### 2.2 Ressalvas das outras coletas
+- **ENEM:** 1998–2008 só têm prova na página oficial do Inep (gabarito não listado). O servidor `download.inep.gov.br` envia cadeia de certificados incompleta: do ambiente de desenvolvimento a verificação de links do Inep pode sair "desconhecido" (agora tratado assim, e não como quebrado); navegadores abrem normalmente.
+- **Fuvest:** edições antigas (1977–1989 e várias 2ª fases) sem gabarito na página oficial (veja os avisos de `pnpm validar --avisos`).
+
+### 2.3 Próximas instituições (nesta ordem sugerida)
+Vunesp/Unesp (o site `vunesp.com.br` respondeu 403 ao coletor — investigar páginas oficiais alternativas), Univesp, Fatec, UERJ, UFPR, UFRGS, PAS/UnB, ITA, IME, EsPCEx, AFA, FGV, Insper, PUC-SP, Mackenzie, Einstein, ESPM. Ainda por fazer no site: página de cobertura, relatórios, filtros de fase/dia, rotina periódica de atualização.
 
 ## 3. Confirmar dados das instituições
 Os endereços oficiais em `data/instituicoes.json` vieram de conhecimento geral, **não foram verificados online**; confirme todos. Fatec, ITA e AFA estão sem endereço (`null`). Confirme também a "primeira edição" de cada banca (só o ENEM, 1998, está preenchido) e a lista/descrições.
