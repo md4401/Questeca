@@ -29,6 +29,11 @@ export default async function AppLayout({ children }: { children: React.ReactNod
       { href: "/app/banco", label: "Banco de questões", icon: "banco" as const },
       { href: "/app/turmas", label: "Turmas", icon: "turmas" as const },
     ] : [{ href: "/app/turmas", label: "Turmas", icon: "turmas" as const }]),
+    ...(role !== "admin" ? [
+      { href: "/app/planos-de-aula", label: "Planos de aula", icon: "material" as const },
+      { href: "/app/radar", label: "Radar de alunos", icon: "interno" as const },
+      { href: "/app/escanear", label: "Escanear cartão", icon: "prova" as const },
+    ] : []),
     { href: "/app/agenda", label: "Agenda", icon: "agenda" },
     { href: "/app/chat", label: `Mensagens${msgs ? ` (${msgs})` : ""}`, icon: "chat" },
     { href: "/app/moderacao", label: "Moderação", icon: "interno" },

@@ -3,6 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { PDFDocument, rgb, type PDFFont, type PDFPage } from "pdf-lib";
 import fontkit from "@pdf-lib/fontkit";
+import QRCode from "qrcode";
 import type { Snapshot } from "@/lib/assessments";
 import { topicName } from "@/lib/taxonomy";
 
@@ -162,7 +163,7 @@ export async function renderExam(snap: Snapshot, opts: ExamOpts): Promise<{ byte
   return { bytes: await d.doc.save(), warnings: d.warnings };
 }
 
-export async function renderAnswerCards(opts: { appTitle: string; versionLabel: string; code: string; itemCount: number; students: { id: string; name: string }[]; header: Header }): Promise<Uint8Array> {
+export async function renderAnswerCards(opts: { appTitle: string; versionLabel: string; code: string; itemCount: number; students: { id: string; name: string }[]; header: Header; qrUrl?: (studentId: string) => string }): Promise<Uint8Array> {
   const d = await Doc.create();
   const list = opts.students.length ? opts.students : [{ id: "modelo", name: "" }];
   for (let si = 0; si < list.length; si++) {
@@ -173,6 +174,13 @@ export async function renderAnswerCards(opts: { appTitle: string; versionLabel: 
     d.text(`${opts.versionLabel} · Código: ${opts.code}-${s.id.slice(0, 6).toUpperCase()}`, { size: 9, color: [0.3, 0.3, 0.3] });
     d.text(`Aluno(a): ${s.name || "______________________________________"}`, { size: 11 });
     d.gap(6);
+    // QR do cartão: o professor escaneia e a nota segue para a escola
+    if (opts.qrUrl && s.id !== "modelo") {
+      const qr = QRCode.create(opts.qrUrl(s.id), { errorCorrectionLevel: "M" });
+      const n = qr.modules.size; const cell = 3; const ox = A4.w - M.r - n * cell - 4; const oy = A4.h - M.t - n * cell - 4;
+      for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) if (qr.modules.get(r, c)) d.page.drawRectangle({ x: ox + c * cell, y: oy + (n - 1 - r) * cell, width: cell, height: cell, color: rgb(0, 0, 0) });
+      d.page.drawText("Escaneie para enviar a nota", { x: ox - 4, y: oy - 9, size: 6.5, font: d.f.sans, color: rgb(0.3, 0.3, 0.3) });
+    }
     // marcadores fiduciais nos cantos
     const fid = (x: number, y: number) => d.page.drawRectangle({ x, y, width: 14, height: 14, color: rgb(0, 0, 0) });
     fid(28, 28); fid(A4.w - 42, 28); fid(28, A4.h - 42); fid(A4.w - 42, A4.h - 42);

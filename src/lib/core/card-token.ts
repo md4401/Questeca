@@ -16,5 +16,3 @@ export function verifyCard(token: string, secret: string): { appId: string; stud
   const a = Buffer.from(mac), e = Buffer.from(expected);
   return a.length === e.length && timingSafeEqual(a, e) ? { appId, studentId } : null;
 }
-/** Aceita o link inteiro do QR, o caminho ou só o token. */
-export const tokenFromScan = (raw: string) => (raw.trim().split("/g/").pop() ?? "").split(/[?#\s]/)[0];

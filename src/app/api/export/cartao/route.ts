@@ -4,6 +4,8 @@ import { loadApplication, classStudents } from "@/lib/access";
 import { applicationKey } from "@/lib/correction";
 import { renderAnswerCards } from "@/lib/pdf";
 import { pdfResponse, slug } from "@/lib/export-helpers";
+import { signCard } from "@/lib/core/card-token";
+import { env } from "@/lib/env";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -19,6 +21,7 @@ export async function GET(req: Request) {
   const bytes = await renderAnswerCards({
     appTitle: r.app.title, versionLabel: `Versão ${key.versionNumber ?? "externa"}`, code: `${r.app.id.slice(0, 8).toUpperCase()}-V${key.versionNumber ?? 0}`,
     itemCount: key.items.length, students: students.map((s) => ({ id: s.id, name: s.name })), header: ctx.org.settings.header ?? {},
+    qrUrl: (studentId) => `${env.appUrl()}/app/g/${signCard(r.app.id, studentId, env.secret())}`,
   });
   return pdfResponse(bytes, `cartoes-${slug(r.app.title)}.pdf`);
 }

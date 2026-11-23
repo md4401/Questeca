@@ -10,6 +10,10 @@ import { PLANS } from "@/lib/core/plans";
 import { redirect } from "next/navigation";
 import { fmtDateTime } from "@/lib/format";
 import { ensureReminders } from "@/lib/events";
+import { loadLessonNow } from "@/lib/lesson-now";
+import { AulaDeAgora } from "./aula-agora/panel";
+import { loadRadar } from "@/lib/radar";
+import { gradeSubmissions, students as studentsT, classes as classesT } from "@/db/schema";
 
 export const metadata = { title: "Início" };
 
@@ -23,12 +27,28 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
   const notes = await db.select().from(notifications).where(and(eq(notifications.userId, ctx.user.id), isNull(notifications.readAt))).orderBy(desc(notifications.createdAt)).limit(5);
   const reviews = ctx.org.role === "coordinator" || ctx.org.role === "admin" ? await db.select().from(documents).where(and(eq(documents.orgId, ctx.org.id), eq(documents.status, "in_review"))).limit(5) : [];
   const info = await planInfo(ctx.org.id);
+  const lessonNow = ctx.org.role === "admin" ? null : await loadLessonNow(ctx);
+  const radar = ctx.org.role === "admin" ? [] : await loadRadar(ctx);
+  const submissions = await db.select({ s: gradeSubmissions, student: studentsT.name, cls: classesT.name }).from(gradeSubmissions)
+    .innerJoin(studentsT, eq(studentsT.id, gradeSubmissions.studentId)).innerJoin(classesT, eq(classesT.id, gradeSubmissions.classId))
+    .where(and(eq(gradeSubmissions.orgId, ctx.org.id), ctx.org.role === "coordinator" ? undefined : eq(gradeSubmissions.submittedBy, ctx.user.id))).orderBy(desc(gradeSubmissions.submittedAt)).limit(6);
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div><h1>Olá, {ctx.user.name.split(" ")[0]}</h1><p className="hint">{ctx.org.name}{ctx.org.city ? ` · ${ctx.org.city}/${ctx.org.uf}` : ""} · {new Date().getFullYear()}</p></div>
         {ctx.org.role !== "admin" && <Link className="btn" href="/app/provas/nova">Criar prova</Link>}
       </div>
+      {lessonNow && <AulaDeAgora ln={lessonNow} multiOrg={ctx.orgs.length > 1} />}
+      {radar.length > 0 && (
+        <section className="card" aria-label="Radar de alunos" data-testid="radar-home">
+          <div className="mb-2 flex items-center justify-between"><h2 className="text-lg">Radar de alunos <span className="badge badge-danger align-middle">{radar.length}</span></h2><Link href="/app/radar">Ver todos</Link></div>
+          <ul className="space-y-1 text-sm">{radar.slice(0, 4).map((r) => <li key={`${r.classId}:${r.studentId}`}><span className={r.result.level === "alerta" ? "badge badge-danger" : "badge badge-amber"}>{r.result.level === "alerta" ? "Alerta" : "Atenção"}</span> <strong>{r.studentName}</strong> · {r.className} <span className="hint">— {r.result.reasons[0]}</span></li>)}</ul>
+        </section>)}
+      {submissions.length > 0 && (
+        <section className="card" aria-label="Notas enviadas por QR" data-testid="notas-qr">
+          <h2 className="mb-2 text-lg">{ctx.org.role === "coordinator" ? "Notas recebidas dos professores" : "Notas que você enviou à escola"}</h2>
+          <ul className="space-y-1 text-sm">{submissions.map(({ s, student, cls: cn }) => <li key={s.id}><Link href={`/app/turmas/${s.classId}/notas`}>{student}</Link> · {cn} · <strong>{String(Number(s.value)).replace(".", ",")}</strong>/{String(Number(s.maxPoints)).replace(".", ",")} <span className="hint">({fmtDateTime(s.submittedAt)})</span></li>)}</ul>
+        </section>)}
       {sp.novo && cls.length > 0 && (
         <section className="card-tint space-y-2" aria-label="Cadastro concluído">
           <p className="font-semibold">Cadastro concluído. Sua turma está pronta.</p>

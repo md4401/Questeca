@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { and, eq } from "drizzle-orm";
 import { z } from "zod";
+import { QUICK_TAGS } from "@/lib/core/opinion";
 import { db } from "@/db";
 import {
   users, classes, classTeachers, students, enrollments, observations, lessonLogs, gradeItems, grades, gradeChanges, periodCloses,
@@ -146,14 +147,16 @@ export async function removeStudentAction(classId: string, studentId: string, mo
 export async function addObservationAction(classId: string, _: FormState, fd: FormData): Promise<FormState> {
   const ctx = await requireCtx();
   const { cls } = await loadClass(ctx, classId);
-  const p = z.object({ text: z.string().trim().min(3, "Escreva a observação.").max(4000), studentId: z.string().optional(), observedOn: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).default(todayISO()), visibility: z.enum(["private", "school", "family"]).default("private") }).safeParse(Object.fromEntries(fd));
+  const p = z.object({ text: z.string().trim().max(4000).default(""), studentId: z.string().optional(), observedOn: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).default(todayISO()), visibility: z.enum(["private", "school", "family"]).default("private") }).safeParse(Object.fromEntries(fd));
   if (!p.success) return { error: p.error.issues[0].message };
+  if (p.data.text.length < 3 && fd.getAll("tags").length === 0) return { error: "Escreva a observação ou marque um registro rápido." };
   const studentId: string | null = p.data.studentId || null;
   if (studentId) {
     const ok = (await classStudents(cls.id)).some((s) => s.id === studentId);
     if (!ok) return { error: "Aluno não pertence a esta turma." };
   }
-  await db.insert(observations).values({ classId: cls.id, studentId, authorId: ctx.user.id, text: p.data.text, observedOn: p.data.observedOn, visibility: p.data.visibility });
+  const tags = [...new Set(fd.getAll("tags").map(String))].filter((t) => QUICK_TAGS.some((q) => q.id === t));
+  await db.insert(observations).values({ classId: cls.id, studentId, authorId: ctx.user.id, text: p.data.text, tags, observedOn: p.data.observedOn, visibility: p.data.visibility });
   revalidatePath(`/app/turmas/${cls.id}/observacoes`);
   return { ok: "Observação salva." };
 }
