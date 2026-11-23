@@ -1,4 +1,7 @@
-# Questeca
+# Questeca — versão completa
+
+> **Ramificações:** `versao-completa` (esta, igual à `main`) tem tudo: professores, coordenação **e** portal de alunos e responsáveis, gamificação, quizzes, tarefas, mural, mensagens e videoaulas. `versao-professores` é 100% para professores e coordenação, sem nada de aluno. As duas usam as mesmas migrações, então o mesmo banco serve às duas.
+
 
 SaaS web (pt-BR) para professores do 6º ano ao Ensino Médio: provas com questões reais alinhadas ao que a turma estudou,
 correção, notas, relatórios e documentos da coordenação. Especificação: o PRD v1.0 (ver `docs/PLANO.md` para o plano técnico).
