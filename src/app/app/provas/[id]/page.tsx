@@ -121,7 +121,7 @@ export default async function Editor({ params, searchParams }: { params: Promise
           </section>
         </div>
 
-        <aside className="space-y-4">
+        <aside className="space-y-4 lg:sticky lg:top-6 lg:max-h-[calc(100vh-3rem)] lg:self-start lg:overflow-y-auto lg:pr-1">
           <section className="card-tint" aria-labelledby="mapa-h">
             <h2 id="mapa-h" className="mb-2 text-lg">Mapa da prova</h2>
             <p className="text-sm font-bold">Por conteúdo</p>

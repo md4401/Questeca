@@ -1,6 +1,7 @@
 "use client";
 import { createContext, startTransition, useActionState, useContext, useRef } from "react";
 import { useFormStatus } from "react-dom";
+import { useToastOn } from "@/components/ui/toast";
 
 export type FormState = { error?: string; ok?: string; fieldErrors?: Record<string, string> } | null;
 type Action = (prev: FormState, fd: FormData) => Promise<FormState>;
@@ -23,9 +24,10 @@ export function SubmitButton({ children, className = "btn", pendingLabel }: { ch
  * depois de qualquer resultado (inclusive erro de validação). Aqui os campos só são limpos em caso de
  * sucesso, e apenas quando `resetOnOk` é pedido.
  */
-export function Form({ action, children, className, resetOnOk }: { action: Action; children: React.ReactNode; className?: string; resetOnOk?: boolean }) {
+export function Form({ action, children, className, resetOnOk, toast }: { action: Action; children: React.ReactNode; className?: string; resetOnOk?: boolean; toast?: boolean }) {
   const [state, formAction, pending] = useActionState(action, null);
   const ref = useRef<HTMLFormElement>(null);
+  useToastOn(toast ? state : null);
   return (
     <form
       ref={ref}
@@ -43,10 +45,11 @@ export function Form({ action, children, className, resetOnOk }: { action: Actio
       <PendingCtx.Provider value={pending}>
         {children}
         <ResetOnOk state={state} formRef={ref} enabled={!!resetOnOk} />
-        <div aria-live="polite" role="status">
-          {state?.error && <p className="err" role="alert">{state.error}</p>}
-          {state?.ok && <p className="ok">{state.ok}</p>}
-        </div>
+        {!toast && (
+          <div aria-live="polite" role="status">
+            {state?.error && <p className="err" role="alert">{state.error}</p>}
+            {state?.ok && <p className="ok">{state.ok}</p>}
+          </div>)}
       </PendingCtx.Provider>
     </form>
   );

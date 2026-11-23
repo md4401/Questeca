@@ -29,16 +29,17 @@ export default async function AppLayout({ children }: { children: React.ReactNod
     ...(ctx.user.isStaff ? [{ href: "/admin", label: "Área interna", icon: "⚙" }] : []),
   ];
   return (
-    <div className="min-h-screen md:grid md:grid-cols-[250px_1fr]">
-      <aside className="no-print border-b border-line bg-brand-tint p-3 md:border-b-0 md:border-r md:p-4">
+    <div className="min-h-screen bg-[radial-gradient(60rem_30rem_at_100%_-10%,#DCE7FF_0%,transparent_60%)] md:grid md:grid-cols-[250px_1fr]">
+      <aside className="no-print border-b border-white/70 bg-gradient-to-b from-[#EAF0FF]/90 to-[#F5F8FF]/80 p-3 backdrop-blur-xl md:sticky md:top-0 md:h-screen md:overflow-y-auto md:border-b-0 md:border-r md:p-4">
         <div className="mb-3 flex items-center justify-between md:mb-6"><Logo href="/app" /></div>
         <form action={switchOrgAction} className="mb-3">
-          <label htmlFor="org" className="hint">Escola ativa</label>
-          <select id="org" name="orgId" defaultValue={ctx.org.id} className="input mt-1" aria-describedby="org-role">
-            {ctx.orgs.map((o) => <option key={o.id} value={o.id}>{o.name}{o.kind === "personal" ? " (pessoal)" : ""}</option>)}
-          </select>
-          <p id="org-role" className="hint mt-1">{ROLE_LABEL[role]}</p>
-          <button className="link-btn" type="submit">Trocar</button>
+          <label htmlFor="org" className="hint">Escola ativa · <span id="org-role">{ROLE_LABEL[role]}</span></label>
+          <div className="mt-1 flex items-center gap-2 md:block">
+            <select id="org" name="orgId" defaultValue={ctx.org.id} className="input min-w-0 flex-1" aria-describedby="org-role">
+              {ctx.orgs.map((o) => <option key={o.id} value={o.id}>{o.name}{o.kind === "personal" ? " (pessoal)" : ""}</option>)}
+            </select>
+            <button className="link-btn shrink-0" type="submit">Trocar</button>
+          </div>
         </form>
         <NavLinks items={items} />
         <div className="mt-6 hidden text-sm md:block">
@@ -56,7 +57,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
           </div>
         )}
         <div id="conteudo" className="mx-auto max-w-6xl p-4 md:p-8">{children}</div>
-        <nav className="no-print flex flex-wrap gap-4 border-t border-line p-4 text-sm md:hidden" aria-label="Conta">
+        <nav className="no-print flex flex-wrap items-center gap-x-5 gap-y-1 border-t border-line p-4 pb-[calc(1rem+env(safe-area-inset-bottom))] text-sm md:hidden" aria-label="Conta">
           <Link href="/app/plano">Plano</Link><Link href="/app/conta">Minha conta</Link><Link href="/app/ajuda">Ajuda</Link>
           <form action={logoutAction}><button className="link-btn" type="submit">Sair</button></form>
         </nav>
