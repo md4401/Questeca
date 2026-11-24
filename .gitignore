@@ -12,3 +12,4 @@ coverage
 .env.test.local
 .staycloud/
 questeca-producao.env.txt
+__pycache__/
