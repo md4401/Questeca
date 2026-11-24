@@ -4,7 +4,7 @@ import { requireCtx } from "@/lib/session";
 import { db } from "@/db";
 import { materials, classes, assessments, assistantFiles } from "@/db/schema";
 import { visibleClasses } from "@/lib/access";
-import { Form, Field, SubmitButton } from "@/components/form";
+import { NovoMaterial } from "./novo-material";
 import { addMaterialAction, deleteMaterialAction, useAsTheoryAction, approveMaterialAction } from "./actions";
 import { fmtDateTime } from "@/lib/format";
 
@@ -26,9 +26,9 @@ export default async function Materiais({ searchParams }: { searchParams: Promis
   const manager = ctx.org.role === "coordinator" || ctx.org.role === "admin";
   const pending = manager ? rows.filter((r) => r.m.approval === "pending") : [];
   return (
-    <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
+    <div>
       <div>
-        <h1 className="mb-1">Biblioteca</h1>
+        <div className="mb-1 flex flex-wrap items-center justify-between gap-3"><h1>Biblioteca</h1><NovoMaterial classes={cls.map((c) => ({ id: c.id, name: c.name }))} /></div>
         <p className="hint mb-4">Tudo o que você produz num só lugar: materiais, provas e apresentações. Os arquivos ficam privados na escola ativa; compartilhe com colegas se quiser.</p>
         {mostraArquivos && (<div className="mb-4 grid gap-4 sm:grid-cols-2">
           <section className="card" data-testid="biblioteca-provas"><h2 className="mb-2 text-lg">Provas ({minhasProvas.length})</h2>{minhasProvas.length === 0 ? <p className="text-sm text-ink-soft">Nenhuma prova ainda.</p> : <ul className="space-y-1 text-sm">{minhasProvas.slice(0, 8).map((p) => <li key={p.id} className="flex justify-between gap-2"><Link href={`/app/provas/${p.id}`} className="truncate">{p.title}</Link><span className="hint shrink-0">{p.status === "applied" ? "aplicada" : "rascunho"}</span></li>)}</ul>}<p className="mt-2 text-sm"><Link href="/app/provas">Ver todas →</Link></p></section>
@@ -46,19 +46,6 @@ export default async function Materiais({ searchParams }: { searchParams: Promis
               {m.ownerId === ctx.user.id && <form action={deleteMaterialAction.bind(null, m.id)}><button className="link-btn text-danger" type="submit">Excluir</button></form>}</div></li>))}
           {rows.length === 0 && <li className="card text-ink-soft">Nenhum material. Adicione ao lado ou salve a partir da Comunidade.</li>}</ul>
       </div>
-      <section className="card h-fit"><h2 className="mb-2 text-lg">Adicionar material</h2>
-        <Form action={addMaterialAction} resetOnOk>
-          <Field label="Título" name="title" />
-          <div className="field"><label htmlFor="kind">Tipo</label><select id="kind" name="kind" className="input">{Object.entries(KIND).map(([k, v]) => <option key={k} value={k}>{v}</option>)}</select></div>
-          <div className="field"><label htmlFor="classId">Turma (opcional)</label><select id="classId" name="classId" className="input"><option value="">—</option>{cls.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}</select></div>
-          <div className="field"><label htmlFor="visibility">Compartilhar com</label><select id="visibility" name="visibility" className="input" defaultValue="private"><option value="private">Só eu</option><option value="school">Professores da escola</option></select></div>
-          <Field label="Disciplina (opcional)" name="subject" />
-          <Field label="Etiquetas (separadas por vírgula)" name="tags" />
-          <div className="field"><label htmlFor="description">Descrição</label><input id="description" name="description" className="input" /></div>
-          <Field label="Link (opcional)" name="url" placeholder="https://" />
-          <div className="field"><label htmlFor="text">Texto</label><textarea id="text" name="text" className="input" /></div>
-          <div className="field"><label htmlFor="file">Ou arquivo (PDF, DOCX, TXT, imagem…)</label><input id="file" name="file" type="file" className="input" /></div>
-          <SubmitButton>Salvar</SubmitButton></Form></section>
     </div>
   );
 }

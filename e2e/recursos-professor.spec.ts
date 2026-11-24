@@ -118,3 +118,16 @@ test("Lista A/B cria duas versões com as mesmas questões em outra ordem; Corri
   await page.getByRole("button", { name: "Corrigir" }).click();
   await expect(page.getByText("Use uma foto PNG, JPG ou WebP.")).toBeVisible();
 });
+
+test("Biblioteca: Adicionar material abre em modal e fecha ao salvar", async ({ page }) => {
+  await signup(page);
+  await page.goto("/app/biblioteca");
+  await expect(page.getByLabel("Título")).toHaveCount(0);
+  await page.getByTestId("adicionar-material").click();
+  await expect(page.getByRole("dialog")).toBeVisible();
+  await page.getByLabel("Título").fill("Apostila de funções");
+  await page.getByLabel("Texto").fill("Resumo da matéria");
+  await page.getByRole("button", { name: "Salvar" }).click();
+  await expect(page.getByRole("dialog")).toBeHidden({ timeout: 8000 });
+  await expect(page.getByRole("heading", { name: "Apostila de funções" })).toBeVisible();
+});
