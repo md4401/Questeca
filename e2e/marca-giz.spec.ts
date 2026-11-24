@@ -49,6 +49,7 @@ test("Permissão para a GizIA criar questões: padrão desligado, liga em Minha 
   await t.getByRole("button", { name: "Modo escuro" }).click().catch(() => {});
   await caixa.check();
   await t.getByRole("button", { name: "Salvar", exact: true }).first().click();
+  await expect(t.getByText(/Preferências salvas/)).toBeVisible(); // espera o salvamento antes de recarregar
   await t.goto("/app/conta");
   await expect(t.getByLabel("Permitir que a GizIA crie questões novas para as minhas provas")).toBeChecked();
   const [u] = await sql`select prefs from users where email = ${email}`;
