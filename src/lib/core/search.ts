@@ -1,3 +1,5 @@
+import { TOPICOS } from "./topicos";
+
 /** Busca do banco de questões: sem acento, por frase, por palavras e por assuntos relacionados (ex.: autor → obras e movimento). */
 export const norm = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9\s]/g, " ").replace(/\s+/g, " ").trim();
 
@@ -20,8 +22,12 @@ export const ENTITIES: Entity[] = [
   { id: "fotossintese", label: "Fotossíntese", names: ["fotossintese"], related: ["clorofila", "cloroplasto", "glicose", "luz solar", "respiracao celular"] },
 ];
 
+/** Autores/obras (acima) + tópicos escolares (topicos.ts). */
+const IDS_TOPICOS = new Set(TOPICOS.map((e) => e.id));
+const TODAS_ENTIDADES: Entity[] = [...ENTITIES, ...TOPICOS];
+
 const STOP = new Set(["de", "da", "do", "das", "dos", "a", "o", "as", "os", "e", "em", "no", "na", "um", "uma", "que", "sobre", "com", "para", "por"]);
-const ENT = ENTITIES.map((e) => ({ ...e, namesN: e.names.map(norm), relatedN: e.related.map(norm) }));
+const ENT = TODAS_ENTIDADES.map((e) => ({ ...e, namesN: e.names.map(norm), relatedN: e.related.map(norm) }));
 
 export type Parsed = { raw: string; entities: typeof ENT; tokens: string[]; phrase: string };
 export function parseQuery(q: string): Parsed {
@@ -35,6 +41,18 @@ export function parseQuery(q: string): Parsed {
 export type Doc = { title: string; statement: string | null; alternatives?: { text: string }[]; institution: string; exam: string; year: number; extra?: string };
 export type Match = { score: number; reasons: { kind: "cita" | "relacionada" | "palavra"; text: string }[]; terms: string[] };
 
+/** Singular/plural simples do português: "funções"→"funcoes"↔"funcao", "triângulos"↔"triangulo", "raízes"↔"raiz". */
+export function variantes(t: string): string[] {
+  const v = new Set([t]);
+  if (t.endsWith("oes") || t.endsWith("aes")) v.add(t.slice(0, -3) + "ao");
+  else if (t.endsWith("ais")) v.add(t.slice(0, -3) + "al");
+  else if (t.endsWith("eis")) v.add(t.slice(0, -3) + "el");
+  else if (t.endsWith("ores") || t.endsWith("izes") || t.endsWith("ares")) v.add(t.slice(0, -2));
+  else if (t.endsWith("s") && t.length > 3) v.add(t.slice(0, -1));
+  else if (t.endsWith("ao")) v.add(t.slice(0, -2) + "oes");
+  else if (t.length > 3 && !t.endsWith("s")) v.add(t + "s");
+  return [...v];
+}
 const has = (hay: string, needle: string) => needle.length > 1 && (` ${hay} `).includes(` ${needle} `) ;
 export function scoreDoc(d: Doc, p: Parsed): Match {
   const title = norm(d.title);
@@ -51,12 +69,15 @@ export function scoreDoc(d: Doc, p: Parsed): Match {
     }
   }
   for (const t of p.tokens) {
-    if (has(title, t)) { score += 4; terms.push(t); reasons.push({ kind: "palavra", text: t }); }
-    else if (has(body, t) || has(meta, t)) { score += 2; terms.push(t); reasons.push({ kind: "palavra", text: t }); }
-    else if (t.length > 4 && all.includes(t)) { score += 1; terms.push(t); } // prefixo/plural
+    const vs = variantes(t);
+    const tv = vs.find((x) => has(title, x)); const bv = vs.find((x) => has(body, x) || has(meta, x));
+    if (tv) { score += 4; terms.push(tv); reasons.push({ kind: "palavra", text: t }); }
+    else if (bv) { score += 2; terms.push(bv); reasons.push({ kind: "palavra", text: t }); }
+    else if (t.length > 4 && vs.some((x) => all.includes(x))) { score += 1; terms.push(t); } // prefixo/plural
   }
   // todos os termos digitados precisam aparecer (sem entidade reconhecida) — evita ruído
-  if (!p.entities.length && p.tokens.length && !p.tokens.every((t) => all.includes(t))) return { score: 0, reasons: [], terms: [] };
+  // (com só tópicos reconhecidos, o que sobrou além deles também precisa aparecer: "juros compostos" ≠ "juros simples")
+  if (p.entities.every((e) => IDS_TOPICOS.has(e.id)) && p.tokens.length && !p.tokens.every((t) => variantes(t).some((x) => all.includes(x)))) return { score: 0, reasons: [], terms: [] };
   return { score, reasons: dedupe(reasons).slice(0, 6), terms: [...new Set(terms)] };
 }
 const dedupe = (r: Match["reasons"]) => r.filter((x, i) => r.findIndex((y) => y.kind === x.kind && y.text === x.text) === i);

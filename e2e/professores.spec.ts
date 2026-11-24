@@ -29,7 +29,8 @@ test("Versão professores: chamada, agenda e horários, gestão, boletim, painel
   /* ---------- Frequência ---------- */
   console.log("STEP frequencia");
   await t.goto(`/app/turmas/${classA}/frequencia`);
-  await t.getByLabel("Falta: Iara Dias").check({ force: true });
+  await t.getByTestId("abrir-chamada").click();
+  await t.locator("fieldset", { hasText: "Iara Dias" }).locator('[data-st="absent"]').click();
   await t.getByRole("button", { name: "Salvar chamada" }).click();
   await expect(t.getByText("Chamada salva.")).toBeVisible();
   await t.goto(`/app/turmas/${classA}/frequencia`);

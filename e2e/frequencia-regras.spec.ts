@@ -28,8 +28,10 @@ test("Frequência: página própria com chamada, frequência dos alunos e painel
   // chamada da turma A: Ana presente, Bruno ausente
   await t.getByLabel("Turma").selectOption(turmaA);
   await t.getByRole("button", { name: "Abrir" }).first().click();
+  await t.waitForURL(new RegExp(`turma=${turmaA}`));
   await expect(t.getByRole("heading", { name: "Chamada" })).toBeVisible();
-  await t.getByRole("group", { name: "Bruno Dias" }).getByText("Falta", { exact: true }).click();
+  await t.getByTestId("abrir-chamada").click();
+  await t.locator("fieldset", { hasText: "Bruno Dias" }).locator('[data-st="absent"]').click();
   await t.getByRole("button", { name: "Salvar chamada" }).click();
   await expect(t.getByText("Chamada salva.")).toBeVisible();
   const lista = t.getByRole("region", { name: /Frequência da turma/ }).or(t.locator("section", { hasText: "Frequência da turma" }));

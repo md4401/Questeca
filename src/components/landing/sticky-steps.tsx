@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 
 const STEPS = [
   { title: "Diga o que a turma estudou", text: "Cole suas anotações, envie o PDF ou o DOCX da apostila, ou use o diário da turma. Você confirma o que vai cair, o que já é pré-requisito e o que ainda não ensinou." },
-  { title: "Revise um rascunho explicado", text: "A Segunda Lousa monta a prova só com questões existentes e diz por que escolheu cada uma. Troque, fixe, reordene e acompanhe o mapa de conteúdos, pontos e tempo." },
+  { title: "Revise um rascunho explicado", text: "A Segunda Lousa monta a prova com questões reais de vestibulares e provas públicas e diz por que escolheu cada uma. Troque, fixe, reordene e acompanhe o mapa de conteúdos, pontos e tempo." },
   { title: "Imprima no padrão da escola", text: "A folha do aluno sai com o cabeçalho da escola e sem gabarito. O gabarito do professor vai em outro arquivo, com fonte e referência de cada item." },
   { title: "Corrija e decida a próxima aula", text: "Lance respostas pela grade, pela planilha ou por foto do cartão. A nota aparece com a fórmula usada e o acerto por conteúdo indica o que retomar." },
 ];

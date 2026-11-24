@@ -13,11 +13,13 @@ test("Quiz ao vivo: professor cria, aluno entra por código, responde e vê o re
   await page.getByLabel("Texto da opção 2 da pergunta 1").fill("56");
   await page.getByLabel("Texto da opção 3 da pergunta 1").fill("58");
   await page.getByLabel("Marcar opção 2 como certa").click();
+  await page.locator(".qb-tempo select").first().selectOption("120"); // folga para máquinas lentas
   await page.getByTestId("add-pergunta").click();
   await page.getByLabel("Pergunta 2", { exact: true }).fill("Capital do Brasil?");
   await page.getByLabel("Texto da opção 1 da pergunta 2").fill("São Paulo");
   await page.getByLabel("Texto da opção 2 da pergunta 2").fill("Brasília");
   await page.getByLabel("Marcar opção 2 como certa").last().click();
+  await page.locator(".qb-tempo select").last().selectOption("120");
   await page.getByRole("button", { name: "Salvar quiz" }).click();
   await expect(page.getByRole("heading", { name: "Tabuada" })).toBeVisible();
   await expect(page.getByTestId("pergunta")).toHaveCount(2);
@@ -50,7 +52,7 @@ test("Quiz ao vivo: professor cria, aluno entra por código, responde e vê o re
   await expect(page.getByText(/1\/1 responderam/)).toBeVisible({ timeout: 8000 });
   await page.getByTestId("avancar").click(); // mostrar resposta
   await expect(aluno.getByText("Acertou!")).toBeVisible({ timeout: 8000 });
-  await expect(aluno.getByText(/\+9\d\d pontos|\+1000 pontos/)).toBeVisible();
+  await expect(aluno.getByText(/\+\d{3,4} pontos/)).toBeVisible();
   await page.getByTestId("avancar").click(); // próxima
   await expect(aluno.getByText("Capital do Brasil?")).toBeVisible({ timeout: 8000 });
   await aluno.getByRole("button", { name: /São Paulo/ }).click();

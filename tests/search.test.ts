@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { parseQuery, scoreDoc, norm, highlight } from "@/lib/core/search";
+import { parseQuery, scoreDoc, norm, highlight, variantes } from "@/lib/core/search";
 
 const D = (title: string, statement: string, extra = {}) => ({ title, statement, institution: "Segunda Lousa", exam: "Banco autoral", year: 2026, ...extra });
 describe("Busca do banco", () => {
@@ -28,5 +28,21 @@ describe("Busca do banco", () => {
   it("destaca termos sem acento", () => {
     const h = highlight("O romance Dom Casmurro, de Machado.", ["dom casmurro", "machado"]);
     expect(h.filter((x) => x.hit).map((x) => x.t)).toEqual(["Dom Casmurro", "Machado"]);
+  });
+});
+
+describe("Busca por tópicos escolares e plural", () => {
+  it("'funções do 2º grau' acha função quadrática/parábola", () => {
+    const d = { title: "Parábola", statement: "A função quadrática f(x)=x²-4x+3 tem vértice em…", institution: "Fuvest", exam: "Fuvest", year: 2019 };
+    expect(scoreDoc(d, parseQuery("funções do 2º grau")).score).toBeGreaterThan(0);
+  });
+  it("plural e singular se encontram", () => {
+    const d = { title: "Triângulo", statement: "Calcule a área do triângulo.", institution: "Uerj", exam: "Uerj", year: 2018 };
+    expect(scoreDoc(d, parseQuery("triângulos")).score).toBeGreaterThan(0);
+    expect(variantes("funcoes")).toContain("funcao");
+  });
+  it("cinemática acha velocidade e aceleração", () => {
+    const d = { title: "Movimento", statement: "Um carro tem velocidade média de 72 km/h e aceleração constante.", institution: "Unicamp", exam: "Comvest", year: 2020 };
+    expect(scoreDoc(d, parseQuery("cinemática")).score).toBeGreaterThan(0);
   });
 });

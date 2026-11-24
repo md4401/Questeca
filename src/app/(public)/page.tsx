@@ -9,7 +9,9 @@ import { PLANS, brl } from "@/lib/core/plans";
 
 const FAQ: [string, string][] = [
   ["De onde vêm as questões?", "De provas públicas e de acervos autorizados. Cada item mostra banca, edição, caderno, número e gabarito oficial. Itens cujo direito cobre só a consulta aparecem com o link da fonte e não entram na prova."],
-  ["A IA cria questões?", "Não. A IA lê o que você ensinou, classifica e explica a escolha. A prova é montada exclusivamente com questões existentes."],
+  ["A IA cria questões?", "Por padrão, não: a prova sai de questões reais de provas públicas, e a GizIA só escolhe e explica. Se você ativar a permissão em Minha conta, ela também pode criar questões novas para completar a prova; elas ficam só na sua escola e vêm marcadas para você conferir o gabarito."],
+  ["O que é a GizIA?", "A assistente de IA da Segunda Lousa. Ela enxerga só os seus dados e, depois de te entrevistar, monta provas, planos de aula, apresentações em PowerPoint e quiz ao vivo, além de responder sobre suas turmas e alunos em risco. Cada uso gasta créditos diários."],
+  ["Funciona no celular e no tablet?", "Sim. O layout se adapta: no celular a navegação fica ao alcance do polegar, no tablet as telas aproveitam o espaço, e o computador mostra tudo lado a lado. Chamada, notas, quiz e GizIA foram pensados para o toque."],
   ["Preciso cadastrar alunos para começar?", "Não. Você cria a turma, monta a prova e exporta o PDF sem lista nominal. Os alunos entram quando você for lançar notas."],
   ["Funciona com o modelo da minha escola?", "Sim. A coordenação cadastra o cabeçalho, o logo autorizado e as regras de nota uma vez, e todas as provas seguintes já saem no padrão."],
   ["E os dados dos alunos?", "Ficam restritos à turma e à escola, com acesso por papel. Notas e fotos não podem ser publicadas na comunidade, e documentos de aula e dados de estudantes não são usados para treinar modelos."],
@@ -74,6 +76,29 @@ export default function Home() {
         <StickySteps />
       </section>
 
+      {/* DIA A DIA — o que mais existe além da prova */}
+      <section id="dia-a-dia" className="mx-auto mt-28 max-w-6xl scroll-mt-28 px-4">
+        <div className="reveal mb-10 max-w-2xl">
+          <p className="mono text-sm text-brand">Além da prova</p>
+          <h2 className="display mt-2 text-4xl md:text-5xl">A rotina inteira do professor, num só lugar.</h2>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {[
+            ["✦", "GizIA, a assistente", "Peça uma prova, um plano de aula, uma apresentação em PowerPoint ou um quiz. Ela te entrevista, cria e você ajusta. Anexe PDF, DOCX ou foto como material-base.", "giz"],
+            ["📅", "Meu dia", "As aulas de hoje com plano pronto, chamada pendente e atalhos. Abra de manhã e saiba por onde começar.", ""],
+            ["▲", "Quiz ao vivo", "Estilo Kahoot: a turma entra por um código no celular, responde valendo pontos e vê o placar. Crie à mão ou com a GizIA.", ""],
+            ["▤", "Biblioteca", "Seus materiais, provas e apresentações juntos, com busca e abas. Nada se perde entre uma aula e outra.", ""],
+            ["🎲", "Sorteio e grupos", "Sorteie um aluno, forme grupos equilibrados e defina a ordem de apresentação em um toque.", ""],
+            ["✎", "Ocorrências por aluno", "Registre e consulte o histórico de cada aluno, com filtros por marcação e palavra. Privado, da coordenação ou no boletim.", ""],
+          ].map(([ico, t, d, k], i) => (
+            <article key={t} className={`reveal glass hover-lift p-6 ${k ? "lg:col-span-1 ring-1 ring-[#B9A7FF]/60" : ""}`} style={{ ["--d" as string]: `${(i % 3) * 80}ms` }}>
+              <span aria-hidden className={`mb-4 grid h-11 w-11 place-items-center rounded-2xl text-xl ${k ? "bg-[#EEE8FF] text-[#6D4AE0]" : "bg-brand-tint text-brand"}`}>{ico}</span>
+              <h3 className="display text-xl">{t}</h3>
+              <p className="mt-2 text-ink-soft">{d}</p>
+            </article>))}
+        </div>
+      </section>
+
       {/* RECURSOS — horizontal scroll */}
       <section id="recursos" className="mt-20 scroll-mt-20">
         <HorizontalFeatures />
@@ -87,10 +112,10 @@ export default function Home() {
         </div>
         <div className="relative mx-auto max-w-6xl px-4">
           <p className="reveal mono text-sm text-[#BFD3FF]">Procedência</p>
-          <h2 id="confianca" className="reveal display mt-3 max-w-3xl text-4xl leading-tight md:text-6xl">A IA escolhe e explica. Nunca inventa questão.</h2>
+          <h2 id="confianca" className="reveal display mt-3 max-w-3xl text-4xl leading-tight md:text-6xl">A IA ajuda. Quem decide é você.</h2>
           <div className="mt-12 grid gap-5 md:grid-cols-3">
             {[
-              ["Origem verificável", "Banca, edição, caderno, número e página de cada item, com o gabarito oficial da versão aplicada."],
+              ["Origem verificável", "Banca, edição, caderno, número e página de cada item, com o gabarito oficial da versão aplicada. Questões criadas pela GizIA, só com a sua permissão, vêm marcadas."],
               ["Direito de uso por item", "Cada questão tem um estado: em curadoria, só referência, liberada, em revisão ou bloqueada. Só as liberadas entram na prova."],
               ["Dados da turma protegidos", "Acesso por escola, turma e papel. Notas, fotos e observações são privadas e não treinam modelos de IA."],
             ].map(([t, d], i) => (

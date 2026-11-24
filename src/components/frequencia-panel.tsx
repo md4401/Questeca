@@ -3,7 +3,8 @@ import { db } from "@/db";
 import { attendanceSessions, attendanceRecords, attendanceChanges, users } from "@/db/schema";
 import type { Ctx } from "@/lib/session";
 import { classStudents } from "@/lib/access";
-import { Form, SubmitButton } from "@/components/form";
+import { SubmitButton } from "@/components/form";
+import { ChamadaModal, ChamadaForm } from "@/components/chamada-modal";
 import { saveAttendanceAction } from "@/app/app/turmas/[id]/frequencia/actions";
 import { summarize, isLow, ATT_LABEL, DEFAULT_MIN_PCT } from "@/lib/core/attendance";
 import { todayISO, fmtDate, fmtDateTime } from "@/lib/format";
@@ -24,8 +25,10 @@ export async function FrequenciaPanel({ ctx, cls, sp, hidden = {} }: { ctx: Ctx;
   const nameOf = (sid: string) => roster.find((s) => s.id === sid)?.name ?? "—";
   return (
     <div className="space-y-6">
-      <section className="card">
-        <h2 className="mb-2 text-lg">Chamada</h2>
+      <section className="card flex flex-wrap items-center justify-between gap-3">
+        <div><h2 className="text-lg">Chamada</h2><p className="hint">{sess ? `Chamada de ${fmtDate(date)} registrada.` : `Nenhuma chamada em ${fmtDate(date)} ainda.`} {cls.name}</p></div>
+        {roster.length === 0 && <p className="text-ink-soft">Cadastre alunos para fazer a chamada.</p>}
+        {roster.length > 0 && <ChamadaModal label={sess ? "Ver ou corrigir chamada" : "Fazer chamada"} titulo={`Chamada · ${cls.name}`} abrirInicial={!!(sp.data || sp.aula)}>
         <form className="mb-4 flex flex-wrap items-end gap-3" method="get">
           {Object.entries(hidden).map(([k, v]) => <input key={k} type="hidden" name={k} value={v} />)}
           <div className="field !mb-0"><label htmlFor="data">Data</label><input id="data" name="data" type="date" max={todayISO()} defaultValue={date} className="input" /></div>
@@ -33,27 +36,30 @@ export async function FrequenciaPanel({ ctx, cls, sp, hidden = {} }: { ctx: Ctx;
           <button className="btn btn-ghost" type="submit">Abrir</button>
         </form>
         {roster.length === 0 ? <p className="text-ink-soft">Cadastre alunos para fazer a chamada.</p> : (
-          <Form action={saveAttendanceAction.bind(null, id)}>
+          <ChamadaForm action={saveAttendanceAction.bind(null, id)}>
             <input type="hidden" name="date" value={date} /><input type="hidden" name="lesson" value={lesson} />
             <p className="hint mb-2">{sess ? `Chamada de ${fmtDate(date)} já registrada. Alterações exigem o motivo da correção.` : `Nova chamada de ${fmtDate(date)} · ${cls.name}. Quem ficar sem marcação não conta como falta.`}</p>
-            <ul className="divide-y divide-line">
+            <ul className="chamada-list">
               {roster.map((s) => {
                 const c = cur.get(s.id)?.status ?? (sess ? "" : "present");
                 return (
-                  <li key={s.id} className="py-2">
-                    <fieldset className="flex flex-wrap items-center justify-between gap-2"><legend className="float-left mr-3 font-semibold">{s.name}</legend>
-                      <span className="flex flex-wrap gap-1">
-                        {(["present", "absent", "justified"] as const).map((st) => (
-                          <label key={st} className="chip cursor-pointer has-[:checked]:border-brand has-[:checked]:bg-brand has-[:checked]:text-white"><input className="sr-only" type="radio" name={`st_${s.id}`} value={st} defaultChecked={c === st} aria-label={`${ATT_LABEL[st]}: ${s.name}`} />{ATT_LABEL[st].replace("Falta justificada", "Justificada")}</label>))}
+                  <li key={s.id} className="chamada-row">
+                    <fieldset className="chamada-fs"><legend className="chamada-nome"><span className="chamada-av" aria-hidden>{s.name.split(/\s+/).slice(0, 2).map((x) => x[0]?.toUpperCase()).join("")}</span>{s.name}</legend>
+                      <span className="chamada-ops">
+                        {(["present", "absent", "justified"] as const).map((st) => {
+                          const full = ATT_LABEL[st].replace("Falta justificada", "Justificada");
+                          return <label key={st} className="chamada-op" data-st={st}><input className="sr-only" type="radio" name={`st_${s.id}`} value={st} defaultChecked={c === st} aria-label={`${ATT_LABEL[st]}: ${s.name}`} /><span className="full">{full}</span><span className="short" aria-hidden>{st === "present" ? "P" : st === "absent" ? "F" : "J"}</span></label>;
+                        })}
                       </span></fieldset>
                   </li>);
               })}
             </ul>
             {sess && <div className="field mt-3"><label htmlFor="reason">Motivo da correção</label><input id="reason" name="reason" className="input" placeholder="Ex.: aluno chegou após a chamada" /></div>}
-            <div className="mt-3"><SubmitButton pendingLabel="Salvando…">{sess ? "Salvar correção" : "Salvar chamada"}</SubmitButton></div>
-          </Form>)}
+            <div className="chamada-save"><SubmitButton pendingLabel="Salvando…">{sess ? "Salvar correção" : "Salvar chamada"}</SubmitButton></div>
+          </ChamadaForm>)}
         {history.length > 0 && (<details className="mt-4 text-sm"><summary className="cursor-pointer font-semibold text-brand">Histórico de correções ({history.length})</summary>
           <ul className="mt-2 space-y-1">{history.map(({ c, who }) => <li key={c.id}>{nameOf(c.studentId)}: {ATT_LABEL[(c.before ?? "present") as keyof typeof ATT_LABEL]} → <strong>{ATT_LABEL[c.after as keyof typeof ATT_LABEL]}</strong> · {c.reason} <span className="hint">({who}, {fmtDateTime(c.createdAt)})</span></li>)}</ul></details>)}
+      </ChamadaModal>}
       </section>
       <section className="card">
         <h2 className="mb-1 text-lg">Frequência da turma</h2>

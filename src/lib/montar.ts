@@ -1,11 +1,11 @@
 import "server-only";
-import { and, eq, or, ilike, isNull, isNotNull, inArray, desc } from "drizzle-orm";
+import { and, eq, or, ilike, isNull, isNotNull, inArray, desc, sql } from "drizzle-orm";
 import { db } from "@/db";
 import { questions } from "@/db/schema";
 import { aiAvailable, aiExpandThemes, aiEscolherQuestoes, aiGerarQuestoes, type QuestaoGerada } from "@/lib/ai";
 import { SemCreditos } from "@/lib/credits";
 import { searchNormOf } from "@/lib/core/search";
-import { parseQuery, scoreDoc, norm } from "@/lib/core/search";
+import { parseQuery, scoreDoc, norm, variantes } from "@/lib/core/search";
 import { subjectLabel, gradeLabel } from "@/lib/taxonomy";
 import { assessments, assessmentItems } from "@/db/schema";
 import { loadClass } from "@/lib/access";
@@ -29,7 +29,7 @@ export async function selecionarPorTemas(i: { orgId: string; temas: string[]; su
   const parsed = temas.map((t) => parseQuery(t));
   let extra: string[] = [];
   if (aiAvailable()) { try { extra = (await aiExpandThemes({ themes: temas, subject: subjectLabel(p.data.subject), grade: gradeLabel(p.data.grade) })).map(norm).filter((t) => t.length > 2); } catch { /* segue sem IA */ } }
-  const termos = [...new Set([...parsed.flatMap((x) => [...x.entities.flatMap((e) => [...e.namesN, ...e.relatedN]), ...x.tokens]), ...extra])].filter((t) => t.length > 1).slice(0, 80);
+  const termos = [...new Set([...parsed.flatMap((x) => [...x.entities.flatMap((e) => [...e.namesN, ...e.relatedN]), ...x.tokens.flatMap(variantes)]), ...extra])].filter((t) => t.length > 1).slice(0, 80);
   if (!termos.length) return { picked: [] as never[], candidatos: [] as never[], temas, termos: 0 };
 
   // 2) candidatos no SQL (índice trigram), só questões liberadas e com gabarito
@@ -40,7 +40,9 @@ export async function selecionarPorTemas(i: { orgId: string; temas: string[]; su
     insts.length ? or(...insts.map((i) => eq(questions.institution, i))) : undefined,
     or(...termos.map((t) => ilike(questions.searchNorm, `%${esc(t)}%`))),
   ].filter(Boolean);
-  const pool = await db.select().from(questions).where(and(...cond)).orderBy(desc(questions.year)).limit(1500);
+  // as candidatas mais relevantes (mais termos batendo) vêm primeiro; o ano só desempata. Assim o corte de 1.500 nunca joga fora as melhores.
+  const hits = sql<number>`(${sql.join(termos.slice(0, 30).map((t) => sql`(${questions.searchNorm} ILIKE ${`%${esc(t)}%`})::int`), sql` + `)})`;
+  const pool = await db.select().from(questions).where(and(...cond)).orderBy(desc(hits), desc(questions.year)).limit(1500);
 
   // 3) pontuação por tema; escolha alternada entre temas para cobrir todos
   const scored = pool.filter((q) => q.alternatives.length >= 2).map((q) => {

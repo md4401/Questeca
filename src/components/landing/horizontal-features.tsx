@@ -2,11 +2,13 @@
 import { useEffect, useRef, useState } from "react";
 
 const FEATURES = [
+  { tag: "Banco", title: "Questões de vestibular por tema", text: "Fuvest, Unicamp, Uerj, Mackenzie e mais. Digite o assunto do seu jeito, a série e a disciplina: a busca entende “funções do 2º grau” e “cinemática”.", art: "search" },
   { tag: "Correção", title: "Cartão-resposta por foto", text: "Fotografe pelo celular. Leituras duvidosas ficam ao lado da imagem para você confirmar; nada entra na nota sozinho.", art: "bubbles" },
+  { tag: "Discursivas", title: "Corrija a letra do aluno por foto", text: "Fotografe a resposta escrita à mão: a GizIA transcreve e sugere nota e comentário pelo seu critério. Você decide.", art: "pen" },
+  { tag: "Provas", title: "Lista A/B para reduzir cola", text: "As mesmas questões em duas versões, a B com a ordem embaralhada, cada uma com o seu gabarito.", art: "versions" },
   { tag: "Notas", title: "Média com a fórmula à vista", text: "Pesos, ausências, recuperação e arredondamento seguem a regra da escola. Zero, falta e pendente nunca se confundem.", art: "formula" },
   { tag: "Retomada", title: "Próxima aula com questões reais", text: "O acerto por conteúdo aponta o que retomar e a Segunda Lousa separa itens do acervo para prática e checagem.", art: "bars" },
-  { tag: "Segunda chamada", title: "Outra versão, mesmo desenho", text: "Mesmas habilidades, pontos e tempo, com itens diferentes e sem variantes da questão original.", art: "versions" },
-  { tag: "Aplicação digital", title: "Um link por aluno", text: "Cada estudante responde pelo próprio link, uma única vez, sem criar conta. As respostas chegam corrigidas.", art: "link" },
+  { tag: "Família e turma", title: "Matéria da semana num link", text: "Conteúdo, tarefa e links numa página simples, sem login e sem dados de aluno. Um endereço fixo para a turma o ano todo.", art: "link" },
   { tag: "Coordenação", title: "Documentos no modelo da escola", text: "Diário, relatório individual e conselho de classe a partir do que você registrou. O que não tem evidência fica em aberto.", art: "doc" },
   { tag: "Comunidade", title: "Troca entre professores", text: "Mural geral ou da escola, com moderação. Dados de alunos são bloqueados antes de publicar.", art: "chat" },
 ];
@@ -17,7 +19,9 @@ function Art({ kind }: { kind: string }) {
   if (kind === "formula") return <div className={box}><p className="mono text-sm">7,5 × 0,6 + 9 × 0,4 = <b className="text-brand-dark">8,1</b></p></div>;
   if (kind === "bars") return <div className={`${box} items-end gap-2 pb-4`}>{[70, 43, 85, 58].map((h, k) => <span key={k} className={`w-6 rounded-t-md ${h < 60 ? "bg-[#F0A79E]" : "bg-brand"}`} style={{ height: `${h}%` }} />)}</div>;
   if (kind === "versions") return <div className={box}><span className="rounded-lg border bg-white px-4 py-3 font-bold shadow">A</span><span className="mx-3 text-brand">→</span><span className="rounded-lg border border-brand bg-white px-4 py-3 font-bold text-brand shadow">B</span></div>;
-  if (kind === "link") return <div className={box}><span className="mono rounded-full bg-white px-3 py-1.5 text-xs shadow">segundalousa.app/r/•••• </span></div>;
+  if (kind === "link") return <div className={box}><span className="mono rounded-full bg-white px-3 py-1.5 text-xs shadow">segundalousa.app/s/9º-B</span></div>;
+  if (kind === "search") return <div className={`${box} flex-col gap-1.5`}><span className="rounded-full bg-white px-4 py-1.5 text-xs shadow">🔍 funções do 2º grau · 9º ano</span><span className="rounded-lg bg-white px-3 py-1 text-[11px] text-ink-soft shadow">Fuvest 2019 · Uerj 2025 · Comvest 2021</span></div>;
+  if (kind === "pen") return <div className={box}><div className="rounded-lg bg-white px-4 py-3 text-xs shadow"><p className="italic text-ink-soft">“…a Lei Áurea, em 1888…”</p><p className="mt-1 font-bold text-brand-dark">Nota sugerida: 2,5 / 3</p></div></div>;
   if (kind === "doc") return <div className={box}><div className="w-24 space-y-1.5 rounded-md bg-white p-3 shadow">{[1, 2, 3, 4].map((k) => <div key={k} className={`h-1.5 rounded ${k === 3 ? "bg-amber-tint outline-1 outline-dashed outline-amber" : "bg-[#E3E9F6]"}`} />)}</div></div>;
   return <div className={`${box} flex-col gap-1.5`}><span className="self-start ml-8 rounded-2xl rounded-bl-sm bg-white px-3 py-1.5 text-xs shadow">Alguém tem lista de frações?</span><span className="self-end mr-8 rounded-2xl rounded-br-sm bg-brand px-3 py-1.5 text-xs text-white">Compartilhei a minha 👇</span></div>;
 }
