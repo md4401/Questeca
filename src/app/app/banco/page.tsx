@@ -7,7 +7,7 @@ import { TOPICS, normalize, topicName } from "@/lib/taxonomy";
 import { STATUS_LABEL } from "@/lib/format";
 import { db } from "@/db";
 import { assessments, questions } from "@/db/schema";
-import { and, eq, desc } from "drizzle-orm";
+import { and, eq, desc, or, ilike, sql } from "drizzle-orm";
 import { addManualFormAction } from "../provas/actions";
 import { checkIntegrity } from "@/lib/core/selection";
 import { FlagForm } from "@/components/flag-form";
@@ -30,26 +30,39 @@ export default async function Banco({ searchParams }: { searchParams: Promise<{ 
   const sp = await searchParams;
   const ctx = await requireCtx();
   if (sp.aba === "provas") return <div className="space-y-5"><BancoTabs aba="provas" /><ProvasOficiais sp={sp} /></div>;
-  const pool = await db.select().from(questions);
   const parsed = parseQuery(sp.q ?? "");
   const hasQuery = parsed.phrase.length > 0;
+  // Pré-filtro no SQL (índice trigram em search_norm): só os candidatos vão para a pontuação em JS.
+  const esc = (t: string) => t.replace(/[\\%_]/g, "\\$&");
+  const termos = [...new Set([...parsed.entities.flatMap((e) => [...e.namesN, ...e.relatedN]), ...parsed.tokens])].filter((t) => t.length > 1).slice(0, 60);
+  const conds = [
+    hasQuery && termos.length ? or(...termos.map((t) => ilike(questions.searchNorm, `%${esc(t)}%`))) : undefined,
+    sp.disciplina ? eq(questions.subject, sp.disciplina) : undefined,
+    sp.fonte ? eq(questions.institution, sp.fonte) : undefined,
+    sp.ano && Number(sp.ano) ? eq(questions.year, Number(sp.ano)) : undefined,
+    sp.dif && Number(sp.dif) ? eq(questions.difficulty, Number(sp.dif)) : undefined,
+    sp.topico ? sql`(${questions.assessed} ? ${sp.topico} OR ${questions.prerequisites} ? ${sp.topico})` : undefined,
+  ].filter(Boolean);
+  const pool = hasQuery && !termos.length ? [] : await db.select().from(questions).where(conds.length ? and(...conds) : undefined)
+    .orderBy(sql`(${questions.status} = 'released') DESC`, desc(questions.year)).limit(hasQuery ? 1500 : 200);
+  const [facetInst, facetAnos, facetSubj] = await Promise.all([
+    db.selectDistinct({ v: questions.institution }).from(questions),
+    db.selectDistinct({ v: questions.year }).from(questions),
+    db.selectDistinct({ v: questions.subject }).from(questions),
+  ]);
   const rows = pool.map((x) => {
     const m = hasQuery ? scoreDoc({ title: x.title, statement: x.statement, alternatives: x.alternatives, institution: x.institution, exam: x.exam, year: x.year, extra: `${x.assessed.map(topicName).join(" ")} ${subjectLabel(x.subject)}` }, parsed) : { score: 1, reasons: [], terms: [] as string[] };
     return { x, m };
   }).filter(({ x, m }) => {
     if (m.score <= 0) return false;
-    if (sp.disciplina && x.subject !== sp.disciplina) return false;
-    if (sp.topico && !x.assessed.includes(sp.topico) && !x.prerequisites.includes(sp.topico)) return false;
-    if (sp.fonte && x.institution !== sp.fonte) return false;
-    if (sp.ano && x.year !== Number(sp.ano)) return false;
-    if (sp.dif && x.difficulty !== Number(sp.dif)) return false;
     return true;
   }).sort((a, b) => b.m.score - a.m.score || (a.x.status === "released" ? 0 : 1) - (b.x.status === "released" ? 0 : 1) || b.x.year - a.x.year);
   const total = rows.length;
   const list = rows.slice(0, 40);
-  const fontes = [...new Set([...BANCAS, ...pool.map((x) => x.institution)])].filter((f) => pool.some((x) => x.institution === f) || BANCAS.includes(f));
-  const anos = [...new Set(pool.map((x) => x.year))].sort((a, b) => b - a);
-  const subjects = [...new Set(pool.map((x) => x.subject))];
+  const instAll = facetInst.map((r) => r.v);
+  const fontes = [...new Set([...BANCAS, ...instAll])].filter((f) => instAll.includes(f) || BANCAS.includes(f));
+  const anos = facetAnos.map((r) => r.v).sort((a, b) => b - a);
+  const subjects = facetSubj.map((r) => r.v);
   const active = [sp.disciplina, sp.fonte, sp.ano, sp.dif, sp.topico].filter(Boolean).length;
   const drafts = await db.select().from(assessments).where(and(eq(assessments.ownerId, ctx.user.id), eq(assessments.orgId, ctx.org.id), eq(assessments.status, "draft"))).orderBy(desc(assessments.updatedAt)).limit(5);
   const target = sp.add && drafts.find((d) => d.id === sp.add) ? sp.add : drafts[0]?.id;
