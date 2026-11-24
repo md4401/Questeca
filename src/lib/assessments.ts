@@ -5,6 +5,7 @@ import { questions, assessments, assessmentItems, assessmentHistory, assessmentV
 import { selectQuestions, scopeConflicts, evaluate, type Candidate, type SelectionResult } from "@/lib/core/selection";
 import { topicName, TOPIC_BY_SLUG } from "@/lib/taxonomy";
 
+import { plain as plainOf } from "@/lib/core/richtext";
 export type QRow = typeof questions.$inferSelect;
 export const toCandidate = (q: QRow): Candidate => ({
   id: q.id, status: q.status as Candidate["status"], voided: q.voided, answer: q.answer, statement: q.statement,
@@ -159,10 +160,13 @@ export async function swapAlternatives(assessmentId: string, itemId: string, a: 
 export async function buildSnapshot(a: typeof assessments.$inferSelect, settings: OrgSettings) {
   const items = await getItems(a.id);
   return {
-    title: a.title, scope: a.scope, totalPoints: a.totalPoints, durationMin: a.durationMin, header: settings.header ?? {},
+    title: a.title, scope: a.scope, totalPoints: a.totalPoints, durationMin: a.durationMin, header: { ...(settings.header ?? {}), ...(a.layout?.instructions != null ? { instructions: plainOf(a.layout.instructions) } : {}) },
+    instructionsRich: a.layout?.instructions ?? null,
+    blocks: (a.layout?.blocks ?? []).filter((b) => b.text.trim()).map((b) => ({ id: b.id, beforePosition: b.beforeItemId ? (items.find((x) => x.item.id === b.beforeItemId)?.item.position ?? null) : null, text: b.text })),
     items: items.map((i) => ({
       position: i.item.position, questionId: i.q.id, points: i.item.points, title: i.q.title, statement: i.q.statement, alternatives: i.q.alternatives,
       answer: i.q.answer, institution: i.q.institution, exam: i.q.exam, year: i.q.year, booklet: i.q.booklet, number: i.q.number, page: i.q.page, sourceUrl: i.q.sourceUrl,
+      itemId: i.item.id, rich: i.item.override ? { statement: i.item.override.statement ?? null, alternatives: i.item.override.alternatives ?? null } : null,
       assessed: i.q.assessed, prerequisites: i.q.prerequisites, difficulty: i.q.difficulty, estSeconds: i.q.estSeconds, reason: i.item.reason, stimulusId: i.q.stimulusId,
     })),
   };

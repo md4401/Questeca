@@ -10,7 +10,7 @@ export default async function AssessmentLayout({ children, params }: { children:
   return (
     <div>
       <p className="hint"><Link href="/app/provas">Provas</Link> › {a.title}</p>
-      <TabLinks base={`/app/provas/${id}`} tabs={[{ slug: "", label: "Prova" }, { slug: "escopo", label: "Conteúdo" }, { slug: "previa", label: "Prévia e arquivos" }, { slug: "aplicacao", label: "Aplicação" }, { slug: "correcao", label: "Correção" }, { slug: "resultados", label: "Resultados" }]} />
+      <TabLinks base={`/app/provas/${id}`} tabs={[{ slug: "", label: "Prova" }, { slug: "editar", label: "Editar texto" }, { slug: "escopo", label: "Conteúdo" }, { slug: "previa", label: "Prévia e arquivos" }, { slug: "aplicacao", label: "Aplicação" }, { slug: "correcao", label: "Correção" }, { slug: "resultados", label: "Resultados" }]} />
       {children}
     </div>
   );

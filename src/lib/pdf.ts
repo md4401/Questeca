@@ -6,6 +6,7 @@ import fontkit from "@pdf-lib/fontkit";
 import QRCode from "qrcode";
 import type { Snapshot } from "@/lib/assessments";
 import { topicName } from "@/lib/taxonomy";
+import { parseMarkup, plain, type Run } from "@/lib/core/richtext";
 
 const FONT_DIR = (pkg: string) => path.join(process.cwd(), "node_modules", "@fontsource", pkg, "files");
 const read = (pkg: string, file: string) => fs.readFileSync(path.join(FONT_DIR(pkg), file));
@@ -15,13 +16,15 @@ const M = { l: 56, r: 56, t: 56, b: 64 };
 
 async function loadFonts(doc: PDFDocument) {
   doc.registerFontkit(fontkit);
-  const [sans, sansBold, serif, serifBold] = await Promise.all([
+  const [sans, sansBold, serif, serifBold, serifItalic, serifBoldItalic] = await Promise.all([
     doc.embedFont(read("dm-sans", "dm-sans-latin-400-normal.woff"), { subset: true }),
     doc.embedFont(read("dm-sans", "dm-sans-latin-700-normal.woff"), { subset: true }),
     doc.embedFont(read("spectral", "spectral-latin-400-normal.woff"), { subset: true }),
     doc.embedFont(read("spectral", "spectral-latin-600-normal.woff"), { subset: true }),
+    doc.embedFont(read("spectral", "spectral-latin-400-italic.woff"), { subset: true }),
+    doc.embedFont(read("spectral", "spectral-latin-600-italic.woff"), { subset: true }),
   ]);
-  return { sans, sansBold, serif, serifBold };
+  return { sans, sansBold, serif, serifBold, serifItalic, serifBoldItalic };
 }
 
 const FALLBACK: Record<string, string> = { "π": "pi", "√": "raiz", "≤": "<=", "≥": ">=", "≠": "!=", "≈": "~", "∞": "inf", "α": "a", "β": "b", "θ": "teta", "Δ": "delta", "∠": "angulo", "→": "->", "⁵": "^5", "⁴": "^4", "⁶": "^6", "·": "." };
@@ -71,6 +74,46 @@ class Doc {
       this.y -= gap;
     }
   }
+  /** Texto formatado (negrito, itálico, sublinhado) com quebra de linha por palavra. Devolve as linhas já medidas. */
+  richLines(markup: string, o: { size?: number; maxW?: number; family?: "serif" | "sans" } = {}) {
+    const size = (o.size ?? 10) * this.scale; const maxW = o.maxW ?? this.width; const fam = o.family ?? "serif";
+    const pick = (r: Run) => fam === "serif" ? (r.b && r.i ? this.f.serifBoldItalic : r.b ? this.f.serifBold : r.i ? this.f.serifItalic : this.f.serif) : (r.b ? this.f.sansBold : this.f.sans);
+    type Seg = { t: string; font: PDFFont; u: boolean; w: number };
+    const lines: Seg[][] = [];
+    for (const ln of parseMarkup(markup)) {
+      let cur: Seg[] = []; let w = 0;
+      const flush = () => { lines.push(cur); cur = []; w = 0; };
+      let first = true;
+      for (const r of ln) {
+        const font = pick(r); const text = clean(r.t, font);
+        for (const part of text.split(/(\s+)/)) {
+          if (!part) continue;
+          const isSpace = /^\s+$/.test(part);
+          const t = isSpace ? " " : part; const pw = font.widthOfTextAtSize(t, size);
+          if (!isSpace && w + pw > maxW && cur.length) { while (cur.length && cur[cur.length - 1].t === " ") cur.pop(); flush(); }
+          if (isSpace && !cur.length) continue;
+          cur.push({ t, font, u: !!r.u, w: pw }); w += pw; first = false;
+        }
+      }
+      while (cur.length && cur[cur.length - 1].t === " ") cur.pop();
+      if (cur.length || !first || true) flush();
+    }
+    return { lines, size };
+  }
+  richHeight(markup: string, o: { size?: number; maxW?: number; family?: "serif" | "sans"; lineGap?: number } = {}) { const { lines, size } = this.richLines(markup, o); return lines.length * (size + (o.lineGap ?? 3) * this.scale); }
+  rich(markup: string, o: { size?: number; x?: number; maxW?: number; family?: "serif" | "sans"; lineGap?: number; color?: [number, number, number] } = {}) {
+    const { lines, size } = this.richLines(markup, o); const gap = (o.lineGap ?? 3) * this.scale; const x0 = o.x ?? M.l; const col = rgb(...(o.color ?? [0, 0, 0]));
+    for (const ln of lines) {
+      this.need(size + gap); this.y -= size; let x = x0;
+      ln.forEach((sg, k) => {
+        if (sg.t.trim()) this.page.drawText(sg.t, { x, y: this.y, size, font: sg.font, color: col });
+        const underlined = sg.u && (sg.t.trim() || (ln[k - 1]?.u && ln[k + 1]?.u));
+        if (underlined) this.page.drawLine({ start: { x, y: this.y - 1.5 }, end: { x: x + sg.w, y: this.y - 1.5 }, thickness: 0.6, color: col });
+        x += sg.w;
+      });
+      this.y -= gap;
+    }
+  }
   height(t: string, font: PDFFont, size: number, maxW: number, gap = 3) { return wrap(t, font, size * this.scale, maxW).length * (size * this.scale + gap * this.scale); }
   rule(gray = 0.75) { this.y -= 4; this.page.drawLine({ start: { x: M.l, y: this.y }, end: { x: A4.w - M.r, y: this.y }, thickness: 0.7, color: rgb(gray, gray, gray) }); this.y -= 8; }
   gap(n: number) { this.y -= n; }
@@ -87,7 +130,7 @@ class Doc {
 
 export type Header = NonNullable<Snapshot["header"]> & { logoDataUrl?: string };
 
-async function drawHeader(d: Doc, header: Header, ctx: { teacher?: string; className?: string; subject?: string; title: string; instructions?: string; student: boolean }) {
+async function drawHeader(d: Doc, header: Header, ctx: { teacher?: string; className?: string; subject?: string; title: string; instructions?: string; instructionsRich?: string | null; student: boolean }) {
   const top = d.y;
   let x = M.l;
   if (header.logoDataUrl?.startsWith("data:image/")) {
@@ -120,7 +163,8 @@ async function drawHeader(d: Doc, header: Header, ctx: { teacher?: string; class
   }
   d.text(ctx.title, { font: d.f.serifBold, size: 15, x: M.l });
   d.gap(2);
-  if (ctx.instructions) { d.text(ctx.instructions, { size: 9, color: [0.2, 0.2, 0.2] }); d.gap(4); }
+  if (ctx.instructionsRich) { d.rich(ctx.instructionsRich, { size: 9, family: "sans", color: [0.2, 0.2, 0.2] }); d.gap(4); }
+  else if (ctx.instructions) { d.text(ctx.instructions, { size: 9, color: [0.2, 0.2, 0.2] }); d.gap(4); }
 }
 
 export type ExamOpts = { mode: "student" | "teacher"; teacher?: string; className?: string; bigFont?: boolean; versionLabel: string };
@@ -130,22 +174,25 @@ export async function renderExam(snap: Snapshot, opts: ExamOpts): Promise<{ byte
   const header = (snap.header ?? {}) as Header;
   const student = opts.mode === "student";
   if (!header.schoolName) d.warnings.push("Cabeçalho da escola não configurado: usando cabeçalho genérico.");
-  await drawHeader(d, header, { teacher: opts.teacher, className: opts.className, title: student ? snap.title : `Gabarito — ${snap.title}`, instructions: student ? header.instructions : "Documento do professor. Não distribuir aos alunos.", student });
+  await drawHeader(d, header, { teacher: opts.teacher, className: opts.className, title: student ? snap.title : `Gabarito — ${snap.title}`, instructions: student ? header.instructions : "Documento do professor. Não distribuir aos alunos.", instructionsRich: student ? snap.instructionsRich : null, student });
 
   if (student) {
+    const blocksBefore = (pos: number | null) => (snap.blocks ?? []).filter((b) => b.beforePosition === pos);
     snap.items.forEach((it, i) => {
-      const stmt = `${i + 1}. ${it.statement ?? ""}`;
-      const pts = `(${Number(it.points).toLocaleString("pt-BR")} pt)`;
-      const alts = it.alternatives.map((a) => `${a.key}) ${a.text}`);
-      const h = d.height(stmt, d.f.serif, 11, d.width) + alts.reduce((s, a) => s + d.height(a, d.f.serif, 11, d.width - 14), 0) + 20;
+      for (const b of blocksBefore(it.position)) { d.need(40); d.rich(b.text, { size: 10.5, family: "serif" }); d.gap(8 * d.scale); }
+      const stmtMk = it.rich?.statement ?? (it.statement ?? "").replace(/\{/g, "{lb}");
+      const stmt = `${i + 1}. ${stmtMk}  (${Number(it.points).toLocaleString("pt-BR")} pt)`;
+      const altsMk = (it.rich?.alternatives ?? it.alternatives).map((a) => ({ key: a.key, mk: `${a.key}) ${it.rich?.alternatives ? a.text : a.text.replace(/\{/g, "{lb}")}` }));
+      const h = d.richHeight(stmt, { size: 11 }) + altsMk.reduce((s2, a) => s2 + d.richHeight(a.mk, { size: 11, maxW: d.width - 14, lineGap: 2 }), 0) + 20;
       const avail = d.y - M.b;
       if (h > avail && h < A4.h - M.t - M.b) d.newPage();
       else if (h >= A4.h - M.t - M.b) d.warnings.push(`A questão ${i + 1} é maior que uma página e será dividida.`);
-      d.text(`${stmt}  ${pts}`, { font: d.f.serif, size: 11 });
+      d.rich(stmt, { size: 11 });
       d.gap(2 * d.scale);
-      for (const a of alts) d.text(a, { font: d.f.serif, size: 11, x: M.l + 14, maxW: d.width - 14, lineGap: 2 });
+      for (const a of altsMk) d.rich(a.mk, { size: 11, x: M.l + 14, maxW: d.width - 14, lineGap: 2 });
       d.gap(10 * d.scale);
     });
+    for (const b of blocksBefore(null)) { d.need(40); d.rich(b.text, { size: 10.5, family: "serif" }); d.gap(8 * d.scale); }
   } else {
     d.text("Gabarito e referências", { font: d.f.sansBold, size: 11 });
     d.gap(4);

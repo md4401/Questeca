@@ -424,3 +424,16 @@ html[data-theme="dark"] .grade-ok { color: #4ADE80; } html[data-theme="dark"] .g
 .fold[open] > summary::after { transform: rotate(45deg); }
 
 mark.hl { background: color-mix(in srgb, #FACC15 40%, transparent); color: inherit; border-radius: 3px; padding: 0 2px; }
+
+/* ---------- Editor de texto da prova ---------- */
+.exam-toolbar { position: sticky; top: 0; z-index: 15; display: flex; flex-wrap: wrap; align-items: center; gap: .25rem; padding: .4rem .5rem; margin-bottom: .75rem; background: var(--color-sheet); border: 1px solid var(--color-line); border-radius: .75rem; }
+.tb-btn { display: inline-grid; place-items: center; width: 2.4rem; height: 2.4rem; border-radius: .5rem; border: 1px solid transparent; background: transparent; color: var(--color-ink); cursor: pointer; font: inherit; }
+.tb-btn:hover { background: var(--color-brand-tint); } .tb-sep { width: 1px; height: 1.4rem; background: var(--color-line); margin: 0 .25rem; }
+.paper { max-width: 52rem; margin-inline: auto; padding: 2rem 2.25rem; background: #fff; color: #111; border: 1px solid #d6d9e0; border-radius: .25rem; box-shadow: 0 8px 30px -18px rgba(0,0,0,.5); font-family: var(--font-serif); font-size: 1.05rem; line-height: 1.55; }
+.paper .editable { outline: none; border-radius: .25rem; padding: .1rem .25rem; margin: 0 -.25rem; min-height: 1.4em; white-space: pre-wrap; }
+.paper .editable:hover { background: #f4f6fb; } .paper .editable:focus { background: #eef3ff; box-shadow: 0 0 0 2px #6F8DF5; }
+.paper-title { width: 100%; font: 700 1.35rem var(--font-serif); border: 0; border-bottom: 1px dashed #bbb; background: transparent; color: #111; padding: .25rem 0; margin: .25rem 0 .5rem; }
+.paper-title:focus { outline: 2px solid #6F8DF5; outline-offset: 2px; }
+.paper-instructions { font-size: .9rem; color: #333; font-family: var(--font-sans); }
+.paper .link-btn { color: #1B38AE; }
+@media print { .exam-toolbar { display: none; } .paper { border: 0; box-shadow: none; padding: 0; } }

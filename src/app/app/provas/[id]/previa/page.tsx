@@ -49,6 +49,7 @@ export default async function Previa({ params, searchParams }: { params: Promise
           {warnings.length === 0 ? <p className="text-sm text-ink-soft">Nenhum alerta. Questões inteiras cabem nas páginas e o cabeçalho está completo.</p> : <ul className="space-y-1 text-sm">{warnings.map((w) => <li key={w} className="text-amber">⚠ {w}</li>)}</ul>}
           {!ctx.org.settings.header?.schoolName && <p className="mt-2 text-sm">Configure o cabeçalho em <Link href="/app/escola">Escola › Modelos</Link>.</p>}
         </section>
+        <Link className="btn btn-ghost w-full" href={`/app/provas/${id}/editar`}>Editar o texto da prova</Link>
         <Link className="btn btn-ghost w-full" href={`/app/provas/${id}/aplicacao`}>Seguir para a aplicação</Link>
       </aside>
     </div>

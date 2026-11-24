@@ -239,6 +239,8 @@ export const assessments = pgTable("assessments", {
   parentId: uuid("parent_id"), // segunda chamada → original
   revision: integer("revision").notNull().default(1),
   quotaCounted: boolean("quota_counted").notNull().default(false),
+  /** Texto livre da prova: instruções e blocos de texto entre as questões (editor). */
+  layout: jsonb("layout").$type<{ instructions?: string; blocks?: { id: string; beforeItemId: string | null; text: string }[] } | null>(),
   createdAt: created(),
   updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
 }, (t) => [index("assessments_org_idx").on(t.orgId)]);
@@ -253,6 +255,8 @@ export const assessmentItems = pgTable("assessment_items", {
   reason: text("reason"),
   manual: boolean("manual").notNull().default(false),
   scopeAck: boolean("scope_ack").notNull().default(false),
+  /** Edições do professor nesta prova (não alteram o banco de questões). Texto em marcação {b}{i}{u}. */
+  override: jsonb("override").$type<{ statement?: string; alternatives?: { key: string; text: string }[] } | null>(),
 }, (t) => [index("assessment_items_idx").on(t.assessmentId)]);
 
 export const assessmentHistory = pgTable("assessment_history", {
