@@ -15,7 +15,7 @@ export function NavLinks({ groups }: { groups: { label?: string; items: NavItem[
             {g.items.map((i) => {
               const active = i.href === "/app" ? path === "/app" : path.startsWith(i.href);
               return (
-                <Link key={i.href} href={i.href} className="nav-link shrink-0 whitespace-nowrap" aria-current={active ? "page" : undefined}>
+                <Link key={i.href} href={i.href} className="nav-link shrink-0 whitespace-nowrap" title={i.label} aria-current={active ? "page" : undefined}>
                   <Icon name={i.icon} size={18} /><span>{i.label}</span>
                 </Link>
               );

@@ -50,10 +50,10 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   const place = ctx.org.city ? `${ctx.org.city}/${ctx.org.uf}` : ROLE_LABEL[role];
 
   return (
-    <div className="app-shell min-h-screen md:grid md:grid-cols-[248px_1fr]">
+    <div className="app-shell min-h-screen sm:grid sm:grid-cols-[var(--side-w)_1fr]">
       <ThemeSync theme={ctx.user.prefs?.theme} large={!!ctx.user.prefs?.largeFont} />
       {/* celular: barra superior compacta */}
-      <header className="no-print sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-line bg-white/95 px-4 pb-2 pt-[calc(.5rem+env(safe-area-inset-top))] backdrop-blur md:hidden">
+      <header className="no-print sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-line bg-white/95 px-4 pb-2 pt-[calc(.5rem+env(safe-area-inset-top))] backdrop-blur sm:hidden">
         <Link href="/app" aria-label="Questeca — início" className="inline-flex items-center gap-2 no-underline">
           <LogoMark size={28} /><span className="text-lg font-bold text-ink">Questeca</span>
         </Link>
@@ -61,10 +61,10 @@ export default async function AppLayout({ children }: { children: React.ReactNod
       </header>
 
       {/* desktop: barra lateral */}
-      <aside className="side no-print hidden flex-col p-3 md:sticky md:top-0 md:flex md:h-screen md:overflow-hidden">
+      <aside className="side no-print hidden flex-col p-3 sm:sticky sm:top-0 sm:flex sm:h-screen sm:overflow-hidden">
         <div className="mb-4 px-2 pt-1"><Logo href="/app" /></div>
         {ctx.orgs.length > 1 ? (
-          <form action={switchOrgAction} className="mb-4 px-1">
+          <form action={switchOrgAction} className="side-org mb-4 px-1">
             <label htmlFor="org" className="hint">Escola ativa · <span id="org-role">{ROLE_LABEL[role]}</span></label>
             <div className="mt-1 flex items-center gap-1">
               <select id="org" name="orgId" defaultValue={ctx.org.id} className="input min-w-0 !min-h-[36px] !py-1 text-sm" aria-describedby="org-role">
@@ -74,22 +74,30 @@ export default async function AppLayout({ children }: { children: React.ReactNod
             </div>
           </form>
         ) : (
-          <div className="mb-4 rounded-lg bg-brand-tint px-3 py-2 text-sm"><p className="truncate font-semibold">{ctx.org.name}</p><p className="hint">{ROLE_LABEL[role]}{ctx.org.city ? ` · ${ctx.org.city}/${ctx.org.uf}` : ""}</p></div>
+          <div className="side-org mb-4 rounded-lg bg-brand-tint px-3 py-2 text-sm"><p className="truncate font-semibold">{ctx.org.name}</p><p className="hint">{ROLE_LABEL[role]}{ctx.org.city ? ` · ${ctx.org.city}/${ctx.org.uf}` : ""}</p></div>
         )}
         <div className="min-h-0 flex-1 overflow-y-auto pr-1"><NavLinks groups={groups} /></div>
         <div className="mt-4 border-t border-line pt-3 text-sm">
           <Link className="user-chip mt-2" href="/app/conta">
             <span className="avatar" aria-hidden>{ctx.user.name.trim().slice(0, 1).toUpperCase()}</span>
-            <span className="min-w-0"><span className="block truncate font-semibold">{ctx.user.name}</span><span className="hint block truncate">Minha conta{unread ? ` (${unread})` : ""}</span></span>
+            <span className="side-text min-w-0"><span className="block truncate font-semibold">{ctx.user.name}</span><span className="hint block truncate">Minha conta{unread ? ` (${unread})` : ""}</span></span>
           </Link>
           <ThemeToggle />
-          <form action={logoutAction}><button className="nav-link w-full text-left" type="submit"><Icon name="sair" size={18} />Sair</button></form>
+          <form action={logoutAction}><button className="nav-link w-full text-left" type="submit"><Icon name="sair" size={18} /><span>Sair</span></button></form>
         </div>
       </aside>
 
       <div className="min-w-0">
-        <div className="topbar no-print hidden md:flex">
+        <div className="topbar no-print hidden sm:flex">
           <p className="min-w-0 truncate text-sm text-ink-soft">{ctx.org.name} · {ROLE_LABEL[role]}</p>
+          {ctx.orgs.length > 1 && (
+            <form action={switchOrgAction} className="flex items-center gap-1 lg:hidden">
+              <label htmlFor="org-top" className="sr-only">Escola ativa</label>
+              <select id="org-top" name="orgId" defaultValue={ctx.org.id} className="input !min-h-[36px] !w-auto max-w-[12rem] !py-1 text-sm">
+                {ctx.orgs.map((o) => <option key={o.id} value={o.id}>{o.name}{o.kind === "personal" ? " (pessoal)" : ""}</option>)}
+              </select>
+              <button className="link-btn" type="submit">Trocar</button>
+            </form>)}
           <div className="flex items-center gap-1">
             <Link href="/app/banco" className="icon-btn" aria-label="Buscar no banco de questões"><Icon name="busca" size={20} /></Link>
             <Link href="/app/ajuda" className="icon-btn" aria-label="Ajuda"><Icon name="ajuda" size={20} /></Link>
@@ -102,7 +110,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
             <form action={resendVerificationAction}><SubmitButton className="link-btn">Reenviar link</SubmitButton></form>
           </div>
         )}
-        <div id="conteudo" className="mx-auto max-w-6xl p-4 pb-[calc(5.5rem+env(safe-area-inset-bottom))] md:px-10 md:py-8">{children}</div>
+        <div id="conteudo" className="mx-auto max-w-6xl p-4 pb-[calc(5.5rem+env(safe-area-inset-bottom))] sm:px-6 sm:py-6 sm:pb-8 lg:px-8 lg:py-8 xl:px-10 2xl:max-w-[84rem]">{children}</div>
       </div>
 
       <MobileTabs tabs={tabs} more={more} orgs={ctx.orgs.map((o) => ({ id: o.id, name: o.name, kind: o.kind }))} activeOrgId={ctx.org.id} roleLabel={ROLE_LABEL[role]} switchOrg={switchOrgAction} logout={logoutAction} unread={unread} />

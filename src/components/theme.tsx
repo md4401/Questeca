@@ -32,7 +32,7 @@ export function ThemeToggle() {
   return (
     <button type="button" className="nav-link w-full text-left" aria-pressed={dark} onClick={() => { const n: Theme = dark ? "light" : "dark"; setDark(!dark); applyTheme(n); void saveThemeAction(n); }}>
       <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d={dark ? "M12 4v2M12 18v2M4 12h2M18 12h2M6.3 6.3l1.4 1.4M16.3 16.3l1.4 1.4M6.3 17.7l1.4-1.4M16.3 7.7l1.4-1.4M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" : "M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"} /></svg>
-      {dark ? "Modo claro" : "Modo escuro"}
+      <span>{dark ? "Modo claro" : "Modo escuro"}</span>
     </button>
   );
 }

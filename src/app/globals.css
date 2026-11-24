@@ -438,17 +438,57 @@ mark.hl { background: color-mix(in srgb, #FACC15 40%, transparent); color: inher
 .paper .link-btn { color: #1B38AE; }
 @media print { .exam-toolbar { display: none; } .paper { border: 0; box-shadow: none; padding: 0; } }
 
-/* Início: indicadores e atalhos rápidos */
-.kpi-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; list-style: none; margin: 0; padding: 0; }
-@media (min-width: 640px) { .kpi-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-@media (min-width: 1024px) { .kpi-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
-.kpi { display: flex; flex-direction: column; gap: .15rem; padding: .9rem 1rem; border-radius: var(--radius, .75rem); background: var(--color-sheet); border: 1px solid var(--color-line); text-decoration: none; transition: border-color .15s; }
+/* ============================================================
+   Estrutura responsiva
+   Três modos de navegação, definidos por largura da janela:
+   · celular   < 640px      barra inferior de abas, uma coluna
+   · tablet    640–1023px   menu lateral só com ícones (72px), conteúdo fluido
+   · computador ≥ 1024px    menu lateral completo (248px; 264px a partir de 1536px)
+   Grades de 2 colunas só abrem quando há espaço (xl, 1280px) para não espremer o conteúdo.
+   ============================================================ */
+.app-shell { --side-w: 72px; }
+@media (min-width: 1024px) { .app-shell { --side-w: 248px; } }
+@media (min-width: 1536px) { .app-shell { --side-w: 264px; } }
+.app-shell h1 { font-size: clamp(1.4rem, 1.1rem + 1.2vw, 2rem); }
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .app-shell .side { padding: .75rem .4rem; align-items: stretch; }
+  .app-shell .side .side-org, .app-shell .side .nav-label { display: none; }
+  .app-shell .side > div:first-child { padding-inline: 0; display: grid; place-items: center; }
+  .app-shell .side .logo-text, .app-shell .side .nav-link span, .app-shell .side .side-text {
+    position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+  .app-shell .side .nav-link { justify-content: center; padding: .65rem; min-height: 44px; }
+  .app-shell .side .user-chip { justify-content: center; padding: .5rem; }
+  .app-shell .side .pr-1 { padding-right: 0; }
+}
+
+/* Início: indicadores e atalhos rápidos (grades sem bloco órfão) */
+.grid-5 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; list-style: none; margin: 0; padding: 0; }
+.grid-5 > li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+@media (min-width: 640px) { .grid-5 { grid-template-columns: repeat(6, minmax(0, 1fr)); } .grid-5 > li, .grid-5 > li:last-child:nth-child(odd) { grid-column: span 2; } .grid-5 > li:nth-child(n+4) { grid-column: span 3; } }
+@media (min-width: 1280px) { .grid-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); } .grid-5 > li, .grid-5 > li:nth-child(n+4), .grid-5 > li:last-child:nth-child(odd) { grid-column: auto; } }
+.kpi { display: flex; flex-direction: column; gap: .15rem; height: 100%; padding: .9rem 1rem; border-radius: var(--radius, .75rem); background: var(--color-sheet); border: 1px solid var(--color-line); text-decoration: none; transition: border-color .15s; }
 .kpi:hover { border-color: var(--color-sky); }
-.kpi strong { font-size: 1.9rem; line-height: 1.1; color: var(--color-ink); font-variant-numeric: tabular-nums; }
+.kpi strong { font-size: clamp(1.6rem, 1.2rem + 1vw, 2rem); line-height: 1.1; color: var(--color-ink); font-variant-numeric: tabular-nums; }
 .kpi span { font-size: .85rem; color: var(--color-ink-soft); }
 .kpi[data-warn="1"] strong { color: var(--color-amber); }
-.quick-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem; list-style: none; margin: 0; padding: 0; }
-@media (min-width: 640px) { .quick-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
-.quick { display: flex; align-items: center; gap: .6rem; min-height: 3rem; padding: .6rem .85rem; border-radius: var(--radius, .75rem); background: var(--color-sheet); border: 1px solid var(--color-line); color: var(--color-ink); font-weight: 600; font-size: .92rem; text-decoration: none; transition: border-color .15s, background .15s; }
-.quick:hover { border-color: var(--color-sky); background: var(--color-brand-tint, var(--color-sheet)); }
-.quick svg { flex: none; color: var(--color-brand); }
+.atalho-rapido { display: flex; align-items: center; gap: .6rem; min-height: 3rem; height: 100%; padding: .6rem .85rem; border-radius: var(--radius, .75rem); background: var(--color-sheet); border: 1px solid var(--color-line); color: var(--color-ink); font-weight: 600; font-size: .92rem; line-height: 1.25; text-decoration: none; transition: border-color .15s, background .15s; }
+.atalho-rapido:hover { border-color: var(--color-sky); background: var(--color-brand-tint, var(--color-sheet)); }
+.atalho-rapido svg { flex: none; color: var(--color-brand); }
+
+/* Editor da prova: folha e barra de ferramentas se adaptam à largura */
+@media (max-width: 639px) {
+  .paper { padding: 1.1rem 1rem; font-size: 1rem; border-radius: .15rem; }
+  .paper-title { font-size: 1.1rem; }
+  .exam-toolbar { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .exam-toolbar::-webkit-scrollbar { display: none; }
+  .exam-toolbar > * { flex: none; }
+  .exam-toolbar > .ml-auto { margin-left: 1rem; }
+}
+/* Celular deitado: abas inferiores só com ícone para sobrar altura */
+@media (max-height: 480px) and (orientation: landscape) {
+  .tab-item { min-height: 44px; flex-direction: row; gap: .4rem; } 
+  .tab-item span { font-size: .7rem; }
+}
+/* Telas grandes: texto de leitura confortável e conteúdo centralizado */
+@media (min-width: 1920px) { .app-shell { font-size: 1.0625rem; } }

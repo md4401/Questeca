@@ -71,7 +71,7 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
       {staffView && (
         <>
           <section aria-label="Indicadores" data-testid="indicadores">
-            <ul className="kpi-grid">
+            <ul className="grid-5 kpi-grid">
               {[
                 { k: "turmas", label: "Turmas", v: ind.turmas, href: "/app/turmas" },
                 { k: "alunos", label: "Alunos", v: ind.alunos, href: cls[0] ? `/app/turmas/${cls[0].id}/alunos` : "/app/turmas" },
@@ -83,7 +83,7 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
             </ul>
           </section>
           <section aria-label="Atalhos rápidos" data-testid="atalhos-rapidos">
-            <ul className="quick-grid">
+            <ul className="grid-5 quick-grid">
               {([
                 { icon: "prova", label: "Criar prova", href: "/app/provas/montar" },
                 { icon: "turmas", label: "Cadastrar aluno", href: cls[0] ? `/app/turmas/${cls[0].id}/alunos` : "/app/turmas/nova" },
@@ -91,7 +91,7 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
                 { icon: "nota", label: "Consultar notas", href: "/app/notas" },
                 { icon: "banco", label: "Banco de questões", href: "/app/banco" },
               ] as const).map((a) => (
-                <li key={a.label}><Link href={a.href} className="quick"><Icon name={a.icon} size={22} /><span>{a.label}</span></Link></li>))}
+                <li key={a.label}><Link href={a.href} className="atalho-rapido"><Icon name={a.icon} size={22} /><span>{a.label}</span></Link></li>))}
             </ul>
           </section>
         </>)}
@@ -111,7 +111,7 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
               <span className={`grid h-7 w-7 flex-none place-items-center rounded-full text-sm font-bold ${st.done ? "bg-[var(--color-ok-tint)] text-ok" : "bg-brand-tint text-brand"}`} aria-hidden>{st.done ? "✓" : i + 1}</span>
               <span className={`font-semibold text-ink ${st.done ? "line-through" : ""}`}>{st.label}</span><span className="sr-only">{st.done ? " (concluído)" : " (pendente)"}</span></Link></li>))}</ol>
         </section>)}
-      <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
+      <div className="grid items-start gap-6 xl:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
         <div className="space-y-6">
           {lessonNow && <AulaDeAgora ln={lessonNow} multiOrg={ctx.orgs.length > 1} />}
           <section className="card" aria-label="Turmas ativas"><div className="section-title"><h2>Minhas turmas</h2><Link href="/app/turmas">Ver todas</Link></div>
