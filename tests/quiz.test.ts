@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { gerarCodigo, lerPerguntas, normalizarCodigo, pontosDaResposta, perguntasParaTexto, ranking } from "@/lib/core/quiz";
+import { validarPerguntas, gerarCodigo, lerPerguntas, normalizarCodigo, pontosDaResposta, perguntasParaTexto, ranking } from "@/lib/core/quiz";
 
 describe("quiz ao vivo", () => {
   it("pontua mais quem responde mais rápido e zera erros", () => {
@@ -27,5 +27,13 @@ describe("quiz ao vivo", () => {
   it("ranking desempata pelo apelido", () => {
     const r = ranking([{ id: "1", nickname: "Bia", score: 10 }, { id: "2", nickname: "Ana", score: 10 }, { id: "3", nickname: "Caio", score: 20 }]);
     expect(r.map((x) => x.nickname)).toEqual(["Caio", "Ana", "Bia"]);
+  });
+  it("valida perguntas estruturadas", () => {
+    const ok = validarPerguntas([{ texto: " 2+2? ", opcoes: ["3", "4"], certa: 1, segundos: 500 }]);
+    expect(ok.erros).toEqual([]); expect(ok.perguntas[0]).toEqual({ texto: "2+2?", opcoes: ["3", "4"], certa: 1, segundos: 120 });
+    expect(validarPerguntas([{ texto: "x", opcoes: ["a", "b"], certa: 5 }]).erros[0]).toMatch(/certa/);
+    expect(validarPerguntas([{ texto: "x", opcoes: ["a", ""], certa: 0 }]).erros[0]).toMatch(/branco/);
+    expect(validarPerguntas([{ texto: "", opcoes: ["a", "b"], certa: 0 }]).erros[0]).toMatch(/enunciado/);
+    expect(validarPerguntas("lixo").perguntas).toEqual([]);
   });
 });

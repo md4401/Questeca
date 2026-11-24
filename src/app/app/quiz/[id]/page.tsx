@@ -4,9 +4,9 @@ import { requireCtx } from "@/lib/session";
 import { db } from "@/db";
 import { liveQuizzes } from "@/db/schema";
 import { PageHead } from "@/components/page-head";
-import { perguntasParaTexto } from "@/lib/core/quiz";
-import { QuizEditor } from "../editor";
-import { iniciarJogoAction } from "../actions";
+import { ConfirmButton } from "@/components/form";
+import { QuizBuilder } from "../builder";
+import { iniciarJogoAction, excluirQuizAction } from "../actions";
 
 export const metadata = { title: "Quiz" };
 export default async function QuizPage({ params }: { params: Promise<{ id: string }> }) {
@@ -16,8 +16,9 @@ export default async function QuizPage({ params }: { params: Promise<{ id: strin
   if (!q) notFound();
   return (
     <div className="space-y-4">
-      <PageHead icon="prova" title={q.title} sub={`${q.perguntas.length} pergunta(s)`} actions={<form action={iniciarJogoAction.bind(null, id)}><button className="btn" type="submit" data-testid="iniciar-jogo">Iniciar jogo</button></form>} />
-      <QuizEditor id={id} title={q.title} texto={perguntasParaTexto(q.perguntas)} />
+      <PageHead icon="quiz" title={q.title} sub={`${q.perguntas.length} pergunta(s)`} actions={<form action={iniciarJogoAction.bind(null, id)}><button className="btn" type="submit" data-testid="iniciar-jogo">Iniciar jogo</button></form>} />
+      <div className="qb-wrap"><QuizBuilder id={id} titulo={q.title} inicial={q.perguntas} />
+        <form action={excluirQuizAction.bind(null, id)} className="mt-3"><ConfirmButton message="Excluir este quiz?" className="link-btn text-danger">Excluir quiz</ConfirmButton></form></div>
     </div>
   );
 }

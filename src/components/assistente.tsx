@@ -46,7 +46,7 @@ const Faisca = ({ size = 20 }: { size?: number }) => (
 
 type SR = { lang: string; interimResults: boolean; continuous: boolean; start(): void; stop(): void; onresult: ((e: { results: ArrayLike<ArrayLike<{ transcript: string }>> & { length: number } }) => void) | null; onend: (() => void) | null; onerror: (() => void) | null };
 
-export function Assistente({ disponivel, nome, creditos, sessoes: sessoesIniciais, ativa }: { disponivel: boolean; nome: string; creditos: Cred; sessoes: Sessao[]; ativa: { id: string; title: string; mensagens: Msg[] } | null }) {
+export function Assistente({ disponivel, nome, creditos, sessoes: sessoesIniciais, ativa, iniciar }: { iniciar?: string; disponivel: boolean; nome: string; creditos: Cred; sessoes: Sessao[]; ativa: { id: string; title: string; mensagens: Msg[] } | null }) {
   const [cred, setCred] = useState<Cred>(creditos);
   const [sessoes, setSessoes] = useState<Sessao[]>(sessoesIniciais);
   const [ativaId, setAtivaId] = useState<string | null>(ativa?.id ?? null);
@@ -84,6 +84,9 @@ export function Assistente({ disponivel, nome, creditos, sessoes: sessoesIniciai
     return () => window.removeEventListener("resize", ajusta);
   }, []);
   useEffect(() => { try { setRecolhido(localStorage.getItem("giz_side") === "0"); } catch { /* sem armazenamento */ } setVoz(typeof window !== "undefined" && !!((window as unknown as Record<string, unknown>).SpeechRecognition || (window as unknown as Record<string, unknown>).webkitSpeechRecognition)); }, []);
+  const jaIniciou = useRef(false);
+  useEffect(() => { if (iniciar && disponivel && !jaIniciou.current) { jaIniciou.current = true; void enviar(iniciar); } // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   useEffect(() => { fim.current?.scrollIntoView({ block: "end" }); }, [msgs, enviando]);
   useEffect(() => { if (!enviando) return; const h = (e: KeyboardEvent) => { if (e.key === "Escape") ctrl.current?.abort(); }; window.addEventListener("keydown", h); return () => window.removeEventListener("keydown", h); }, [enviando]);
   useEffect(() => { const c = campo.current; if (c) { c.style.height = "auto"; c.style.height = `${Math.min(c.scrollHeight, 160)}px`; } }, [texto]);

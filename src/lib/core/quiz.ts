@@ -54,3 +54,21 @@ export function perguntasParaTexto(ps: Pergunta[]): string {
 export function ranking<T extends { id: string; score: number; nickname: string }>(jogadores: T[]) {
   return [...jogadores].sort((a, b) => b.score - a.score || a.nickname.localeCompare(b.nickname, "pt-BR")).map((j, i) => ({ ...j, pos: i + 1 }));
 }
+
+/** Valida perguntas vindas do construtor ou da GizIA (formato estruturado). */
+export function validarPerguntas(entrada: unknown): { perguntas: Pergunta[]; erros: string[] } {
+  const perguntas: Pergunta[] = []; const erros: string[] = [];
+  const lista = Array.isArray(entrada) ? entrada : [];
+  lista.slice(0, 30).forEach((raw, i) => {
+    const r = (raw ?? {}) as Record<string, unknown>;
+    const texto = String(r.texto ?? "").replace(/\s+/g, " ").trim().slice(0, 300);
+    const opcoes = (Array.isArray(r.opcoes) ? r.opcoes : []).map((o) => String(o ?? "").replace(/\s+/g, " ").trim().slice(0, 120));
+    const certa = Number(r.certa); const segundos = Math.min(120, Math.max(5, Math.round(Number(r.segundos) || 20)));
+    if (!texto) { erros.push(`Pergunta ${i + 1}: escreva o enunciado.`); return; }
+    if (opcoes.length < 2 || opcoes.length > 4) { erros.push(`Pergunta ${i + 1}: use de 2 a 4 opções.`); return; }
+    if (opcoes.some((o) => !o)) { erros.push(`Pergunta ${i + 1}: há opção em branco.`); return; }
+    if (!Number.isInteger(certa) || certa < 0 || certa >= opcoes.length) { erros.push(`Pergunta ${i + 1}: marque a opção certa.`); return; }
+    perguntas.push({ texto, opcoes, certa, segundos });
+  });
+  return { perguntas, erros };
+}

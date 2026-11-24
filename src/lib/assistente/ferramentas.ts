@@ -2,7 +2,8 @@ import "server-only";
 import { z } from "zod";
 import { desc, eq, and } from "drizzle-orm";
 import { db } from "@/db";
-import { assessments, assessmentItems, lessonPlans, assistantFiles, students, enrollments } from "@/db/schema";
+import { assessments, assessmentItems, lessonPlans, assistantFiles, students, enrollments, liveQuizzes } from "@/db/schema";
+import { validarPerguntas } from "@/lib/core/quiz";
 import type { Ctx } from "@/lib/session";
 import { loadClass } from "@/lib/access";
 import { myClassesAllOrgs } from "@/lib/my-classes";
@@ -126,6 +127,18 @@ export const FERRAMENTAS: Ferramenta[] = [
       const imagens = await baixarImagens(pedidosDeImagem(entrada));
       const [f] = await db.insert(assistantFiles).values({ orgId: ctx.org.id, ownerId: ctx.user.id, kind: "pptx", title: entrada.titulo, data: { ...entrada, imagens } }).returning();
       return { resultado: { criada: true, slides: entrada.slides.length + 1, tema: entrada.tema, fotos: Object.keys(imagens).length, fotos_pedidas: pedidosDeImagem(entrada).length }, links: [{ label: "Baixar PowerPoint (.pptx)", href: `/api/assistente/arquivo/${f.id}` }] };
+    },
+  },
+  {
+    nome: "criar_quiz", criacao: true,
+    descricao: "Cria um quiz ao vivo (estilo Kahoot) que o professor joga com a turma: perguntas de múltipla escolha com 2 a 4 opções, uma certa, tempo por pergunta. Crie perguntas claras, com UMA resposta certa e erradas plausíveis; varie a posição da certa (certa é o índice da opção, começando em 0).",
+    args: '{"titulo":"...","perguntas":[{"texto":"...","opcoes":["...","...","...","..."],"certa":0,"segundos":20}],"confirmado":true}',
+    schema: z.object({ titulo: z.string().trim().min(2).max(120), perguntas: z.array(z.object({ texto: z.string(), opcoes: z.array(z.string()), certa: z.coerce.number(), segundos: z.coerce.number().optional() })).min(1).max(30), confirmado: z.boolean().optional() }),
+    rodar: async (ctx, a) => {
+      const { perguntas, erros } = validarPerguntas(a.perguntas);
+      if (!perguntas.length) throw new Error(`Perguntas inválidas: ${erros.slice(0, 2).join(" ")}`);
+      const [q] = await db.insert(liveQuizzes).values({ orgId: ctx.org.id, ownerId: ctx.user.id, title: a.titulo, perguntas }).returning({ id: liveQuizzes.id });
+      return { resultado: { criado: true, perguntas: perguntas.length, ignoradas: erros.length }, links: [{ label: "Abrir e revisar o quiz", href: `/app/quiz/${q.id}` }, { label: "Jogar com a turma", href: "/app/quiz" }] };
     },
   },
 ];
