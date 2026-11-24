@@ -52,8 +52,8 @@ export function ChatView({ convId, otherUserId }: { convId: string; otherUserId?
   const now = Date.now();
 
   return (
-    <div className="flex h-[calc(100dvh-13rem)] min-h-[22rem] flex-col rounded-2xl border border-line bg-white md:h-[calc(100dvh-9rem)]">
-      <div className="min-h-0 flex-1 space-y-2 overflow-y-auto p-3" role="log" aria-live="polite" aria-label="Mensagens" onScroll={(e) => { const el = e.currentTarget; nearBottom.current = el.scrollHeight - el.scrollTop - el.clientHeight < 80; }}>
+    <div className="chat-view">
+      <div className="chat-log" role="log" aria-live="polite" aria-label="Mensagens" onScroll={(e) => { const el = e.currentTarget; nearBottom.current = el.scrollHeight - el.scrollTop - el.clientHeight < 80; }}>
         {error && <p className="err text-sm" role="alert">{error}</p>}
         {msgs === null && !error && <div className="space-y-2" aria-hidden><div className="skeleton h-10 w-2/3" /><div className="skeleton ml-auto h-10 w-1/2" /></div>}
         {msgs?.length === 0 && <p className="p-4 text-center text-sm text-ink-soft">Nenhuma mensagem ainda. Diga olá.</p>}
@@ -62,9 +62,12 @@ export function ChatView({ convId, otherUserId }: { convId: string; otherUserId?
           return (
             <div key={m.id}>
               {newDay && <p className="my-2 text-center text-xs font-semibold text-ink-soft">{day(m.createdAt)}</p>}
-              <div className={`flex ${m.mine ? "justify-end" : "justify-start"}`}>
-                <div className={`max-w-[85%] rounded-2xl px-3 py-2 text-sm ${m.mine ? "rounded-br-sm bg-brand text-white" : "rounded-bl-sm bg-brand-tint text-ink"}`}>
-                  {!m.mine && <p className="text-xs font-bold">{m.sender}</p>}
+              <div className={`flex items-start gap-2 ${m.mine ? "justify-end" : "justify-start"}`}>
+                {!m.mine && <span className="chat-av sm" aria-hidden>{m.sender.split(/\s+/).slice(0, 2).map((p) => p[0]?.toUpperCase()).join("")}</span>}
+                <div className="max-w-[85%] min-w-0">
+                  {!m.mine && <p className="chat-who">{m.sender}</p>}
+                <div className={`text-sm ${m.mine ? "chat-b mine" : "chat-b"}`}>
+                  
                   {m.pinned && <p className="text-xs font-bold opacity-80">📌 Fixada</p>}
                   {m.replyTo && <p className={`mb-1 rounded border-l-2 px-2 text-xs opacity-80 ${m.mine ? "border-white/60" : "border-brand"}`}>{m.replyTo.slice(0, 80)}</p>}
                   {m.deleted ? <p className="italic opacity-70">Mensagem apagada</p> : editing?.id === m.id ? (
@@ -89,18 +92,19 @@ export function ChatView({ convId, otherUserId }: { convId: string; otherUserId?
                         {!m.mine && otherUserId && <button type="button" className="underline" onClick={() => run(async () => { await blockUserAction(otherUserId); toast("Contato bloqueado.", "success"); })}>Bloquear</button>}
                       </div></details>)}
                 </div>
+                </div>
               </div>
             </div>);
         })}
         <div ref={endRef} />
       </div>
-      <form onSubmit={send} className="border-t border-line p-2" aria-label="Enviar mensagem">
+      <form onSubmit={send} className="chat-composer" aria-label="Enviar mensagem">
         {replyTo && <p className="mb-1 flex items-center justify-between rounded bg-brand-tint px-2 py-1 text-xs">Respondendo a {replyTo.sender}: {replyTo.body.slice(0, 60)}<button type="button" className="px-1" onClick={() => setReplyTo(null)} aria-label="Cancelar resposta">×</button></p>}
         <div className="flex items-end gap-2">
           <label className="sr-only" htmlFor="chat-body">Mensagem</label>
-          <textarea id="chat-body" name="body" rows={1} maxLength={3000} className="input min-h-[46px] flex-1" placeholder="Escreva uma mensagem" onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); e.currentTarget.form?.requestSubmit(); } }} />
-          <label className="btn btn-ghost btn-sm cursor-pointer" title="Anexar imagem, PDF ou áudio (até 2 MB)"><span aria-hidden>📎</span><span className="sr-only">Anexar arquivo</span><input type="file" name="file" className="sr-only" accept="image/png,image/jpeg,image/webp,image/gif,application/pdf,audio/mpeg,audio/ogg,audio/webm,audio/mp4,text/plain" /></label>
-          <button className="btn" type="submit" disabled={pending} aria-busy={pending}>Enviar</button>
+          <textarea id="chat-body" name="body" rows={1} maxLength={3000} className="chat-input" placeholder="Digite uma mensagem..." onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); e.currentTarget.form?.requestSubmit(); } }} />
+          <label className="chat-clip cursor-pointer" title="Anexar imagem, PDF ou áudio (até 2 MB)"><span aria-hidden>📎</span><span className="sr-only">Anexar arquivo</span><input type="file" name="file" className="sr-only" accept="image/png,image/jpeg,image/webp,image/gif,application/pdf,audio/mpeg,audio/ogg,audio/webm,audio/mp4,text/plain" /></label>
+          <button className="chat-send" type="submit" disabled={pending} aria-busy={pending}>Enviar</button>
         </div>
       </form>
     </div>
