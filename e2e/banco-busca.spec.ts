@@ -61,7 +61,6 @@ test("Busca do banco: autor, obra e assuntos relacionados, filtros e destaque", 
   // sem busca: lista o acervo com filtros de disciplina
   await t.goto("/app/banco?disciplina=literatura");
   expect(await cards().count()).toBeGreaterThanOrEqual(8);
-  await t.getByText(/Filtros/).click();
   await expect(t.getByLabel("Banca / fonte")).toBeVisible();
   await expect(t.getByLabel("Disciplina")).toHaveValue("literatura");
 });
