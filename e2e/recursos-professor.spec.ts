@@ -78,8 +78,8 @@ test("Sorteio, matéria da semana pública, Meu dia, Biblioteca e filtros de oco
   await expect(page.getByRole("heading", { name: "Meu dia" })).toBeVisible();
   await page.goto("/app/biblioteca");
   await expect(page.getByRole("heading", { name: "Biblioteca" })).toBeVisible();
-  await expect(page.getByTestId("biblioteca-provas")).toBeVisible();
-  await expect(page.getByTestId("biblioteca-apresentacoes")).toBeVisible();
+  for (const a of ["tudo", "provas", "apresentacoes", "materiais"]) await expect(page.getByTestId(`aba-${a}`)).toBeVisible();
+  await page.getByTestId("aba-provas").click(); await expect(page).toHaveURL(/aba=provas/);
   await page.goto("/app/materiais"); await expect(page).toHaveURL(/\/app\/biblioteca/);
 
   await page.goto(`/app/turmas/${classId}/observacoes`);
