@@ -53,7 +53,6 @@ export function HeroFilter() {
             </p>
           </li>))}
       </ol>
-      <p className="mt-4 text-xs text-ink-soft">Toque nos conteúdos para ver o filtro agir. Questões autorais de exemplo.</p>
     </div>
   );
 }

@@ -31,29 +31,21 @@ export default function Home() {
         </div>
         <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 md:grid-cols-[1.05fr_1fr]">
           <div>
-            <p className="reveal inline-flex items-center gap-2 rounded-full border border-white bg-white/70 px-3 py-1 text-sm font-semibold text-brand-dark shadow-sm backdrop-blur">
-              <span className="h-2 w-2 rounded-full bg-brand" aria-hidden />Para professores do 6º ano ao Ensino Médio
-            </p>
-            <h1 className="reveal mt-5 text-[2.5rem] font-extrabold leading-[1.04] md:text-[3.7rem]" style={{ ["--d" as string]: "80ms" }}>
+            <h1 className="reveal text-[2.5rem] font-extrabold leading-[1.04] md:text-[3.7rem]" style={{ ["--d" as string]: "80ms" }}>
               A prova que só cobra o que você{" "}
               <span className="relative whitespace-nowrap text-brand">
                 ensinou.
                 <svg aria-hidden viewBox="0 0 220 18" className="absolute -bottom-2 left-0 w-full" preserveAspectRatio="none"><path d="M3 13 C 60 4, 140 4, 217 10" fill="none" stroke="#8DB6FF" strokeWidth="6" strokeLinecap="round" /></svg>
               </span>
             </h1>
-            <p className="reveal mt-6 max-w-xl text-lg text-ink-soft md:text-xl" style={{ ["--d" as string]: "160ms" }}>
+            <p className="reveal mt-5 max-w-xl text-lg text-ink-soft md:text-xl" style={{ ["--d" as string]: "160ms" }}>
               Questões reais de provas públicas, escolhidas pelo raciocínio que exigem. Você diz o que a turma estudou; a Questeca monta a prova, separa o gabarito e acompanha a correção até a próxima aula.
             </p>
-            <ul className="reveal mt-6 grid gap-2 text-[15px] font-medium sm:grid-cols-2" style={{ ["--d" as string]: "200ms" }} aria-label="Principais vantagens">
-              {["Questões reais de provas públicas", "Prova do aluno e gabarito em arquivos separados", "Cabeçalho e regras da sua escola", "Correção por foto e notas na mesma tela"].map((t) => (
-                <li key={t} className="flex items-start gap-2"><span aria-hidden className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-brand text-[11px] font-bold text-white">✓</span><span>{t}</span></li>))}
-            </ul>
             <div className="reveal mt-8 flex flex-wrap items-center gap-3" style={{ ["--d" as string]: "240ms" }}>
               <Link className="btn btn-lg" href="/criar-conta">Criar primeira prova grátis</Link>
               <DemoButton />
-              <Link href="#como-funciona" className="px-2 py-3 text-sm font-semibold text-brand-dark no-underline hover:underline">Ver como funciona ↓</Link>
             </div>
-            <p className="reveal mt-4 text-sm text-ink-soft" style={{ ["--d" as string]: "300ms" }}>Grátis para começar · sem cartão de crédito · sem cadastrar alunos.</p>
+            <p className="reveal mt-4 text-sm text-ink-soft" style={{ ["--d" as string]: "300ms" }}>Grátis para começar. Sem cartão de crédito.</p>
           </div>
           <div className="reveal relative" style={{ ["--d" as string]: "200ms" }}>
             <div aria-hidden className="absolute -inset-6 -z-10 rounded-[2rem] bg-gradient-to-br from-[#7FA6FF]/40 via-white/0 to-[#B9CEFF]/50 blur-2xl" />
