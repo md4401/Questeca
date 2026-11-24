@@ -37,20 +37,20 @@ test("Página Notas: menu básico, turma e período, atividades, lançamento, m�
   await t.getByLabel("Atividade", { exact: true }).fill("Prova 1");
   await t.getByLabel("Peso").fill("2");
   await t.getByRole("button", { name: "Adicionar", exact: true }).click();
-  await expect(t.getByRole("columnheader", { name: /Prova 1/ })).toBeVisible();
+  await expect(t.getByTestId("visao-notas").getByRole("columnheader", { name: /Prova 1/ })).toBeVisible();
   await t.getByLabel("Atividade", { exact: true }).fill("Trabalho 1");
   await t.getByLabel("Categoria").selectOption("trabalho");
   await t.getByLabel("Peso").fill("1");
   await t.getByRole("button", { name: "Adicionar", exact: true }).click();
-  await expect(t.getByRole("columnheader", { name: /Trabalho 1/ })).toBeVisible();
-  await expect(t.getByRole("columnheader", { name: /Prova 1/ })).toContainText("Peso: 67%");
+  await expect(t.getByTestId("visao-notas").getByRole("columnheader", { name: /Trabalho 1/ })).toBeVisible();
+  await expect(t.getByTestId("visao-notas").getByRole("columnheader", { name: /Prova 1/ })).toContainText("Peso: 67%");
 
   // lançar notas
   const put = async (aluno: string, ativ: string, v: string) => { const c = t.getByLabel(`${aluno} — ${ativ}`); await c.fill(v); await c.press("Tab"); };
   await put("Ana Souza", "Prova 1", "9"); await put("Ana Souza", "Trabalho 1", "6");
   await put("Bruno Dias", "Prova 1", "3"); await put("Bruno Dias", "Trabalho 1", "4");
   await put("Carlos Lima", "Prova 1", "5"); await put("Carlos Lima", "Trabalho 1", "6");
-  await expect.poll(async () => (await sql`select count(*)::int n from grades where state = 'value'`)[0].n, { timeout: 15000 }).toBeGreaterThanOrEqual(6);
+  await expect.poll(async () => (await sql`select count(*)::int n from grades g join grade_items i on i.id = g.grade_item_id where i.class_id = ${turmaA} and g.state = 'value'`)[0].n, { timeout: 15000 }).toBeGreaterThanOrEqual(6);
 
   await t.reload();
   const tab = t.getByTestId("visao-notas");
