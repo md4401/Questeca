@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { signup, createClass, addStudents } from "./helpers";
+import { signup, createClass, addStudents, sql } from "./helpers";
 
 test("Quiz ao vivo: professor cria, aluno entra por código, responde e vê o resultado", async ({ page, browser }) => {
   await signup(page);
@@ -93,7 +93,7 @@ test("Sorteio, matéria da semana pública, Meu dia, Biblioteca e filtros de oco
   await expect(page.getByText("Chegou atrasado e sem material")).toBeVisible();
 });
 
-test("Lista A/B cria duas provas diferentes; Corrigir por foto valida os campos", async ({ page }) => {
+test("Lista A/B cria duas versões com as mesmas questões em outra ordem; Corrigir por foto valida os campos", async ({ page }) => {
   test.setTimeout(120_000);
   await signup(page);
   await page.goto("/app/provas/listas");
@@ -106,6 +106,9 @@ test("Lista A/B cria duas provas diferentes; Corrigir por foto valida os campos"
   const [a, b] = new URL(page.url()).searchParams.get("listas")!.split(".");
   const ids = async (id: string) => (await page.request.get(`/app/provas/${id}/editar`)).ok();
   expect(await ids(a)).toBe(true); expect(await ids(b)).toBe(true); expect(a).not.toBe(b);
+  const q = async (id: string) => (await sql`select question_id from assessment_items where assessment_id = ${id} order by position`).map((r) => r.question_id as string);
+  const [qa, qb] = [await q(a), await q(b)];
+  expect(qa.length).toBe(2); expect([...qb].sort()).toEqual([...qa].sort()); expect(qb).not.toEqual(qa);
 
   await page.goto("/app/provas/corrigir-foto");
   await expect(page.getByRole("heading", { name: "Corrigir resposta por foto" })).toBeVisible();

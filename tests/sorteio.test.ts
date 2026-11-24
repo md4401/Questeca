@@ -16,5 +16,9 @@ describe("semana", () => {
     expect(lerLinks("Vídeo | https://youtu.be/x\njavascript:alert(1)\nsite.com\nhttp://a.com")).toEqual([{ label: "Vídeo", url: "https://youtu.be/x" }, { label: "http://a.com", url: "http://a.com/" }]);
   });
 });
-import { dividirAB } from "@/lib/core/listas";
-describe("listas A/B", () => { it("reparte alternando, sem repetir", () => { const r = dividirAB([1, 2, 3, 4, 5]); expect(r.a).toEqual([1, 3, 5]); expect(r.b).toEqual([2, 4]); }); });
+import { ordemEmbaralhada } from "@/lib/core/listas";
+describe("listas A/B", () => { it("embaralha sem perder nem repetir e nunca devolve a mesma ordem", () => {
+  const xs = [1, 2, 3, 4, 5];
+  for (let i = 0; i < 50; i++) { const r = ordemEmbaralhada(xs); expect([...r].sort()).toEqual(xs); expect(r).not.toEqual(xs); }
+  expect(ordemEmbaralhada([1, 2], () => 0)).toEqual([2, 1]);
+}); });

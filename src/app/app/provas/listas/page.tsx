@@ -10,7 +10,7 @@ export default async function Listas() {
   return (
     <div className="max-w-2xl">
       <h1>Lista de exercícios A/B</h1>
-      <p className="hint mb-4">Duas versões com questões diferentes sobre o mesmo tema — uma para cada fileira, para reduzir cola. Cada uma abre no editor, com gabarito, e pode ser impressa.</p>
+      <p className="hint mb-4">As mesmas questões em duas versões: a B vem com as questões embaralhadas, uma para cada fileira, para reduzir cola. Cada uma abre no editor, com gabarito, e pode ser impressa.</p>
       <Form action={criarListasABAction} className="card">
         <div className="field"><label htmlFor="themes">Temas</label><textarea id="themes" name="themes" className="input" style={{ minHeight: 80 }} placeholder="Ex.: funções do 2º grau, porcentagem" /></div>
         <div className="grid gap-3 sm:grid-cols-2">
