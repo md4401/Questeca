@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { ScrollFX } from "@/components/landing/scroll-fx";
-import { HeroFilter } from "@/components/landing/hero-filter";
 import { StickySteps } from "@/components/landing/sticky-steps";
 import { HorizontalFeatures } from "@/components/landing/horizontal-features";
 import { CountUp } from "@/components/landing/count-up";
@@ -23,13 +22,13 @@ export default function Home() {
       <ScrollFX />
 
       {/* HERO — a tese: o filtro de conteúdo ao vivo */}
-      <section className="relative -mt-20 overflow-hidden pb-14 pt-28 md:pb-20 md:pt-36">
+      <section className="relative -mt-20 overflow-hidden pb-16 pt-32 md:pb-24 md:pt-44">
         <div aria-hidden className="pointer-events-none absolute inset-0">
           <div data-parallax="0.25" className="absolute -left-32 -top-24 h-[34rem] w-[34rem] rounded-full bg-[radial-gradient(circle,#BCD3FF_0%,transparent_65%)] opacity-90" />
           <div data-parallax="-0.15" className="absolute -right-24 top-24 h-[30rem] w-[30rem] rounded-full bg-[radial-gradient(circle,#D6E4FF_0%,transparent_60%)]" />
           <div className="absolute inset-0 bg-[radial-gradient(#C9D6F2_1px,transparent_1px)] [background-size:22px_22px] [mask-image:linear-gradient(to_bottom,black,transparent_75%)] opacity-60" />
         </div>
-        <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 md:grid-cols-[1.05fr_1fr]">
+        <div className="relative mx-auto max-w-4xl px-4 text-center">
           <div>
             <h1 className="reveal text-[2.5rem] font-extrabold leading-[1.04] md:text-[3.7rem]" style={{ ["--d" as string]: "80ms" }}>
               A prova que só cobra o que você{" "}
@@ -38,18 +37,14 @@ export default function Home() {
                 <svg aria-hidden viewBox="0 0 220 18" className="absolute -bottom-2 left-0 w-full" preserveAspectRatio="none"><path d="M3 13 C 60 4, 140 4, 217 10" fill="none" stroke="#8DB6FF" strokeWidth="6" strokeLinecap="round" /></svg>
               </span>
             </h1>
-            <p className="reveal mt-5 max-w-xl text-lg text-ink-soft md:text-xl" style={{ ["--d" as string]: "160ms" }}>
+            <p className="reveal mx-auto mt-5 max-w-2xl text-lg text-ink-soft md:text-xl" style={{ ["--d" as string]: "160ms" }}>
               Questões reais de provas públicas, escolhidas pelo raciocínio que exigem. Você diz o que a turma estudou; a Questeca monta a prova, separa o gabarito e acompanha a correção até a próxima aula.
             </p>
-            <div className="reveal mt-8 flex flex-wrap items-center gap-3" style={{ ["--d" as string]: "240ms" }}>
+            <div className="reveal mt-8 flex flex-wrap items-center justify-center gap-3" style={{ ["--d" as string]: "240ms" }}>
               <Link className="btn btn-lg" href="/criar-conta">Criar primeira prova grátis</Link>
               <DemoButton />
             </div>
             <p className="reveal mt-4 text-sm text-ink-soft" style={{ ["--d" as string]: "300ms" }}>Grátis para começar. Sem cartão de crédito.</p>
-          </div>
-          <div className="reveal relative" style={{ ["--d" as string]: "200ms" }}>
-            <div aria-hidden className="absolute -inset-6 -z-10 rounded-[2rem] bg-gradient-to-br from-[#7FA6FF]/40 via-white/0 to-[#B9CEFF]/50 blur-2xl" />
-            <HeroFilter />
           </div>
         </div>
       </section>
