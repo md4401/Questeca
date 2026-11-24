@@ -11,6 +11,8 @@ const SUGESTOES = [
   "Quais alunos preciso acompanhar de perto esta semana?",
 ];
 
+const fmt = (n: number) => (Math.round(n * 10) / 10).toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+
 /** Texto simples com **negrito** e listas "- ", sem HTML injetado. */
 function Texto({ t }: { t: string }) {
   const inline = (s: string) => s.split(/(\*\*[^*]+\*\*)/g).map((p, i) => (p.startsWith("**") && p.endsWith("**") ? <strong key={i}>{p.slice(2, -2)}</strong> : <span key={i}>{p}</span>));
@@ -21,7 +23,9 @@ function Texto({ t }: { t: string }) {
   return <div className="space-y-1.5">{blocos}</div>;
 }
 
-export function Assistente({ disponivel, nome }: { disponivel: boolean; nome: string }) {
+type Cred = { usados: number; limite: number; restantes: number };
+export function Assistente({ disponivel, nome, creditos }: { disponivel: boolean; nome: string; creditos: Cred }) {
+  const [cred, setCred] = useState<Cred>(creditos);
   const [msgs, setMsgs] = useState<Msg[]>([]);
   const [texto, setTexto] = useState("");
   const [enviando, setEnviando] = useState(false);
@@ -36,6 +40,7 @@ export function Assistente({ disponivel, nome }: { disponivel: boolean; nome: st
     try {
       const r = await fetch("/api/assistente", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ messages: historico.filter((m) => !m.erro).map((m) => ({ role: m.role, content: m.content })) }) });
       const j = await r.json();
+      if (j.creditos) setCred(j.creditos);
       if (!r.ok) setMsgs([...historico, { role: "assistant", content: j.erro ?? "Não consegui responder agora.", erro: true }]);
       else setMsgs([...historico, { role: "assistant", content: j.texto, links: j.links }]);
     } catch { setMsgs([...historico, { role: "assistant", content: "Sem conexão com o assistente. Tente de novo.", erro: true }]); }
@@ -62,6 +67,7 @@ export function Assistente({ disponivel, nome }: { disponivel: boolean; nome: st
         {enviando && <p className="text-sm text-ink-soft" role="status">Pensando e consultando o seu sistema… isso pode levar até um minuto.</p>}
         <div ref={fim} />
       </div>
+      <p className="pt-2 text-xs text-ink-soft" role="status" data-testid="creditos">Créditos de hoje: {fmt(cred.usados)} usados de {cred.limite} · restam {fmt(cred.restantes)}</p>
       <form className="flex gap-2 border-t border-line pt-3" onSubmit={(e) => { e.preventDefault(); void enviar(texto); }}>
         <label htmlFor="assistente-msg" className="sr-only">Mensagem para o assistente</label>
         <textarea id="assistente-msg" className="input min-h-[44px] flex-1" rows={2} value={texto} maxLength={4000} placeholder="Ex.: monte uma prova sobre funções para o 9º ano" onChange={(e) => setTexto(e.target.value)}

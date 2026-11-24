@@ -1037,3 +1037,15 @@ export const assistantFiles = pgTable("assistant_files", {
   data: jsonb("data").$type<{ slides: { titulo: string; topicos: string[]; notas?: string }[]; subtitulo?: string }>().notNull(),
   createdAt: created(),
 }, (t) => [index("assistant_files_owner_idx").on(t.ownerId)]);
+
+/** Uso de IA por chamada (tokens medidos pelo provedor, ou estimados). 1.000 tokens = 1 crédito. */
+export const aiUsage = pgTable("ai_usage", {
+  id: id(),
+  userId: uuid("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  orgId: uuid("org_id").references(() => orgs.id, { onDelete: "set null" }),
+  kind: text("kind").notNull().default("llm"),
+  promptTokens: integer("prompt_tokens").notNull().default(0),
+  completionTokens: integer("completion_tokens").notNull().default(0),
+  tokens: integer("tokens").notNull().default(0),
+  createdAt: created(),
+}, (t) => [index("ai_usage_user_day_idx").on(t.userId, t.createdAt)]);
