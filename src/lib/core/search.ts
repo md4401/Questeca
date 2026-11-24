@@ -82,3 +82,8 @@ export function highlight(text: string, terms: string[]): { t: string; hit: bool
   }
   return out;
 }
+
+/** Texto de busca de uma questão (título, enunciado, alternativas, banca, prova, ano), já normalizado. */
+export function searchNormOf(q: { title: string; statement?: string | null; alternatives?: { text: string }[] | null; institution: string; exam: string; year: number; extra?: string }): string {
+  return norm(`${q.title} ${q.statement ?? ""} ${(q.alternatives ?? []).map((a) => a.text).join(" ")} ${q.institution} ${q.exam} ${q.year} ${q.extra ?? ""}`);
+}

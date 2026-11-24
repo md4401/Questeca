@@ -3,6 +3,7 @@ import { revalidatePath } from "next/cache";
 import { eq, inArray } from "drizzle-orm";
 import { db } from "@/db";
 import { questions, questionChanges, questionFlags, assessmentItems, assessments, postFlags, posts, comments, userBlocks, subscriptions, tickets } from "@/db/schema";
+import { searchNormOf } from "@/lib/core/search";
 import { requireStaff } from "@/lib/session";
 import { audit, notify } from "@/lib/audit";
 import { TOPICS } from "@/lib/taxonomy";
@@ -81,6 +82,7 @@ export async function importQuestionsAction(_: FormState, fd: FormData): Promise
       booklet: r.booklet ? String(r.booklet) : null, number: r.number ? Number(r.number) : null, page: r.page ? Number(r.page) : null, sourceUrl: r.sourceUrl ? String(r.sourceUrl) : null,
       title: String(r.title), statement: r.statement ? String(r.statement) : null, alternatives, answer: r.answer ? String(r.answer).toUpperCase() : null, answerSource: r.answerSource ? String(r.answerSource) : null,
       licenseNote: r.licenseNote ? String(r.licenseNote) : null, assessed, prerequisites: (Array.isArray(r.prerequisites) ? r.prerequisites : []).map(String), methods: (Array.isArray(r.methods) ? r.methods : []).map(String),
+      searchNorm: searchNormOf({ title: String(r.title), statement: r.statement ? String(r.statement) : null, alternatives, institution: String(r.institution), exam: String(r.exam), year: Number(r.year) }),
       difficulty: Number(r.difficulty ?? 3), estSeconds: Number(r.estSeconds ?? 180), stimulusId: r.stimulusId ? String(r.stimulusId) : null, status: "curation", isDemo: false,
     });
   });

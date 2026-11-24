@@ -197,8 +197,10 @@ export const questions = pgTable("questions", {
   reviewedBy: text("reviewed_by"),
   reviewedAt: timestamp("reviewed_at", { withTimezone: true }),
   version: integer("version").notNull().default(1),
+  /** Texto normalizado (sem acento, minúsculo) para a busca; mantido por searchNormOf. */
+  searchNorm: text("search_norm"),
   createdAt: created(),
-}, (t) => [index("questions_status_idx").on(t.status), index("questions_subject_idx").on(t.subject)]);
+}, (t) => [index("questions_status_idx").on(t.status), index("questions_subject_idx").on(t.subject), index("questions_search_trgm").using("gin", sql`${t.searchNorm} gin_trgm_ops`)]);
 
 export const questionFlags = pgTable("question_flags", {
   id: id(),

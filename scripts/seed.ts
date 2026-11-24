@@ -6,6 +6,7 @@ import { drizzle } from "drizzle-orm/neon-http";
 import { and, eq } from "drizzle-orm";
 import { questions } from "../src/db/schema";
 import { SEED, LIT_SEED, REFERENCE_ONLY } from "../src/db/seed-questions";
+import { searchNormOf } from "../src/lib/core/search";
 
 const url = process.env.DATABASE_URL;
 if (!url) throw new Error("DATABASE_URL ausente");
@@ -23,6 +24,7 @@ for (const q of [...SEED, ...LIT_SEED]) {
     answer: q.a, answerSource: "Gabarito autoral conferido pela equipe Questeca", status: "released",
     licenseNote: "Questão autoral da Questeca, de uso liberado na plataforma.",
     assessed: q.topics, prerequisites: q.pre ?? [], methods: q.methods ?? [], difficulty: q.d, estSeconds: q.sec,
+    searchNorm: searchNormOf({ title: q.t, statement: q.s, alternatives: ["A", "B", "C", "D", "E"].map((_, i) => ({ text: q.alts[i] })), institution: "Questeca", exam: "Banco autoral Questeca (exemplo)", year: 2026 }),
     stimulusId: q.stim ?? null, isDemo: true, reviewedBy: "Equipe Questeca", reviewedAt: new Date(),
   });
   inserted++;
@@ -30,7 +32,7 @@ for (const q of [...SEED, ...LIT_SEED]) {
 for (const r of REFERENCE_ONLY) {
   const [exists] = await db.select({ id: questions.id }).from(questions).where(and(eq(questions.title, r.title), eq(questions.institution, r.institution))).limit(1);
   if (exists) continue;
-  await db.insert(questions).values({ ...r, status: "reference_only", statement: null, alternatives: [], prerequisites: [], methods: [], difficulty: 3, estSeconds: 180, isDemo: false });
+  await db.insert(questions).values({ ...r, searchNorm: searchNormOf({ title: r.title, institution: r.institution, exam: r.exam, year: r.year }), status: "reference_only", statement: null, alternatives: [], prerequisites: [], methods: [], difficulty: 3, estSeconds: 180, isDemo: false });
   inserted++;
 }
 console.log(`acervo: ${inserted} itens inseridos`);
