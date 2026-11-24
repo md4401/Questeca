@@ -10,7 +10,7 @@ import { fmtNum } from "@/lib/format";
 import { validateWeights } from "@/lib/core/grades";
 
 /** Lançamento de notas de uma turma: atividades, grade editável, importação e fechamento. Usado na página Notas e na aba Notas da turma. */
-export async function NotasPanel({ ctx, id, period, periodHref, settings, showPeriods = true }: { ctx: Ctx; id: string; period: string; periodHref: (p: string) => string; settings?: OrgSettings; showPeriods?: boolean }) {
+export async function NotasPanel({ ctx, id, period, periodHref, settings, showPeriods = true, compact = false }: { ctx: Ctx; id: string; period: string; periodHref: (p: string) => string; settings?: OrgSettings; showPeriods?: boolean; compact?: boolean }) {
   const rules = rulesFrom(settings ?? ctx.org.settings);
   const gb = await loadGradebook(id, period, rules);
   const wv = validateWeights(gb.items.map((i) => ({ weight: Number(i.weight) })));
@@ -53,8 +53,21 @@ export async function NotasPanel({ ctx, id, period, periodHref, settings, showPe
         />
       </section>
 
+      {compact ? <details className="card fold"><summary>Importar notas (CSV ou Excel)</summary><div className="mt-3"><GradeImport classId={id} items={gb.items.map((i) => ({ id: i.id, title: i.title }))} /></div></details> : (
       <section className="card"><h2 className="mb-3 text-lg">Importar notas (CSV ou Excel)</h2><GradeImport classId={id} items={gb.items.map((i) => ({ id: i.id, title: i.title }))} /></section>
+      )}
 
+      {compact ? <details className="card fold"><summary>Fechamento do período</summary><div className="mt-3">
+        <p className="text-sm text-ink-soft">Regras da escola: escala 0–{rules.scaleMax}, média {rules.passMark}, ausência {rules.absenceCounts === "zero" ? "conta como zero" : "não conta"}, não entrega {rules.notDeliveredCounts === "zero" ? "conta como zero" : "não conta"}, recuperação: {({ none: "nenhuma", replace_if_higher: "substitui pela maior nota", average: "média com a nota original", independent: "atividade independente" })[rules.recovery]}. A equipe escolar continua responsável por promoção e registros oficiais.</p>
+        {pend > 0 && !gb.closed && <p className="card-amber mt-3 text-sm">Há {pend} lançamento(s) pendente(s). Você pode fechar mesmo assim; as linhas pendentes ficam identificadas.</p>}
+        <div className="mt-3">
+          {gb.closed ? (
+            <Form action={reopenPeriodAction.bind(null, id, period)}><Field label="Motivo da reabertura" name="reason" required /><SubmitButton className="btn btn-ghost">Reabrir período</SubmitButton></Form>
+          ) : (
+            <form action={closePeriodAction.bind(null, id, period)}><ConfirmButton className="btn" message={`Fechar ${period}? As notas ficam travadas até a reabertura.`}>Confirmar e fechar período</ConfirmButton></form>
+          )}
+        </div>
+</div></details> : (
       <section className="card">
         <h2 className="mb-2 text-lg">Fechamento do período</h2>
         <p className="text-sm text-ink-soft">Regras da escola: escala 0–{rules.scaleMax}, média {rules.passMark}, ausência {rules.absenceCounts === "zero" ? "conta como zero" : "não conta"}, não entrega {rules.notDeliveredCounts === "zero" ? "conta como zero" : "não conta"}, recuperação: {({ none: "nenhuma", replace_if_higher: "substitui pela maior nota", average: "média com a nota original", independent: "atividade independente" })[rules.recovery]}. A equipe escolar continua responsável por promoção e registros oficiais.</p>
@@ -67,6 +80,7 @@ export async function NotasPanel({ ctx, id, period, periodHref, settings, showPe
           )}
         </div>
       </section>
+      )}
     </div>
   );
 }

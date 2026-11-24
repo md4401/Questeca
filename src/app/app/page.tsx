@@ -42,7 +42,7 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
   const [totalExams] = await db.select({ n: count() }).from(assessments).where(and(eq(assessments.orgId, ctx.org.id), eq(assessments.ownerId, ctx.user.id)));
   const [gradedItems] = cls.length ? await db.select({ n: count() }).from(gradeItems).where(inArray(gradeItems.classId, cls.map((c) => c.id))) : [{ n: 0 }];
   const todayIso = todayISO();
-  const upcoming = (await loadAgenda({ orgId: ctx.org.id, userId: ctx.user.id, classIds: cls.map((c) => c.id), from: fromSP(todayIso), to: fromSP(addDaysISO(todayIso, 14), "23:59") })).slice(0, 4);
+  const upcoming = (await loadAgenda({ orgId: ctx.org.id, userId: ctx.user.id, classIds: cls.map((c) => c.id), from: fromSP(todayIso), to: fromSP(addDaysISO(todayIso, 14), "23:59") })).slice(0, 3);
   const hour = Number(new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo", hour: "2-digit", hourCycle: "h23" }));
   const greet = hour < 12 ? "Bom dia" : hour < 18 ? "Boa tarde" : "Boa noite";
   const firstClass = cls[0];
@@ -60,7 +60,7 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
     <div className="space-y-6">
       <div className="page-head">
         <div><h1>{greet}, {ctx.user.name.split(" ")[0]}</h1><p className="capitalize-first">{today} · {ctx.org.name}{ctx.org.city ? ` · ${ctx.org.city}/${ctx.org.uf}` : ""}</p></div>
-        {staffView && <div className="actions"><Link className="btn" href="/app/provas/nova">Criar prova</Link></div>}
+        {staffView && <div className="actions">{drafts[0] && <Link className="btn btn-ghost" href={`/app/provas/${drafts[0].id}`}>Continuar “{drafts[0].title.length > 24 ? drafts[0].title.slice(0, 24) + "…" : drafts[0].title}”</Link>}<Link className="btn" href="/app/provas/nova">Criar prova</Link></div>}
       </div>
       {sp.novo && cls.length > 0 && (
         <section className="card-tint space-y-2" aria-label="Cadastro concluído">
@@ -68,13 +68,6 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
           <p className="text-sm text-ink-soft">{cls.slice(0, 3).map((c) => `${subjectLabel(c.subject)} · ${c.name}`).join(" · ")}{cls.length > 3 ? ` e mais ${cls.length - 3}` : ""}</p>
           <Link className="btn" href={`/app/provas/nova${sp.turma ? `?turma=${sp.turma}` : ""}`}>Criar minha primeira prova</Link>
           {cls.some((c) => c.subject !== "matematica") && <p className="hint">O acervo de questões ainda cobre Matemática. As outras disciplinas ficam salvas no seu perfil.</p>}
-        </section>)}
-      {staffView && (
-        <section className="stat-grid" aria-label="Resumo">
-          <Link href="/app/turmas" className="stat"><span className="stat-icon" data-c="blue"><Icon name="turmas" size={22} /></span><strong>{cls.length}</strong><span>Turmas</span></Link>
-          <Link href="/app/turmas" className="stat"><span className="stat-icon" data-c="green"><Icon name="chamada" size={22} /></span><strong>{totalStudents}</strong><span>Alunos</span></Link>
-          <Link href="/app/turmas" className="stat" data-dot={summ.pending > 0}><span className="stat-icon" data-c="amber"><Icon name="prova" size={22} /></span><strong>{summ.pending}</strong><span>Para conferir</span></Link>
-          <Link href="/app/provas" className="stat"><span className="stat-icon" data-c="red"><Icon name="prova" size={22} /></span><strong>{Number(dc?.n ?? 0)}</strong><span>Provas em rascunho</span></Link>
         </section>)}
       {staffView && stepsLeft > 0 && (
         <section className="card" aria-label="Primeiros passos" data-testid="primeiros-passos">
@@ -90,15 +83,14 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
           {lessonNow && <AulaDeAgora ln={lessonNow} multiOrg={ctx.orgs.length > 1} />}
           <section className="card" aria-label="Turmas ativas"><div className="section-title"><h2>Minhas turmas</h2><Link href="/app/turmas">Ver todas</Link></div>
             {cls.length === 0 ? <p className="empty">Nenhuma turma disponível neste contexto. <Link href="/app/turmas/nova">Criar turma</Link></p> : (
-              <ul className="grid gap-2.5 sm:grid-cols-2">{cls.slice(0, 6).map((c) => { const v = summ.byClass.get(c.id); const avg = v?.avg ?? null; const att = v?.att ?? null; return (
+              <ul className="grid gap-2.5 sm:grid-cols-2">{cls.slice(0, 4).map((c) => { const v = summ.byClass.get(c.id); const avg = v?.avg ?? null; const att = v?.att ?? null; return (
                 <li key={c.id}><Link href={`/app/turmas/${c.id}`} className="block rounded-xl border border-line p-3 no-underline hover:border-sky">
                   <p className="truncate font-semibold text-ink">{c.name}</p>
                   <p className="hint truncate">{gradeLabel(c.grade)} · {subjectLabel(c.subject)}{c.isDemo ? " · exemplo" : ""}</p>
                   <p className="mt-2 flex flex-wrap gap-1.5 text-sm"><span className="chip-status" data-s="regular">{v?.students ?? 0} aluno(s)</span>{avg != null && <span className="chip-status" data-s={avg < 6 ? "risco" : "regular"}>Média {String(avg).replace(".", ",")}</span>}{att != null && <span className="chip-status" data-s={att < 75 ? "risco" : "regular"}>{att}% freq.</span>}</p>
                 </Link></li>); })}</ul>)}
-            {cls.length > 6 && <p className="mt-3 text-sm"><Link href="/app/turmas">Ver as outras {cls.length - 6} turmas</Link></p>}
+            {cls.length > 4 && <p className="mt-3 text-sm"><Link href="/app/turmas">Ver as outras {cls.length - 4} turmas</Link></p>}
           </section>
-          {drafts.length > 0 && <section className="card"><div className="section-title"><h2>Trabalhos recentes</h2><Link href="/app/provas">Ver provas</Link></div><ul className="list-rows">{drafts.map((d) => <li key={d.id}><Link href={`/app/provas/${d.id}`}>{d.title}</Link><br /><span className="hint">{d.className ?? "Sem turma"} · {fmtDateTime(d.updatedAt)}</span></li>)}</ul></section>}
         </div>
         <div className="space-y-6">
           <section className="card" aria-label="Próximos eventos"><div className="section-title"><h2>Agenda</h2><Link href="/app/agenda">Abrir</Link></div>
@@ -113,7 +105,6 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
               <h2 className="section-title">{ctx.org.role === "coordinator" ? "Notas recebidas dos professores" : "Notas que você enviou à escola"}</h2>
               <ul className="list-rows text-sm">{submissions.map(({ s, student, cls: cn }) => <li key={s.id}><Link href={`/app/turmas/${s.classId}/notas`}>{student}</Link> · {cn} · <strong>{String(Number(s.value)).replace(".", ",")}</strong>/{String(Number(s.maxPoints)).replace(".", ",")} <span className="hint">({fmtDateTime(s.submittedAt)})</span></li>)}</ul>
             </section>)}
-          <p className="hint">Plano <strong>{PLANS[info.plan].name}</strong>: {info.used.assemblies}/{info.limits.assemblies >= 10000 ? "∞" : info.limits.assemblies} montagens neste ciclo. <Link href="/app/plano">Ver plano</Link></p>
         </div>
       </div>
     </div>

@@ -21,8 +21,8 @@ test("Página Notas: menu básico, turma e período, atividades, lançamento, m�
   // menu básico: sem Radar, Coordenação e Moderação; com Notas
   await t.goto("/app");
   const nav = t.getByRole("navigation", { name: "Principal" });
-  for (const n of ["Turmas", "Notas", "Planos de aula", "Agenda", "Provas", "Banco de questões", "Mensagens"]) await expect(nav.getByRole("link", { name: n, exact: true })).toBeVisible();
-  for (const n of ["Radar de alunos", "Coordenação", "Moderação", "Comunidade", "Materiais", "Escanear cartão"]) await expect(nav.getByRole("link", { name: n })).toHaveCount(0);
+  for (const n of ["Turmas", "Notas", "Provas", "Planos de aula", "Agenda", "Mensagens"]) await expect(nav.getByRole("link", { name: n, exact: true })).toBeVisible();
+  for (const n of ["Radar de alunos", "Coordenação", "Moderação", "Comunidade", "Materiais", "Escanear cartão", "Banco de questões", "Plano e cobrança"]) await expect(nav.getByRole("link", { name: n })).toHaveCount(0);
   await expect(t.getByTestId("radar-home")).toHaveCount(0);
 
   await t.getByRole("link", { name: "Notas", exact: true }).first().click();

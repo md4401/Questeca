@@ -38,33 +38,25 @@ export default async function VisaoGeral({ params }: { params: Promise<{ id: str
                 <div className="mt-2.5 flex items-center justify-between text-sm"><span className="hint">Média</span><strong>{avg == null ? "—" : String(Math.round(avg * 10) / 10).replace(".", ",")}</strong></div>
                 <div className="pbar mt-1" data-tone={lv === "risco" ? "danger" : lv === "atencao" ? "amber" : undefined} role="img" aria-label={`Média de ${r.student.name}: ${avg == null ? "sem notas" : Math.round(avg * 10) / 10}`}><i style={{ width: `${avg == null ? 0 : Math.min(100, (avg / an.rules.scaleMax) * 100)}%` }} /></div>
               </li>); })}</ul></section>)}
-        <section className="card">
-          <h2 className="mb-2">Resumo</h2>
-          <p>{studs.length} aluno(s) · {apps.length ? `${apps.length} avaliação(ões) recente(s)` : "nenhuma avaliação aplicada ainda"}</p>
-          <div className="mt-3 flex flex-wrap gap-2">
-            <Link className="btn btn-sm" href={`/app/provas/nova?turma=${id}`}>Nova prova para esta turma</Link>
-            <Link className="btn btn-ghost btn-sm" href={`/app/turmas/${id}/notas`}>Lançar notas</Link>
-          </div>
-        </section>
-        <section className="card">
-          <h2 className="mb-2">Pendências</h2>
-          <ul className="space-y-1 text-sm">
-            {Number(pendingCells[0].n) > 0 && <li>• {Number(pendingCells[0].n)} nota(s) pendente(s) — <Link href={`/app/turmas/${id}/notas`}>abrir notas</Link></li>}
-            {Number(pendingSheets[0].n) > 0 && <li>• {Number(pendingSheets[0].n)} cartão(ões) aguardando conferência</li>}
-            {drafts.map((d) => <li key={d.id}>• Rascunho: <Link href={`/app/provas/${d.id}`}>{d.title}</Link></li>)}
-            {!Number(pendingCells[0].n) && !Number(pendingSheets[0].n) && !drafts.length && <li className="text-ink-soft">Nada pendente.</li>}
-          </ul>
-        </section>
-        <section className="card">
-          <h2 className="mb-2">Avaliações recentes</h2>
-          {apps.length ? <table className="t"><thead><tr><th>Avaliação</th><th>Data</th><th>Tipo</th></tr></thead><tbody>
-            {apps.map((a) => <tr key={a.id}><td><Link href={`/app/turmas/${id}/avaliacoes`}>{a.title}</Link></td><td>{fmtDate(a.appliedOn)}</td><td>{a.kind === "regular" ? "Regular" : a.kind === "second" ? "Segunda chamada" : "Externa"}</td></tr>)}
-          </tbody></table> : <p className="text-sm text-ink-soft">Nenhuma aplicação registrada.</p>}
-        </section>
+        {(Number(pendingCells[0].n) > 0 || Number(pendingSheets[0].n) > 0 || drafts.length > 0) && (
+          <section className="card" aria-label="Pendências">
+            <h2 className="mb-2">Pendências</h2>
+            <ul className="space-y-1 text-sm">
+              {Number(pendingCells[0].n) > 0 && <li>• {Number(pendingCells[0].n)} nota(s) pendente(s) — <Link href={`/app/turmas/${id}/notas`}>abrir notas</Link></li>}
+              {Number(pendingSheets[0].n) > 0 && <li>• {Number(pendingSheets[0].n)} cartão(ões) aguardando conferência</li>}
+              {drafts.map((d) => <li key={d.id}>• Rascunho: <Link href={`/app/provas/${d.id}`}>{d.title}</Link></li>)}
+            </ul>
+          </section>)}
+        {apps.length > 0 && (
+          <section className="card" aria-label="Avaliações recentes">
+            <div className="section-title"><h2>Avaliações recentes</h2><Link href={`/app/turmas/${id}/avaliacoes`}>Ver todas</Link></div>
+            <ul className="list-rows text-sm">{apps.slice(0, 3).map((a) => <li key={a.id}><Link href={`/app/turmas/${id}/avaliacoes`}>{a.title}</Link> <span className="hint">· {fmtDate(a.appliedOn)}</span></li>)}</ul>
+          </section>)}
       </div>
       <div className="space-y-6">
-        <section className="card" aria-labelledby="diario">
-          <h2 id="diario" className="mb-2 text-lg">Registrar aula</h2>
+        <details className="card fold" aria-labelledby="diario">
+          <summary id="diario">Registrar aula</summary>
+          <div className="mt-3">
           <Form action={addLessonLogAction.bind(null, id)} resetOnOk>
             <div className="field"><label htmlFor="content">O que aconteceu na aula?</label><textarea id="content" name="content" className="input" required /></div>
             <fieldset className="field"><legend className="label">Conteúdos ensinados</legend>
@@ -76,8 +68,7 @@ export default async function VisaoGeral({ params }: { params: Promise<{ id: str
             <SubmitButton>Salvar registro</SubmitButton>
           </Form>
           {logs.length > 0 && <ul className="mt-4 space-y-2 border-t border-line pt-3 text-sm">{logs.map((l) => <li key={l.id}><strong>{fmtDate(l.taughtOn)}</strong> — {l.content}{l.topics.length > 0 && <span className="hint"> ({l.topics.map(topicName).join(", ")})</span>}</li>)}</ul>}
-        </section>
-        {obs.length > 0 && <section className="card"><h2 className="mb-2 text-lg">Últimas observações</h2><ul className="space-y-2 text-sm">{obs.map((o) => <li key={o.id}>{fmtDate(o.observedOn)} — {o.text}</li>)}</ul></section>}
+        </div></details>
         <form action={archiveClassAction.bind(null, id)}><button className="link-btn text-danger" type="submit">Arquivar turma</button></form>
         {cls.isDemo && <p className="hint">Turma de exemplo: dados fictícios identificados.</p>}
       </div>

@@ -24,18 +24,14 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   const role = ctx.org.role;
   const teacherLike = role !== "admin";
   const groups: { label?: string; items: Item[] }[] = [
-    { items: [{ href: "/app", label: "Início", icon: "home" }] },
-    { label: "Sala de aula", items: [
+    { items: [
+      { href: "/app", label: "Início", icon: "home" },
       { href: "/app/turmas", label: "Turmas", icon: "turmas" },
-      ...(teacherLike ? [{ href: "/app/notas", label: "Notas", icon: "nota" as const }, { href: "/app/planos-de-aula", label: "Planos de aula", icon: "material" as const }] : []),
+      ...(teacherLike ? [{ href: "/app/notas", label: "Notas", icon: "nota" as const }, { href: "/app/provas", label: "Provas", icon: "prova" as const }, { href: "/app/planos-de-aula", label: "Planos de aula", icon: "material" as const }] : []),
       { href: "/app/agenda", label: "Agenda", icon: "agenda" },
+      { href: "/app/chat", label: `Mensagens${msgs ? ` (${msgs})` : ""}`, icon: "chat" },
+      ...(ctx.user.isStaff ? [{ href: "/admin", label: "Área interna", icon: "interno" as const }] : []),
     ] },
-    ...(teacherLike ? [{ label: "Avaliações", items: [
-      { href: "/app/provas", label: "Provas", icon: "prova" as const },
-      { href: "/app/banco", label: "Banco de questões", icon: "banco" as const },
-    ] }] : []),
-    { label: "Contato", items: [{ href: "/app/chat", label: `Mensagens${msgs ? ` (${msgs})` : ""}`, icon: "chat" as const }] },
-    ...(ctx.user.isStaff ? [{ label: "Interno", items: [{ href: "/admin", label: "Área interna", icon: "interno" as const }] }] : []),
   ];
   const items: Item[] = groups.flatMap((g) => g.items);
   // Celular: quatro destinos principais ao alcance do polegar; o resto em "Mais".
@@ -81,9 +77,6 @@ export default async function AppLayout({ children }: { children: React.ReactNod
         )}
         <div className="min-h-0 flex-1 overflow-y-auto pr-1"><NavLinks groups={groups} /></div>
         <div className="mt-4 border-t border-line pt-3 text-sm">
-          <Link className="nav-link" href="/app/notificacoes"><Icon name="sino" size={18} />Notificações{unread ? ` (${unread})` : ""}</Link>
-          <Link className="nav-link" href="/app/plano"><Icon name="plano" size={18} />Plano e cobrança</Link>
-          <Link className="nav-link" href="/app/ajuda"><Icon name="ajuda" size={18} />Ajuda</Link>
           <Link className="user-chip mt-2" href="/app/conta">
             <span className="avatar" aria-hidden>{ctx.user.name.trim().slice(0, 1).toUpperCase()}</span>
             <span className="min-w-0"><span className="block truncate font-semibold">{ctx.user.name}</span><span className="hint block truncate">Minha conta{unread ? ` (${unread})` : ""}</span></span>
@@ -98,6 +91,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
           <p className="min-w-0 truncate text-sm text-ink-soft">{ctx.org.name} · {ROLE_LABEL[role]}</p>
           <div className="flex items-center gap-1">
             <Link href="/app/banco" className="icon-btn" aria-label="Buscar no banco de questões"><Icon name="busca" size={20} /></Link>
+            <Link href="/app/ajuda" className="icon-btn" aria-label="Ajuda"><Icon name="ajuda" size={20} /></Link>
             <Link href="/app/notificacoes" className="icon-btn relative" aria-label={`Avisos${unread ? ` (${unread} não lidos)` : ""}`}><Icon name="sino" size={20} />{unread > 0 && <i className="absolute right-1.5 top-1.5 h-2.5 w-2.5 rounded-full bg-danger" aria-hidden />}</Link>
           </div>
         </div>

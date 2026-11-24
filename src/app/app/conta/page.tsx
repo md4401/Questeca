@@ -24,6 +24,7 @@ export default async function Conta({ searchParams }: { searchParams: Promise<{ 
   return (
     <div className="max-w-3xl space-y-6">
       <h1>Minha conta</h1>
+      <p className="hint"><Link href="/app/plano">Plano e cobrança</Link> · <Link href="/app/notificacoes">Notificações</Link> · <Link href="/app/ajuda">Ajuda</Link></p>
       {sp.ok && <p className="card-tint" role="status">{sp.ok}</p>}
       <section className="card"><h2 className="mb-1 text-lg">Colégio, disciplinas e turmas</h2>
         <p className="hint mb-3">{ctx.org.name}{ctx.org.city ? ` · ${ctx.org.city}/${ctx.org.uf}` : ""}</p>

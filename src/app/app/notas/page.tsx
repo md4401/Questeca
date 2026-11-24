@@ -69,7 +69,7 @@ export default async function Notas({ searchParams }: { searchParams: Promise<{ 
 
       <section aria-label="Lançar notas" className="space-y-3">
         <h2>Lançar notas e atividades</h2>
-        <NotasPanel ctx={ctx} id={cls.id} period={period} periodHref={(p) => href(cls.id, p)} settings={settings} showPeriods={false} />
+        <NotasPanel ctx={ctx} id={cls.id} period={period} periodHref={(p) => href(cls.id, p)} settings={settings} showPeriods={false} compact />
       </section>
     </div>
   );
