@@ -1076,3 +1076,59 @@ export const assistantMessages = pgTable("assistant_messages", {
   attachments: jsonb("attachments").$type<{ name: string; mime: string; size: number; text: string }[]>().notNull().default([]),
   createdAt: created(),
 }, (t) => [index("assistant_messages_session_idx").on(t.sessionId, t.createdAt)]);
+
+/* ---------- Matéria da semana (página pública por turma) ---------- */
+export const classWeeks = pgTable("class_weeks", {
+  id: id(),
+  classId: uuid("class_id").notNull().references(() => classes.id, { onDelete: "cascade" }),
+  authorId: uuid("author_id").notNull().references(() => users.id),
+  token: text("token").notNull(),
+  weekOf: date("week_of").notNull(),
+  content: text("content").notNull().default(""),
+  homework: text("homework").notNull().default(""),
+  links: jsonb("links").$type<{ label: string; url: string }[]>().notNull().default([]),
+  published: boolean("published").notNull().default(true),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+}, (t) => [index("class_weeks_token_idx").on(t.token), uniqueIndex("class_weeks_class_week_uq").on(t.classId, t.weekOf)]);
+
+/* ---------- Quiz ao vivo (estilo Kahoot) ---------- */
+export type QuizPergunta = { texto: string; opcoes: string[]; certa: number; segundos: number };
+export const liveQuizzes = pgTable("live_quizzes", {
+  id: id(),
+  orgId: uuid("org_id").notNull().references(() => orgs.id, { onDelete: "cascade" }),
+  ownerId: uuid("owner_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  title: text("title").notNull(),
+  perguntas: jsonb("perguntas").$type<QuizPergunta[]>().notNull().default([]),
+  createdAt: created(),
+}, (t) => [index("live_quizzes_owner_idx").on(t.ownerId)]);
+
+export const liveGames = pgTable("live_games", {
+  id: id(),
+  quizId: uuid("quiz_id").notNull().references(() => liveQuizzes.id, { onDelete: "cascade" }),
+  hostId: uuid("host_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  code: text("code").notNull(),
+  state: text("state").notNull().default("lobby"), // lobby | question | results | ended
+  current: integer("current").notNull().default(-1),
+  questionStartedAt: timestamp("question_started_at", { withTimezone: true }),
+  perguntas: jsonb("perguntas").$type<QuizPergunta[]>().notNull(), // cópia congelada no início do jogo
+  createdAt: created(),
+}, (t) => [uniqueIndex("live_games_code_uq").on(t.code)]);
+
+export const livePlayers = pgTable("live_players", {
+  id: id(),
+  gameId: uuid("game_id").notNull().references(() => liveGames.id, { onDelete: "cascade" }),
+  nickname: text("nickname").notNull(),
+  secret: text("secret").notNull(),
+  score: integer("score").notNull().default(0),
+  createdAt: created(),
+}, (t) => [uniqueIndex("live_players_nick_uq").on(t.gameId, t.nickname)]);
+
+export const liveAnswers = pgTable("live_answers", {
+  gameId: uuid("game_id").notNull().references(() => liveGames.id, { onDelete: "cascade" }),
+  playerId: uuid("player_id").notNull().references(() => livePlayers.id, { onDelete: "cascade" }),
+  q: integer("q").notNull(),
+  choice: integer("choice").notNull(),
+  ms: integer("ms").notNull(),
+  correct: boolean("correct").notNull(),
+  points: integer("points").notNull().default(0),
+}, (t) => [primaryKey({ columns: [t.gameId, t.playerId, t.q] })]);

@@ -35,21 +35,21 @@ export async function addMaterialAction(_: FormState, fd: FormData): Promise<For
   // Em escola, compartilhar (turma ou colegas) depende de aprovação da coordenação; no espaço pessoal não há aprovador.
   const needsApproval = visibility !== "private" && ctx.org.kind === "school" && ctx.org.role !== "coordinator" && ctx.org.role !== "admin";
   await db.insert(materials).values({ orgId: ctx.org.id, ownerId: ctx.user.id, classId, title: title || fileName || url, kind, text: text || null, file, fileName, fileType, url: url || null, description: String(fd.get("description") ?? "").trim().slice(0, 500) || null, subject: String(fd.get("subject") ?? "").trim() || null, tags, visibility, approval: needsApproval ? "pending" : "approved", approvedBy: needsApproval ? null : ctx.user.id });
-  revalidatePath("/app/materiais");
+  revalidatePath("/app/biblioteca");
   return { ok: needsApproval ? "Material salvo. O compartilhamento aguarda aprovação da coordenação." : "Material salvo." };
 }
 
 export async function deleteMaterialAction(id: string) {
   const ctx = await requireCtx();
   await db.delete(materials).where(and(eq(materials.id, id), eq(materials.ownerId, ctx.user.id)));
-  revalidatePath("/app/materiais");
+  revalidatePath("/app/biblioteca");
 }
 
 /** “Usar como teoria”: o arquivo ajuda a confirmar o conteúdo e inicia uma prova com o escopo extraído. */
 export async function useAsTheoryAction(id: string) {
   const ctx = await requireCtx();
   const [m] = await db.select().from(materials).where(and(eq(materials.id, id), eq(materials.ownerId, ctx.user.id))).limit(1);
-  if (!m?.text) redirect("/app/materiais");
+  if (!m?.text) redirect("/app/biblioteca");
   const scope = { willFall: [] as string[], prerequisite: [] as string[], notTaught: [] as string[], confirm: [] as string[], sources: {} as Record<string, string> };
   const excl = new Set(extractExclusions(m.text));
   for (const t of extractTopics(m.text)) { scope.sources[t.slug] = t.excerpt; if (excl.has(t.slug)) scope.notTaught.push(t.slug); else scope.willFall.push(t.slug); }
@@ -63,5 +63,5 @@ export async function approveMaterialAction(id: string, approve: boolean) {
   if (ctx.org.role !== "coordinator" && ctx.org.role !== "admin") return;
   await db.update(materials).set({ approval: approve ? "approved" : "rejected", approvedBy: ctx.user.id }).where(and(eq(materials.id, id), eq(materials.orgId, ctx.org.id)));
   await audit(ctx.user.id, ctx.org.id, approve ? "material.approved" : "material.rejected", id);
-  revalidatePath("/app/materiais");
+  revalidatePath("/app/biblioteca");
 }

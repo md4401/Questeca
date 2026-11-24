@@ -114,5 +114,5 @@ export async function saveToMaterialsAction(postId: string) {
   const p = await postAccess(ctx, postId);
   if (!p) return;
   await db.insert(materials).values({ orgId: ctx.org.id, ownerId: ctx.user.id, title: `${p.title} (comunidade)`, kind: "outro", text: `Origem: publicação na comunidade — autoria preservada.\n\n${p.body}`, file: p.attachment, fileName: p.attachmentName, fileType: p.attachmentType, fromPostId: p.id });
-  redirect("/app/materiais");
+  redirect("/app/biblioteca");
 }

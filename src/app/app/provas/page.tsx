@@ -17,7 +17,7 @@ export default async function Provas() {
   const list = mine.filter((m) => !m.a.classId || allowed.has(m.a.classId));
   return (
     <div>
-      <PageHead icon="prova" title="Provas" sub="Rascunhos, provas aplicadas e correção" actions={<><Link className="btn btn-ghost" href="/app/banco">Busca no banco</Link><Link className="btn" href="/app/provas/montar">Montar prova</Link></>} />
+      <PageHead icon="prova" title="Provas" sub="Rascunhos, provas aplicadas e correção" actions={<><Link className="btn btn-ghost" href="/app/provas/listas">Lista A/B</Link><Link className="btn btn-ghost" href="/app/provas/corrigir-foto">Corrigir por foto</Link><Link className="btn btn-ghost" href="/app/banco">Busca no banco</Link><Link className="btn" href="/app/provas/montar">Montar prova</Link></>} />
       {list.length === 0 ? <div className="card empty"><p>Você ainda não tem provas. Descreva o que ensinou e a Segunda Lousa monta um rascunho com questões reais.</p><p className="mt-3"><Link className="btn" href="/app/provas/montar">Montar primeira prova</Link></p></div> : (
         <div className="card overflow-x-auto"><table className="t"><thead><tr><th>Prova</th><th>Turma</th><th>Situação</th><th>Atualizada</th></tr></thead><tbody>
           {list.map(({ a, cname }) => <tr key={a.id}><td><Link href={`/app/provas/${a.id}`}>{a.title}</Link></td><td>{cname ?? "—"}</td>
