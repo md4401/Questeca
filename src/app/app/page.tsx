@@ -17,6 +17,7 @@ import { loadLessonNow } from "@/lib/lesson-now";
 import { AulaDeAgora } from "./aula-agora/panel";
 import { Icon } from "@/components/icons";
 import { classSummaries } from "@/lib/class-summary";
+import { loadIndicadores } from "@/lib/indicadores";
 import { gradeSubmissions, students as studentsT, classes as classesT, gradeItems, grades } from "@/db/schema";
 import { inArray } from "drizzle-orm";
 
@@ -35,6 +36,7 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
   const lessonNow = ctx.org.role === "admin" ? null : await loadLessonNow(ctx);
   const [dc] = await db.select({ n: count() }).from(assessments).where(and(eq(assessments.orgId, ctx.org.id), eq(assessments.ownerId, ctx.user.id), eq(assessments.status, "draft")));
   const summ = await classSummaries(cls.map((c) => c.id));
+  const ind = await loadIndicadores({ orgId: ctx.org.id, userId: ctx.user.id, classIds: cls.map((c) => c.id) });
   const totalStudents = [...summ.byClass.values()].reduce((a, v) => a + v.students, 0);
   const submissions = await db.select({ s: gradeSubmissions, student: studentsT.name, cls: classesT.name }).from(gradeSubmissions)
     .innerJoin(studentsT, eq(studentsT.id, gradeSubmissions.studentId)).innerJoin(classesT, eq(classesT.id, gradeSubmissions.classId))
@@ -66,7 +68,33 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
         <div><h1>{greet}, {ctx.user.name.split(" ")[0]}</h1><p className="capitalize-first">{today} · {ctx.org.name}{ctx.org.city ? ` · ${ctx.org.city}/${ctx.org.uf}` : ""}</p></div>
         {staffView && <div className="actions">{drafts[0] && <Link className="btn btn-ghost" href={`/app/provas/${drafts[0].id}`}>Continuar “{drafts[0].title.length > 24 ? drafts[0].title.slice(0, 24) + "…" : drafts[0].title}”</Link>}<Link className="btn" href="/app/provas/nova">Criar prova</Link></div>}
       </div>
-      {staffView && cls.length > 0 && <p className="-mt-3 flex flex-wrap gap-1.5" aria-label="Resumo"><span className="chip-status" data-s="regular">{cls.length} turma(s)</span><span className="chip-status" data-s="regular">{totalStudents} aluno(s)</span>{summ.pending > 0 && <Link href="/app/notas" className="chip-status no-underline" data-s="atencao">{summ.pending} para conferir</Link>}</p>}
+      {staffView && (
+        <>
+          <section aria-label="Indicadores" data-testid="indicadores">
+            <ul className="kpi-grid">
+              {[
+                { k: "turmas", label: "Turmas", v: ind.turmas, href: "/app/turmas" },
+                { k: "alunos", label: "Alunos", v: ind.alunos, href: cls[0] ? `/app/turmas/${cls[0].id}/alunos` : "/app/turmas" },
+                { k: "criadas", label: "Provas criadas", v: ind.provasCriadas, href: "/app/provas" },
+                { k: "aplicadas", label: "Provas aplicadas", v: ind.provasAplicadas, href: "/app/provas" },
+                { k: "pendentes", label: "Atividades pendentes", v: ind.atividadesPendentes, href: "/app/notas", warn: ind.atividadesPendentes > 0 },
+              ].map((i) => (
+                <li key={i.k}><Link href={i.href} className="kpi" data-testid={`kpi-${i.k}`} data-warn={i.warn ? "1" : undefined}><strong>{i.v}</strong><span>{i.label}</span></Link></li>))}
+            </ul>
+          </section>
+          <section aria-label="Atalhos rápidos" data-testid="atalhos-rapidos">
+            <ul className="quick-grid">
+              {([
+                { icon: "prova", label: "Criar prova", href: "/app/provas/montar" },
+                { icon: "turmas", label: "Cadastrar aluno", href: cls[0] ? `/app/turmas/${cls[0].id}/alunos` : "/app/turmas/nova" },
+                { icon: "escola", label: "Criar turma", href: "/app/turmas/nova" },
+                { icon: "nota", label: "Consultar notas", href: "/app/notas" },
+                { icon: "banco", label: "Banco de questões", href: "/app/banco" },
+              ] as const).map((a) => (
+                <li key={a.label}><Link href={a.href} className="quick"><Icon name={a.icon} size={22} /><span>{a.label}</span></Link></li>))}
+            </ul>
+          </section>
+        </>)}
       {sp.novo && cls.length > 0 && (
         <section className="card-tint space-y-2" aria-label="Cadastro concluído">
           <p className="font-semibold">Cadastro concluído. Sua turma está pronta.</p>
@@ -112,8 +140,6 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
             <section className="card" aria-label="Provas recentes"><div className="section-title"><h2>Provas</h2><Link href="/app/provas">Ver todas</Link></div>
               <ul className="list-rows text-sm">{recentExams.map((e) => <li key={e.id}><Link href={`/app/provas/${e.id}`}>{e.title}</Link> <span className="badge badge-gray">{e.status === "draft" ? "rascunho" : e.status === "applied" ? "aplicada" : e.status}</span><br /><span className="hint">{e.className ?? "Sem turma"} · {fmtDateTime(e.updatedAt)}</span></li>)}</ul>
             </section>)}
-          <section className="card" aria-label="Atalhos"><h2 className="section-title">Atalhos</h2>
-            <ul className="list-rows text-sm"><li><Link href="/app/provas/nova">Criar uma prova</Link></li><li><Link href="/app/banco">Pesquisar no banco de questões</Link></li><li><Link href="/app/planos-de-aula">Gerar plano de aula</Link></li><li><Link href="/app/notas">Lançar notas</Link></li></ul></section>
           {attention > 0 && <section className="card" aria-label="Pendências"><h2 className="section-title">Pendências</h2><ul className="list-rows text-sm">{reviews.map((r) => <li key={r.id}>Documento para revisar: <Link href="/app/documentos">{r.title}</Link></li>)}{notes.map((n) => <li key={n.id}>{n.href ? <Link href={n.href}>{n.title}</Link> : n.title}</li>)}</ul></section>}
           {submissions.length > 0 && (
             <section className="card" aria-label="Notas enviadas por QR" data-testid="notas-qr">
