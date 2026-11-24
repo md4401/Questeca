@@ -163,3 +163,23 @@ test("Quiz: pergunta longa aparece inteira no construtor", async ({ page }) => {
     expect(ok, `largura ${w}`).toBe(true);
   }
 });
+
+test("Montar prova por tema com o banco de vestibulares: acha questões do assunto, sem lixo de extração", async ({ page }) => {
+  test.setTimeout(120_000);
+  const [{ n }] = await sql`select count(*)::int as n from questions where status = 'released' and origin = 'banco'`;
+  test.skip(n < 500, "precisa do banco de vestibulares importado (pnpm db:importar-questoes + db:liberar)");
+  await signup(page);
+  for (const [tema, subject, serie] of [["funções do 2º grau", "matematica", "9"], ["cinemática", "fisica", "em1"], ["Revolução Francesa", "historia", "em2"]] as const) {
+    await page.goto("/app/provas/montar");
+    await page.getByLabel("Temas da prova").fill(tema);
+    await page.getByLabel("Disciplina").selectOption(subject);
+    await page.getByLabel(/Série/).selectOption(serie);
+    await page.getByLabel("Quantas questões").fill("8");
+    await page.getByRole("button", { name: /Montar/ }).last().click();
+    await page.waitForURL(/\/editar/, { timeout: 60_000 });
+    const id = page.url().match(/provas\/([0-9a-f-]{36})/)![1];
+    const itens = await sql`select q.statement, q.alternatives from assessment_items i join questions q on q.id = i.question_id where i.assessment_id = ${id}`;
+    expect(itens.length, tema).toBeGreaterThanOrEqual(3);
+    for (const q of itens) expect(String(q.statement), tema).not.toMatch(/#{3,}|Concurso Vestibular|�/);
+  }
+});

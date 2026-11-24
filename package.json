@@ -17,6 +17,7 @@
     "db:demo": "tsx scripts/create-demo-user.ts",
     "db:importar-questoes": "tsx scripts/importar-questoes-extraidas.ts",
     "db:classificar": "tsx scripts/classificar-questoes.ts",
+    "db:auditar": "tsx scripts/auditar-banco.ts",
     "db:classificar-ia": "tsx scripts/classificar-questoes-ia.ts"
   },
   "dependencies": {
