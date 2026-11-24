@@ -526,3 +526,89 @@ html[data-theme="dark"] .app-shell { --k-azul: #232F5C; --k-ceu: #1B3550; --k-ve
 }
 /* Telas grandes: texto de leitura confortável e conteúdo centralizado */
 @media (min-width: 1920px) { .app-shell { font-size: 1.0625rem; } }
+
+/* ============================================================
+   GizIA — interface de conversa em tela cheia (estilo Gemini): painel de conversas, saudação central e campo em pílula
+   ============================================================ */
+#conteudo:has(> .giz-root) { max-width: none !important; padding: 0 !important; margin: 0 !important; }
+.giz-root { position: relative; display: flex; min-height: 70vh; overflow: hidden; background: var(--color-paper); color: var(--color-ink); }
+.giz-logo { display: inline-grid; place-items: center; flex: none; width: 1.9rem; height: 1.9rem; border-radius: 999px; color: #fff; background: linear-gradient(135deg, #4F6BED, #8B5CF6); }
+.giz-ico { display: inline-grid; place-items: center; flex: none; width: 2.5rem; height: 2.5rem; border: 0; border-radius: 999px; background: transparent; color: var(--color-ink-soft); font: inherit; font-size: 1.15rem; cursor: pointer; transition: background .15s, color .15s; }
+.giz-ico:hover, .giz-ico[aria-pressed="true"], .giz-ico.on { background: var(--color-brand-tint); color: var(--color-brand-dark); }
+
+.giz-side { display: flex; flex-direction: column; width: 17.5rem; flex: none; background: var(--color-sheet); border-right: 1px solid var(--color-line); transition: transform .22s ease; }
+.giz-side-top { display: flex; align-items: center; justify-content: space-between; padding: .6rem .6rem .25rem; }
+.giz-nav { display: flex; flex: 1; min-height: 0; flex-direction: column; padding: 0 .5rem .75rem; }
+.giz-nova { display: flex; align-items: center; gap: .65rem; width: 100%; min-height: 44px; margin: .25rem 0 .75rem; padding: .5rem .9rem; border: 0; border-radius: 999px; background: var(--color-brand-tint); color: var(--color-brand-dark); font: inherit; font-weight: 600; font-size: .95rem; cursor: pointer; text-align: left; }
+.giz-nova:hover { filter: brightness(.97); }
+.giz-lista { flex: 1; min-height: 0; overflow-y: auto; }
+.giz-grupo { margin: .75rem .5rem .25rem; font-size: .75rem; font-weight: 600; color: var(--color-ink-soft); }
+.giz-dica { margin: .5rem; font-size: .85rem; color: var(--color-ink-soft); }
+.giz-item { position: relative; display: flex; align-items: center; border-radius: 999px; }
+.giz-item:hover, .giz-item[data-ativa="1"] { background: var(--color-brand-tint); }
+.giz-titulo { flex: 1; min-width: 0; min-height: 40px; padding: .4rem .5rem .4rem .9rem; border: 0; background: none; color: var(--color-ink); font: inherit; font-size: .9rem; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; }
+.giz-item[data-ativa="1"] .giz-titulo { font-weight: 600; color: var(--color-brand-dark); }
+.giz-acoes { display: flex; padding-right: .3rem; opacity: 0; transition: opacity .12s; }
+.giz-item:hover .giz-acoes, .giz-item:focus-within .giz-acoes { opacity: 1; }
+@media (pointer: coarse) { .giz-acoes { opacity: 1; } }
+.giz-acoes button { width: 1.9rem; height: 1.9rem; border: 0; border-radius: 999px; background: none; color: var(--color-ink-soft); font-size: .85rem; cursor: pointer; }
+.giz-acoes button:hover { background: var(--color-line); color: var(--color-ink); }
+.giz-busca { width: 100%; min-height: 38px; padding: .4rem .9rem; border: 1px solid var(--color-line); border-radius: 999px; background: var(--color-paper); color: var(--color-ink); font: inherit; font-size: .9rem; }
+
+.giz-main { position: relative; display: flex; flex: 1; min-width: 0; flex-direction: column; }
+.giz-main::before { content: ""; position: absolute; inset: auto 0 0 0; height: 55%; pointer-events: none; background: radial-gradient(ellipse 60% 80% at 50% 110%, rgba(79,107,237,.16), transparent 70%), radial-gradient(ellipse 35% 60% at 78% 115%, rgba(139,92,246,.12), transparent 70%); }
+.giz-top { position: relative; z-index: 1; display: flex; align-items: center; gap: .5rem; min-height: 3.5rem; padding: .35rem .75rem; }
+.giz-nome { display: flex; align-items: center; gap: .55rem; margin: 0; font-size: 1.15rem; font-weight: 600; }
+.giz-cred { margin: 0 0 0 auto; max-width: 14rem; font-size: .72rem; line-height: 1.25; text-align: right; color: var(--color-ink-soft); }
+@media (min-width: 640px) { .giz-cred { max-width: none; font-size: .78rem; } }
+.giz-abrir { display: inline-grid; }
+@media (min-width: 1024px) { .giz-root:not([data-recolhido]) .giz-abrir { display: none; } .giz-root[data-recolhido] .giz-side { display: none; } }
+@media (max-width: 1023px) {
+  .giz-side { position: absolute; inset: 0 auto 0 0; z-index: 30; transform: translateX(-102%); box-shadow: 8px 0 30px -12px rgba(15,23,42,.4); }
+  .giz-side[data-aberta="1"] { transform: none; }
+  .giz-fundo { position: absolute; inset: 0; z-index: 25; border: 0; background: rgba(15,23,42,.4); }
+}
+
+.giz-inicio { position: relative; z-index: 1; display: flex; flex: 1; flex-direction: column; align-items: center; justify-content: center; gap: .25rem; padding: 1rem 1rem 4rem; text-align: center; }
+.giz-ola { margin: 0; font-size: clamp(1.35rem, 2.6vw, 1.9rem); font-weight: 600; background: linear-gradient(90deg, #4F6BED, #8B5CF6 60%, #D946A8); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.giz-pergunta { margin: 0 0 1.5rem; font-size: clamp(1.8rem, 4.4vw, 2.9rem); font-weight: 500; letter-spacing: -.01em; color: var(--color-ink); }
+.giz-centro { width: min(100%, 44rem); }
+.giz-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem; width: min(100%, 44rem); margin-top: 1.25rem; }
+.giz-chip { display: inline-flex; align-items: center; gap: .45rem; min-height: 42px; padding: .45rem 1rem; border: 1px solid var(--color-line); border-radius: 999px; background: var(--color-sheet); color: var(--color-ink); font: inherit; font-size: .9rem; cursor: pointer; transition: border-color .15s, background .15s; }
+.giz-chip:hover { border-color: var(--color-brand); background: var(--color-brand-tint); }
+
+.giz-composer { width: 100%; }
+.giz-pill { display: flex; align-items: flex-end; gap: .15rem; padding: .35rem .45rem; border: 1px solid var(--color-line); border-radius: 1.9rem; background: var(--color-sheet); box-shadow: 0 6px 24px -14px rgba(15,23,42,.35); transition: box-shadow .15s, border-color .15s; }
+.giz-pill:focus-within { border-color: var(--color-brand); box-shadow: 0 8px 28px -12px rgba(79,107,237,.45); }
+.giz-campo { flex: 1; min-width: 0; max-height: 10rem; padding: .65rem .35rem; border: 0; outline: 0; resize: none; background: transparent; color: var(--color-ink); font: inherit; font-size: 1rem; line-height: 1.45; }
+.giz-campo::placeholder { color: var(--color-ink-soft); }
+.giz-enviar { display: inline-grid; place-items: center; flex: none; width: 2.5rem; height: 2.5rem; border: 0; border-radius: 999px; background: var(--color-brand); color: #fff; cursor: pointer; transition: opacity .15s, transform .15s; }
+.giz-enviar:disabled { opacity: .35; cursor: default; }
+.giz-enviar:not(:disabled):hover { transform: translateY(-1px); }
+.giz-mais { position: relative; }
+.giz-menu { position: absolute; bottom: 3.1rem; left: 0; z-index: 20; min-width: 15rem; margin: 0; padding: .4rem; list-style: none; border: 1px solid var(--color-line); border-radius: 1rem; background: var(--color-sheet); box-shadow: 0 16px 40px -18px rgba(15,23,42,.5); }
+.giz-menu button { display: flex; align-items: center; gap: .65rem; width: 100%; min-height: 42px; padding: .4rem .75rem; border: 0; border-radius: .7rem; background: none; color: var(--color-ink); font: inherit; font-size: .92rem; text-align: left; cursor: pointer; }
+.giz-menu button:hover { background: var(--color-brand-tint); }
+
+.giz-scroll { position: relative; z-index: 1; flex: 1; min-height: 0; overflow-y: auto; padding: .5rem 1rem 1rem; }
+.giz-conversa { display: flex; flex-direction: column; gap: 1.4rem; width: 100%; max-width: 48rem; margin-inline: auto; }
+.giz-msg { display: flex; gap: .7rem; }
+.giz-usuario { justify-content: flex-end; }
+.giz-usuario .giz-balao { max-width: 85%; padding: .7rem 1.05rem; border-radius: 1.35rem 1.35rem .4rem 1.35rem; background: var(--color-brand-tint); }
+.giz-usuario .giz-balao p { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.giz-resposta .giz-balao { flex: 1; min-width: 0; padding-top: .15rem; line-height: 1.6; overflow-wrap: anywhere; }
+.giz-avatar { width: 1.9rem; height: 1.9rem; margin-top: .1rem; }
+.giz-erro { color: var(--color-danger); }
+.giz-copiar { display: block; margin-top: .6rem; padding: .15rem .6rem; border: 1px solid var(--color-line); border-radius: 999px; background: none; color: var(--color-ink-soft); font: inherit; font-size: .78rem; cursor: pointer; }
+.giz-copiar:hover { background: var(--color-brand-tint); color: var(--color-ink); }
+.giz-rodape { position: relative; z-index: 1; width: 100%; max-width: 48rem; margin-inline: auto; padding: .25rem 1rem calc(.75rem + env(safe-area-inset-bottom)); }
+.giz-aviso { margin: .5rem 0 0; text-align: center; font-size: .72rem; color: var(--color-ink-soft); }
+.giz-pensando { margin: 0; color: var(--color-ink-soft); animation: giz-pulsa 1.4s ease-in-out infinite; }
+.giz-gira { animation: giz-pulsa 1.4s ease-in-out infinite; }
+@keyframes giz-pulsa { 50% { opacity: .45; } }
+@media (prefers-reduced-motion: reduce) { .giz-pensando, .giz-gira { animation: none; } .giz-side { transition: none; } }
+.giz-vazio { align-items: center; justify-content: center; padding: 2rem 1rem; }
+.giz-indisponivel { max-width: 30rem; text-align: center; }
+.giz-indisponivel h1 { margin: .75rem 0 .25rem; font-size: 1.4rem; }
+.giz-indisponivel p { color: var(--color-ink-soft); font-size: .92rem; }
+.app-shell .giz-nome { font-size: 1.15rem; line-height: 1.2; }

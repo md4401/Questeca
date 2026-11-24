@@ -46,5 +46,5 @@ test("GizIA em sessões como no ChatGPT: nova conversa, histórico, reabrir, ren
   t.once("dialog", (d) => d.accept());
   await t.getByRole("button", { name: /Apagar a conversa Funções do 9º ano/ }).click();
   await expect(itens).toHaveCount(1);
-  await expect(t.getByText("O que vamos fazer hoje?")).toBeVisible();
+  await expect(t.getByText("Por onde começamos?")).toBeVisible();
 });
