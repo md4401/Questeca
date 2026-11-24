@@ -38,19 +38,30 @@ async function nvidia(system: string, content: Block[], maxTokens = 1500, timeou
 async function openai(system: string, content: Block[], maxTokens = 1500, timeoutMs = 120_000, signal?: AbortSignal): Promise<string> {
   const user = content.map((b) => (b.type === "text" ? { type: "text", text: b.text } : { type: "image_url", image_url: { url: `data:${b.source.media_type};base64,${b.source.data}` } }));
   const url = `${(process.env.OPENAI_BASE_URL ?? "https://api.openai.com/v1").replace(/\/+$/, "")}/chat/completions`;
-  const call = (limitKey: "max_completion_tokens" | "max_tokens") => fetch(url, {
+  const charsIn = system.length + content.map((b) => (b.type === "text" ? b.text.length : 1500)).reduce((a, b) => a + b, 0);
+  type Resp = { choices?: { message?: { content?: string | null }; finish_reason?: string }[]; usage?: { prompt_tokens?: number; completion_tokens?: number } };
+  const call = (limitKey: "max_completion_tokens" | "max_tokens", budget: number, effort?: string) => fetch(url, {
     method: "POST",
     headers: { Authorization: `Bearer ${process.env.OPENAI_API_KEY}`, "content-type": "application/json", accept: "application/json" },
-    body: JSON.stringify({ model: process.env.AI_MODEL, messages: [{ role: "system", content: system }, { role: "user", content: user }], [limitKey]: Math.max(maxTokens, 2000), ...(process.env.AI_REASONING_EFFORT ? { reasoning_effort: process.env.AI_REASONING_EFFORT } : {}) }),
+    body: JSON.stringify({ model: process.env.AI_MODEL, messages: [{ role: "system", content: system }, { role: "user", content: user }], [limitKey]: budget, ...(effort ? { reasoning_effort: effort } : {}) }),
     signal: limite(timeoutMs, signal),
   });
-  let res = await call("max_completion_tokens");
-  if (res.status === 400) { const msg = await res.text(); if (/max_completion_tokens/i.test(msg)) res = await call("max_tokens"); else throw new Error("IA indisponível (400)"); }
-  if (!res.ok) throw new Error(`IA indisponível (${res.status})`);
-  const j = (await res.json()) as { choices?: { message?: { content?: string | null } }[]; usage?: { prompt_tokens?: number; completion_tokens?: number } };
-  const text = j.choices?.[0]?.message?.content ?? "";
-  await meter(j.usage?.prompt_tokens, j.usage?.completion_tokens, system.length + content.map((b) => (b.type === "text" ? b.text.length : 1500)).reduce((a, b) => a + b, 0), text.length);
-  return text;
+  async function uma(budget: number, effort?: string): Promise<{ text: string; j: Resp }> {
+    let res = await call("max_completion_tokens", budget, effort);
+    if (res.status === 400) { const msg = await res.text(); if (/max_completion_tokens/i.test(msg)) res = await call("max_tokens", budget, effort); else throw new Error("IA indisponível (400)"); }
+    if (!res.ok) throw new Error(`IA indisponível (${res.status})`);
+    const j = (await res.json()) as Resp;
+    return { text: j.choices?.[0]?.message?.content ?? "", j };
+  }
+  const efeito = process.env.AI_REASONING_EFFORT || undefined;
+  let r = await uma(Math.max(maxTokens, 2000), efeito);
+  // Modelos de raciocínio podem gastar todo o orçamento "pensando" e devolver texto vazio: tenta de novo com mais folga e pouco raciocínio.
+  if (!r.text.trim()) {
+    await meter(r.j.usage?.prompt_tokens, r.j.usage?.completion_tokens, charsIn, 0);
+    r = await uma(Math.max(maxTokens, 2000) * 4, efeito ?? "low");
+  }
+  await meter(r.j.usage?.prompt_tokens, r.j.usage?.completion_tokens, charsIn, r.text.length);
+  return r.text;
 }
 
 /** Cobra o uso (1.000 tokens = 1 crédito) do usuário da requisição atual. Fora de uma requisição (scripts), não cobra. */
