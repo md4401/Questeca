@@ -12,6 +12,8 @@ import {
   conflictsFor, ensureVersion, toCandidate, usedQuestionIdsForClass, type QRow,
 } from "@/lib/assessments";
 import { consumeAssembly, planInfo } from "@/lib/billing";
+import { selecionarPorTemas } from "@/lib/montar";
+import { topicName } from "@/lib/taxonomy";
 import { extractTextFromFile } from "@/lib/materials";
 import { extractTopics, extractExclusions, TOPICS } from "@/lib/taxonomy";
 import { checkIntegrity } from "@/lib/core/selection";
@@ -102,8 +104,15 @@ export async function saveScopeAction(id: string, _: FormState, fd: FormData): P
   const used = await usedQuestionIdsForClass(a.classId);
   const { result, byId } = runSelection(pool, scope, { wantedCount: p.data.wantedCount, durationMin: p.data.durationMin, filters }, used, keepIds);
 
+  // Sem questões etiquetadas por conteúdo: pesquisa no banco pelo texto dos conteúdos marcados (acervo importado das provas).
+  let fb: Awaited<ReturnType<typeof selecionarPorTemas>>["picked"] = [];
+  if (!result.picks.length) {
+    const cls = a.classId ? (await loadClass(ctx, a.classId)).cls : null;
+    const temas = scope.willFall.map(topicName);
+    fb = (await selecionarPorTemas({ orgId: ctx.org.id, temas, subject: "matematica", grade: cls?.grade ?? "9", count: p.data.wantedCount - keepIds.length, insts: filters.institutions, usedIds: [...used, ...keepIds] })).picked;
+  }
   // Cota: conta na primeira gravação com ao menos um item elegível; sem consumo se nada for encontrado.
-  if (result.picks.length > 0) {
+  if (result.picks.length > 0 || fb.length > 0) {
     const q = await consumeAssembly(ctx.org.id, id);
     if (!q.ok) {
       revalidatePath(`/app/provas/${id}`);
@@ -114,7 +123,7 @@ export async function saveScopeAction(id: string, _: FormState, fd: FormData): P
   const nonKeep = existing.filter((i) => !(i.item.pinned || i.item.manual));
   if (nonKeep.length) await db.delete(assessmentItems).where(inArray(assessmentItems.id, nonKeep.map((n) => n.item.id)));
   const picks = result.picks;
-  const total = keep.length + picks.length;
+  const total = keep.length + picks.length + fb.length;
   const pts = evenPoints(p.data.totalPoints, total);
   let pos = keep.length;
   const keepRows = keep.sort((x, y) => x.item.position - y.item.position);
@@ -125,9 +134,12 @@ export async function saveScopeAction(id: string, _: FormState, fd: FormData): P
       reason: explainReason(byId.get(pk.id)!, pk.matched),
     })));
   }
-  await audit(ctx.user.id, ctx.org.id, "assessment.searched", id, { found: result.found, wanted: p.data.wantedCount });
+  if (fb.length) {
+    await db.insert(assessmentItems).values(fb.map((f, i) => ({ assessmentId: id, questionId: f.q.id, position: keep.length + i + 1, points: String(pts[keep.length + i]), reason: `Encontrada pelo texto dos conteúdos. ${f.q.institution} ${f.q.year}.` })));
+  }
+  await audit(ctx.user.id, ctx.org.id, "assessment.searched", id, { found: result.found + fb.length, wanted: p.data.wantedCount });
   await track("search_done", ctx.user.id, ctx.org.id, { found: result.found, wanted: p.data.wantedCount });
-  const qs = new URLSearchParams({ achou: String(result.found), pedido: String(p.data.wantedCount) });
+  const qs = new URLSearchParams({ achou: String(result.found + fb.length), pedido: String(p.data.wantedCount) });
   if (result.uncovered.length) qs.set("faltam", result.uncovered.join(","));
   redirect(`/app/provas/${id}?${qs}`);
 }
