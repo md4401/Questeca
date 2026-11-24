@@ -21,13 +21,27 @@ export async function criarSessao(userId: string, orgId: string, title = "Nova c
   return s;
 }
 export async function mensagensDaSessao(sessionId: string) {
-  return db.select({ id: assistantMessages.id, role: assistantMessages.role, content: assistantMessages.content, links: assistantMessages.links, isError: assistantMessages.isError })
+  return db.select({ id: assistantMessages.id, role: assistantMessages.role, content: assistantMessages.content, links: assistantMessages.links, isError: assistantMessages.isError, attachments: assistantMessages.attachments })
     .from(assistantMessages).where(eq(assistantMessages.sessionId, sessionId)).orderBy(asc(assistantMessages.createdAt), asc(assistantMessages.id)).limit(MAX_MSGS_POR_SESSAO);
 }
-export async function anexar(sessionId: string, m: { role: "user" | "assistant"; content: string; links?: { label: string; href: string }[]; isError?: boolean }) {
-  await db.insert(assistantMessages).values({ sessionId, role: m.role, content: m.content, links: m.links ?? [], isError: m.isError ?? false });
+export type Anexo = { name: string; mime: string; size: number; text: string };
+/** Grava uma mensagem e devolve o id (o cliente usa para editar depois). */
+export async function anexar(sessionId: string, m: { role: "user" | "assistant"; content: string; links?: { label: string; href: string }[]; isError?: boolean; attachments?: Anexo[] }) {
+  const [r] = await db.insert(assistantMessages).values({ sessionId, role: m.role, content: m.content, links: m.links ?? [], isError: m.isError ?? false, attachments: m.attachments ?? [] }).returning({ id: assistantMessages.id });
   await db.update(assistantSessions).set({ updatedAt: new Date() }).where(eq(assistantSessions.id, sessionId));
+  return r.id;
 }
+/** Editar uma mensagem do professor: apaga ela e tudo que veio depois (a conversa recomeça dali). Devolve os anexos que ela tinha (ou null se não for uma mensagem do professor desta conversa). */
+export async function apagarAPartirDe(sessionId: string, messageId: string): Promise<{ anexos: Anexo[] } | null> {
+  if (!UUID.test(messageId)) return null;
+  const [m] = await db.select().from(assistantMessages).where(and(eq(assistantMessages.id, messageId), eq(assistantMessages.sessionId, sessionId))).limit(1);
+  if (!m || m.role !== "user") return null;
+  await db.delete(assistantMessages).where(and(eq(assistantMessages.sessionId, sessionId), sql`(${assistantMessages.createdAt}, ${assistantMessages.id}) >= (${m.createdAt}, ${m.id})`));
+  return { anexos: m.attachments ?? [] };
+}
+/** Para a tela: mensagens sem o texto extraído dos anexos (só nome, tipo e tamanho). */
+export const paraTela = <T extends { attachments?: Anexo[] }>(m: T) => ({ ...m, attachments: (m.attachments ?? []).map(({ name, mime, size }) => ({ name, mime, size })) });
+
 export async function renomear(userId: string, id: string, title: string) {
   const t = title.replace(/\s+/g, " ").trim().slice(0, 80);
   if (!t) return false;

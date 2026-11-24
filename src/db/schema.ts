@@ -1072,5 +1072,7 @@ export const assistantMessages = pgTable("assistant_messages", {
   content: text("content").notNull(),
   links: jsonb("links").$type<{ label: string; href: string }[]>().notNull().default([]),
   isError: boolean("is_error").notNull().default(false),
+  /** Arquivos anexados pelo professor à mensagem (texto já extraído; entra no contexto da GizIA). */
+  attachments: jsonb("attachments").$type<{ name: string; mime: string; size: number; text: string }[]>().notNull().default([]),
   createdAt: created(),
 }, (t) => [index("assistant_messages_session_idx").on(t.sessionId, t.createdAt)]);

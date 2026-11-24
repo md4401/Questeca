@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { getStaffCtx as getCtx } from "@/lib/session";
-import { sessaoDoUsuario, mensagensDaSessao, renomear, apagar } from "@/lib/assistente/sessoes";
+import { sessaoDoUsuario, mensagensDaSessao, renomear, apagar, paraTela } from "@/lib/assistente/sessoes";
 
 export const runtime = "nodejs";
 type P = { params: Promise<{ id: string }> };
@@ -11,7 +11,7 @@ export async function GET(_: Request, { params }: P) {
   if (!ctx) return NextResponse.json({ erro: "Não autenticado." }, { status: 401 });
   const s = await sessaoDoUsuario(ctx.user.id, (await params).id);
   if (!s) return NextResponse.json({ erro: "Conversa não encontrada." }, { status: 404 });
-  return NextResponse.json({ id: s.id, title: s.title, mensagens: await mensagensDaSessao(s.id) });
+  return NextResponse.json({ id: s.id, title: s.title, mensagens: (await mensagensDaSessao(s.id)).map(paraTela) });
 }
 
 export async function PATCH(req: Request, { params }: P) {

@@ -2,7 +2,10 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 
 type Link = { label: string; href: string };
-type Msg = { id?: string; role: "user" | "assistant"; content: string; links?: Link[]; isError?: boolean };
+type Arq = { name: string; mime: string; size: number };
+type Msg = { id?: string; role: "user" | "assistant"; content: string; links?: Link[]; isError?: boolean; attachments?: Arq[]; nota?: boolean };
+const MAX_ARQ = 3, MAX_BYTES = 4_000_000;
+const kb = (n: number) => (n < 1_000_000 ? `${Math.max(1, Math.round(n / 1000))} KB` : `${(n / 1_000_000).toFixed(1).replace(".", ",")} MB`);
 type Sessao = { id: string; title: string; updatedAt: string | Date };
 type Cred = { usados: number; limite: number; restantes: number };
 
@@ -59,6 +62,11 @@ export function Assistente({ disponivel, nome, creditos, sessoes: sessoesIniciai
   const [ouvindo, setOuvindo] = useState(false);
   const [voz, setVoz] = useState(false);
   const [copiado, setCopiado] = useState<number | null>(null);
+  const [arquivos, setArquivos] = useState<File[]>([]);
+  const [erroArq, setErroArq] = useState<string | null>(null);
+  const [editMsg, setEditandoMsg] = useState<{ i: number; texto: string } | null>(null);
+  const ctrl = useRef<AbortController | null>(null);
+  const inputArq = useRef<HTMLInputElement>(null);
   const raiz = useRef<HTMLDivElement>(null);
   const fim = useRef<HTMLDivElement>(null);
   const campo = useRef<HTMLTextAreaElement>(null);
@@ -77,6 +85,7 @@ export function Assistente({ disponivel, nome, creditos, sessoes: sessoesIniciai
   }, []);
   useEffect(() => { try { setRecolhido(localStorage.getItem("giz_side") === "0"); } catch { /* sem armazenamento */ } setVoz(typeof window !== "undefined" && !!((window as unknown as Record<string, unknown>).SpeechRecognition || (window as unknown as Record<string, unknown>).webkitSpeechRecognition)); }, []);
   useEffect(() => { fim.current?.scrollIntoView({ block: "end" }); }, [msgs, enviando]);
+  useEffect(() => { if (!enviando) return; const h = (e: KeyboardEvent) => { if (e.key === "Escape") ctrl.current?.abort(); }; window.addEventListener("keydown", h); return () => window.removeEventListener("keydown", h); }, [enviando]);
   useEffect(() => { const c = campo.current; if (c) { c.style.height = "auto"; c.style.height = `${Math.min(c.scrollHeight, 160)}px`; } }, [texto]);
   const grupos = useMemo(() => agrupar(sessoes.filter((s) => !busca || s.title.toLowerCase().includes(busca.toLowerCase()))), [sessoes, busca]);
 
@@ -103,22 +112,63 @@ export function Assistente({ disponivel, nome, creditos, sessoes: sessoesIniciai
     setSessoes((l) => l.filter((x) => x.id !== s.id));
     if (s.id === ativaId) nova();
   }
-  async function enviar(conteudo: string) {
+  function adicionarArquivos(lista: FileList | File[]) {
+    setErroArq(null);
+    const novos = [...lista]; const total = [...arquivos];
+    for (const f of novos) {
+      if (total.length >= MAX_ARQ) { setErroArq(`No máximo ${MAX_ARQ} arquivos por mensagem.`); break; }
+      if (f.size > MAX_BYTES) { setErroArq(`“${f.name}” passa de 4 MB.`); continue; }
+      if (!/\.(pdf|docx|txt|md|png|jpe?g|webp)$/i.test(f.name) && !f.type.startsWith("image/") && !f.type.startsWith("text/")) { setErroArq(`“${f.name}”: use PDF, DOCX, TXT ou foto.`); continue; }
+      total.push(f);
+    }
+    setArquivos(total);
+  }
+  /** Interrompe a resposta em andamento (botão Parar): cancela o pedido e a GizIA para de gastar créditos. */
+  function parar() { ctrl.current?.abort(); }
+  async function enviar(conteudo: string, opts: { editarId?: string; manter?: Arq[] } = {}) {
     const c = conteudo.trim();
-    if (!c || enviando) return;
-    setMsgs((m) => [...m, { role: "user", content: c }]); setTexto(""); setEnviando(true); setMenuMais(false);
+    if ((!c && arquivos.length === 0 && !(opts.manter?.length)) || enviando) return;
+    const anexosLocais: Arq[] = arquivos.length ? arquivos.map((f) => ({ name: f.name, mime: f.type, size: f.size })) : (opts.manter ?? []);
+    const enviados = arquivos;
+    setMsgs((m) => [...m, { role: "user", content: c || "Estou enviando um arquivo.", attachments: anexosLocais }]);
+    setTexto(""); setArquivos([]); setErroArq(null); setEnviando(true); setMenuMais(false);
+    const ac = new AbortController(); ctrl.current = ac;
     try {
-      const r = await fetch("/api/assistente", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ message: c, sessionId: ativaId ?? undefined }) });
+      let r: Response;
+      if (enviados.length) {
+        const fd = new FormData(); fd.set("message", c); if (ativaId) fd.set("sessionId", ativaId); if (opts.editarId) fd.set("editarId", opts.editarId);
+        for (const f of enviados) fd.append("arquivos", f);
+        r = await fetch("/api/assistente", { method: "POST", body: fd, signal: ac.signal });
+      } else r = await fetch("/api/assistente", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ message: c, sessionId: ativaId ?? undefined, editarId: opts.editarId }), signal: ac.signal });
       const j = await r.json();
       if (j.creditos) setCred(j.creditos);
       if (j.sessionId) {
         if (j.sessionId !== ativaId) { setAtivaId(j.sessionId); url(j.sessionId); }
-        setSessoes((l) => { const resto = l.filter((s) => s.id !== j.sessionId); return [{ id: j.sessionId, title: j.titulo ?? c.slice(0, 48), updatedAt: new Date().toISOString() }, ...resto]; });
+        setSessoes((l) => { const resto = l.filter((x) => x.id !== j.sessionId); return [{ id: j.sessionId, title: j.titulo ?? c.slice(0, 48), updatedAt: new Date().toISOString() }, ...resto]; });
       }
+      // dá id à mensagem do professor (para poder editar) e à resposta
+      setMsgs((m) => {
+        const copia = [...m];
+        const ult = copia.length - 1;
+        if (j.usuarioId && copia[ult]?.role === "user") copia[ult] = { ...copia[ult], id: j.usuarioId, attachments: j.anexos ?? copia[ult].attachments };
+        return copia;
+      });
       if (!r.ok) setMsgs((m) => [...m, { role: "assistant", content: j.erro ?? "Não consegui responder agora.", isError: true }]);
-      else setMsgs((m) => [...m, { role: "assistant", content: j.texto, links: j.links }]);
-    } catch { setMsgs((m) => [...m, { role: "assistant", content: "Sem conexão com a GizIA. Tente de novo.", isError: true }]); }
-    setEnviando(false);
+      else setMsgs((m) => [...m, { id: j.assistenteId, role: "assistant", content: j.texto, links: j.links }]);
+    } catch (e) {
+      if (e instanceof DOMException && e.name === "AbortError") setMsgs((m) => [...m, { role: "assistant", content: "Resposta interrompida.", nota: true }]);
+      else setMsgs((m) => [...m, { role: "assistant", content: "Sem conexão com a GizIA. Tente de novo.", isError: true }]);
+    }
+    ctrl.current = null; setEnviando(false);
+  }
+  /** Editar uma mensagem do professor: a conversa volta até ela e é refeita com o texto novo. */
+  function confirmarEdicao() {
+    if (!editMsg || enviando) return;
+    const alvo = msgs[editMsg.i];
+    const texto = editMsg.texto.trim();
+    if (!alvo?.id || (!texto && !(alvo.attachments?.length))) return;
+    setMsgs((m) => m.slice(0, editMsg.i)); setEditandoMsg(null);
+    void enviar(texto, { editarId: alvo.id, manter: alvo.attachments });
   }
   const ditar = () => {
     if (ouvindo && rec.current) { rec.current.stop(); return; }
@@ -137,22 +187,40 @@ export function Assistente({ disponivel, nome, creditos, sessoes: sessoesIniciai
     </div>);
 
   const composer = (
-    <form className="giz-composer" onSubmit={(e) => { e.preventDefault(); void enviar(texto); }}>
+    <form className="giz-composer" onSubmit={(e) => { e.preventDefault(); void enviar(texto); }}
+      onDragOver={(e) => { if (e.dataTransfer.types.includes("Files")) e.preventDefault(); }} onDrop={(e) => { if (e.dataTransfer.files.length) { e.preventDefault(); adicionarArquivos(e.dataTransfer.files); } }}>
+      {(arquivos.length > 0 || erroArq) && (
+        <div className="giz-arqs">
+          {arquivos.map((f, i) => (
+            <span key={`${f.name}${i}`} className="giz-arq"><span aria-hidden>📎</span><span className="giz-arq-nome" title={f.name}>{f.name}</span><span className="giz-arq-kb">{kb(f.size)}</span>
+              <button type="button" aria-label={`Remover o arquivo ${f.name}`} onClick={() => setArquivos((l) => l.filter((_, k) => k !== i))}>×</button></span>))}
+          {erroArq && <span className="giz-arq-erro" role="alert">{erroArq}</span>}
+        </div>)}
       <div className="giz-pill">
         <div className="giz-mais">
-          <button type="button" className="giz-ico" aria-label="Atalhos de pedidos" aria-expanded={menuMais} onClick={() => setMenuMais((v) => !v)}>＋</button>
+          <button type="button" className="giz-ico" aria-label="Anexar arquivo ou atalhos" aria-expanded={menuMais} aria-haspopup="menu" onClick={() => setMenuMais((v) => !v)}>＋</button>
           {menuMais && (
-            <ul className="giz-menu" role="menu" aria-label="Atalhos de pedidos">
+            <ul className="giz-menu" role="menu" aria-label="Anexar arquivo ou atalhos">
+              <li role="none"><button type="button" role="menuitem" data-testid="anexar-arquivo" onClick={() => { setMenuMais(false); inputArq.current?.click(); }}><span aria-hidden>📎</span>Anexar arquivo</button></li>
+              <li role="presentation" className="giz-menu-sep" aria-hidden />
               {SUGESTOES.map((s) => <li key={s.curto} role="none"><button type="button" role="menuitem" onClick={() => { setTexto(s.texto); setMenuMais(false); campo.current?.focus(); }}><span aria-hidden>{s.icone}</span>{s.curto}</button></li>)}
             </ul>)}
         </div>
+        <input ref={inputArq} type="file" multiple accept=".pdf,.docx,.txt,.md,image/*" className="sr-only" tabIndex={-1} aria-label="Escolher arquivos para anexar" data-testid="input-arquivo"
+          onChange={(e) => { if (e.target.files) adicionarArquivos(e.target.files); e.target.value = ""; }} />
         <label htmlFor="assistente-msg" className="sr-only">Mensagem para a GizIA</label>
-        <textarea id="assistente-msg" ref={campo} rows={1} className="giz-campo" value={texto} maxLength={4000} placeholder="Peça à GizIA" onChange={(e) => setTexto(e.target.value)}
-          onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); void enviar(texto); } }} />
-        {voz && <button type="button" className={`giz-ico ${ouvindo ? "on" : ""}`} aria-label={ouvindo ? "Parar ditado" : "Ditar mensagem"} aria-pressed={ouvindo} onClick={ditar}>🎤</button>}
-        <button className="giz-enviar" type="submit" disabled={enviando || !texto.trim()} aria-label="Enviar">
-          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5" /></svg>
-        </button>
+        <textarea id="assistente-msg" ref={campo} rows={1} className="giz-campo" value={texto} maxLength={4000} placeholder={arquivos.length ? "Diga o que fazer com o arquivo" : "Peça à GizIA"} onChange={(e) => setTexto(e.target.value)}
+          onPaste={(e) => { if (e.clipboardData.files.length) { e.preventDefault(); adicionarArquivos(e.clipboardData.files); } }}
+          onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); if (!enviando) void enviar(texto); } }} />
+        {voz && !enviando && <button type="button" className={`giz-ico ${ouvindo ? "on" : ""}`} aria-label={ouvindo ? "Parar ditado" : "Ditar mensagem"} aria-pressed={ouvindo} onClick={ditar}>🎤</button>}
+        {enviando ? (
+          <button className="giz-enviar giz-parar" type="button" onClick={parar} aria-label="Parar resposta" data-testid="parar">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2.5" /></svg>
+          </button>
+        ) : (
+          <button className="giz-enviar" type="submit" disabled={!texto.trim() && arquivos.length === 0} aria-label="Enviar">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5" /></svg>
+          </button>)}
       </div>
     </form>
   );
@@ -200,7 +268,7 @@ export function Assistente({ disponivel, nome, creditos, sessoes: sessoesIniciai
         </nav>
       </aside>
 
-      <section className="giz-main" aria-label="Conversa com a GizIA">
+      <section className="giz-main" aria-label="Conversa com a GizIA" onDragOver={(e) => { if (e.dataTransfer.types.includes("Files")) e.preventDefault(); }} onDrop={(e) => { if (e.dataTransfer.files.length) { e.preventDefault(); adicionarArquivos(e.dataTransfer.files); } }}>
         <header className="giz-top">
           <button type="button" className="giz-ico giz-abrir" aria-label="Mostrar conversas" onClick={alternarPainel}>
             <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M4 7h16M4 12h16M4 17h10" /></svg>
@@ -221,15 +289,26 @@ export function Assistente({ disponivel, nome, creditos, sessoes: sessoesIniciai
             <div className="giz-scroll" aria-live="polite">
               <div className="giz-conversa">
                 {msgs.map((m, i) => (
-                  <div key={m.id ?? i} className={m.role === "user" ? "giz-msg giz-usuario" : "giz-msg giz-resposta"} data-testid={m.role === "user" ? "msg-usuario" : "msg-assistente"}>
-                    {m.role === "assistant" && <span className="giz-logo giz-avatar"><Faisca size={16} /></span>}
-                    <div className={m.isError ? "giz-balao giz-erro" : "giz-balao"}>
-                      {m.role === "user" ? <p>{m.content}</p> : <Texto t={m.content} />}
+                  <div key={m.id ?? i} className={m.role === "user" ? "giz-msg giz-usuario" : m.nota ? "giz-msg giz-nota" : "giz-msg giz-resposta"} data-testid={m.role === "user" ? "msg-usuario" : m.nota ? "msg-nota" : "msg-assistente"}>
+                    {m.role === "assistant" && !m.nota && <span className="giz-logo giz-avatar"><Faisca size={16} /></span>}
+                    {editMsg?.i === i ? (
+                      <form className="giz-editar" onSubmit={(e) => { e.preventDefault(); confirmarEdicao(); }}>
+                        <label htmlFor="giz-edit" className="sr-only">Editar mensagem</label>
+                        <textarea id="giz-edit" className="giz-campo giz-edit-campo" rows={3} autoFocus value={editMsg.texto} maxLength={4000} onChange={(e) => setEditandoMsg({ i, texto: e.target.value })}
+                          onKeyDown={(e) => { if (e.key === "Escape") setEditandoMsg(null); if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); confirmarEdicao(); } }} />
+                        {m.attachments && m.attachments.length > 0 && <p className="giz-edit-aviso">Os anexos desta mensagem serão mantidos.</p>}
+                        <div className="giz-edit-acoes"><button type="button" className="btn btn-ghost btn-sm" onClick={() => setEditandoMsg(null)}>Cancelar</button><button type="submit" className="btn btn-sm" disabled={!editMsg.texto.trim() && !(m.attachments?.length)}>Enviar</button></div>
+                      </form>
+                    ) : (
+                    <div className={m.isError ? "giz-balao giz-erro" : m.nota ? "giz-nota-txt" : "giz-balao"}>
+                      {m.role === "user" && m.attachments && m.attachments.length > 0 && <div className="giz-arqs giz-arqs-msg">{m.attachments.map((a, k) => <span key={k} className="giz-arq"><span aria-hidden>📎</span><span className="giz-arq-nome" title={a.name}>{a.name}</span><span className="giz-arq-kb">{kb(a.size)}</span></span>)}</div>}
+                      {m.role === "user" ? <p>{m.content}</p> : m.nota ? <span>{m.content}</span> : <Texto t={m.content} />}
                       {m.links && m.links.length > 0 && <div className="mt-3 flex flex-wrap gap-2">{m.links.map((l) => <a key={l.href} className="btn btn-sm" href={l.href}>{l.label}</a>)}</div>}
-                      {m.role === "assistant" && !m.isError && <button type="button" className="giz-copiar" aria-label="Copiar resposta" onClick={() => void copiar(i, m.content)}>{copiado === i ? "Copiado ✓" : "Copiar"}</button>}
-                    </div>
+                      {m.role === "assistant" && !m.isError && !m.nota && <button type="button" className="giz-copiar" aria-label="Copiar resposta" onClick={() => void copiar(i, m.content)}>{copiado === i ? "Copiado ✓" : "Copiar"}</button>}
+                    </div>)}
+                    {m.role === "user" && m.id && !enviando && editMsg?.i !== i && <button type="button" className="giz-editar-btn" aria-label="Editar mensagem" title="Editar mensagem" onClick={() => setEditandoMsg({ i, texto: m.content })}>✎</button>}
                   </div>))}
-                {enviando && <div className="giz-msg giz-resposta" role="status"><span className="giz-logo giz-avatar giz-gira"><Faisca size={16} /></span><div className="giz-balao"><p className="giz-pensando">Pensando e consultando o seu sistema…</p></div></div>}
+                {enviando && <div className="giz-msg giz-resposta" role="status"><span className="giz-logo giz-avatar giz-gira"><Faisca size={16} /></span><div className="giz-balao"><p className="giz-pensando">Pensando e consultando o seu sistema… <button type="button" className="giz-parar-txt" onClick={parar}>Parar</button></p></div></div>}
                 <div ref={fim} />
               </div>
             </div>

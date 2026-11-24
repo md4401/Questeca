@@ -127,6 +127,13 @@
       "when": 1795548447207,
       "tag": "0017_renomear_marca",
       "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1795552174337,
+      "tag": "0018_assistente_anexos",
+      "breakpoints": true
     }
   ]
 }

@@ -612,3 +612,30 @@ html[data-theme="dark"] .app-shell { --k-azul: #232F5C; --k-ceu: #1B3550; --k-ve
 .giz-indisponivel h1 { margin: .75rem 0 .25rem; font-size: 1.4rem; }
 .giz-indisponivel p { color: var(--color-ink-soft); font-size: .92rem; }
 .app-shell .giz-nome { font-size: 1.15rem; line-height: 1.2; }
+
+/* GizIA: anexos, parar e editar mensagem */
+.giz-arqs { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; margin: 0 .25rem .45rem; }
+.giz-arqs-msg { margin: 0 0 .5rem; justify-content: flex-end; }
+.giz-arq { display: inline-flex; align-items: center; gap: .4rem; max-width: 100%; padding: .25rem .4rem .25rem .7rem; border: 1px solid var(--color-line); border-radius: 999px; background: var(--color-sheet); font-size: .8rem; color: var(--color-ink); }
+.giz-arq-nome { max-width: 14rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.giz-arq-kb { color: var(--color-ink-soft); font-size: .72rem; }
+.giz-arq button { display: grid; place-items: center; width: 1.4rem; height: 1.4rem; border: 0; border-radius: 999px; background: none; color: var(--color-ink-soft); font-size: 1rem; line-height: 1; cursor: pointer; }
+.giz-arq button:hover { background: var(--color-line); color: var(--color-ink); }
+.giz-arq:not(:has(button)) { padding-right: .7rem; }
+.giz-arq-erro { font-size: .8rem; color: var(--color-danger); }
+.giz-menu-sep { height: 1px; margin: .3rem .5rem; background: var(--color-line); list-style: none; }
+.giz-parar { background: var(--color-ink); }
+.giz-parar:not(:disabled):hover { transform: none; filter: brightness(1.15); }
+.giz-parar-txt { margin-left: .6rem; padding: .1rem .65rem; border: 1px solid var(--color-line); border-radius: 999px; background: none; color: var(--color-ink); font: inherit; font-size: .8rem; cursor: pointer; animation: none; }
+.giz-parar-txt:hover { background: var(--color-brand-tint); }
+.giz-nota { justify-content: center; }
+.giz-nota-txt { padding: .2rem .8rem; border-radius: 999px; background: var(--color-line); color: var(--color-ink-soft); font-size: .8rem; }
+.giz-usuario { align-items: flex-start; }
+.giz-editar-btn { order: -1; align-self: center; width: 2rem; height: 2rem; border: 0; border-radius: 999px; background: none; color: var(--color-ink-soft); font-size: .95rem; cursor: pointer; opacity: 0; transition: opacity .12s; }
+.giz-usuario:hover .giz-editar-btn, .giz-editar-btn:focus-visible { opacity: 1; }
+@media (pointer: coarse) { .giz-editar-btn { opacity: 1; } }
+.giz-editar-btn:hover { background: var(--color-brand-tint); color: var(--color-ink); }
+.giz-editar { width: min(100%, 36rem); padding: .6rem; border: 1px solid var(--color-brand); border-radius: 1.2rem; background: var(--color-sheet); }
+.giz-edit-campo { display: block; width: 100%; max-height: 14rem; padding: .35rem .45rem; border: 0; outline: 0; resize: vertical; background: transparent; color: var(--color-ink); font: inherit; }
+.giz-edit-aviso { margin: .2rem .45rem; font-size: .75rem; color: var(--color-ink-soft); }
+.giz-edit-acoes { display: flex; justify-content: flex-end; gap: .5rem; margin-top: .4rem; }
