@@ -97,12 +97,12 @@ export const FERRAMENTAS: Ferramenta[] = [
   },
   {
     nome: "gerar_prova", descricao: "Gera uma prova completa (rascunho editável) escolhendo questões liberadas do banco pelos temas, série e disciplina.",
-    args: `{"temas":["..."],"disciplina":"lingua-portuguesa|matematica|historia|...|todas","serie":"${SERIES.join("|")}","quantidade":10,"titulo":"opcional","classId":"opcional"}`,
-    schema: z.object({ temas: z.array(z.string().trim().min(2).max(80)).min(1).max(6), disciplina: z.string().default("todas"), serie: z.string().default("9"), quantidade: z.coerce.number().int().min(1).max(60).default(10), titulo: z.string().max(140).optional(), classId: z.string().optional() }),
+    args: `{"temas":["..."],"disciplina":"lingua-portuguesa|matematica|historia|...|todas","serie":"${SERIES.join("|")}","quantidade":10,"titulo":"opcional","classId":"opcional","criar_com_ia":"banco|completar|novas (padrão banco; só use completar/novas se o professor pedir questões criadas pela IA)"}`,
+    schema: z.object({ temas: z.array(z.string().trim().min(2).max(80)).min(1).max(6), disciplina: z.string().default("todas"), serie: z.string().default("9"), quantidade: z.coerce.number().int().min(1).max(60).default(10), titulo: z.string().max(140).optional(), classId: z.string().optional(), criar_com_ia: z.enum(["banco", "completar", "novas"]).default("banco") }),
     rodar: async (ctx, a) => {
-      const r = await criarProvaPorTemas(ctx, { title: a.titulo, classId: a.classId || null, grade: SERIES.includes(a.serie) ? a.serie : "9", subject: DISCIPLINAS.includes(a.disciplina) ? a.disciplina : "todas", temas: a.temas, count: a.quantidade });
+      const r = await criarProvaPorTemas(ctx, { title: a.titulo, classId: a.classId || null, grade: SERIES.includes(a.serie) ? a.serie : "9", subject: DISCIPLINAS.includes(a.disciplina) ? a.disciplina : "todas", temas: a.temas, count: a.quantidade, ia: a.criar_com_ia });
       if (!r.ok) return { resultado: { erro: r.error } };
-      return { resultado: { criada: true, questoes: r.found, pedidas: r.wanted }, links: [{ label: "Abrir e editar a prova", href: `/app/provas/${r.id}/editar` }, { label: "Prévia e arquivos", href: `/app/provas/${r.id}/previa` }] };
+      return { resultado: { criada: true, questoes: r.found, pedidas: r.wanted, criadas_pela_ia: r.geradas, aviso: r.aviso }, links: [{ label: "Abrir e editar a prova", href: `/app/provas/${r.id}/editar` }, { label: "Prévia e arquivos", href: `/app/provas/${r.id}/previa` }] };
     },
   },
   {

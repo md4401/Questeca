@@ -6,7 +6,7 @@ import { ExamEditor } from "@/components/exam-editor";
 
 export const metadata = { title: "Editar texto da prova" };
 
-export default async function Editar({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ novo?: string }> }) {
+export default async function Editar({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ novo?: string; ia?: string; esc?: string; aviso?: string }> }) {
   const { id } = await params;
   const sp = await searchParams;
   const ctx = await requireCtx();
@@ -19,11 +19,11 @@ export default async function Editar({ params, searchParams }: { params: Promise
     statement: r.item.override?.statement ?? esc(r.q.statement ?? ""),
     alternatives: r.q.alternatives.map((alt) => ({ key: alt.key, text: r.item.override?.alternatives?.find((x) => x.key === alt.key)?.text ?? esc(alt.text) })),
     origStatement: esc(r.q.statement ?? ""), origAlternatives: r.q.alternatives.map((alt) => ({ key: alt.key, text: esc(alt.text) })),
-    edited: !!r.item.override,
+    edited: !!r.item.override, ia: r.q.origin === "ia" ? { answer: r.q.answer ?? "" } : null, tema: r.q.tema ?? null,
   }));
   return (
     <div className="space-y-3">
-      {sp.novo && <p className="rounded-md bg-surface-2 p-3 text-sm" role="status">{(() => { const [f, w] = sp.novo.split("-"); return Number(f) < Number(w) ? `Encontrei ${f} de ${w} questões liberadas para esses temas. Complete com “+ Questão do banco” ou “+ Questão nova”.` : `Prova montada com ${f} questões. Edite à vontade: enunciados, alternativas, ordem, textos e questões.`; })()}</p>}
+      {sp.novo && <p className="rounded-md bg-surface-2 p-3 text-sm" role="status">{(() => { const [f, w] = sp.novo.split("-"); return Number(f) < Number(w) ? `Encontrei ${f} de ${w} questões liberadas para esses temas. Complete com “+ Questão do banco” ou “+ Questão nova”.` : `Prova montada com ${f} questões${sp.esc ? ", escolhidas pela IA entre as melhores do banco" : ""}${sp.ia ? `, ${sp.ia} criada(s) pela IA (confira enunciado e gabarito)` : ""}. Edite à vontade: enunciados, alternativas, ordem, textos e questões.`; })()}{sp.aviso ? ` ${sp.aviso}` : ""}</p>}
       <div className="flex flex-wrap items-center justify-between gap-3"><div><h2 className="text-xl">Editar texto da prova</h2><p className="hint">Mude enunciados, alternativas e instruções como num editor de texto.</p></div>
         <Link className="btn btn-ghost" href={`/app/provas/${id}/previa`}>Ver prévia e baixar arquivos</Link></div>
       <ExamEditor key={rows.map((r) => r.item.id).join("")} assessmentId={id} title={a.title} instructions={a.layout?.instructions ?? (ctx.org.settings.header?.instructions ?? null)} items={items} blocks={a.layout?.blocks ?? []} schoolName={ctx.org.settings.header?.schoolName ?? ""} />

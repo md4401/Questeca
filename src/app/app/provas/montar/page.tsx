@@ -4,6 +4,7 @@ import { visibleClasses } from "@/lib/access";
 import { Form, Field, SubmitButton } from "@/components/form";
 import { GRADES, SUBJECTS } from "@/lib/taxonomy";
 import { aiAvailable } from "@/lib/ai";
+import { CREDITOS_POR_DIA } from "@/lib/credits";
 import { montarProvaAction } from "./actions";
 
 export const metadata = { title: "Montar prova" };
@@ -32,6 +33,14 @@ export default async function Montar({ searchParams }: { searchParams: Promise<{
           <div className="field"><label htmlFor="classId">Turma (opcional)</label>
             <select id="classId" name="classId" className="input" defaultValue={sp.turma ?? ""}><option value="">Sem turma</option>{classes.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}</select></div>
         </div>
+        {aiAvailable() && (
+          <fieldset className="field rounded-md border border-line p-3"><legend className="px-1 text-sm font-medium">Questões novas com IA</legend>
+            <div className="space-y-1.5 text-sm">
+              <label className="flex gap-2 font-normal"><input type="radio" name="ia" value="banco" defaultChecked />Só do banco de provas (a IA escolhe as melhores)</label>
+              <label className="flex gap-2 font-normal"><input type="radio" name="ia" value="completar" />Do banco, e a IA cria as que faltarem</label>
+              <label className="flex gap-2 font-normal"><input type="radio" name="ia" value="novas" />Todas criadas pela IA (até 15)</label>
+            </div>
+            <span className="hint">Questões criadas por IA ficam só na sua escola e vêm marcadas para você conferir o gabarito. Gasta créditos (1.000 tokens = 1 crédito; você tem {CREDITOS_POR_DIA} por dia).</span></fieldset>)}
         <details className="fold mb-3"><summary>Mais opções</summary>
           <Field label="Título da prova" name="title" placeholder="Gerado a partir dos temas" />
           <div className="field"><label htmlFor="dificuldade">Dificuldade</label>

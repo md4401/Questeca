@@ -199,6 +199,11 @@ export const questions = pgTable("questions", {
   version: integer("version").notNull().default(1),
   /** Texto normalizado (sem acento, minúsculo) para a busca; mantido por searchNormOf. */
   searchNorm: text("search_norm"),
+  /** Tema da questão (ex.: "Funções", "Machado de Assis e Realismo") e séries para as quais é indicada (6, 7, 8, 9, em1, em2, em3). */
+  tema: text("tema"),
+  series: jsonb("series").$type<string[]>().notNull().default([]),
+  /** banco (importada) | ia (criada pela IA, pede conferência) | professor (criada à mão). */
+  origin: text("origin").notNull().default("banco"),
   /** Questão própria de uma escola/professor: só ela enxerga. Nulo = banco geral. */
   ownerOrgId: uuid("owner_org_id").references(() => orgs.id, { onDelete: "cascade" }),
   createdAt: created(),

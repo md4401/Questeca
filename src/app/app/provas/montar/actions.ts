@@ -18,12 +18,14 @@ export async function montarProvaAction(_: FormState, fd: FormData): Promise<For
     themes: z.string().trim().min(2, "Escreva ao menos um tema (ex.: Machado de Assis, funções, Revolução Francesa)."),
     count: z.coerce.number().int().min(1).max(60),
     dificuldade: z.coerce.number().int().min(0).max(5).optional(),
+    ia: z.enum(["banco", "completar", "novas"]).default("banco"),
   }).safeParse(Object.fromEntries(fd));
   if (!p.success) return { error: p.error.issues[0].message };
   const r = await criarProvaPorTemas(ctx, {
-    title: p.data.title, classId: p.data.classId || null, grade: p.data.grade, subject: p.data.subject, count: p.data.count, dificuldade: p.data.dificuldade,
+    title: p.data.title, classId: p.data.classId || null, grade: p.data.grade, subject: p.data.subject, count: p.data.count, dificuldade: p.data.dificuldade, ia: p.data.ia,
     insts: fd.getAll("inst").map(String).filter(Boolean), temas: p.data.themes.split(/[,;\n]+/),
   });
   if (!r.ok) return { error: r.error };
-  redirect(`/app/provas/${r.id}/editar?novo=${r.found}-${r.wanted}`);
+  const qs = new URLSearchParams({ novo: `${r.found}-${r.wanted}`, ...(r.geradas ? { ia: String(r.geradas) } : {}), ...(r.escolhidaPorIA ? { esc: "1" } : {}), ...(r.aviso ? { aviso: r.aviso } : {}) });
+  redirect(`/app/provas/${r.id}/editar?${qs}`);
 }

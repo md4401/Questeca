@@ -15,7 +15,9 @@
     "db:migrate": "tsx scripts/migrate.ts",
     "db:seed": "tsx scripts/seed.ts",
     "db:demo": "tsx scripts/create-demo-user.ts",
-    "db:importar-questoes": "tsx scripts/importar-questoes-extraidas.ts"
+    "db:importar-questoes": "tsx scripts/importar-questoes-extraidas.ts",
+    "db:classificar": "tsx scripts/classificar-questoes.ts",
+    "db:classificar-ia": "tsx scripts/classificar-questoes-ia.ts"
   },
   "dependencies": {
     "@fontsource/bricolage-grotesque": "^5.3.0",

@@ -4,6 +4,7 @@ import { eq, inArray } from "drizzle-orm";
 import { db } from "@/db";
 import { questions, questionChanges, questionFlags, assessmentItems, assessments, postFlags, posts, comments, userBlocks, subscriptions, tickets } from "@/db/schema";
 import { searchNormOf } from "@/lib/core/search";
+import { classificar } from "@/lib/core/classificacao";
 import { requireStaff } from "@/lib/session";
 import { audit, notify } from "@/lib/audit";
 import { TOPICS } from "@/lib/taxonomy";
@@ -77,12 +78,14 @@ export async function importQuestionsAction(_: FormState, fd: FormData): Promise
     const assessed = (Array.isArray(r.assessed) ? r.assessed : []).map(String);
     if (assessed.some((s) => !slugs.has(s))) { errors.push(`Item ${i + 1}: tópico desconhecido em “assessed”.`); return; }
     const alternatives = Array.isArray(r.alternatives) ? (r.alternatives as { key: string; text: string }[]) : [];
+    const cl = classificar({ subject: r.subject ? String(r.subject) : "interdisciplinar", title: String(r.title), statement: r.statement ? String(r.statement) : null, alternatives });
     rows.push({
+      tema: r.tema ? String(r.tema) : cl.tema, series: Array.isArray(r.series) ? r.series.map(String) : cl.series,
       institution: String(r.institution), exam: String(r.exam), year: Number(r.year), phase: r.phase ? String(r.phase) : null, day: r.day ? String(r.day) : null,
       booklet: r.booklet ? String(r.booklet) : null, number: r.number ? Number(r.number) : null, page: r.page ? Number(r.page) : null, sourceUrl: r.sourceUrl ? String(r.sourceUrl) : null,
       title: String(r.title), statement: r.statement ? String(r.statement) : null, alternatives, answer: r.answer ? String(r.answer).toUpperCase() : null, answerSource: r.answerSource ? String(r.answerSource) : null,
       licenseNote: r.licenseNote ? String(r.licenseNote) : null, assessed, prerequisites: (Array.isArray(r.prerequisites) ? r.prerequisites : []).map(String), methods: (Array.isArray(r.methods) ? r.methods : []).map(String),
-      searchNorm: searchNormOf({ title: String(r.title), statement: r.statement ? String(r.statement) : null, alternatives, institution: String(r.institution), exam: String(r.exam), year: Number(r.year) }),
+      searchNorm: searchNormOf({ title: String(r.title), statement: r.statement ? String(r.statement) : null, alternatives, institution: String(r.institution), exam: String(r.exam), year: Number(r.year), extra: cl.tema }),
       difficulty: Number(r.difficulty ?? 3), estSeconds: Number(r.estSeconds ?? 180), stimulusId: r.stimulusId ? String(r.stimulusId) : null, status: "curation", isDemo: false,
     });
   });

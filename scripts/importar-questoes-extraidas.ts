@@ -12,6 +12,7 @@ import { neon, neonConfig } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
 import { questions } from "../src/db/schema";
 import { searchNormOf } from "../src/lib/core/search";
+import { classificar } from "../src/lib/core/classificacao";
 
 const url = process.env.DATABASE_URL;
 if (!url) throw new Error("DATABASE_URL ausente");
@@ -48,12 +49,13 @@ for (const f of files) {
       typeof a === "string" ? { key: "ABCDE"[i], text: a } : { key: a.key ?? "ABCDE"[i], text: a.text ?? "" });
     const title = String(r.titulo || r.enunciado).replace(/\s+/g, " ").slice(0, 140);
     const notes = [r.qualidade === "revisar" ? "Revisar: extração automática com baixa confiança." : null, r.tem_figura ? "Tem figura/imagem na prova original." : null, r.notas].filter(Boolean).join(" ");
+    const cl = classificar({ subject: r.disciplina ?? "interdisciplinar", title, statement: r.enunciado, alternatives });
     batch.push({
       institution: nomeBanca(r.instituicao), exam: r.exam, year: r.ano, phase: r.fase ?? null, booklet: r.versao ?? null, number: r.numero, page: r.pagina ?? null,
-      sourceUrl: r.url_prova ?? null, subject: r.disciplina ?? "interdisciplinar", title, statement: r.enunciado, alternatives,
+      sourceUrl: r.url_prova ?? null, subject: cl.subject, tema: cl.tema, series: cl.series, title, statement: r.enunciado, alternatives,
       answer: r.gabarito ?? null, answerSource: r.url_gabarito ?? null, status: "curation",
       licenseNote: `Extração automática de prova oficial pública. Requer curadoria antes de liberar.${notes ? " " + notes : ""}`,
-      searchNorm: searchNormOf({ title, statement: r.enunciado, alternatives, institution: nomeBanca(r.instituicao), exam: r.exam, year: r.ano }),
+      searchNorm: searchNormOf({ title, statement: r.enunciado, alternatives, institution: nomeBanca(r.instituicao), exam: r.exam, year: r.ano, extra: cl.tema }),
     });
   }
 }

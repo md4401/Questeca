@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { saveExamEditsAction, addBlankQuestionAction, type EditPayload } from "@/app/app/provas/[id]/editar/actions";
 import { moveAction, removeItemAction } from "@/app/app/provas/actions";
 
-type Item = { itemId: string; number: number; points: string; statement: string; alternatives: { key: string; text: string }[]; origStatement: string; origAlternatives: { key: string; text: string }[]; edited: boolean };
+type Item = { itemId: string; number: number; points: string; statement: string; alternatives: { key: string; text: string }[]; origStatement: string; origAlternatives: { key: string; text: string }[]; edited: boolean; ia?: { answer: string } | null; tema?: string | null };
 type Block = { id: string; beforeItemId: string | null; text: string };
 type Props = { assessmentId: string; title: string; instructions: string | null; items: Item[]; blocks: Block[]; schoolName: string };
 
@@ -132,6 +132,8 @@ export function ExamEditor({ assessmentId, title, instructions, items: initItems
               <button type="button" className="link-btn" disabled={it.number === items.length} onClick={() => void structural(() => moveAction(assessmentId, it.itemId, "down"))} aria-label={`Descer a questão ${it.number}`}>↓ Descer</button>
               <button type="button" className="link-btn !text-[#B42318]" onClick={() => { if (confirm(`Remover a questão ${it.number} da prova?`)) void structural(() => removeItemAction(assessmentId, it.itemId)); }} aria-label={`Remover a questão ${it.number}`}>Remover</button>
               {it.edited && <span className="text-[#8A5300]">editada</span>}
+              {it.ia && <span className="rounded bg-[#FFF1C2] px-1.5 py-0.5 text-[#6B4300]" data-testid="badge-ia">Criada por IA · gabarito {it.ia.answer} · confira antes de aplicar</span>}
+              {!it.ia && it.tema && <span className="text-[#555]">Tema: {it.tema}</span>}
             </div>
           </section>))}
         {blocksAt(null).map((b) => <div key={b.id}>{blockView(b)}</div>)}

@@ -2,7 +2,9 @@ import "server-only";
 import { and, eq, or, ilike, isNull, isNotNull, inArray, desc } from "drizzle-orm";
 import { db } from "@/db";
 import { questions } from "@/db/schema";
-import { aiAvailable, aiExpandThemes } from "@/lib/ai";
+import { aiAvailable, aiExpandThemes, aiEscolherQuestoes, aiGerarQuestoes, type QuestaoGerada } from "@/lib/ai";
+import { SemCreditos } from "@/lib/credits";
+import { searchNormOf } from "@/lib/core/search";
 import { parseQuery, scoreDoc, norm } from "@/lib/core/search";
 import { subjectLabel, gradeLabel } from "@/lib/taxonomy";
 import { assessments, assessmentItems } from "@/db/schema";
@@ -28,7 +30,7 @@ export async function selecionarPorTemas(i: { orgId: string; temas: string[]; su
   let extra: string[] = [];
   if (aiAvailable()) { try { extra = (await aiExpandThemes({ themes: temas, subject: subjectLabel(p.data.subject), grade: gradeLabel(p.data.grade) })).map(norm).filter((t) => t.length > 2); } catch { /* segue sem IA */ } }
   const termos = [...new Set([...parsed.flatMap((x) => [...x.entities.flatMap((e) => [...e.namesN, ...e.relatedN]), ...x.tokens]), ...extra])].filter((t) => t.length > 1).slice(0, 80);
-  if (!termos.length) return { picked: [] as never[], temas, termos: 0 };
+  if (!termos.length) return { picked: [] as never[], candidatos: [] as never[], temas, termos: 0 };
 
   // 2) candidatos no SQL (índice trigram), só questões liberadas e com gabarito
   const cond = [
@@ -46,7 +48,7 @@ export async function selecionarPorTemas(i: { orgId: string; temas: string[]; su
     const porTema = parsed.map((x) => scoreDoc(doc, x).score);
     const norma = q.searchNorm ?? "";
     const aiHits = extra.filter((t) => norma.includes(t)).length;
-    const fit = -Math.abs(q.difficulty - alvo) * 0.5 - (used.has(q.id) ? 6 : 0);
+    const fit = -Math.abs(q.difficulty - alvo) * 0.3 + (q.series.length ? (q.series.includes(i.grade) ? 2 : -2) : 0) - (used.has(q.id) ? 6 : 0);
     return { q, porTema, base: Math.max(0, ...porTema) + aiHits * 1.5 + fit };
   }).filter((s) => s.base > 0 && (Math.max(...s.porTema) > 0 || extra.length > 0));
   scored.sort((a, b) => b.base - a.base);
@@ -62,32 +64,79 @@ export async function selecionarPorTemas(i: { orgId: string; temas: string[]; su
   }
   for (const s of scored) { if (picked.length >= p.data.count) break; if (!taken.has(s.q.id)) { taken.add(s.q.id); picked.push(s); } }
 
-  return { picked, temas, termos: termos.length };
+  return { picked, candidatos: scored.slice(0, 30), temas, termos: termos.length };
 }
 
-/** Cria o rascunho da prova a partir dos temas (usado pelo formulário "Montar prova" e pelo assistente). */
-export async function criarProvaPorTemas(ctx: Ctx, i: { title?: string; classId?: string | null; grade: string; subject: string; temas: string[]; count: number; insts?: string[]; dificuldade?: number }): Promise<{ ok: true; id: string; found: number; wanted: number } | { ok: false; error: string }> {
+export type ModoIA = "banco" | "completar" | "novas";
+
+/** Cria o rascunho da prova a partir dos temas (formulário "Montar prova" e assistente). A IA, quando disponível, escolhe as melhores questões do banco e, se o professor habilitar, cria questões novas. */
+export async function criarProvaPorTemas(ctx: Ctx, i: { title?: string; classId?: string | null; grade: string; subject: string; temas: string[]; count: number; insts?: string[]; dificuldade?: number; ia?: ModoIA }): Promise<{ ok: true; id: string; found: number; wanted: number; geradas: number; escolhidaPorIA: boolean; aviso?: string } | { ok: false; error: string }> {
   const classId = i.classId || null;
   if (classId) await loadClass(ctx, classId);
   const temas = i.temas.map((t) => t.trim()).filter(Boolean).slice(0, 8);
   const insts = i.insts ?? [];
-  const r = await selecionarPorTemas({ orgId: ctx.org.id, temas, subject: i.subject, grade: i.grade, count: i.count, insts, dificuldade: i.dificuldade, usedIds: await usedQuestionIdsForClass(classId) });
+  const modo: ModoIA = i.ia ?? "banco";
+  if (modo !== "banco" && !aiAvailable()) return { ok: false, error: "Criar questões com IA precisa da IA ativada nesta instalação (chave de IA)." };
+  const r = modo === "novas" ? { picked: [] as Awaited<ReturnType<typeof selecionarPorTemas>>["picked"], candidatos: [] as Awaited<ReturnType<typeof selecionarPorTemas>>["candidatos"], termos: temas.length }
+    : await selecionarPorTemas({ orgId: ctx.org.id, temas, subject: i.subject, grade: i.grade, count: i.count, insts, dificuldade: i.dificuldade, usedIds: await usedQuestionIdsForClass(classId) });
   if (!r.termos) return { ok: false, error: "Não entendi os temas. Tente palavras como “porcentagem” ou “Machado de Assis”." };
-  const picked = r.picked;
-  if (!picked.length) return { ok: false, error: "Não encontrei questões liberadas para esses temas. Tente outros termos, mude a disciplina para “Todas” ou remova o filtro de bancas." };
+  let picked = r.picked; let aviso: string | undefined; let escolhidaPorIA = false;
+
+  // A IA escolhe as melhores entre as candidatas já filtradas (tema, série e relevância)
+  if (modo !== "novas" && aiAvailable() && r.candidatos.length > Math.min(i.count, picked.length)) {
+    try {
+      const ids = await aiEscolherQuestoes({ temas, disciplina: subjectLabel(i.subject === "todas" ? "interdisciplinar" : i.subject), serie: gradeLabel(i.grade), n: i.count, candidatas: r.candidatos.map((c) => ({ id: c.q.id, tema: c.q.tema, series: c.q.series, banca: c.q.institution, ano: c.q.year, trecho: (c.q.statement ?? "").replace(/\s+/g, " ").slice(0, 170) })) });
+      const porId = new Map(r.candidatos.map((c) => [c.q.id.slice(0, 8), c]));
+      const escolhidas = [...new Set(ids)].map((x) => porId.get(x)).filter((x): x is NonNullable<typeof x> => !!x).slice(0, i.count);
+      if (escolhidas.length) {
+        const tem = new Set(escolhidas.map((e) => e.q.id));
+        picked = [...escolhidas, ...picked.filter((p) => !tem.has(p.q.id))].slice(0, i.count);
+        escolhidaPorIA = true;
+      }
+    } catch (e) { if (e instanceof SemCreditos) aviso = "Seus créditos de IA acabaram: as questões foram escolhidas pelo critério automático."; }
+  }
+
+  // Criação de questões novas com IA (só quando o professor habilita)
+  const faltam = modo === "novas" ? Math.min(i.count, 15) : modo === "completar" ? Math.max(0, i.count - picked.length) : 0;
+  const geradas: { id: string; tema: string }[] = [];
+  if (faltam > 0) {
+    try {
+      const serieRot = gradeLabel(i.grade); const disc = subjectLabel(i.subject === "todas" ? "interdisciplinar" : i.subject);
+      const novas: QuestaoGerada[] = [];
+      for (let k = 0; k < faltam && novas.length < faltam; k += 8) novas.push(...(await aiGerarQuestoes({ temas, disciplina: disc, serie: serieRot, n: Math.min(8, faltam - k) })));
+      const ano = new Date().getFullYear();
+      for (const q of novas.slice(0, faltam)) {
+        const alternatives = q.alternativas.map((t, n) => ({ key: "ABCDE"[n], text: t }));
+        const [row] = await db.insert(questions).values({
+          institution: "Questeca IA", exam: "Questão criada por IA", year: ano, subject: i.subject === "todas" ? "interdisciplinar" : i.subject, tema: q.tema, series: [i.grade], origin: "ia", ownerOrgId: ctx.org.id,
+          title: q.enunciado.replace(/\s+/g, " ").slice(0, 100), statement: q.enunciado, alternatives, answer: q.gabarito, answerSource: "Gerada por IA — confira o gabarito", status: "released",
+          licenseNote: "Questão criada por IA a pedido do professor; visível só para a escola. Confira enunciado e gabarito.",
+          searchNorm: searchNormOf({ title: q.enunciado.slice(0, 100), statement: q.enunciado, alternatives, institution: "Questeca IA", exam: "Questão criada por IA", year: ano, extra: q.tema }),
+        }).returning({ id: questions.id });
+        geradas.push({ id: row.id, tema: q.tema });
+      }
+      if (geradas.length < faltam) aviso = `A IA criou ${geradas.length} de ${faltam} questões; complete com “+ Questão nova” ou “+ Questão do banco”.`;
+    } catch (e) { aviso = e instanceof SemCreditos ? "Seus créditos de IA acabaram antes de criar as questões novas." : "Não consegui criar as questões com a IA agora."; }
+  }
+  if (!picked.length && !geradas.length) return { ok: false, error: aviso ?? "Não encontrei questões liberadas para esses temas. Tente outros termos, mude a disciplina para “Todas”, remova o filtro de bancas ou habilite “Criar com IA”." };
+
+  const total = picked.length + geradas.length;
   const title = i.title || `Prova de ${subjectLabel(i.subject === "todas" ? "interdisciplinar" : i.subject)} — ${temas.slice(0, 2).join(", ")}`;
   const [a] = await db.insert(assessments).values({
     orgId: ctx.org.id, classId, ownerId: ctx.user.id, title, scope: { willFall: [...new Set(picked.flatMap((s) => [...s.q.assessed, ...s.q.prerequisites]))], prerequisite: [], notTaught: [], confirm: [], sources: {} },
-    wantedCount: i.count, durationMin: Math.max(10, picked.length * 4), totalPoints: "10", filters: { institutions: insts, difficulty: [] },
+    wantedCount: i.count, durationMin: Math.max(10, total * 4), totalPoints: "10", filters: { institutions: insts, difficulty: [] },
   }).returning();
   const cota = await consumeAssembly(ctx.org.id, a.id);
   if (!cota.ok) { await db.delete(assessments).where(eq(assessments.id, a.id)); return { ok: false, error: `${cota.reason} Você ainda pode montar manualmente pelo Banco de questões.` }; }
-  const pts = evenPoints(10, picked.length);
-  await db.insert(assessmentItems).values(picked.map((s, k) => {
-    const hit = temas.find((_, n) => s.porTema[n] > 0);
-    return { assessmentId: a.id, questionId: s.q.id, position: k + 1, points: String(pts[k]), reason: `${hit ? `Tema “${hit}”. ` : "Relacionada aos temas pedidos. "}${s.q.institution} ${s.q.year}.` };
-  }));
-  await audit(ctx.user.id, ctx.org.id, "assessment.composed", a.id, { temas, found: picked.length });
+  const pts = evenPoints(10, total);
+  await db.insert(assessmentItems).values([
+    ...picked.map((s, k) => {
+      const hit = temas.find((_, n) => s.porTema[n] > 0);
+      return { assessmentId: a.id, questionId: s.q.id, position: k + 1, points: String(pts[k]), reason: `${escolhidaPorIA ? "Escolhida pela IA" : "Escolhida"}${s.q.tema ? ` · ${s.q.tema}` : ""}${hit ? ` · tema “${hit}”` : ""}. ${s.q.institution} ${s.q.year}.` };
+    }),
+    ...geradas.map((g, k) => ({ assessmentId: a.id, questionId: g.id, position: picked.length + k + 1, points: String(pts[picked.length + k]), reason: `Criada pela IA · ${g.tema}. Confira enunciado e gabarito.` })),
+  ]);
+  await audit(ctx.user.id, ctx.org.id, "assessment.composed", a.id, { temas, found: picked.length, geradas: geradas.length, ia: escolhidaPorIA });
   await track("search_done", ctx.user.id, ctx.org.id, { found: picked.length, wanted: i.count });
-  return { ok: true, id: a.id, found: picked.length, wanted: i.count };
+  return { ok: true, id: a.id, found: total, wanted: i.count, geradas: geradas.length, escolhidaPorIA, aviso };
 }
