@@ -1,0 +1,238 @@
+{
+ "edicoes": {
+  "ita-2027-1-fase": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 48,
+   "motivo": "prova escaneado (PDF escaneado, sem OCR)"
+  },
+  "ita-2027-2-fase": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "discursiva (2ª fase dissertativa, sem alternativas)"
+  },
+  "ita-2026-1-fase": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 48,
+   "motivo": "prova escaneado (PDF escaneado, sem OCR)"
+  },
+  "ita-2026-2-fase": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "discursiva (2ª fase dissertativa, sem alternativas)"
+  },
+  "ita-2025-1-fase": {
+   "status": "parcial",
+   "questoes": 30,
+   "ok": 9,
+   "revisar": 21,
+   "gabaritos": 48,
+   "motivo": "faltam [7, 8, 17, 18, 20, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48] | heads=['matematica', 'fisica', 'quimica', 'ingles'] nper=12"
+  },
+  "ita-2025-2-fase": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "discursiva (2ª fase dissertativa, sem alternativas)"
+  },
+  "ita-2024-1-fase": {
+   "status": "parcial",
+   "questoes": 57,
+   "ok": 31,
+   "revisar": 26,
+   "gabaritos": 60,
+   "motivo": "faltam [2, 9, 39] | heads=['fisica', 'lingua-portuguesa', 'ingles', 'matematica', 'quimica'] nper=12"
+  },
+  "ita-2024-2-fase": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "discursiva (2ª fase dissertativa, sem alternativas)"
+  },
+  "ita-2023-1-fase": {
+   "status": "parcial",
+   "questoes": 47,
+   "ok": 16,
+   "revisar": 31,
+   "gabaritos": 60,
+   "motivo": "faltam [3, 4, 8, 9, 20, 26, 31, 32, 33, 34, 35, 40, 44] | heads=['fisica', 'lingua-portuguesa', 'ingles', 'matematica', 'quimica'] nper=12"
+  },
+  "ita-2023-2-fase": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "discursiva (2ª fase dissertativa, sem alternativas)"
+  },
+  "ita-2022-1-fase": {
+   "status": "parcial",
+   "questoes": 63,
+   "ok": 22,
+   "revisar": 41,
+   "gabaritos": 70,
+   "motivo": "faltam [2, 5, 6, 7, 8, 14, 19] | heads=['fisica', 'lingua-portuguesa', 'ingles', 'matematica', 'quimica'] nper=14"
+  },
+  "ita-2022-2-fase": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "discursiva (2ª fase dissertativa, sem alternativas)"
+  },
+  "ita-2021-1-fase": {
+   "status": "parcial",
+   "questoes": 41,
+   "ok": 21,
+   "revisar": 20,
+   "gabaritos": 70,
+   "motivo": "faltam [4, 7, 12, 17, 18, 19, 20, 21, 22, 23, 24, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 43, 47, 54] | heads=['fisica', 'lingua-portuguesa', 'ingles', 'matematica', 'quimica'] nper=14"
+  },
+  "ita-2021-2-fase": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "discursiva (2ª fase dissertativa, sem alternativas)"
+  },
+  "ita-2020-1-fase": {
+   "status": "parcial",
+   "questoes": 26,
+   "ok": 7,
+   "revisar": 19,
+   "gabaritos": 70,
+   "motivo": "faltam [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 31, 32, 34, 42, 43, 50, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70] | heads=['fisica', 'lingua-portuguesa', 'ingles', 'matematica', 'quimica'] nper=14"
+  },
+  "ita-2020-2-fase": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "discursiva (2ª fase dissertativa, sem alternativas)"
+  },
+  "ita-2019-1-fase": {
+   "status": "parcial",
+   "questoes": 16,
+   "ok": 4,
+   "revisar": 12,
+   "gabaritos": 60,
+   "motivo": "faltam [2, 6, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 44, 46, 49, 50, 51, 52, 54, 56, 57, 58, 59, 60] | heads=['fisica', 'lingua-portuguesa', 'ingles', 'matematica', 'quimica'] nper=12"
+  },
+  "ita-2019-2-fase": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "discursiva (2ª fase dissertativa, sem alternativas)"
+  },
+  "ita-2018-prova-por-disciplina": {
+   "status": "parcial",
+   "questoes": 42,
+   "ok": 25,
+   "revisar": 17,
+   "gabaritos": 100,
+   "motivo": "portugues: escaneado (sem OCR) | rejeitadas: [(2, ['enunciado curto demais']), (5, ['campo ausente: titulo', 'campo ausente: enunciado', 'enunciado curto demais']), (7, ['campo ausente: titulo', 'campo ausente: enunciado', 'enunciado curto demais']), (10, ['campo ausente: titulo', 'campo ausente: enunciado', 'enunciado curto demais']), (11, ['enunciado curto demais'])]"
+  },
+  "ita-2017-prova-por-disciplina": {
+   "status": "parcial",
+   "questoes": 84,
+   "ok": 28,
+   "revisar": 56,
+   "gabaritos": 98,
+   "motivo": "rejeitadas: [(2, ['campo ausente: titulo', 'campo ausente: enunciado', 'enunciado curto demais']), (4, ['campo ausente: titulo', 'campo ausente: enunciado', 'enunciado curto demais']), (7, ['campo ausente: titulo', 'campo ausente: enunciado', 'enunciado curto demais']), (8, ['campo ausente: titulo', 'campo ausente: enunciado', 'enunciado curto demais']), (16, ['campo ausente: titulo', 'campo ausente: enunciado', 'enunciado curto demais'])]"
+  },
+  "ita-2016-prova-por-disciplina": {
+   "status": "parcial",
+   "questoes": 77,
+   "ok": 45,
+   "revisar": 32,
+   "gabaritos": 100,
+   "motivo": "rejeitadas: [(2, ['campo ausente: titulo', 'campo ausente: enunciado', 'enunciado curto demais']), (6, ['enunciado curto demais']), (8, ['enunciado curto demais']), (9, ['enunciado curto demais']), (13, ['enunciado curto demais'])]"
+  },
+  "ita-2015-prova-por-disciplina": {
+   "status": "parcial",
+   "questoes": 76,
+   "ok": 40,
+   "revisar": 36,
+   "gabaritos": 100,
+   "motivo": "rejeitadas: [(4, ['campo ausente: titulo', 'campo ausente: enunciado', 'enunciado curto demais']), (7, ['campo ausente: titulo', 'campo ausente: enunciado', 'enunciado curto demais']), (11, ['enunciado curto demais']), (18, ['campo ausente: titulo', 'campo ausente: enunciado', 'enunciado curto demais'])]"
+  },
+  "ita-2014-prova-por-disciplina": {
+   "status": "parcial",
+   "questoes": 69,
+   "ok": 36,
+   "revisar": 33,
+   "gabaritos": 100,
+   "motivo": ""
+  },
+  "ita-2013-prova-por-disciplina": {
+   "status": "parcial",
+   "questoes": 88,
+   "ok": 39,
+   "revisar": 49,
+   "gabaritos": 100,
+   "motivo": ""
+  },
+  "ita-2012-prova-por-disciplina": {
+   "status": "parcial",
+   "questoes": 93,
+   "ok": 37,
+   "revisar": 56,
+   "gabaritos": 100,
+   "motivo": ""
+  },
+  "ita-2011-prova-por-disciplina": {
+   "status": "parcial",
+   "questoes": 78,
+   "ok": 47,
+   "revisar": 31,
+   "gabaritos": 100,
+   "motivo": "rejeitadas: [(13, ['enunciado curto demais'])]"
+  },
+  "ita-2010-prova-por-disciplina": {
+   "status": "parcial",
+   "questoes": 89,
+   "ok": 40,
+   "revisar": 49,
+   "gabaritos": 100,
+   "motivo": ""
+  },
+  "ita-2009-prova-por-disciplina": {
+   "status": "parcial",
+   "questoes": 91,
+   "ok": 57,
+   "revisar": 34,
+   "gabaritos": 100,
+   "motivo": ""
+  },
+  "ita-2008-prova-por-disciplina": {
+   "status": "parcial",
+   "questoes": 74,
+   "ok": 37,
+   "revisar": 37,
+   "gabaritos": 100,
+   "motivo": ""
+  }
+ },
+ "falhas_download": [],
+ "observacoes": "Extração com pdftotext + regex. 2ª fase (2019-2027) pulada como discursiva sem baixar os arquivos (o lote não lista gabarito de alternativas; as de 2019-2023 só têm provas dissertativas/redação). ITA 2026 e 2027 1ª fase: PDFs da prova escaneados (sem texto), pulados (sem OCR); gabaritos existem mas não foram usados. ITA 2018 Português: PDF escaneado, pulado. ITA 2019 e 2020 1ª fase: várias páginas do PDF sem camada de texto (escaneadas), então só parte das questões foi extraída. Questões não extraídas (parcial) têm layout de alternativas/fórmulas não reconhecível ou enunciado vazio (somente figura); não foram inventadas. Gabarito: 'anulada' ('*' / '(*)') grava gabarito null e qualidade revisar. Gabaritos com marcador (*)/(**) ao lado da letra: letra gravada, revisar. Provas antigas (2008-2018): uma edição com PDFs por disciplina e gabarito único; numeração é por disciplina (Português 21-40 em alguns anos). Qualidade 'ok' é heurística: em Física/Química/Matemática, qualquer símbolo fora do alfabeto/pontuação comum ou linhas soltas (frações/raízes) força 'revisar'; menção a figura/gráfico/tabela força 'revisar' com tem_figura true. Em Português/Inglês, textos de apoio introduzidos por 'As questões de X a Y referem-se...' foram anexados ao enunciado; sem texto identificado e com referência a texto, 'revisar'. Fórmulas em PDF podem sair com ordem embaralhada mesmo em 'ok' — revisão amostral recomendada."
+}

@@ -1,0 +1,422 @@
+{
+ "edicoes": {
+  "upe-ssa1-2021-dia1": {
+   "status": "parcial",
+   "questoes": 40,
+   "ok": 14,
+   "revisar": 26,
+   "gabaritos": 44,
+   "motivo": "questoes sem parse (numeros [15, 17, 23, 29]) ou contagem != gabarito (44 vs 44); as questoes sem parse (alternativas ilegiveis/ausentes no texto) nao foram gravadas"
+  },
+  "upe-ssa1-2021-dia2": {
+   "status": "parcial",
+   "questoes": 44,
+   "ok": 23,
+   "revisar": 21,
+   "gabaritos": 46,
+   "motivo": "questoes sem parse (numeros [18, 25]) ou contagem != gabarito (46 vs 46); as questoes sem parse (alternativas ilegiveis/ausentes no texto) nao foram gravadas"
+  },
+  "upe-ssa2-2021-dia1": {
+   "status": "parcial",
+   "questoes": 40,
+   "ok": 8,
+   "revisar": 32,
+   "gabaritos": 44,
+   "motivo": "questoes sem parse (numeros [21, 28]) ou contagem != gabarito (42 vs 44); as questoes sem parse (alternativas ilegiveis/ausentes no texto) nao foram gravadas"
+  },
+  "upe-ssa2-2021-dia2": {
+   "status": "parcial",
+   "questoes": 23,
+   "ok": 16,
+   "revisar": 7,
+   "gabaritos": 46,
+   "motivo": "questoes sem parse (numeros [11]) ou contagem != gabarito (24 vs 46); as questoes sem parse (alternativas ilegiveis/ausentes no texto) nao foram gravadas"
+  },
+  "upe-ssa3-2021-dia1": {
+   "status": "parcial",
+   "questoes": 40,
+   "ok": 13,
+   "revisar": 27,
+   "gabaritos": 42,
+   "motivo": "questoes sem parse (numeros [20, 27]) ou contagem != gabarito (42 vs 42); as questoes sem parse (alternativas ilegiveis/ausentes no texto) nao foram gravadas"
+  },
+  "upe-ssa3-2021-dia2": {
+   "status": "parcial",
+   "questoes": 9,
+   "ok": 1,
+   "revisar": 8,
+   "gabaritos": 58,
+   "motivo": "questoes sem parse (numeros []) ou contagem != gabarito (9 vs 58); as questoes sem parse (alternativas ilegiveis/ausentes no texto) nao foram gravadas"
+  },
+  "upe-ssa1-2022-dia1": {
+   "status": "extraida",
+   "questoes": 44,
+   "ok": 17,
+   "revisar": 27,
+   "gabaritos": 44,
+   "motivo": ""
+  },
+  "upe-ssa1-2022-dia2": {
+   "status": "parcial",
+   "questoes": 44,
+   "ok": 24,
+   "revisar": 20,
+   "gabaritos": 46,
+   "motivo": "questoes sem parse (numeros [21]) ou contagem != gabarito (45 vs 46); as questoes sem parse (alternativas ilegiveis/ausentes no texto) nao foram gravadas"
+  },
+  "upe-ssa2-2022-dia1": {
+   "status": "parcial",
+   "questoes": 39,
+   "ok": 17,
+   "revisar": 22,
+   "gabaritos": 44,
+   "motivo": "questoes sem parse (numeros [16, 23, 25, 28, 32]) ou contagem != gabarito (44 vs 44); as questoes sem parse (alternativas ilegiveis/ausentes no texto) nao foram gravadas"
+  },
+  "upe-ssa2-2022-dia2": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "PDF escaneado (sem camada de texto)"
+  },
+  "upe-ssa3-2022-dia1": {
+   "status": "parcial",
+   "questoes": 40,
+   "ok": 11,
+   "revisar": 29,
+   "gabaritos": 42,
+   "motivo": "questoes sem parse (numeros [18, 19]) ou contagem != gabarito (42 vs 42); as questoes sem parse (alternativas ilegiveis/ausentes no texto) nao foram gravadas"
+  },
+  "upe-ssa3-2022-dia2": {
+   "status": "parcial",
+   "questoes": 44,
+   "ok": 31,
+   "revisar": 13,
+   "gabaritos": 58,
+   "motivo": "questoes sem parse (numeros [11, 21]) ou contagem != gabarito (46 vs 58); as questoes sem parse (alternativas ilegiveis/ausentes no texto) nao foram gravadas"
+  },
+  "upe-ssa1-2023-dia1": {
+   "status": "parcial",
+   "questoes": 4,
+   "ok": 1,
+   "revisar": 3,
+   "gabaritos": 45,
+   "motivo": "questoes sem parse (numeros [5, 6, 7, 8, 9, 10, 11]) ou contagem != gabarito (11 vs 45); as questoes sem parse (alternativas ilegiveis/ausentes no texto) nao foram gravadas"
+  },
+  "upe-ssa1-2023-dia2": {
+   "status": "parcial",
+   "questoes": 30,
+   "ok": 12,
+   "revisar": 18,
+   "gabaritos": 45,
+   "motivo": "questoes sem parse (numeros []) ou contagem != gabarito (30 vs 45); as questoes sem parse (alternativas ilegiveis/ausentes no texto) nao foram gravadas"
+  },
+  "upe-ssa2-2023-dia1": {
+   "status": "parcial",
+   "questoes": 38,
+   "ok": 19,
+   "revisar": 19,
+   "gabaritos": 44,
+   "motivo": "questoes sem parse (numeros [13, 14, 17, 19, 20, 24]) ou contagem != gabarito (44 vs 44); as questoes sem parse (alternativas ilegiveis/ausentes no texto) nao foram gravadas"
+  },
+  "upe-ssa2-2023-dia2": {
+   "status": "parcial",
+   "questoes": 18,
+   "ok": 8,
+   "revisar": 10,
+   "gabaritos": 46,
+   "motivo": "questoes sem parse (numeros [5, 14]) ou contagem != gabarito (20 vs 46); as questoes sem parse (alternativas ilegiveis/ausentes no texto) nao foram gravadas"
+  },
+  "upe-ssa3-2023-dia1": {
+   "status": "parcial",
+   "questoes": 28,
+   "ok": 8,
+   "revisar": 20,
+   "gabaritos": 42,
+   "motivo": "questoes sem parse (numeros [1, 2, 3, 10, 13, 14, 15, 17, 21, 22, 23, 27, 35, 37]) ou contagem != gabarito (42 vs 42); as questoes sem parse (alternativas ilegiveis/ausentes no texto) nao foram gravadas"
+  },
+  "upe-ssa3-2023-dia2": {
+   "status": "parcial",
+   "questoes": 40,
+   "ok": 20,
+   "revisar": 20,
+   "gabaritos": 58,
+   "motivo": "questoes sem parse (numeros [11, 13]) ou contagem != gabarito (42 vs 58); as questoes sem parse (alternativas ilegiveis/ausentes no texto) nao foram gravadas"
+  },
+  "upe-ssa1-2024-dia1": {
+   "status": "extraida",
+   "questoes": 45,
+   "ok": 17,
+   "revisar": 28,
+   "gabaritos": 45,
+   "motivo": ""
+  },
+  "upe-ssa1-2024-dia2": {
+   "status": "parcial",
+   "questoes": 5,
+   "ok": 3,
+   "revisar": 2,
+   "gabaritos": 45,
+   "motivo": "questoes sem parse (numeros [6, 7, 8, 9, 10]) ou contagem != gabarito (10 vs 45); as questoes sem parse (alternativas ilegiveis/ausentes no texto) nao foram gravadas"
+  },
+  "upe-ssa2-2024-dia1": {
+   "status": "extraida",
+   "questoes": 45,
+   "ok": 22,
+   "revisar": 23,
+   "gabaritos": 45,
+   "motivo": ""
+  },
+  "upe-ssa2-2024-dia2": {
+   "status": "parcial",
+   "questoes": 43,
+   "ok": 22,
+   "revisar": 21,
+   "gabaritos": 45,
+   "motivo": "questoes sem parse (numeros [10, 17]) ou contagem != gabarito (45 vs 45); as questoes sem parse (alternativas ilegiveis/ausentes no texto) nao foram gravadas"
+  },
+  "upe-ssa3-2024-dia1": {
+   "status": "parcial",
+   "questoes": 41,
+   "ok": 18,
+   "revisar": 23,
+   "gabaritos": 42,
+   "motivo": "questoes sem parse (numeros [13]) ou contagem != gabarito (42 vs 42); as questoes sem parse (alternativas ilegiveis/ausentes no texto) nao foram gravadas"
+  },
+  "upe-ssa3-2024-dia2": {
+   "status": "parcial",
+   "questoes": 46,
+   "ok": 0,
+   "revisar": 46,
+   "gabaritos": 0,
+   "motivo": "questoes sem parse (numeros []) ou contagem != gabarito (46 vs 0); as questoes sem parse (alternativas ilegiveis/ausentes no texto) nao foram gravadas"
+  },
+  "upe-ssa1-2025-dia1": {
+   "status": "parcial",
+   "questoes": 40,
+   "ok": 17,
+   "revisar": 23,
+   "gabaritos": 45,
+   "motivo": "questoes sem parse (numeros [37, 38, 39, 40, 44]) ou contagem != gabarito (45 vs 45); as questoes sem parse (alternativas ilegiveis/ausentes no texto) nao foram gravadas"
+  },
+  "upe-ssa1-2025-dia2": {
+   "status": "parcial",
+   "questoes": 39,
+   "ok": 25,
+   "revisar": 14,
+   "gabaritos": 45,
+   "motivo": "questoes sem parse (numeros [2, 6, 10, 13, 17, 18]) ou contagem != gabarito (45 vs 45); as questoes sem parse (alternativas ilegiveis/ausentes no texto) nao foram gravadas"
+  },
+  "upe-ssa2-2025-dia1": {
+   "status": "parcial",
+   "questoes": 41,
+   "ok": 15,
+   "revisar": 26,
+   "gabaritos": 45,
+   "motivo": "questoes sem parse (numeros [12, 34, 38, 44]) ou contagem != gabarito (45 vs 45); as questoes sem parse (alternativas ilegiveis/ausentes no texto) nao foram gravadas"
+  },
+  "upe-ssa2-2025-dia2": {
+   "status": "parcial",
+   "questoes": 31,
+   "ok": 20,
+   "revisar": 11,
+   "gabaritos": 45,
+   "motivo": "questoes sem parse (numeros [4, 9, 16]) ou contagem != gabarito (34 vs 45); as questoes sem parse (alternativas ilegiveis/ausentes no texto) nao foram gravadas"
+  },
+  "upe-ssa3-2025-dia1": {
+   "status": "parcial",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 45,
+   "motivo": "questoes sem parse (numeros []) ou contagem != gabarito (0 vs 45); as questoes sem parse (alternativas ilegiveis/ausentes no texto) nao foram gravadas"
+  },
+  "upe-ssa3-2025-dia2": {
+   "status": "parcial",
+   "questoes": 38,
+   "ok": 20,
+   "revisar": 18,
+   "gabaritos": 50,
+   "motivo": "questoes sem parse (numeros [11, 12, 13, 15, 18, 27, 31, 36]) ou contagem != gabarito (46 vs 50); as questoes sem parse (alternativas ilegiveis/ausentes no texto) nao foram gravadas"
+  },
+  "upe-ssa1-2026-dia1": {
+   "status": "parcial",
+   "questoes": 31,
+   "ok": 13,
+   "revisar": 18,
+   "gabaritos": 45,
+   "motivo": "questoes sem parse (numeros []) ou contagem != gabarito (31 vs 45); as questoes sem parse (alternativas ilegiveis/ausentes no texto) nao foram gravadas"
+  },
+  "upe-ssa1-2026-dia2": {
+   "status": "parcial",
+   "questoes": 44,
+   "ok": 24,
+   "revisar": 20,
+   "gabaritos": 45,
+   "motivo": "questoes sem parse (numeros [18]) ou contagem != gabarito (45 vs 45); as questoes sem parse (alternativas ilegiveis/ausentes no texto) nao foram gravadas"
+  },
+  "upe-ssa2-2026-dia1": {
+   "status": "extraida",
+   "questoes": 45,
+   "ok": 16,
+   "revisar": 29,
+   "gabaritos": 45,
+   "motivo": ""
+  },
+  "upe-ssa2-2026-dia2": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "PDF escaneado (sem camada de texto)"
+  },
+  "upe-ssa3-2026-dia1": {
+   "status": "parcial",
+   "questoes": 44,
+   "ok": 24,
+   "revisar": 20,
+   "gabaritos": 45,
+   "motivo": "questoes sem parse (numeros [5]) ou contagem != gabarito (45 vs 45); as questoes sem parse (alternativas ilegiveis/ausentes no texto) nao foram gravadas"
+  },
+  "upe-ssa3-2026-dia2": {
+   "status": "parcial",
+   "questoes": 45,
+   "ok": 29,
+   "revisar": 16,
+   "gabaritos": 50,
+   "motivo": "questoes sem parse (numeros [4]) ou contagem != gabarito (46 vs 50); as questoes sem parse (alternativas ilegiveis/ausentes no texto) nao foram gravadas"
+  },
+  "upe-ssa3-2027-dia1": {
+   "status": "parcial",
+   "questoes": 5,
+   "ok": 3,
+   "revisar": 2,
+   "gabaritos": 44,
+   "motivo": "questoes sem parse (numeros [6, 7, 8, 9, 10, 11]) ou contagem != gabarito (11 vs 44); as questoes sem parse (alternativas ilegiveis/ausentes no texto) nao foram gravadas"
+  },
+  "upe-ssa3-2027-dia2": {
+   "status": "parcial",
+   "questoes": 43,
+   "ok": 22,
+   "revisar": 21,
+   "gabaritos": 50,
+   "motivo": "questoes sem parse (numeros [20, 24, 26]) ou contagem != gabarito (46 vs 50); as questoes sem parse (alternativas ilegiveis/ausentes no texto) nao foram gravadas"
+  },
+  "uece-vestibular-2012-1-1a-fase": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "PDF com texto em duas colunas intercaladas e numeração de linhas, e gabarito oficial separado por idioma (espanhol/francês/inglês) e por nº de caderno; extração não confiável sem OCR/layout dedicado. URLs descobertas e mantidas em novas-nne.json"
+  },
+  "uece-vestibular-2012-2-1a-fase": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "PDF com texto em duas colunas intercaladas e numeração de linhas, e gabarito oficial separado por idioma (espanhol/francês/inglês) e por nº de caderno; extração não confiável sem OCR/layout dedicado. URLs descobertas e mantidas em novas-nne.json"
+  },
+  "uece-vestibular-2013-1-1a-fase": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "PDF com texto em duas colunas intercaladas e numeração de linhas, e gabarito oficial separado por idioma (espanhol/francês/inglês) e por nº de caderno; extração não confiável sem OCR/layout dedicado. URLs descobertas e mantidas em novas-nne.json"
+  },
+  "uece-vestibular-2014-1-1a-fase": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "PDF com texto em duas colunas intercaladas e numeração de linhas, e gabarito oficial separado por idioma (espanhol/francês/inglês) e por nº de caderno; extração não confiável sem OCR/layout dedicado. URLs descobertas e mantidas em novas-nne.json"
+  },
+  "uece-vestibular-2014-2-1a-fase": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "PDF com texto em duas colunas intercaladas e numeração de linhas, e gabarito oficial separado por idioma (espanhol/francês/inglês) e por nº de caderno; extração não confiável sem OCR/layout dedicado. URLs descobertas e mantidas em novas-nne.json"
+  },
+  "uece-vestibular-2015-1-1a-fase": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "PDF com texto em duas colunas intercaladas e numeração de linhas, e gabarito oficial separado por idioma (espanhol/francês/inglês) e por nº de caderno; extração não confiável sem OCR/layout dedicado. URLs descobertas e mantidas em novas-nne.json"
+  },
+  "uece-vestibular-2015-2-1a-fase": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "PDF com texto em duas colunas intercaladas e numeração de linhas, e gabarito oficial separado por idioma (espanhol/francês/inglês) e por nº de caderno; extração não confiável sem OCR/layout dedicado. URLs descobertas e mantidas em novas-nne.json"
+  },
+  "uece-vestibular-2016-1-1a-fase": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "PDF com texto em duas colunas intercaladas e numeração de linhas, e gabarito oficial separado por idioma (espanhol/francês/inglês) e por nº de caderno; extração não confiável sem OCR/layout dedicado. URLs descobertas e mantidas em novas-nne.json"
+  },
+  "uece-vestibular-2016-2-1a-fase": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "PDF com texto em duas colunas intercaladas e numeração de linhas, e gabarito oficial separado por idioma (espanhol/francês/inglês) e por nº de caderno; extração não confiável sem OCR/layout dedicado. URLs descobertas e mantidas em novas-nne.json"
+  },
+  "uece-vestibular-2023-1-1a-fase": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "PDF com texto em duas colunas intercaladas e numeração de linhas, e gabarito oficial separado por idioma (espanhol/francês/inglês) e por nº de caderno; extração não confiável sem OCR/layout dedicado. URLs descobertas e mantidas em novas-nne.json"
+  },
+  "uece-vestibular-2023-2-1a-fase": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "PDF com texto em duas colunas intercaladas e numeração de linhas, e gabarito oficial separado por idioma (espanhol/francês/inglês) e por nº de caderno; extração não confiável sem OCR/layout dedicado. URLs descobertas e mantidas em novas-nne.json"
+  },
+  "uece-vestibular-2024-1-1a-fase": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "PDF com texto em duas colunas intercaladas e numeração de linhas, e gabarito oficial separado por idioma (espanhol/francês/inglês) e por nº de caderno; extração não confiável sem OCR/layout dedicado. URLs descobertas e mantidas em novas-nne.json"
+  },
+  "uece-vestibular-2024-2-1a-fase": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "PDF com texto em duas colunas intercaladas e numeração de linhas, e gabarito oficial separado por idioma (espanhol/francês/inglês) e por nº de caderno; extração não confiável sem OCR/layout dedicado. URLs descobertas e mantidas em novas-nne.json"
+  },
+  "uece-vestibular-2026-1-1a-fase": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "PDF com texto em duas colunas intercaladas e numeração de linhas, e gabarito oficial separado por idioma (espanhol/francês/inglês) e por nº de caderno; extração não confiável sem OCR/layout dedicado. URLs descobertas e mantidas em novas-nne.json"
+  }
+ },
+ "falhas_download": [],
+ "observacoes": "Descobertas: UPE (processodeingresso.upe.pe.gov.br, SSA 1/2/3, 2021-2027, gabarito definitivo) e UECE/CEV (cev.uece.br, vestibular 1a fase 2012-2026, gabarito oficial preliminar/definitivo conforme rotulo). Sem acesso pelo proxy (HTTP 000/403) ou sem provas objetivas oficiais: UFBA, UFPE/COVEST, UFC/CCV (usa ENEM/SiSU), UFRN, UFPB, UFPA, UFAM, UFMA, UFS, UFAL, UEPB (arquivo CPCON 403), UESC/UEFS. UPE: titulo = trecho inicial do enunciado (nao resumo manual); disciplina por palavras-chave (confira); alternativas/enunciados de questoes com figura/formula podem estar incompletos; questoes de ingles/espanhol com gabarito distinto ficam sem gabarito (revisar); paginas nao informadas. Edicoes SSA com gabarito em PDF escaneado: gabarito null. Questoes sem alternativas legiveis no texto nao foram gravadas."
+}

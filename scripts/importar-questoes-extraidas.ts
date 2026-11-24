@@ -27,7 +27,7 @@ for (const a of process.argv.slice(2)) {
 }
 if (!files.length) throw new Error("Informe arquivos .jsonl ou uma pasta.");
 
-const NOMES: Record<string, string> = { fuvest: "Fuvest", uerj: "Uerj", comvest: "Comvest", "puc-sp": "PUC-SP", espm: "ESPM", mackenzie: "Mackenzie", vunesp: "Vunesp", ufpr: "UFPR", pas: "PAS/UnB" };
+const NOMES: Record<string, string> = { fuvest: "Fuvest", uerj: "Uerj", comvest: "Comvest", "puc-sp": "PUC-SP", espm: "ESPM", mackenzie: "Mackenzie", vunesp: "Vunesp", ufpr: "UFPR", pas: "PAS/UnB", ita: "ITA", "puc-campinas": "PUC-Campinas", upe: "UPE", ufpel: "UFPel (PAVE)", unicentro: "Unicentro", etec: "Etec", ifrs: "IFRS", obm: "OBM", obmep: "OBMEP", ufg: "UFG", unifesp: "Unifesp", ufscar: "UFSCar" };
 const nomeBanca = (i: string) => NOMES[i.toLowerCase()] ?? i;
 const key = (i: string, e: string, y: number, ph: string | null, n: number) => `${i}|${e}|${y}|${ph ?? ""}|${n}`;
 const existing = new Set<string>();

@@ -1,0 +1,30 @@
+{
+ "edicoes": {
+  "ufg-2010-2-1-etapa": {
+   "status": "extraida",
+   "questoes": 99,
+   "ok": 16,
+   "revisar": 83,
+   "gabaritos": 90,
+   "motivo": "Tipo 1 apenas; Q1-80 + Espanhol e Inglês (81-90 de cada, edicao_id com sufixo -esp/-ing); Francês (caderno separado) não extraído; Q28 rejeitada (alternativas não textuais); texto de apoio compartilhado pode estar incompleto -> revisar; páginas com imagem marcadas tem_figura"
+  },
+  "ufrj-2011-concurso-de-acesso": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "discursiva (questões abertas, sem alternativas)"
+  },
+  "ufrj-2010-concurso-de-acesso": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "discursiva (mesmo formato do concurso 2011; não extraída)"
+  }
+ },
+ "falhas_download": [],
+ "observacoes": "Descoberta limitada: hosts de UFMG (copeve), UFU, UFV, UFES-CCV novo, UFF, UnB, UENF, Cefet-MG, CP2, UFG sistemas.institutoverbena ficaram inacessíveis (HTTP 000/403 pelo proxy) ou sem arquivo público de provas; UFES 2011-2016 só tem 2ª etapa discursiva; UFJF PISM não publica cadernos em PDF nas páginas oficiais; UFG 2010-1 tem provas (ps2010-1/1aEtapa/Provas_Et1/tipo-N.pdf) mas gabarito oficial não localizado (não extraída); Uerj já coberta pelo catálogo. Títulos gerados por heurística (início do enunciado)."
+}

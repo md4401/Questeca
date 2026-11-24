@@ -1,0 +1,310 @@
+{
+ "edicoes": {
+  "ufpel-2025-pave-etapa-1": {
+   "status": "extraida",
+   "questoes": 28,
+   "ok": 17,
+   "revisar": 11,
+   "gabaritos": 32,
+   "motivo": "descartadas por segmentação/alternativas inválidas: [11, 19, 22, 31]; não localizadas: []; gabarito casado (32/32)"
+  },
+  "ufpel-2025-pave-etapa-2": {
+   "status": "extraida",
+   "questoes": 28,
+   "ok": 15,
+   "revisar": 13,
+   "gabaritos": 32,
+   "motivo": "descartadas por segmentação/alternativas inválidas: [16, 20, 29, 31]; não localizadas: []; gabarito casado (32/32)"
+  },
+  "ufpel-2025-pave-etapa-3": {
+   "status": "parcial",
+   "questoes": 24,
+   "ok": 14,
+   "revisar": 10,
+   "gabaritos": 32,
+   "motivo": "descartadas por segmentação/alternativas inválidas: [2, 3, 7, 16, 19, 20, 24, 27]; não localizadas: []; gabarito casado (32/32)"
+  },
+  "ufpel-2024-pave-etapa-1": {
+   "status": "extraida",
+   "questoes": 32,
+   "ok": 19,
+   "revisar": 13,
+   "gabaritos": 32,
+   "motivo": "descartadas por segmentação/alternativas inválidas: []; não localizadas: []; gabarito casado (32/32)"
+  },
+  "ufpel-2024-pave-etapa-2": {
+   "status": "extraida",
+   "questoes": 27,
+   "ok": 13,
+   "revisar": 14,
+   "gabaritos": 32,
+   "motivo": "descartadas por segmentação/alternativas inválidas: [6, 12, 13, 24, 25]; não localizadas: []; gabarito casado (32/32)"
+  },
+  "ufpel-2024-pave-etapa-3": {
+   "status": "extraida",
+   "questoes": 28,
+   "ok": 11,
+   "revisar": 17,
+   "gabaritos": 32,
+   "motivo": "descartadas por segmentação/alternativas inválidas: [2, 20, 22]; não localizadas: []; gabarito casado (32/32) | rejeitadas: [(23, 'alternativa vazia')]"
+  },
+  "ufpel-2023-pave-etapa-1": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "PDF escaneado (sem texto; sem OCR)"
+  },
+  "ufpel-2023-pave-etapa-2": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "PDF escaneado (sem texto; sem OCR)"
+  },
+  "ufpel-2023-pave-etapa-3": {
+   "status": "extraida",
+   "questoes": 28,
+   "ok": 5,
+   "revisar": 23,
+   "gabaritos": 32,
+   "motivo": "descartadas por segmentação/alternativas inválidas: []; não localizadas: [1, 24, 28, 29]; gabarito casado (32/32)"
+  },
+  "ufpel-2022-pave-etapa-1": {
+   "status": "parcial",
+   "questoes": 14,
+   "ok": 2,
+   "revisar": 12,
+   "gabaritos": 32,
+   "motivo": "descartadas por segmentação/alternativas inválidas: [12, 16, 21, 24, 25]; não localizadas: [1, 2, 3, 4, 5, 6, 7, 8, 9, 13, 15, 23, 29]; gabarito casado (32/32)"
+  },
+  "ufpel-2022-pave-etapa-2": {
+   "status": "parcial",
+   "questoes": 13,
+   "ok": 2,
+   "revisar": 11,
+   "gabaritos": 32,
+   "motivo": "descartadas por segmentação/alternativas inválidas: []; não localizadas: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 13, 14, 15, 18, 19, 20, 21, 22, 28]; gabarito casado (32/32)"
+  },
+  "ufpel-2022-pave-etapa-3": {
+   "status": "parcial",
+   "questoes": 19,
+   "ok": 2,
+   "revisar": 17,
+   "gabaritos": 32,
+   "motivo": "descartadas por segmentação/alternativas inválidas: [1, 2, 3, 4, 20]; não localizadas: [6, 7, 8, 9, 12, 18, 23, 29]; gabarito casado (32/32)"
+  },
+  "ufpel-2021-pave-etapa-1": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "layout em duas colunas intercaladas (alternativas fora de ordem no texto extraído); segmentação segura inviável"
+  },
+  "ufpel-2021-pave-etapa-2": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "layout em duas colunas intercaladas (alternativas fora de ordem no texto extraído); segmentação segura inviável"
+  },
+  "ufpel-2021-pave-etapa-3": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "layout em duas colunas intercaladas (alternativas fora de ordem no texto extraído); segmentação segura inviável"
+  },
+  "ufpel-2020-pave-etapa-1": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "idem (duas colunas intercaladas)"
+  },
+  "ufpel-2020-pave-etapa-2": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "idem (duas colunas intercaladas)"
+  },
+  "ufpel-2020-pave-etapa-3": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "idem (duas colunas intercaladas)"
+  },
+  "ufpel-2019-pave-etapa-1": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "idem (duas colunas intercaladas)"
+  },
+  "ufpel-2019-pave-etapa-2": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "idem (duas colunas intercaladas)"
+  },
+  "ufpel-2019-pave-etapa-3": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "idem (duas colunas intercaladas)"
+  },
+  "ufpel-2017-pave-etapa-1": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "idem (duas colunas intercaladas)"
+  },
+  "ufpel-2017-pave-etapa-2": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "idem (duas colunas intercaladas)"
+  },
+  "ufpel-2017-pave-etapa-3": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "idem (duas colunas intercaladas)"
+  },
+  "ufpel-2016-pave-etapa-1": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "idem (duas colunas intercaladas)"
+  },
+  "ufpel-2016-pave-etapa-2": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "idem (duas colunas intercaladas)"
+  },
+  "ufpel-2016-pave-etapa-3": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "idem (duas colunas intercaladas)"
+  },
+  "unicentro-2026": {
+   "status": "extraida",
+   "questoes": 97,
+   "ok": 33,
+   "revisar": 64,
+   "gabaritos": 101,
+   "motivo": "descartadas (alternativas ≠5/sem ordem): [('fisica', 2), ('fisica', 9), ('matematica', 6), ('matematica', 8)]; numero = ordem sequencial no caderno (a numeração original reinicia por disciplina, indicada em notas). Língua Estrangeira (inglês/espanhol) com 5 questões cada; literatura = questões 6-10 do bloco de Língua Portuguesa quando o caderno separa."
+  },
+  "unicentro-2025": {
+   "status": "extraida",
+   "questoes": 89,
+   "ok": 40,
+   "revisar": 49,
+   "gabaritos": 101,
+   "motivo": "descartadas (alternativas ≠5/sem ordem): [('arte', 8), ('fisica', 1), ('fisica', 2), ('fisica', 3), ('fisica', 4), ('matematica', 5), ('quimica', 1)]; numero = ordem sequencial no caderno (a numeração original reinicia por disciplina, indicada em notas). Língua Estrangeira (inglês/espanhol) com 5 questões cada; literatura = questões 6-10 do bloco de Língua Portuguesa quando o caderno separa. | rejeitadas: [(74, 'enunciado curto demais')]"
+  },
+  "unicentro-2024": {
+   "status": "extraida",
+   "questoes": 100,
+   "ok": 55,
+   "revisar": 45,
+   "gabaritos": 101,
+   "motivo": "descartadas (alternativas ≠5/sem ordem): [('matematica', 7)]; numero = ordem sequencial no caderno (a numeração original reinicia por disciplina, indicada em notas). Língua Estrangeira (inglês/espanhol) com 5 questões cada; literatura = questões 6-10 do bloco de Língua Portuguesa quando o caderno separa."
+  },
+  "unicentro-2023": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "segmentação por disciplina inconsistente (15 grupos de numeração em vez de 12)"
+  },
+  "unicentro-2022": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "segmentação por disciplina inconsistente (13 grupos)"
+  },
+  "unicentro-2021": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "formato diferente (20 grupos; numeração contínua/duplicada)"
+  },
+  "unicentro-2020": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "formato antigo de questões (não tratado)"
+  },
+  "unicentro-2019": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "formato antigo sem alternativas em texto detectável"
+  },
+  "unicentro-2018": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "gabarito oficial escaneado (sem OCR)"
+  },
+  "unicentro-2017": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "gabarito oficial escaneado (sem OCR)"
+  },
+  "unicentro-2016": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "gabarito oficial escaneado (sem OCR)"
+  }
+ },
+ "falhas_download": [],
+ "observacoes": "Novas instituições no catálogo: ufpel (PAVE, wp.ufpel.edu.br/pave/provas-anteriores/) e unicentro (www3.unicentro.br/vestibular/anteriores/); slugs a cadastrar em instituicoes. Não descobertas/extraíveis: UFRGS/Coperse (www.ufrgs.br: conexão reiniciada pelo proxy, todos os hosts coperse), UFSC (provas de 2024/2026 acessíveis em vestibularunificado*.ufsc.br, mas as questões são de somatório 01/02/04/08/16, sem alternativas A-E; gabaritos definitivos só em HTML/PDF de nomes variados), UEM (somatório; gabarito PDF com fonte ilegível), UEPG (somatório), UEL (cops.uel.br só traz a revista 'A UEL comenta' e gabaritos da 1ª fase não localizados como PDF; sites.uel.br bloqueado por Cloudflare 403), UFSM/Coperves e Unioeste (hosts www.coperves.ufsm.br, www.unioeste.br não responderam pelo proxy), UFPR (portal NC só publica PDFs de PS2019 2ª fase e PHE Música 2024, já no catálogo). PAVE 2016-2021: layout em duas colunas intercaladas, não segmentável com segurança (listadas no catálogo, não extraídas); PAVE 2018 não listado (gabarito apenas preliminar). PAVE 2023 etapas 1 e 2 escaneadas. Unicentro 2016-2023: ver motivos por edição. Títulos gerados automaticamente a partir da 1ª frase do enunciado; disciplina por área do caderno + palavras-chave (conferir). tem_figura inclui páginas com imagem (conservador). Gabarito de questões anuladas = null (qualidade revisar)."
+}

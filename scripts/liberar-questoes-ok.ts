@@ -17,7 +17,7 @@ const db = drizzle(neon(url));
 
 const dir = process.argv[2];
 if (!dir) throw new Error("Informe a pasta dos .jsonl");
-const NOMES: Record<string, string> = { fuvest: "Fuvest", uerj: "Uerj", comvest: "Comvest", "puc-sp": "PUC-SP", espm: "ESPM", mackenzie: "Mackenzie", vunesp: "Vunesp", ufpr: "UFPR", pas: "PAS/UnB" };
+const NOMES: Record<string, string> = { fuvest: "Fuvest", uerj: "Uerj", comvest: "Comvest", "puc-sp": "PUC-SP", espm: "ESPM", mackenzie: "Mackenzie", vunesp: "Vunesp", ufpr: "UFPR", pas: "PAS/UnB", ita: "ITA", "puc-campinas": "PUC-Campinas", upe: "UPE", ufpel: "UFPel (PAVE)", unicentro: "Unicentro", etec: "Etec", ifrs: "IFRS", obm: "OBM", obmep: "OBMEP", ufg: "UFG", unifesp: "Unifesp", ufscar: "UFSCar" };
 const alvo: { i: string; e: string; y: number; n: number; ph: string | null; a: string }[] = [];
 for (const f of readdirSync(dir).filter((f) => f.endsWith(".jsonl")))
   for (const l of readFileSync(join(dir, f), "utf8").split("\n")) {

@@ -1,0 +1,318 @@
+{
+ "edicoes": {
+  "puc-campinas-2026-vest-geral": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "gabarito oficial é imagem (sem texto, sem OCR); prova poderia ser extraída só com gabarito null"
+  },
+  "puc-campinas-2026-vest-medicina": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "gabarito oficial é imagem (sem texto, sem OCR); prova poderia ser extraída só com gabarito null"
+  },
+  "puc-campinas-2026-inverno-geral": {
+   "status": "parcial",
+   "questoes": 39,
+   "ok": 33,
+   "revisar": 6,
+   "gabaritos": 40,
+   "motivo": "rejeitadas 1: [(17, ['campo ausente: alternativas', 'alternativas devem ser A, B, C… em ordem', 'gabarito fora das alternativas'])]"
+  },
+  "puc-campinas-2026-inverno-arquitetura": {
+   "status": "parcial",
+   "questoes": 39,
+   "ok": 33,
+   "revisar": 6,
+   "gabaritos": 40,
+   "motivo": "rejeitadas 1: [(17, ['campo ausente: alternativas', 'alternativas devem ser A, B, C… em ordem', 'gabarito fora das alternativas'])]"
+  },
+  "puc-campinas-2025-vest-geral": {
+   "status": "parcial",
+   "questoes": 49,
+   "ok": 40,
+   "revisar": 9,
+   "gabaritos": 50,
+   "motivo": "rejeitadas 1: [(21, ['campo ausente: alternativas', 'alternativas devem ser A, B, C… em ordem', 'gabarito fora das alternativas'])]"
+  },
+  "puc-campinas-2025-vest-medicina": {
+   "status": "parcial",
+   "questoes": 47,
+   "ok": 36,
+   "revisar": 11,
+   "gabaritos": 50,
+   "motivo": "rejeitadas 3: [(25, ['campo ausente: alternativas', 'alternativas devem ser A, B, C… em ordem', 'gabarito fora das alternativas']), (26, ['campo ausente: alternativas', 'alternativas devem ser A, B, C… em ordem', 'gabarito fora das alternativas']), (27, ['campo ausente: alternativas', 'alternativas devem ser A, B, C… em ordem', 'gabarito fora das alternativas'])]"
+  },
+  "puc-campinas-2025-inverno-geral": {
+   "status": "parcial",
+   "questoes": 38,
+   "ok": 31,
+   "revisar": 7,
+   "gabaritos": 40,
+   "motivo": "rejeitadas 2: [(19, ['alternativas devem ser A, B, C… em ordem', 'gabarito fora das alternativas']), (20, ['campo ausente: alternativas', 'alternativas devem ser A, B, C… em ordem', 'gabarito fora das alternativas'])]"
+  },
+  "puc-campinas-2025-inverno-arquitetura": {
+   "status": "parcial",
+   "questoes": 38,
+   "ok": 31,
+   "revisar": 7,
+   "gabaritos": 40,
+   "motivo": "rejeitadas 2: [(19, ['alternativas devem ser A, B, C… em ordem', 'gabarito fora das alternativas']), (20, ['campo ausente: alternativas', 'alternativas devem ser A, B, C… em ordem', 'gabarito fora das alternativas'])]"
+  },
+  "puc-campinas-2024-vest-geral": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "prova escaneada (sem texto, sem OCR)"
+  },
+  "puc-campinas-2024-vest-direito": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "prova escaneada (sem texto, sem OCR)"
+  },
+  "puc-campinas-2024-vest-arquitetura": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "prova escaneada (sem texto, sem OCR)"
+  },
+  "puc-campinas-2024-vest-medicina": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "prova escaneada (sem texto, sem OCR)"
+  },
+  "puc-campinas-2024-inverno-geral": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "gabarito oficial é imagem (sem texto, sem OCR); prova poderia ser extraída só com gabarito null"
+  },
+  "puc-campinas-2024-inverno-arquitetura": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "gabarito oficial é imagem (sem texto, sem OCR); prova poderia ser extraída só com gabarito null"
+  },
+  "puc-campinas-2023-vest-geral": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "texto do PDF com codificação de fonte corrompida (ilegível)"
+  },
+  "puc-campinas-2023-vest-direito": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "texto do PDF com codificação de fonte corrompida (ilegível)"
+  },
+  "puc-campinas-2023-vest-medicina": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "texto do PDF com codificação de fonte corrompida (ilegível)"
+  },
+  "puc-campinas-2023-inverno-geral": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "gabarito oficial é imagem (sem texto, sem OCR); prova poderia ser extraída só com gabarito null"
+  },
+  "puc-campinas-2023-inverno-direito": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "gabarito oficial é imagem (sem texto, sem OCR); prova poderia ser extraída só com gabarito null"
+  },
+  "puc-campinas-2023-inverno-arquitetura": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "gabarito oficial é imagem (sem texto, sem OCR); prova poderia ser extraída só com gabarito null"
+  },
+  "puc-campinas-2022-vest-geral": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "gabarito oficial é imagem (sem texto, sem OCR); prova poderia ser extraída só com gabarito null"
+  },
+  "puc-campinas-2022-vest-direito": {
+   "status": "pulada",
+   "questoes": 27,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 1,
+   "motivo": "gabarito não casa com a prova (formato/contagem)"
+  },
+  "puc-campinas-2022-vest-medicina": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "gabarito oficial é imagem (sem texto, sem OCR); prova poderia ser extraída só com gabarito null"
+  },
+  "puc-campinas-2022-inverno-geral": {
+   "status": "parcial",
+   "questoes": 39,
+   "ok": 34,
+   "revisar": 5,
+   "gabaritos": 40,
+   "motivo": "rejeitadas 1: [(26, ['campo ausente: alternativas', 'alternativas devem ser A, B, C… em ordem', 'gabarito fora das alternativas'])]"
+  },
+  "puc-campinas-2022-inverno-direito": {
+   "status": "parcial",
+   "questoes": 39,
+   "ok": 34,
+   "revisar": 5,
+   "gabaritos": 40,
+   "motivo": "rejeitadas 1: [(32, ['campo ausente: alternativas', 'alternativas devem ser A, B, C… em ordem', 'gabarito fora das alternativas'])]"
+  },
+  "puc-campinas-2021-vest-geral": {
+   "status": "extraida",
+   "questoes": 40,
+   "ok": 35,
+   "revisar": 5,
+   "gabaritos": 40,
+   "motivo": ""
+  },
+  "puc-campinas-2021-vest-direito": {
+   "status": "extraida",
+   "questoes": 50,
+   "ok": 47,
+   "revisar": 3,
+   "gabaritos": 50,
+   "motivo": ""
+  },
+  "puc-campinas-2021-vest-medicina": {
+   "status": "extraida",
+   "questoes": 40,
+   "ok": 33,
+   "revisar": 7,
+   "gabaritos": 40,
+   "motivo": ""
+  },
+  "puc-campinas-2021-inverno-geral": {
+   "status": "parcial",
+   "questoes": 39,
+   "ok": 34,
+   "revisar": 5,
+   "gabaritos": 40,
+   "motivo": "rejeitadas 1: [(27, ['alternativas devem ser A, B, C… em ordem', 'gabarito fora das alternativas'])]"
+  },
+  "puc-campinas-2021-inverno-direito": {
+   "status": "extraida",
+   "questoes": 40,
+   "ok": 38,
+   "revisar": 2,
+   "gabaritos": 40,
+   "motivo": ""
+  },
+  "puc-campinas-2020-vest-geral": {
+   "status": "parcial",
+   "questoes": 49,
+   "ok": 43,
+   "revisar": 6,
+   "gabaritos": 50,
+   "motivo": "rejeitadas 1: [(38, ['campo ausente: alternativas', 'alternativas devem ser A, B, C… em ordem', 'gabarito fora das alternativas'])]"
+  },
+  "puc-campinas-2020-vest-direito": {
+   "status": "extraida",
+   "questoes": 50,
+   "ok": 49,
+   "revisar": 1,
+   "gabaritos": 50,
+   "motivo": ""
+  },
+  "unifesp-2026-misto": {
+   "status": "parcial",
+   "questoes": 14,
+   "ok": 0,
+   "revisar": 14,
+   "gabaritos": 25,
+   "motivo": "só parte das 25 questões foi segmentada (colunas intercaladas); todas marcadas revisar"
+  },
+  "unifesp-2022-misto": {
+   "status": "parcial",
+   "questoes": 15,
+   "ok": 0,
+   "revisar": 15,
+   "gabaritos": 25,
+   "motivo": "só parte das 25 questões foi segmentada (colunas intercaladas); todas marcadas revisar"
+  },
+  "ufscar-2005-cursinho": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "prova em 2 colunas com alternativas minúsculas a) e gabarito em folha de respostas/imagem; não extraída com confiabilidade"
+  },
+  "ufscar-2006-cursinho": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "prova em 2 colunas com alternativas minúsculas a) e gabarito em folha de respostas/imagem; não extraída com confiabilidade"
+  },
+  "ufscar-2007-cursinho": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "prova em 2 colunas com alternativas minúsculas a) e gabarito em folha de respostas/imagem; não extraída com confiabilidade"
+  },
+  "ufscar-2008-cursinho": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "prova em 2 colunas com alternativas minúsculas a) e gabarito em folha de respostas/imagem; não extraída com confiabilidade"
+  },
+  "ufscar-2013-cursinho": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "prova em 2 colunas com alternativas minúsculas a) e gabarito em folha de respostas/imagem; não extraída com confiabilidade"
+  }
+ },
+ "falhas_download": [],
+ "observacoes": "Descoberta: PUC-Campinas (vestibular.puc-campinas.edu.br/provas-anteriores), Unifesp (ingresso.unifesp.br), UFSCar cursinho (ufscar.br). Sem acesso: Unesp (portal em JS, sem links novos além dos já catalogados), Vunesp/Famerp/Insper/Santa Casa (403 do WAF ao curl; não contornado), FGV (lista de provas dinâmica; só gabarito 2025.2 EAESP achado, sem caderno), UEL/UEM (sem PDFs de prova localizados a tempo). PUC: gabaritos em imagem e PDFs com fonte corrompida foram pulados."
+}

@@ -1,0 +1,399 @@
+{
+ "edicoes": {
+  "etec-vestibulinho-2026-2": {
+   "status": "extraida",
+   "questoes": 50,
+   "ok": 34,
+   "revisar": 16,
+   "gabaritos": 50,
+   "motivo": "",
+   "questoes_detectadas": 50
+  },
+  "etec-vestibulinho-2026-1": {
+   "status": "extraida",
+   "questoes": 50,
+   "ok": 23,
+   "revisar": 27,
+   "gabaritos": 50,
+   "motivo": "",
+   "questoes_detectadas": 50
+  },
+  "etec-vestibulinho-2025-2": {
+   "status": "parcial",
+   "questoes": 50,
+   "ok": 0,
+   "revisar": 50,
+   "gabaritos": 35,
+   "motivo": "gabaritos=35 vs questões=50",
+   "questoes_detectadas": 50
+  },
+  "etec-vestibulinho-2025-1": {
+   "status": "extraida",
+   "questoes": 50,
+   "ok": 26,
+   "revisar": 24,
+   "gabaritos": 50,
+   "motivo": "",
+   "questoes_detectadas": 50
+  },
+  "etec-vestibulinho-2024-2": {
+   "status": "extraida",
+   "questoes": 50,
+   "ok": 16,
+   "revisar": 34,
+   "gabaritos": 50,
+   "motivo": "",
+   "questoes_detectadas": 50
+  },
+  "etec-vestibulinho-2024-1": {
+   "status": "extraida",
+   "questoes": 50,
+   "ok": 18,
+   "revisar": 32,
+   "gabaritos": 50,
+   "motivo": "",
+   "questoes_detectadas": 50
+  },
+  "etec-vestibulinho-2023-2": {
+   "status": "parcial",
+   "questoes": 42,
+   "ok": 12,
+   "revisar": 30,
+   "gabaritos": 50,
+   "motivo": "numeração com buracos; gabaritos=50 vs questões=43",
+   "questoes_detectadas": 42
+  },
+  "etec-vestibulinho-2023-1": {
+   "status": "extraida",
+   "questoes": 40,
+   "ok": 20,
+   "revisar": 20,
+   "gabaritos": 40,
+   "motivo": "",
+   "questoes_detectadas": 40
+  },
+  "etec-vestibulinho-2022-2": {
+   "status": "parcial",
+   "questoes": 48,
+   "ok": 24,
+   "revisar": 24,
+   "gabaritos": 50,
+   "motivo": "numeração com buracos",
+   "questoes_detectadas": 48
+  },
+  "etec-vestibulinho-2020-1": {
+   "status": "parcial",
+   "questoes": 44,
+   "ok": 26,
+   "revisar": 18,
+   "gabaritos": 49,
+   "motivo": "numeração com buracos; gabaritos=49 vs questões=45",
+   "questoes_detectadas": 44
+  },
+  "etec-vestibulinho-2019-2": {
+   "status": "parcial",
+   "questoes": 43,
+   "ok": 23,
+   "revisar": 20,
+   "gabaritos": 50,
+   "motivo": "numeração com buracos; gabaritos=50 vs questões=44",
+   "questoes_detectadas": 43
+  },
+  "etec-vestibulinho-2019-1": {
+   "status": "parcial",
+   "questoes": 48,
+   "ok": 26,
+   "revisar": 22,
+   "gabaritos": 50,
+   "motivo": "numeração com buracos; gabaritos=50 vs questões=48",
+   "questoes_detectadas": 48
+  },
+  "etec-vestibulinho-2018-2": {
+   "status": "parcial",
+   "questoes": 43,
+   "ok": 23,
+   "revisar": 20,
+   "gabaritos": 50,
+   "motivo": "numeração com buracos; gabaritos=50 vs questões=44",
+   "questoes_detectadas": 43
+  },
+  "etec-vestibulinho-2018-1": {
+   "status": "parcial",
+   "questoes": 39,
+   "ok": 19,
+   "revisar": 20,
+   "gabaritos": 50,
+   "motivo": "numeração com buracos; gabaritos=50 vs questões=41",
+   "questoes_detectadas": 39
+  },
+  "ifrs-2026-1-integrado": {
+   "status": "parcial",
+   "questoes": 23,
+   "ok": 17,
+   "revisar": 6,
+   "gabaritos": 40,
+   "motivo": "numeração com buracos; gabaritos=40 vs questões=35",
+   "questoes_detectadas": 23
+  },
+  "ifrs-2025-1-integrado": {
+   "status": "parcial",
+   "questoes": 34,
+   "ok": 22,
+   "revisar": 12,
+   "gabaritos": 40,
+   "motivo": "numeração com buracos; gabaritos=40 vs questões=34",
+   "questoes_detectadas": 34
+  },
+  "ifrs-2024-1-integrado": {
+   "status": "parcial",
+   "questoes": 30,
+   "ok": 17,
+   "revisar": 13,
+   "gabaritos": 40,
+   "motivo": "1 rejeitadas pela validação (ex.: alternativa vazia); numeração com buracos; gabaritos=40 vs questões=37",
+   "questoes_detectadas": 31
+  },
+  "ifrs-2023-1-integrado": {
+   "status": "parcial",
+   "questoes": 30,
+   "ok": 18,
+   "revisar": 12,
+   "gabaritos": 40,
+   "motivo": "numeração com buracos; gabaritos=40 vs questões=38",
+   "questoes_detectadas": 30
+  },
+  "ifrs-2022-1-integrado": {
+   "status": "parcial",
+   "questoes": 37,
+   "ok": 21,
+   "revisar": 16,
+   "gabaritos": 40,
+   "motivo": "numeração com buracos; gabaritos=40 vs questões=37",
+   "questoes_detectadas": 37
+  },
+  "ifrs-2026-2-subsequente": {
+   "status": "parcial",
+   "questoes": 35,
+   "ok": 12,
+   "revisar": 23,
+   "gabaritos": 40,
+   "motivo": "1 rejeitadas pela validação (ex.: alternativa vazia); numeração com buracos; gabaritos=40 vs questões=39",
+   "questoes_detectadas": 36
+  },
+  "ifrs-2025-2-subsequente": {
+   "status": "parcial",
+   "questoes": 36,
+   "ok": 21,
+   "revisar": 15,
+   "gabaritos": 40,
+   "motivo": "numeração com buracos; gabaritos=40 vs questões=37",
+   "questoes_detectadas": 36
+  },
+  "ifrs-2024-1-subsequente": {
+   "status": "parcial",
+   "questoes": 31,
+   "ok": 12,
+   "revisar": 19,
+   "gabaritos": 40,
+   "motivo": "1 rejeitadas pela validação (ex.: alternativa vazia); numeração com buracos; gabaritos=40 vs questões=35",
+   "questoes_detectadas": 32
+  },
+  "ifrs-2023-2-subsequente": {
+   "status": "parcial",
+   "questoes": 27,
+   "ok": 11,
+   "revisar": 16,
+   "gabaritos": 40,
+   "motivo": "1 rejeitadas pela validação (ex.: alternativa vazia); numeração com buracos",
+   "questoes_detectadas": 28
+  },
+  "obmep-2022-1-fase-nivel-1": {
+   "status": "parcial",
+   "questoes": 8,
+   "ok": 7,
+   "revisar": 1,
+   "gabaritos": 20,
+   "motivo": "numeração com buracos; gabaritos=20 vs questões=15",
+   "questoes_detectadas": 8
+  },
+  "obmep-2022-1-fase-nivel-2": {
+   "status": "parcial",
+   "questoes": 10,
+   "ok": 8,
+   "revisar": 2,
+   "gabaritos": 20,
+   "motivo": "numeração com buracos; gabaritos=20 vs questões=17",
+   "questoes_detectadas": 10
+  },
+  "obmep-2022-1-fase-nivel-3": {
+   "status": "parcial",
+   "questoes": 3,
+   "ok": 3,
+   "revisar": 0,
+   "gabaritos": 20,
+   "motivo": "4 rejeitadas pela validação (ex.: alternativa vazia); numeração com buracos; gabaritos=20 vs questões=10",
+   "questoes_detectadas": 7
+  },
+  "obmep-2023-1-fase-nivel-1": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "PDF da prova escaneado (sem texto; sem OCR)"
+  },
+  "obmep-2023-1-fase-nivel-2": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "PDF da prova escaneado (sem texto; sem OCR)"
+  },
+  "obmep-2023-1-fase-nivel-3": {
+   "status": "pulada",
+   "questoes": 0,
+   "ok": 0,
+   "revisar": 0,
+   "gabaritos": 0,
+   "motivo": "PDF da prova escaneado (sem texto; sem OCR)"
+  },
+  "obmep-2024-1-fase-nivel-1": {
+   "status": "parcial",
+   "questoes": 11,
+   "ok": 4,
+   "revisar": 7,
+   "gabaritos": 20,
+   "motivo": "1 rejeitadas pela validação (ex.: alternativa vazia); numeração com buracos",
+   "questoes_detectadas": 12
+  },
+  "obmep-2024-1-fase-nivel-2": {
+   "status": "parcial",
+   "questoes": 8,
+   "ok": 1,
+   "revisar": 7,
+   "gabaritos": 20,
+   "motivo": "1 rejeitadas pela validação (ex.: alternativa vazia); numeração com buracos; gabaritos=20 vs questões=17",
+   "questoes_detectadas": 9
+  },
+  "obmep-2024-1-fase-nivel-3": {
+   "status": "parcial",
+   "questoes": 11,
+   "ok": 5,
+   "revisar": 6,
+   "gabaritos": 20,
+   "motivo": "1 rejeitadas pela validação (ex.: alternativa vazia); numeração com buracos",
+   "questoes_detectadas": 12
+  },
+  "obmep-2025-1-fase-nivel-1": {
+   "status": "parcial",
+   "questoes": 8,
+   "ok": 7,
+   "revisar": 1,
+   "gabaritos": 20,
+   "motivo": "2 rejeitadas pela validação (ex.: alternativa vazia); numeração com buracos; gabaritos=20 vs questões=17",
+   "questoes_detectadas": 10
+  },
+  "obmep-2025-1-fase-nivel-2": {
+   "status": "parcial",
+   "questoes": 11,
+   "ok": 10,
+   "revisar": 1,
+   "gabaritos": 19,
+   "motivo": "1 rejeitadas pela validação (ex.: alternativa vazia); numeração com buracos",
+   "questoes_detectadas": 12
+  },
+  "obmep-2025-1-fase-nivel-3": {
+   "status": "parcial",
+   "questoes": 1,
+   "ok": 1,
+   "revisar": 0,
+   "gabaritos": 20,
+   "motivo": "1 rejeitadas pela validação (ex.: alternativa vazia); numeração com buracos; gabaritos=20 vs questões=4",
+   "questoes_detectadas": 2
+  },
+  "obm-2011-1-fase-nivel-1": {
+   "status": "extraida",
+   "questoes": 20,
+   "ok": 15,
+   "revisar": 5,
+   "gabaritos": 20,
+   "motivo": "",
+   "questoes_detectadas": 20
+  },
+  "obm-2011-1-fase-nivel-2": {
+   "status": "parcial",
+   "questoes": 22,
+   "ok": 18,
+   "revisar": 4,
+   "gabaritos": 25,
+   "motivo": "1 rejeitadas pela validação (ex.: alternativa vazia); numeração com buracos",
+   "questoes_detectadas": 23
+  },
+  "obm-2011-1-fase-nivel-3": {
+   "status": "parcial",
+   "questoes": 21,
+   "ok": 18,
+   "revisar": 3,
+   "gabaritos": 25,
+   "motivo": "2 rejeitadas pela validação (ex.: alternativa vazia); numeração com buracos",
+   "questoes_detectadas": 23
+  },
+  "obm-2012-1-fase-nivel-1": {
+   "status": "parcial",
+   "questoes": 19,
+   "ok": 12,
+   "revisar": 7,
+   "gabaritos": 20,
+   "motivo": "numeração com buracos",
+   "questoes_detectadas": 19
+  },
+  "obm-2012-1-fase-nivel-2": {
+   "status": "extraida",
+   "questoes": 25,
+   "ok": 20,
+   "revisar": 5,
+   "gabaritos": 25,
+   "motivo": "",
+   "questoes_detectadas": 25
+  },
+  "obm-2012-1-fase-nivel-3": {
+   "status": "parcial",
+   "questoes": 22,
+   "ok": 18,
+   "revisar": 4,
+   "gabaritos": 25,
+   "motivo": "1 rejeitadas pela validação (ex.: alternativa vazia); numeração com buracos",
+   "questoes_detectadas": 23
+  },
+  "obm-2013-1-fase-nivel-1": {
+   "status": "extraida",
+   "questoes": 20,
+   "ok": 14,
+   "revisar": 6,
+   "gabaritos": 20,
+   "motivo": "",
+   "questoes_detectadas": 20
+  },
+  "obm-2013-1-fase-nivel-2": {
+   "status": "parcial",
+   "questoes": 25,
+   "ok": 15,
+   "revisar": 10,
+   "gabaritos": 24,
+   "motivo": "gabaritos=24 vs questões=25",
+   "questoes_detectadas": 25
+  },
+  "obm-2013-1-fase-nivel-3": {
+   "status": "parcial",
+   "questoes": 23,
+   "ok": 20,
+   "revisar": 3,
+   "gabaritos": 25,
+   "motivo": "1 rejeitadas pela validação (ex.: enunciado curto demais); numeração com buracos",
+   "questoes_detectadas": 24
+  }
+ },
+ "falhas_download": [],
+ "observacoes": "Catálogo novo em novas-extras.json (44 edições: OBMEP 1ª fase 2022-2025 N1-3 [PDFs do Google Drive linkado pelo site oficial obmep.org.br; \"gabarito\" = PDF de Solução com a alternativa correta], OBM 1ª fase 2011-2013 N1-3, Vestibulinho Etec 2018-2026, IFRS Integrado/Subsequente 2022-2026). INEP/ENEM: download.inep.gov.br não responde e gov.br/inep devolve 403/sem links de PDF a partir deste ambiente; nenhum espelho oficial acessível encontrado. Hosts oficiais inacessíveis (sem DNS/proxy): sbfisica (OBF), sbq (OBQ), oba.org.br (só portal de medalhas), ONC/ONHB/OBB, Colégio Pedro II, EsPCEx/Colégio Militar (eb.mil.br sem acervo localizado), IFSP/IFPR (202 vazio), vestibulinhoetec.com.br (403; usado o acervo do cps.sp.gov.br). OBMEP 2023 e 2021/2019 não extraídos: provas 2023 escaneadas (sem OCR); 2025 e 2024 têm 5 pares prova/solução por nível (usado o primeiro par). Notação matemática (frações, expoentes) e figuras podem se perder no texto: questões de matemática trazem nota; ETEC/IFRS/OBMEP extração parcial por layouts de 2 colunas e questões sem alternativas em texto (figuras). ETEC 2025-2 tem módulos com cadernos distintos; usado gabarito do bloco comum."
+}

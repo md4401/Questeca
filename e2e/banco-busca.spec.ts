@@ -17,7 +17,7 @@ test("Busca do banco: autor, obra e assuntos relacionados, filtros e destaque", 
   const cards = () => t.getByTestId("resultado-questao");
 
   // Machado de Assis: acha as questões sobre o autor e suas obras
-  await busca("Machado de Assis");
+  await busca("Machado de Assis", "&fonte=Segunda+Lousa"); // acervo de exemplo (o banco real tem mais questões com o sobrenome Machado)
   await expect(t.getByTestId("busca-entendida")).toContainText("Machado de Assis");
   expect(await cards().count()).toBeGreaterThanOrEqual(6);
   await expect(cards().filter({ hasText: "Dom Casmurro: a dúvida central" })).toHaveCount(1);
@@ -55,7 +55,7 @@ test("Busca do banco: autor, obra e assuntos relacionados, filtros e destaque", 
   await busca("Machado de Assis", "&fonte=Inep");
   await expect(cards()).toHaveCount(0);
   await expect(t.getByText(/Nenhuma questão encontrada/)).toBeVisible();
-  await busca("Machado de Assis", "&disciplina=matematica");
+  await busca("Machado de Assis", "&disciplina=matematica&fonte=Segunda+Lousa");
   await expect(cards()).toHaveCount(0);
 
   // sem busca: lista o acervo com filtros de disciplina
@@ -72,7 +72,7 @@ test("Banco: aba Provas e gabaritos oficiais (catálogo de Enem, Fuvest, Unicamp
   await t.getByRole("link", { name: "Provas e gabaritos oficiais" }).click();
   await t.waitForURL(/aba=provas/);
   await expect(t.getByRole("heading", { level: 1, name: "Provas e gabaritos oficiais" })).toBeVisible();
-  await expect(t.getByText(/482 edições e 2450 arquivos/)).toBeVisible();
+  await expect(t.getByText(/658 edições e 2809 arquivos/)).toBeVisible();
   // Enem 2023: só Enem, com prova e gabarito, links para o site oficial
   await t.goto("/app/banco?aba=provas&q=enem+2023");
   const cards = t.getByTestId("edicao-oficial");
