@@ -39,10 +39,10 @@ test("GizIA: créditos (1.000 tokens = 1 crédito) bloqueiam ao estourar o limit
   const email = await signup(t);
   await t.goto("/app/assistente");
   const [u] = await sql`select u.id, m.org_id from users u join memberships m on m.user_id = u.id where u.email = ${email} limit 1`;
-  // 99.500 tokens = 99,5 créditos usados → ainda resta meio crédito
-  await sql`insert into ai_usage (user_id, org_id, kind, prompt_tokens, completion_tokens, tokens) values (${u.id}, ${u.org_id}, 'llm', 90000, 9500, 99500)`;
+  // 199.500 tokens = 199,5 créditos usados → ainda resta meio crédito (limite diário de 200)
+  await sql`insert into ai_usage (user_id, org_id, kind, prompt_tokens, completion_tokens, tokens) values (${u.id}, ${u.org_id}, 'llm', 180000, 19500, 199500)`;
   await t.goto("/app/assistente");
-  await expect(t.getByText(/99,5 usados de 100/).or(t.getByText("A GizIA ainda não está ativada"))).toBeVisible();
+  await expect(t.getByText(/199,5 usados de 200/).or(t.getByText("A GizIA ainda não está ativada"))).toBeVisible();
   const ok = await t.request.post("/api/assistente", { data: { message: "oi" } });
   expect(ok.status()).not.toBe(402);
   await sql`insert into ai_usage (user_id, org_id, kind, prompt_tokens, completion_tokens, tokens) values (${u.id}, ${u.org_id}, 'llm', 800, 200, 1000)`;

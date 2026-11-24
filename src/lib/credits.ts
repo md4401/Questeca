@@ -5,11 +5,12 @@ import { aiUsage } from "@/db/schema";
 import { creditsOf } from "@/lib/core/credits";
 
 /**
- * Cota diária por professor: 100 créditos (100 mil tokens). Medido com os prompts reais: uma prova pedida ao assistente faz 3 chamadas e gasta
- * ≈ 2,4 mil tokens (≈ 2,4 créditos) sem contar o raciocínio interno do modelo; com ele, até ≈ 6. O formulário "Montar prova" gasta ≈ 0,2 crédito.
- * 10 provas/dia custam de 24 a 60 créditos, e o resto da cota cobre planos de aula e apresentações. O gasto real é medido e gravado a cada chamada.
+ * Cota diária por professor: 200 créditos (200 mil tokens). Com a entrevista antes de criar, uma prova pedida à GizIA faz ≈ 4 chamadas
+ * (entrevista, criação, ampliar temas e resposta) e gasta ≈ 11 a 12 mil tokens (≈ 11 a 12 créditos, sem contar o raciocínio interno do modelo);
+ * uma apresentação com fotos gasta algo parecido. 10 provas por dia ≈ 120 créditos, com folga para planos e apresentações.
+ * O formulário "Montar prova" gasta ≈ 0,2 crédito. O gasto real é medido e gravado a cada chamada.
  */
-export const CREDITOS_POR_DIA = Number(process.env.AI_DAILY_CREDITS) > 0 ? Number(process.env.AI_DAILY_CREDITS) : 100;
+export const CREDITOS_POR_DIA = Number(process.env.AI_DAILY_CREDITS) > 0 ? Number(process.env.AI_DAILY_CREDITS) : 200;
 
 export class SemCreditos extends Error { constructor() { super("Seus créditos de IA de hoje acabaram. Eles voltam amanhã; enquanto isso você pode montar provas e planos sem IA."); } }
 

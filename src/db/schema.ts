@@ -1039,7 +1039,7 @@ export const assistantFiles = pgTable("assistant_files", {
   ownerId: uuid("owner_id").notNull().references(() => users.id, { onDelete: "cascade" }),
   kind: text("kind").notNull().default("pptx"),
   title: text("title").notNull(),
-  data: jsonb("data").$type<{ slides: { titulo: string; topicos: string[]; notas?: string }[]; subtitulo?: string }>().notNull(),
+  data: jsonb("data").$type<import("@/lib/core/deck").DeckSalvo>().notNull(),
   createdAt: created(),
 }, (t) => [index("assistant_files_owner_idx").on(t.ownerId)]);
 

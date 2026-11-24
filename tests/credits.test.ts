@@ -12,8 +12,8 @@ describe("créditos de IA", () => {
     expect(estimateTokens(3300)).toBe(1000);
     expect(estimateTokens(0)).toBe(0);
   });
-  it("uma prova pelo assistente (medido ≈ 2,4 mil tokens; até ≈ 6 mil com raciocínio) cabe 10 vezes em 100 créditos", () => {
-    const porProva = creditsOf(6000);
-    expect(porProva * 10).toBeLessThanOrEqual(100);
+  it("uma prova pela GizIA com entrevista (≈ 12 mil tokens) cabe 10 vezes em 200 créditos", () => {
+    const porProva = creditsOf(12_000);
+    expect(porProva * 10).toBeLessThanOrEqual(200);
   });
 });

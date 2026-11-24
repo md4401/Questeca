@@ -14,14 +14,18 @@ const SUGESTOES = [
 ];
 const fmt = (n: number) => (Math.round(n * 10) / 10).toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 
-/** Texto simples com **negrito** e listas "- ", sem HTML injetado. */
+/** Texto simples com **negrito**, listas "- " e listas numeradas "1. ", sem HTML injetado. */
 function Texto({ t }: { t: string }) {
   const inline = (s: string) => s.split(/(\*\*[^*]+\*\*)/g).map((p, i) => (p.startsWith("**") && p.endsWith("**") ? <strong key={i}>{p.slice(2, -2)}</strong> : <span key={i}>{p}</span>));
-  const blocos: React.ReactNode[] = []; let lista: string[] = [];
-  const fecha = () => { if (lista.length) { blocos.push(<ul key={blocos.length} className="ml-5 list-disc space-y-1">{lista.map((l, i) => <li key={i}>{inline(l)}</li>)}</ul>); lista = []; } };
-  for (const l of t.split("\n")) { if (/^\s*[-•]\s+/.test(l)) lista.push(l.replace(/^\s*[-•]\s+/, "")); else { fecha(); if (l.trim()) blocos.push(<p key={blocos.length}>{inline(l)}</p>); } }
+  const blocos: React.ReactNode[] = []; let lista: string[] = []; let tipo: "ul" | "ol" = "ul";
+  const fecha = () => { if (lista.length) { const L = tipo === "ol" ? "ol" : "ul"; blocos.push(<L key={blocos.length} className={`ml-5 space-y-1.5 ${tipo === "ol" ? "list-decimal" : "list-disc"}`}>{lista.map((l, i) => <li key={i}>{inline(l)}</li>)}</L>); lista = []; } };
+  for (const l of t.split("\n")) {
+    const ul = /^\s*[-•]\s+/.test(l), ol = /^\s*\d{1,2}[.)]\s+/.test(l);
+    if (ul || ol) { const novo = ol ? "ol" : "ul"; if (lista.length && novo !== tipo) fecha(); tipo = novo; lista.push(l.replace(/^\s*([-•]|\d{1,2}[.)])\s+/, "")); }
+    else { fecha(); if (l.trim()) blocos.push(<p key={blocos.length}>{inline(l)}</p>); }
+  }
   fecha();
-  return <div className="space-y-2">{blocos}</div>;
+  return <div className="space-y-2.5">{blocos}</div>;
 }
 
 /** Agrupa as conversas como no Gemini/ChatGPT: Hoje, Ontem, Últimos 7 dias e Anteriores. */

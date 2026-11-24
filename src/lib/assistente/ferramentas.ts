@@ -12,12 +12,16 @@ import { situation } from "@/lib/core/grades";
 import { gradeLabel, subjectLabel, SUBJECTS, GRADES } from "@/lib/taxonomy";
 import { selecionarPorTemas, criarProvaPorTemas } from "@/lib/montar";
 import { criarPlanoDeAula } from "@/lib/planos";
+import { deckSchema, pedidosDeImagem, TEMAS_DECK } from "@/lib/core/deck";
+import { baixarImagens } from "./imagens";
 import { sql } from "drizzle-orm";
 
 export type Link = { label: string; href: string };
 export type Saida = { resultado: unknown; links?: Link[] };
 export type Ferramenta = {
   nome: string;
+  /** Ferramentas de criação: só rodam depois da entrevista com o professor (ver core/intake). */
+  criacao?: boolean;
   descricao: string;
   args: string;
   schema: z.ZodType<Record<string, unknown>>;
@@ -26,7 +30,6 @@ export type Ferramenta = {
 
 const SERIES = GRADES.map((g) => g.value);
 const DISCIPLINAS = ["todas", ...SUBJECTS.map((s) => s.value)];
-const slides = z.array(z.object({ titulo: z.string().trim().min(1).max(120), topicos: z.array(z.string().trim().min(1).max(300)).max(8).default([]), notas: z.string().max(1500).optional() })).min(1).max(30);
 
 /** Ferramentas do assistente. Cada uma só enxerga os dados do professor logado (turmas, provas e planos dele) e só cria rascunhos: nada é apagado nem enviado a ninguém. */
 export const FERRAMENTAS: Ferramenta[] = [
@@ -96,9 +99,9 @@ export const FERRAMENTAS: Ferramenta[] = [
     },
   },
   {
-    nome: "gerar_prova", descricao: "Gera uma prova completa (rascunho editável) escolhendo questões liberadas do banco pelos temas, série e disciplina.",
-    args: `{"temas":["..."],"disciplina":"lingua-portuguesa|matematica|historia|...|todas","serie":"${SERIES.join("|")}","quantidade":10,"titulo":"opcional","classId":"opcional","criar_com_ia":"banco|completar|novas (padrão banco; só use completar/novas se o professor pedir questões criadas pela IA)"}`,
-    schema: z.object({ temas: z.array(z.string().trim().min(2).max(80)).min(1).max(6), disciplina: z.string().default("todas"), serie: z.string().default("9"), quantidade: z.coerce.number().int().min(1).max(60).default(10), titulo: z.string().max(140).optional(), classId: z.string().optional(), criar_com_ia: z.enum(["banco", "completar", "novas"]).default("banco") }),
+    nome: "gerar_prova", criacao: true, descricao: "Gera uma prova completa (rascunho editável) escolhendo questões liberadas do banco pelos temas, série e disciplina.",
+    args: `{"temas":["..."],"disciplina":"lingua-portuguesa|matematica|historia|...|todas","serie":"${SERIES.join("|")}","quantidade":10,"titulo":"opcional","classId":"opcional","criar_com_ia":"banco|completar|novas (padrão banco; só use completar/novas se o professor pedir questões criadas pela GizIA)","confirmado":true}`,
+    schema: z.object({ temas: z.array(z.string().trim().min(2).max(80)).min(1).max(6), disciplina: z.string().default("todas"), serie: z.string().default("9"), quantidade: z.coerce.number().int().min(1).max(60).default(10), titulo: z.string().max(140).optional(), classId: z.string().optional(), criar_com_ia: z.enum(["banco", "completar", "novas"]).default("banco"), confirmado: z.boolean().optional() }),
     rodar: async (ctx, a) => {
       const r = await criarProvaPorTemas(ctx, { title: a.titulo, classId: a.classId || null, grade: SERIES.includes(a.serie) ? a.serie : "9", subject: DISCIPLINAS.includes(a.disciplina) ? a.disciplina : "todas", temas: a.temas, count: a.quantidade, ia: a.criar_com_ia });
       if (!r.ok) return { resultado: { erro: r.error } };
@@ -106,20 +109,23 @@ export const FERRAMENTAS: Ferramenta[] = [
     },
   },
   {
-    nome: "gerar_plano_de_aula", descricao: "Cria um plano de aula completo (objetivos, momentos, avaliação) que o professor pode editar.", args: '{"tema":"...","minutos":50,"classId":"opcional","disciplina":"opcional","serie":"opcional"}',
-    schema: z.object({ tema: z.string().trim().min(3).max(300), minutos: z.coerce.number().int().min(20).max(240).default(50), classId: z.string().optional(), disciplina: z.string().max(40).optional(), serie: z.string().max(10).optional() }),
+    nome: "gerar_plano_de_aula", criacao: true, descricao: "Cria um plano de aula completo (objetivos, momentos, avaliação) que o professor pode editar.", args: '{"tema":"...","minutos":50,"classId":"opcional","disciplina":"opcional","serie":"opcional","confirmado":true}',
+    schema: z.object({ tema: z.string().trim().min(3).max(300), minutos: z.coerce.number().int().min(20).max(240).default(50), classId: z.string().optional(), disciplina: z.string().max(40).optional(), serie: z.string().max(10).optional(), confirmado: z.boolean().optional() }),
     rodar: async (ctx, a) => {
       const r = await criarPlanoDeAula(ctx, { theme: a.tema, durationMin: a.minutos, classId: a.classId || null, subject: a.disciplina ? subjectLabel(a.disciplina) : undefined, grade: a.serie ? gradeLabel(a.serie) : undefined });
       return { resultado: { criado: true, origem: r.origem ?? "modelo" }, links: [{ label: "Abrir e editar o plano", href: `/app/planos-de-aula/${r.id}` }] };
     },
   },
   {
-    nome: "criar_apresentacao", descricao: "Cria uma apresentação em PowerPoint (.pptx). Você escreve o conteúdo: título, e para cada slide um título e até 8 tópicos curtos; use notas para o que o professor deve falar.",
-    args: '{"titulo":"...","subtitulo":"opcional","slides":[{"titulo":"...","topicos":["..."],"notas":"opcional"}]}',
-    schema: z.object({ titulo: z.string().trim().min(2).max(140), subtitulo: z.string().max(160).optional(), slides }),
+    nome: "criar_apresentacao", criacao: true,
+    descricao: "Cria uma apresentação em PowerPoint (.pptx) com design completo: tema visual que combina com o assunto, 10 modelos de slide, fotos livres com crédito e notas de fala. Siga o guia de design do prompt.",
+    args: `{"titulo":"...","subtitulo":"opcional","tema":"${TEMAS_DECK.map((t) => t.id).join("|")}","capaImagem":{"busca":"termos em inglês"},"slides":[{"layout":"topicos|secao|destaque|numero|citacao|comparacao|linha_do_tempo|imagem|atividade|encerramento", ...campos do modelo, "notas":"fala do professor"}],"confirmado":true}`,
+    schema: deckSchema.extend({ confirmado: z.boolean().optional() }),
     rodar: async (ctx, a) => {
-      const [f] = await db.insert(assistantFiles).values({ orgId: ctx.org.id, ownerId: ctx.user.id, kind: "pptx", title: a.titulo, data: { slides: a.slides, subtitulo: a.subtitulo } }).returning();
-      return { resultado: { criada: true, slides: a.slides.length + 1 }, links: [{ label: "Baixar PowerPoint (.pptx)", href: `/api/assistente/arquivo/${f.id}` }] };
+      const { confirmado: _c, ...entrada } = a; void _c;
+      const imagens = await baixarImagens(pedidosDeImagem(entrada));
+      const [f] = await db.insert(assistantFiles).values({ orgId: ctx.org.id, ownerId: ctx.user.id, kind: "pptx", title: entrada.titulo, data: { ...entrada, imagens } }).returning();
+      return { resultado: { criada: true, slides: entrada.slides.length + 1, tema: entrada.tema, fotos: Object.keys(imagens).length, fotos_pedidas: pedidosDeImagem(entrada).length }, links: [{ label: "Baixar PowerPoint (.pptx)", href: `/api/assistente/arquivo/${f.id}` }] };
     },
   },
 ];
