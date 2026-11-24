@@ -19,20 +19,6 @@ function canEditSettings(ctx: Ctx) {
   return ctx.org.kind === "personal" || can(ctx.org.role, "org.templates");
 }
 
-export async function createSchoolAction(_: FormState, fd: FormData): Promise<FormState> {
-  const ctx = await requireCtx();
-  const name = String(fd.get("name") ?? "").trim();
-  if (name.length < 3) return { error: "Informe o nome da escola." };
-  const [org] = await db.insert(orgs).values({ name, kind: "school", ownerId: ctx.user.id, settings: { header: { schoolName: name } } }).returning();
-  await db.insert(memberships).values({ orgId: org.id, userId: ctx.user.id, role: "admin" });
-  const now = new Date();
-  // Teste de 60 dias com limites de implantação; o contrato define os limites finais (ver PENDING.md).
-  await db.insert(subscriptions).values({ orgId: org.id, plan: "school", status: "active", periodStart: now, periodEnd: new Date(now.getTime() + 60 * 864e5), limits: { assemblies: 60, classes: 30, cards: 500 } });
-  await setActiveOrg(ctx.sessionId, org.id);
-  await audit(ctx.user.id, org.id, "school.created", org.id);
-  redirect("/app/escola");
-}
-
 export async function saveHeaderAction(_: FormState, fd: FormData): Promise<FormState> {
   const ctx = await requireCtx();
   if (!canEditSettings(ctx)) return { error: "Seu papel não permite alterar modelos." };
@@ -74,6 +60,7 @@ export async function saveGradingAction(_: FormState, fd: FormData): Promise<For
   const cur = ctx.org.settings;
   await db.update(orgs).set({ settings: { ...cur, grading: { ...p.data, periods: periods.length ? periods : DEFAULT_PERIODS } } }).where(eq(orgs.id, ctx.org.id));
   await audit(ctx.user.id, ctx.org.id, "org.grading_saved", undefined, p.data);
+  revalidatePath("/app/notas");
   return { ok: "Regras salvas. Ao alterar regras, notas já finalizadas só mudam após reabertura autorizada." };
 }
 
@@ -164,5 +151,6 @@ export async function savePortalSettingsAction(_: FormState, fd: FormData): Prom
   const risk = { minAttendance: p.data.minAttendance, minAverage: p.data.minAverage , maxLateTasks: 2 };
   await db.update(orgs).set({ settings: { ...cur, risk } }).where(eq(orgs.id, ctx.org.id));
   await audit(ctx.user.id, ctx.org.id, "org.risk_settings_saved", undefined, risk);
+  revalidatePath("/app/frequencia");
   return { ok: "Regras do painel salvas." };
 }

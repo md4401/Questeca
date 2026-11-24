@@ -50,6 +50,6 @@ export async function saveAttendanceAction(classId: string, _: FormState, fd: Fo
     }
     await audit(ctx.user.id, cls.orgId, "attendance.corrected", sess.id, { reason, count: diffs.length });
   }
-  revalidatePath(`/app/turmas/${classId}/frequencia`);
+  revalidatePath(`/app/turmas/${classId}/frequencia`); revalidatePath("/app/frequencia");
   return { ok: sess ? "Chamada salva." : "Chamada salva." };
 }

@@ -9,6 +9,7 @@ import { loadGradebook, rulesFrom, cellLabel } from "@/lib/gradebook";
 import { situation } from "@/lib/core/grades";
 import { PageHead } from "@/components/page-head";
 import { NotasPanel } from "./panel";
+import { RegrasDeNotaCard, podeEditarRegras } from "../escola/cards";
 import { gradeLabel, subjectLabel } from "@/lib/taxonomy";
 
 export const metadata = { title: "Notas" };
@@ -71,6 +72,7 @@ export default async function Notas({ searchParams }: { searchParams: Promise<{ 
         <h2>Lançar notas e atividades</h2>
         <NotasPanel ctx={ctx} id={cls.id} period={period} periodHref={(p) => href(cls.id, p)} settings={settings} showPeriods={false} compact />
       </section>
+      {podeEditarRegras(ctx) && cls.orgId === ctx.org.id && <RegrasDeNotaCard ctx={ctx} />}
     </div>
   );
 }

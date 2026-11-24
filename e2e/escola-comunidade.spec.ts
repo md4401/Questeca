@@ -35,10 +35,17 @@ async function joinViaInvite(browser: import("@playwright/test").Browser, email:
 test("SA-02: convite, trocar de escola, isolamento entre escolas e turmas; SA-08: comunidade", async ({ page, browser, context }) => {
   test.setTimeout(420_000);
   // Escola A (admin cria o ambiente institucional)
-  await signup(page, { name: "Gestora A" });
+  const emailA = await signup(page, { name: "Gestora A" });
+  // o ambiente institucional agora é criado pela equipe (a opção saiu da tela Escola): cria o ambiente e a assinatura direto no banco
+  const [ua] = await sql`select id from users where email = ${emailA}`;
+  await sql`update users set onboarding_done_at = now() where id = ${ua.id}`;
+  const [oa] = await sql`insert into orgs (name, kind, owner_id, settings) values ('Colégio A', 'school', ${ua.id}, '{"header":{"schoolName":"Colégio A"}}'::jsonb) returning id`;
+  await sql`insert into memberships (org_id, user_id, role) values (${oa.id}, ${ua.id}, 'admin')`;
+  await sql`insert into subscriptions (org_id, plan, status, period_start, period_end, limits) values (${oa.id}, 'school', 'active', now(), now() + interval '60 days', '{"assemblies":60,"classes":30,"cards":500}'::jsonb)`;
+  await page.goto("/app");
+  await page.locator("#org").selectOption({ label: "Colégio A" });
+  await page.getByRole("button", { name: "Trocar" }).click();
   await page.goto("/app/escola");
-  await page.getByLabel("Nome da escola", { exact: true }).last().fill("Colégio A");
-  await page.getByRole("button", { name: "Criar ambiente da escola" }).click();
   await expect(page.getByRole("heading", { name: "Colégio A" })).toBeVisible();
   const classA = await createClass(page, "9º A");
   await addStudents(page, classA, "Fulano de Tal;5001");
