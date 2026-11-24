@@ -11,14 +11,25 @@ import { and, eq, desc } from "drizzle-orm";
 import { addManualFormAction } from "../provas/actions";
 import { checkIntegrity } from "@/lib/core/selection";
 import { FlagForm } from "@/components/flag-form";
+import { ProvasOficiais } from "./provas-oficiais";
 
 export const metadata = { title: "Banco de questões" };
 
 const BANCAS = ["Inep", "Fuvest", "Unicamp", "Unesp", "Etec", "Comvest", "Questeca"];
 
-export default async function Banco({ searchParams }: { searchParams: Promise<{ q?: string; topico?: string; fonte?: string; dif?: string; add?: string; disciplina?: string; ano?: string }> }) {
+function BancoTabs({ aba }: { aba: "questoes" | "provas" }) {
+  return (
+    <div className="tabs" role="navigation" aria-label="Seções do banco">
+      <Link href="/app/banco" className="tab" aria-current={aba === "questoes" ? "page" : undefined}>Questões</Link>
+      <Link href="/app/banco?aba=provas" className="tab" aria-current={aba === "provas" ? "page" : undefined}>Provas e gabaritos oficiais</Link>
+    </div>
+  );
+}
+
+export default async function Banco({ searchParams }: { searchParams: Promise<{ aba?: string; pag?: string; inst?: string; tipo?: string; q?: string; topico?: string; fonte?: string; dif?: string; add?: string; disciplina?: string; ano?: string }> }) {
   const sp = await searchParams;
   const ctx = await requireCtx();
+  if (sp.aba === "provas") return <div className="space-y-5"><BancoTabs aba="provas" /><ProvasOficiais sp={sp} /></div>;
   const pool = await db.select().from(questions);
   const parsed = parseQuery(sp.q ?? "");
   const hasQuery = parsed.phrase.length > 0;
@@ -45,6 +56,7 @@ export default async function Banco({ searchParams }: { searchParams: Promise<{ 
   const Hl = ({ text }: { text: string }) => <>{highlight(text, rows.length ? [...new Set(list.flatMap((r) => r.m.terms))] : []).map((p, i) => p.hit ? <mark key={i} className="hl">{p.t}</mark> : <span key={i}>{p.t}</span>)}</>;
   return (
     <div className="space-y-5">
+      <BancoTabs aba="questoes" />
       <div><h1>Banco de questões</h1><p className="hint">Pesquise por assunto, autor ou obra: ao buscar “Machado de Assis”, aparecem também questões sobre Dom Casmurro, Brás Cubas, Capitu e o Realismo.</p></div>
       <form role="search" className="card space-y-3">
         <div className="flex flex-wrap gap-2"><div className="field !mb-0 min-w-[16rem] flex-1"><label htmlFor="q" className="sr-only">Buscar questões</label><input id="q" name="q" defaultValue={sp.q} className="input" placeholder="Ex.: Machado de Assis, Revolução Francesa, juros compostos…" /></div><button className="btn" type="submit">Buscar</button></div>

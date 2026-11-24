@@ -64,3 +64,36 @@ test("Busca do banco: autor, obra e assuntos relacionados, filtros e destaque", 
   await expect(t.getByLabel("Banca / fonte")).toBeVisible();
   await expect(t.getByLabel("Disciplina")).toHaveValue("literatura");
 });
+
+test("Banco: aba Provas e gabaritos oficiais (catálogo de Enem, Fuvest, Unicamp…)", async ({ page: t }) => {
+  test.setTimeout(60_000);
+  await signup(t);
+  await t.goto("/app/banco");
+  await t.getByRole("link", { name: "Provas e gabaritos oficiais" }).click();
+  await t.waitForURL(/aba=provas/);
+  await expect(t.getByRole("heading", { level: 1, name: "Provas e gabaritos oficiais" })).toBeVisible();
+  await expect(t.getByText(/482 edições e 2450 arquivos/)).toBeVisible();
+  // Enem 2023: só Enem, com prova e gabarito, links para o site oficial
+  await t.goto("/app/banco?aba=provas&q=enem+2023");
+  const cards = t.getByTestId("edicao-oficial");
+  expect(await cards.count()).toBeGreaterThan(0);
+  await expect(cards.first()).toContainText("ENEM · 2023");
+  await expect(cards.first().getByText("Prova", { exact: true }).first()).toBeVisible();
+  await expect(cards.first().getByText("Gabarito", { exact: true }).first()).toBeVisible();
+  const href = await cards.first().getByRole("link", { name: /Abrir .* em ENEM 2023/ }).first().getAttribute("href");
+  expect(href).toMatch(/^https:\/\/.*inep\.gov\.br/); 
+  expect(await cards.first().getByRole("link", { name: /Abrir/ }).first().getAttribute("target")).toBe("_blank");
+  // siglas populares e filtros
+  await t.goto("/app/banco?aba=provas&q=usp&tipo=gabarito");
+  await expect(t.getByTestId("edicao-oficial").first()).toContainText("FUVEST");
+  await t.goto("/app/banco?aba=provas&inst=comvest&ano=2020");
+  await expect(t.getByTestId("edicao-oficial").first()).toContainText("COMVEST");
+  await t.goto("/app/banco?aba=provas&q=zzzxxyy");
+  await expect(t.getByText(/Nenhuma edição encontrada/)).toBeVisible();
+  // paginação
+  await t.goto("/app/banco?aba=provas&inst=enem");
+  await expect(t.getByText(/página 1 de 5/)).toBeVisible();
+  await t.getByRole("link", { name: "Próxima →" }).first().click();
+  await expect(t.getByText(/Página 2 de 5/).first()).toBeVisible();
+  await audit(t, "provas-oficiais");
+});
