@@ -23,7 +23,7 @@ export default async function PrimeirosPassos({ searchParams }: { searchParams: 
   for (const c of all) { const l = (knownClasses[c.grade] ??= []); if (!l.includes(c.name)) l.push(c.name); }
 
   let draft: Draft = ctx.user.onboardingDraft ? parseDraft(ctx.user.onboardingDraft) : { ...EMPTY_DRAFT };
-  // Quem já usava a Questeca: aproveita o que existe na conta.
+  // Quem já usava a Segunda Lousa: aproveita o que existe na conta.
   if (!ctx.user.onboardingDraft && mine.length) {
     const assignments: Draft["assignments"] = {};
     for (const c of mine) ((assignments[c.subject] ??= {})[c.grade] ??= []).push(c.name);

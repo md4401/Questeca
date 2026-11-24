@@ -64,10 +64,12 @@ test("Início: saudação, 4 indicadores com gráfico, desempenho, agenda e rece
 
   // acessibilidade (escuro e claro)
   const audit = async (p: Page, n: string) => { const r = await new AxeBuilder({ page: p }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze(); const bad = r.violations.filter((v) => v.impact === "serious" || v.impact === "critical"); expect(bad, `${n}: ${bad.map((v) => v.id + " " + v.nodes[0]?.target?.join(" ")).join(" | ")}`).toEqual([]); };
+  expect(await t.evaluate(() => document.documentElement.dataset.theme)).toBe("light"); // claro é o padrão
+  await audit(t, "início claro");
+  await t.evaluate(() => document.documentElement.setAttribute("data-theme", "dark"));
+  await t.waitForTimeout(400); // fim das transições de cor
   await audit(t, "início escuro");
   await t.evaluate(() => document.documentElement.setAttribute("data-theme", "light"));
-  await t.waitForTimeout(400); // fim das transições de cor
-  await audit(t, "início claro");
 
   // celular: sem rolagem lateral, 4 indicadores em uma linha e abas Atividades/Provas
   await t.setViewportSize({ width: 390, height: 844 });

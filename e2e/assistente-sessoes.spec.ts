@@ -4,11 +4,11 @@ const expect = baseExpect.configure({ soft: true, timeout: 15000 });
 // Precisa do servidor falso de IA: node e2e/mock-llm.mjs, e o app com AI_PROVIDER=nvidia NVIDIA_API_KEY=x NVIDIA_URL=http://127.0.0.1:9999/v1
 test.skip(!process.env.E2E_AI_MOCK, "defina E2E_AI_MOCK=1 com o servidor falso de IA");
 
-test("Assistente em sessões como no ChatGPT: nova conversa, histórico, reabrir, renomear e apagar", async ({ page: t }) => {
+test("GizIA em sessões como no ChatGPT: nova conversa, histórico, reabrir, renomear e apagar", async ({ page: t }) => {
   test.setTimeout(120_000);
   await signup(t);
   await t.goto("/app/assistente");
-  const enviar = async (msg: string) => { await t.getByLabel("Mensagem para o assistente").fill(msg); await t.getByLabel("Mensagem para o assistente").press("Enter"); };
+  const enviar = async (msg: string) => { await t.getByLabel("Mensagem para a GizIA").fill(msg); await t.getByLabel("Mensagem para a GizIA").press("Enter"); };
   const itens = t.getByTestId("sessao-item");
   await expect(itens).toHaveCount(0);
 

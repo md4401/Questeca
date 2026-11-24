@@ -7,10 +7,10 @@ export default function Termos() {
   return (
     <article className="mx-auto max-w-3xl space-y-4 px-4 py-12">
       <h1>Termos de uso</h1>
-      <p className="hint">Versão {LEGAL_VERSION}. Ao criar uma conta ou usar a Questeca, você concorda com estes termos.</p>
+      <p className="hint">Versão {LEGAL_VERSION}. Ao criar uma conta ou usar a Segunda Lousa, você concorda com estes termos.</p>
 
       <h2>1. Quem somos</h2>
-      <p>A Questeca é operada por <b>{l.nome}</b>, CNPJ {l.cnpj}, com sede em {l.endereco} (“Questeca”, “nós”). Contato: {l.email}.</p>
+      <p>A Segunda Lousa é operada por <b>{l.nome}</b>, CNPJ {l.cnpj}, com sede em {l.endereco} (“Segunda Lousa”, “nós”). Contato: {l.email}.</p>
 
       <h2>2. O serviço</h2>
       <p>Serviço web para professores e escolas montarem avaliações com questões existentes, gerarem PDF e Word, corrigirem, calcularem notas, planejarem a retomada de conteúdos, produzirem documentos de coordenação e trocarem materiais em comunidade. O serviço é destinado a maiores de 18 anos responsáveis pelo trabalho docente ou pela gestão escolar. Estudantes não têm conta; seus dados são lançados por professores e escolas.</p>

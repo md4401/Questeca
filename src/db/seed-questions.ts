@@ -1,4 +1,4 @@
-// Acervo-semente AUTORAL da Questeca (marcado como exemplo). Cada item tem gabarito conferido à mão.
+// Acervo-semente AUTORAL da Segunda Lousa (marcado como exemplo). Cada item tem gabarito conferido à mão.
 // Questões reais de Enem/vestibulares só entram pelo fluxo de importação com autorização (ver PENDING.md).
 export type SeedQ = {
   t: string; s: string; alts: [string, string, string, string, string]; a: "A" | "B" | "C" | "D" | "E";

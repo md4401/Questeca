@@ -10,10 +10,10 @@ export function symbol(ring: string, ribbon: string) {
 <circle cx="22" cy="22" r="15.5" fill="none" stroke="${ring}" stroke-width="7" mask="url(#cut)"/>
 <path d="M26.4 30h9v14.4l-4.5-3.7-4.5 3.7z" fill="${ribbon}"/>`;
 }
-const svg = (w: number, h: number, vb: string, body: string, title = "Questeca") => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${vb}" width="${w}" height="${h}" role="img"><title>${title}</title>${body}</svg>\n`;
+const svg = (w: number, h: number, vb: string, body: string, title = "Segunda Lousa") => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${vb}" width="${w}" height="${h}" role="img"><title>${title}</title>${body}</svg>\n`;
 
 function wordmark(fill: string, x: number, baseline: number, size: number) {
-  const run = font.layout("Questeca");
+  const run = font.layout("Segunda Lousa");
   const scale = size / font.unitsPerEm;
   let cx = 0, d = "";
   for (let i = 0; i < run.glyphs.length; i++) {
@@ -32,9 +32,9 @@ const variants: Record<string, { ring: string; ribbon: string; text: string }> =
   "-mono-light": { ring: WHITE, ribbon: WHITE, text: WHITE },
 };
 for (const [suf, v] of Object.entries(variants)) {
-  writeFileSync(`public/brand/questeca-symbol${suf}.svg`, svg(96, 96, "0 0 48 48", symbol(v.ring, v.ribbon)));
+  writeFileSync(`public/brand/segunda-lousa-symbol${suf}.svg`, svg(96, 96, "0 0 48 48", symbol(v.ring, v.ribbon)));
   const wm = wordmark(v.text, 56, 34, 30);
-  writeFileSync(`public/brand/questeca-logo${suf}.svg`, svg(Math.ceil(56 + wm.width + 2) * 2, 96, `0 0 ${Math.ceil(56 + wm.width + 2)} 48`, symbol(v.ring, v.ribbon) + wm.body));
+  writeFileSync(`public/brand/segunda-lousa-logo${suf}.svg`, svg(Math.ceil(56 + wm.width + 2) * 2, 96, `0 0 ${Math.ceil(56 + wm.width + 2)} 48`, symbol(v.ring, v.ribbon) + wm.body));
 }
 // Favicon: símbolo sobre fundo arredondado, traço mais grosso para 16 px.
 writeFileSync("src/app/icon.svg", svg(64, 64, "0 0 64 64", `<rect width="64" height="64" rx="14" fill="${BRAND}"/><g transform="translate(6 6) scale(.875)">${symbol(WHITE, WHITE).replace('stroke-width="7"', 'stroke-width="8"')}</g>`));

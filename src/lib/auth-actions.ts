@@ -97,7 +97,7 @@ export async function forgotAction(_: FormState, fd: FormData): Promise<FormStat
   if (u) {
     const token = await issueToken(u.id, "reset", 60);
     const href = `${env.appUrl()}/redefinir?token=${token}`;
-    await sendMail({ to: u.email, subject: "Redefinição de senha — Questeca", html: layoutMail("Redefinir senha", "<p>Recebemos um pedido para redefinir sua senha. Se não foi você, ignore este e-mail.</p>", { href, label: "Criar nova senha" }), text: `Redefina sua senha: ${href}` });
+    await sendMail({ to: u.email, subject: "Redefinição de senha — Segunda Lousa", html: layoutMail("Redefinir senha", "<p>Recebemos um pedido para redefinir sua senha. Se não foi você, ignore este e-mail.</p>", { href, label: "Criar nova senha" }), text: `Redefina sua senha: ${href}` });
     await audit(u.id, null, "user.reset_requested");
   }
   return msg;
@@ -134,7 +134,7 @@ export async function changeEmailVerificationAction(_: FormState, fd: FormData):
   if (dup) return { error: "Este e-mail já está em uso." };
   const token = await issueToken(ctx.user.id, "verify", 60 * 24, email);
   const href = `${env.appUrl()}/verificar?token=${token}`;
-  await sendMail({ to: email, subject: "Confirme o novo e-mail — Questeca", html: layoutMail("Confirme o novo e-mail", "<p>Clique para confirmar a troca de e-mail da sua conta.</p>", { href, label: "Confirmar" }), text: href });
+  await sendMail({ to: email, subject: "Confirme o novo e-mail — Segunda Lousa", html: layoutMail("Confirme o novo e-mail", "<p>Clique para confirmar a troca de e-mail da sua conta.</p>", { href, label: "Confirmar" }), text: href });
   return { ok: "Enviamos um link de confirmação para o novo endereço. A troca vale após confirmar." };
 }
 

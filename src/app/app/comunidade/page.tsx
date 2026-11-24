@@ -55,7 +55,7 @@ export default async function Comunidade({ searchParams }: { searchParams: Promi
               <div className="field"><label htmlFor="grade">Série</label><select id="grade" name="grade" className="input"><option value="">—</option>{GRADES.map((g) => <option key={g.value} value={g.value}>{g.label}</option>)}</select></div>
             </div>
             <fieldset className="field"><legend className="label">Quem pode ver?</legend>
-              <label className="flex gap-2 font-normal"><input type="radio" name="audience" value="general" defaultChecked />Mural geral (professores da Questeca)</label>
+              <label className="flex gap-2 font-normal"><input type="radio" name="audience" value="general" defaultChecked />Mural geral (professores da Segunda Lousa)</label>
               {ctx.org.kind === "school" && <label className="flex gap-2 font-normal"><input type="radio" name="audience" value="school" />Somente colegas de {ctx.org.name}</label>}</fieldset>
             <div className="field"><label htmlFor="attachment">Anexo (opcional, até 3 MB)</label><input id="attachment" name="attachment" type="file" className="input" />
               <label className="flex gap-2 font-normal text-sm"><input type="checkbox" name="confirmAnon" />Confirmo que o anexo não contém nomes, fotos ou dados de estudantes.</label></div>

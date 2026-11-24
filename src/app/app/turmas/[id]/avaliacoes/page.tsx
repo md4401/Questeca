@@ -21,12 +21,12 @@ export default async function Avaliacoes({ params }: { params: Promise<{ id: str
         {apps.length === 0 ? <p className="text-ink-soft">Nenhuma avaliação registrada. <Link href={`/app/provas/nova?turma=${id}`}>Criar prova</Link> ou registre uma prova existente ao lado.</p> : (
           <table className="t"><thead><tr><th>Avaliação</th><th>Data</th><th>Origem</th><th></th></tr></thead><tbody>
             {apps.map(({ a, v }) => <tr key={a.id}><td>{a.title}</td><td>{fmtDate(a.appliedOn)}</td>
-              <td>{a.kind === "external" ? <span className="badge badge-gray">Externa (gabarito do professor)</span> : <span className="badge">Questeca · v{v}{a.kind === "second" ? " · 2ª chamada" : ""}</span>}</td>
+              <td>{a.kind === "external" ? <span className="badge badge-gray">Externa (gabarito do professor)</span> : <span className="badge">Segunda Lousa · v{v}{a.kind === "second" ? " · 2ª chamada" : ""}</span>}</td>
               <td>{a.kind === "external" ? <Link href={`/app/turmas/${id}/avaliacoes/${a.id}`}>Corrigir</Link> : <Link href={`/app/provas/${a.assessmentId}/correcao?app=${a.id}`}>Corrigir</Link>}</td></tr>)}
           </tbody></table>)}
       </section>
       <section className="card"><h2 className="mb-2 text-lg">Registrar prova existente</h2>
-        <p className="hint mb-3">Uma prova feita fora da Questeca usa o gabarito que você confirma aqui. Para discursivas use <code>D(Critério=pontos;Outro=pontos)</code>, ex.: <code>A,C,D(Conclusão=1;Justificativa=2),B</code>.</p>
+        <p className="hint mb-3">Uma prova feita fora da Segunda Lousa usa o gabarito que você confirma aqui. Para discursivas use <code>D(Critério=pontos;Outro=pontos)</code>, ex.: <code>A,C,D(Conclusão=1;Justificativa=2),B</code>.</p>
         <Form action={registerExternalAction} resetOnOk>
           <input type="hidden" name="classId" value={id} />
           <Field label="Título" name="title" required /><Field label="Data de aplicação" name="appliedOn" type="date" defaultValue={todayISO()} />

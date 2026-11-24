@@ -44,7 +44,7 @@ export default async function Relatorios({ params, searchParams }: { params: Pro
         {summaries.length > 0 && <p className="hint mt-2">Baseado em: {summaries.map((s) => `${s.title} (${fmtDate(s.date)}, ${s.valid} válidos)`).join("; ")}.</p>}
       </section>
       <section className="card"><h2 className="mb-1">Preparar retomada ou checagem</h2>
-        <p className="hint mb-3">Escolha os conteúdos. A Questeca separa itens reais do acervo por necessidade (pré-requisito e prática). Você escolhe a duração, revisa e troca as questões. Use poucos itens inéditos na checagem posterior.</p>
+        <p className="hint mb-3">Escolha os conteúdos. A Segunda Lousa separa itens reais do acervo por necessidade (pré-requisito e prática). Você escolhe a duração, revisa e troca as questões. Use poucos itens inéditos na checagem posterior.</p>
         <form>
           <div className="grid gap-1 md:grid-cols-2">{TOPICS.map((t) => <label key={t.slug} className="flex gap-2 font-normal"><input type="checkbox" name="topics" value={t.slug} defaultChecked={preselected.has(t.slug) || (!preselected.size && topics.some((x) => x.slug === t.slug && x.rate < 0.6))} />{t.name}</label>)}</div>
           <div className="mt-4 flex flex-wrap gap-3"><SubmitButtonForm action={retomada} label="Criar retomada (6 questões)" /><SubmitButtonForm action={checagem} label="Checagem de 3 questões curtas" ghost /></div>

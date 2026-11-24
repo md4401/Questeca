@@ -8,8 +8,8 @@ export function applyTheme(t: Theme) { document.documentElement.dataset.theme = 
 
 /** Sincroniza o tema salvo na conta com este aparelho. */
 export function ThemeSync({ theme, large }: { theme?: Theme; large?: boolean }) {
-  // sem escolha salva, a área logada abre no tema escuro (sem gravar no aparelho)
-  useEffect(() => { if (theme) applyTheme(theme); else document.documentElement.dataset.theme = (() => { try { return localStorage.getItem(KEY) ?? "dark"; } catch { return "dark"; } })(); }, [theme]);
+  // sem escolha salva, a área logada abre no tema claro (sem gravar no aparelho)
+  useEffect(() => { if (theme) applyTheme(theme); else document.documentElement.dataset.theme = (() => { try { return localStorage.getItem(KEY) ?? "light"; } catch { return "light"; } })(); }, [theme]);
   useEffect(() => { document.documentElement.classList.toggle("large", !!large); }, [large]);
   return null;
 }
@@ -27,7 +27,7 @@ export function ThemePicker({ initial }: { initial: Theme }) {
 
 /** Alternador rápido Claro/Escuro (rodapé do menu). Salva na conta como o seletor da página Minha conta. */
 export function ThemeToggle() {
-  const [dark, setDark] = useState(true);
+  const [dark, setDark] = useState(false);
   useEffect(() => { setDark(document.documentElement.dataset.theme !== "light"); }, []);
   return (
     <button type="button" className="nav-link w-full text-left" aria-pressed={dark} onClick={() => { const n: Theme = dark ? "light" : "dark"; setDark(!dark); applyTheme(n); void saveThemeAction(n); }}>

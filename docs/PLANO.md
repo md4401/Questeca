@@ -1,7 +1,7 @@
-# Questeca — Plano técnico e roadmap (P0 + P1 + P2)
+# Segunda Lousa — Plano técnico e roadmap (P0 + P1 + P2)
 
 ## Contexto
-O PRD v1.0 (38 p.) descreve a Questeca: SaaS web pt-BR para professores (6º–9º e EM) e escolas. Fluxo: conteúdo ensinado → prova com **questões reais** filtradas por pré-requisito → PDF/gabarito no modelo da escola → correção → notas → retomada → documentos da coordenação + comunidade. O repositório `md4401/Questeca` está vazio (só README). Este plano cobre a arquitetura e a ordem de construção das três fases, tudo em um único monorepo, com os critérios AV-01..08 e SA-01..10 do PRD como portões de cada fase.
+O PRD v1.0 (38 p.) descreve a Segunda Lousa: SaaS web pt-BR para professores (6º–9º e EM) e escolas. Fluxo: conteúdo ensinado → prova com **questões reais** filtradas por pré-requisito → PDF/gabarito no modelo da escola → correção → notas → retomada → documentos da coordenação + comunidade. O repositório `md4401/Questeca` está vazio (só README). Este plano cobre a arquitetura e a ordem de construção das três fases, tudo em um único monorepo, com os critérios AV-01..08 e SA-01..10 do PRD como portões de cada fase.
 
 Decisões tomadas: **Next.js + Postgres**. Provedor de IA **ainda não definido** → camada de IA agnóstica (Vercel AI SDK) com adaptadores; troca por variável de ambiente.
 
@@ -32,7 +32,7 @@ apps/worker     consumidores pg-boss (pdf, docx, ocr, omr, import, ai, email)
 packages/db     schema Drizzle, migrações, seeds (dados fictícios + acervo demo)
 packages/core   regras de domínio puras (elegibilidade, cálculo de notas, cotas, permissões)
 packages/ai     AIProvider + prompts + schemas Zod
-packages/ui     design system Questeca
+packages/ui     design system Segunda Lousa
 packages/docs   templates de prova/relatório (HTML) e gerador DOCX
 tooling/        eslint, tsconfig, scripts de importação de acervo
 ```

@@ -120,6 +120,13 @@
       "when": 1795546164662,
       "tag": "0016_assistente_sessoes",
       "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "7",
+      "when": 1795548447207,
+      "tag": "0017_renomear_marca",
+      "breakpoints": true
     }
   ]
 }

@@ -75,7 +75,7 @@ export default async function Editor({ params, searchParams }: { params: Promise
           {items.map(({ item, q }, idx) => (
             <article key={item.id} className={`card ${conflictIds.has(item.id) ? "border-danger" : ""}`} aria-label={`Questão ${idx + 1}`}>
               <div className="flex flex-wrap items-start justify-between gap-2">
-                <p className="text-xs font-bold text-ink-soft">QUESTÃO {String(idx + 1).padStart(2, "0")} · {q.institution === "Questeca" ? "Exemplo Questeca (autoral)" : `${q.institution} ${q.exam !== q.institution ? q.exam : ""} ${q.year}`} · {fmtNum(item.points)} pt{item.pinned && <span className="badge ml-2">fixada</span>}{item.manual && <span className="badge badge-gray ml-1">manual</span>}</p>
+                <p className="text-xs font-bold text-ink-soft">QUESTÃO {String(idx + 1).padStart(2, "0")} · {q.institution === "Segunda Lousa" ? "Exemplo Segunda Lousa (autoral)" : `${q.institution} ${q.exam !== q.institution ? q.exam : ""} ${q.year}`} · {fmtNum(item.points)} pt{item.pinned && <span className="badge ml-2">fixada</span>}{item.manual && <span className="badge badge-gray ml-1">manual</span>}</p>
                 <div className="flex flex-wrap items-center gap-2 text-sm">
                   <Link className="link-btn" href={`/app/provas/${id}?trocar=${item.id}#alt-${item.id}`}>Trocar</Link>
                   <form action={pinAction.bind(null, id, item.id, !item.pinned)}><button className="link-btn" type="submit">{item.pinned ? "Desafixar" : "Fixar"}</button></form>
@@ -97,7 +97,7 @@ export default async function Editor({ params, searchParams }: { params: Promise
                   <div><dt className="label">Avalia</dt><dd>{q.assessed.map(topicName).join(", ")}</dd></div>
                   <div><dt className="label">Pré-requisitos</dt><dd>{q.prerequisites.length ? q.prerequisites.map(topicName).join(", ") : "—"}</dd></div>
                   <div><dt className="label">Tempo e dificuldade (estimados)</dt><dd>{Math.round(q.estSeconds / 60 * 10) / 10} min · nível {q.difficulty}/5</dd></div>
-                  <div><dt className="label">Referência original</dt><dd>{q.sourceUrl ? <a href={q.sourceUrl} target="_blank" rel="noreferrer">Abrir fonte</a> : "Banco autoral da Questeca"}</dd></div>
+                  <div><dt className="label">Referência original</dt><dd>{q.sourceUrl ? <a href={q.sourceUrl} target="_blank" rel="noreferrer">Abrir fonte</a> : "Banco autoral da Segunda Lousa"}</dd></div>
                 </dl></details>
               {sp.trocar === item.id && (
                 <div id={`alt-${item.id}`} className="mt-3 rounded-lg border border-line bg-brand-tint p-3">

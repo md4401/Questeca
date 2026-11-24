@@ -70,7 +70,7 @@ export async function buildDocument(kind: string, o: { cls: { id: string; name: 
     const below = withAvg.filter((r) => (r.computed.average ?? 0) < rules.passMark);
     evidence.push({ label: `Notas de ${period}`, source: "Registro de notas" });
     if (!withAvg.length) gaps.push("Sem notas lançadas neste período.");
-    gaps.push("Frequência não é registrada na Questeca: informe quando a escola fornecer.", "As decisões do conselho devem ser registradas na ata após o encontro.");
+    gaps.push("Frequência não é registrada na Segunda Lousa: informe quando a escola fornecer.", "As decisões do conselho devem ser registradas na ata após o encontro.");
     const avg = withAvg.length ? withAvg.reduce((a, r) => a + (r.computed.average ?? 0), 0) / withAvg.length : null;
     return { title: `Conselho de classe — ${o.cls.name} — ${period}`, evidence, gaps, body: `${head}\nResumo da turma:\n• Alunos: ${studs.length} · com média calculada: ${withAvg.length}\n• Média da turma: ${avg != null ? fmtNum(avg) : "—"}\n• Abaixo da média (${rules.passMark}): ${below.length}\n\nAlunos para discussão (abaixo da média):\n${below.map((r) => `• ${r.student.name}: ${fmtNum(r.computed.average)}${r.computed.partial ? " (parcial)" : ""}`).join("\n") || "• (nenhum)"}\n\nMinuta de ata — decisões registradas:\n• (preencher após o conselho)\n\nA promoção, a recuperação e os registros oficiais são de responsabilidade da equipe escolar.\n` };
   }

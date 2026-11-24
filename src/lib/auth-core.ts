@@ -23,7 +23,7 @@ export async function issueToken(userId: string, kind: "verify" | "reset", ttlMi
 export async function sendVerification(userId: string, email: string, name: string) {
   const token = await issueToken(userId, "verify", 60 * 24 * 3);
   const href = `${env.appUrl()}/verificar?token=${token}`;
-  await sendMail({ to: email, subject: "Confirme seu e-mail na Questeca", html: layoutMail("Confirme seu e-mail", `<p>Olá, ${escapeHtml(name)}! Falta só confirmar o endereço para ativar sua conta.</p>`, { href, label: "Confirmar e-mail" }), text: `Confirme seu e-mail: ${href}` });
+  await sendMail({ to: email, subject: "Confirme seu e-mail na Segunda Lousa", html: layoutMail("Confirme seu e-mail", `<p>Olá, ${escapeHtml(name)}! Falta só confirmar o endereço para ativar sua conta.</p>`, { href, label: "Confirmar e-mail" }), text: `Confirme seu e-mail: ${href}` });
 }
 
 export async function verifyEmailToken(token: string) {

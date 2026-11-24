@@ -197,7 +197,7 @@ export async function renderExam(snap: Snapshot, opts: ExamOpts): Promise<{ byte
     d.text("Gabarito e referências", { font: d.f.sansBold, size: 11 });
     d.gap(4);
     snap.items.forEach((it, i) => {
-      const src = it.institution === "Questeca" ? "Banco autoral Questeca" : `${it.institution} ${it.exam} ${it.year}${it.booklet ? ` · caderno ${it.booklet}` : ""}${it.number ? ` · questão ${it.number}` : ""}${it.page ? ` · p. ${it.page}` : ""}`;
+      const src = it.institution === "Segunda Lousa" ? "Banco autoral Segunda Lousa" : `${it.institution} ${it.exam} ${it.year}${it.booklet ? ` · caderno ${it.booklet}` : ""}${it.number ? ` · questão ${it.number}` : ""}${it.page ? ` · p. ${it.page}` : ""}`;
       d.text(`${i + 1}. Resposta: ${it.answer}   ·   ${Number(it.points).toLocaleString("pt-BR")} pt   ·   ${src}`, { font: d.f.sansBold, size: 10 });
       d.text(`Conteúdos: ${it.assessed.map(topicName).join(", ")}${it.prerequisites.length ? ` · Pré-requisitos: ${it.prerequisites.map(topicName).join(", ")}` : ""} · Dificuldade ${it.difficulty}/5 (estimada) · ${Math.round(it.estSeconds / 60 * 10) / 10} min (estimado)`, { size: 9, color: [0.25, 0.25, 0.25], x: M.l + 12, maxW: d.width - 12 });
       if (it.sourceUrl) d.text(`Fonte: ${it.sourceUrl}`, { size: 8, color: [0.3, 0.3, 0.3], x: M.l + 12, maxW: d.width - 12 });
@@ -267,7 +267,7 @@ export async function renderGradesSummary(opts: { title: string; school: string;
   for (const r of opts.rows) drawRow([r.name, ...r.cells, r.average + (r.partial ? "*" : "")]);
   d.gap(8);
   d.text("* média parcial: há lançamentos pendentes ou não computados. A equipe escolar é responsável pelos registros oficiais.", { size: 8, color: [0.35, 0.35, 0.35] });
-  d.footer("Questeca · resumo de notas");
+  d.footer("Segunda Lousa · resumo de notas");
   return d.doc.save();
 }
 

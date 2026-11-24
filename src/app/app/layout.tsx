@@ -29,7 +29,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
       { href: "/app/turmas", label: "Turmas", icon: "turmas" },
       ...(teacherLike ? [{ href: "/app/notas", label: "Notas", icon: "nota" as const }, { href: "/app/provas", label: "Provas", icon: "prova" as const }, { href: "/app/planos-de-aula", label: "Planos de aula", icon: "material" as const }] : []),
       { href: "/app/agenda", label: "Agenda", icon: "agenda" },
-      ...(teacherLike ? [{ href: "/app/assistente", label: "Assistente IA", icon: "assistente" as const }] : []),
+      ...(teacherLike ? [{ href: "/app/assistente", label: "GizIA", icon: "assistente" as const }] : []),
       { href: "/app/chat", label: `Mensagens${msgs ? ` (${msgs})` : ""}`, icon: "chat" },
       ...(ctx.user.isStaff ? [{ href: "/admin", label: "Área interna", icon: "interno" as const }] : []),
     ] },
@@ -54,8 +54,8 @@ export default async function AppLayout({ children }: { children: React.ReactNod
       <ThemeSync theme={ctx.user.prefs?.theme} large={!!ctx.user.prefs?.largeFont} />
       {/* celular: barra superior compacta */}
       <header className="no-print sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-line bg-white/95 px-4 pb-2 pt-[calc(.5rem+env(safe-area-inset-top))] backdrop-blur sm:hidden">
-        <Link href="/app" aria-label="Questeca — início" className="inline-flex items-center gap-2 no-underline">
-          <LogoMark size={28} /><span className="text-lg font-bold text-ink">Questeca</span>
+        <Link href="/app" aria-label="Segunda Lousa — início" className="inline-flex items-center gap-2 no-underline">
+          <LogoMark size={28} /><span className="text-lg font-bold text-ink">Segunda Lousa</span>
         </Link>
         <p className="min-w-0 flex-1 truncate text-right text-xs leading-tight text-ink-soft"><span className="block truncate font-semibold text-ink">{ctx.org.name}</span>{place}</p>
         <div className="flex items-center gap-1">

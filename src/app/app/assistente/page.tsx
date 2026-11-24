@@ -5,7 +5,7 @@ import { creditosHoje } from "@/lib/credits";
 import { listarSessoes, sessaoDoUsuario, mensagensDaSessao } from "@/lib/assistente/sessoes";
 import { Assistente } from "@/components/assistente";
 
-export const metadata = { title: "Assistente IA" };
+export const metadata = { title: "GizIA" };
 
 export default async function Page({ searchParams }: { searchParams: Promise<{ s?: string }> }) {
   const sp = await searchParams;
@@ -16,9 +16,9 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
   const cred = await creditosHoje(ctx.user.id);
   return (
     <div className="mx-auto max-w-5xl space-y-4">
-      <PageHead icon="assistente" title="Assistente IA" sub="Peça uma prova, um plano de aula ou uma apresentação. Ele usa as suas turmas, notas e o banco de questões." />
+      <PageHead icon="assistente" title="GizIA" sub="A assistente de IA da Segunda Lousa: peça uma prova, um plano de aula ou uma apresentação. Ela usa as suas turmas, notas e o banco de questões." />
       <Assistente disponivel={aiAvailable()} nome={ctx.user.name.split(" ")[0]} creditos={cred} sessoes={sessoes.map((x) => ({ ...x, updatedAt: x.updatedAt.toISOString() }))} ativa={ativa as never} />
-      <p className="hint">O assistente só enxerga os seus dados (suas turmas, notas, provas e planos) e só cria rascunhos que você edita. Cada 1.000 tokens usados gastam 1 crédito (limite diário de créditos, renovado à meia-noite). Para responder, os dados necessários da conversa são enviados ao provedor de IA configurado.</p>
+      <p className="hint">A GizIA só enxerga os seus dados (suas turmas, notas, provas e planos) e só cria rascunhos que você edita. Cada 1.000 tokens usados gastam 1 crédito (limite diário de créditos, renovado à meia-noite). Para responder, os dados necessários da conversa são enviados ao provedor de IA configurado.</p>
     </div>
   );
 }

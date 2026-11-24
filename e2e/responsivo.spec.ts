@@ -36,7 +36,7 @@ test("Layout responsivo: modo de navegação por largura e nenhuma página com r
         expect(largura, `${m.nome}: menu só com ícones`).toBeLessThan(100);
         // continua acessível por nome (leitor de tela) e com dica ao passar o mouse
         await expect(side.getByRole("link", { name: "Provas" }), m.nome).toHaveAttribute("title", "Provas");
-        await expect(side.getByRole("link", { name: "Assistente IA" }), m.nome).toBeVisible();
+        await expect(side.getByRole("link", { name: "GizIA" }), m.nome).toBeVisible();
       } else {
         expect(largura, `${m.nome}: menu completo`).toBeGreaterThan(230);
         await expect(side.getByText("Planos de aula"), m.nome).toBeVisible();

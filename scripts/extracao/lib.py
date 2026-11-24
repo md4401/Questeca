@@ -5,7 +5,7 @@ import hashlib, json, os, re, subprocess, sys, time, unicodedata
 from urllib.parse import urlparse
 
 CACHE = os.environ.get("EXTRACAO_CACHE", "/tmp/extracao-cache")
-UA = "Questeca-extracao/1.0 (uso educacional; contato via repositório)"
+UA = "Segunda Lousa-extracao/1.0 (uso educacional; contato via repositório)"
 _last: dict[str, float] = {}
 
 DISCIPLINAS = ["matematica", "lingua-portuguesa", "literatura", "redacao", "historia", "geografia", "biologia", "fisica", "quimica", "filosofia", "sociologia", "ingles", "espanhol", "arte", "ciencias", "interdisciplinar"]

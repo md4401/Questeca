@@ -17,18 +17,18 @@ const db = drizzle(neon(url));
 
 let inserted = 0;
 for (const q of [...SEED, ...LIT_SEED]) {
-  const [exists] = await db.select({ id: questions.id }).from(questions).where(and(eq(questions.title, q.t), eq(questions.institution, "Questeca"))).limit(1);
+  const [exists] = await db.select({ id: questions.id }).from(questions).where(and(eq(questions.title, q.t), eq(questions.institution, "Segunda Lousa"))).limit(1);
   if (exists) continue;
   const cl = classificar({ subject: q.subject ?? "matematica", title: q.t, statement: q.s, alternatives: q.alts.map((t: string) => ({ text: t })) });
   await db.insert(questions).values({
     tema: cl.tema, series: cl.series,
-    subject: q.subject ?? "matematica", institution: "Questeca", exam: "Banco autoral Questeca (exemplo)", year: 2026, title: q.t, statement: q.s,
+    subject: q.subject ?? "matematica", institution: "Segunda Lousa", exam: "Banco autoral Segunda Lousa (exemplo)", year: 2026, title: q.t, statement: q.s,
     alternatives: ["A", "B", "C", "D", "E"].map((k, i) => ({ key: k, text: q.alts[i] })),
-    answer: q.a, answerSource: "Gabarito autoral conferido pela equipe Questeca", status: "released",
-    licenseNote: "Questão autoral da Questeca, de uso liberado na plataforma.",
+    answer: q.a, answerSource: "Gabarito autoral conferido pela equipe Segunda Lousa", status: "released",
+    licenseNote: "Questão autoral da Segunda Lousa, de uso liberado na plataforma.",
     assessed: q.topics, prerequisites: q.pre ?? [], methods: q.methods ?? [], difficulty: q.d, estSeconds: q.sec,
-    searchNorm: searchNormOf({ title: q.t, statement: q.s, alternatives: ["A", "B", "C", "D", "E"].map((_, i) => ({ text: q.alts[i] })), institution: "Questeca", exam: "Banco autoral Questeca (exemplo)", year: 2026, extra: cl.tema }),
-    stimulusId: q.stim ?? null, isDemo: true, reviewedBy: "Equipe Questeca", reviewedAt: new Date(),
+    searchNorm: searchNormOf({ title: q.t, statement: q.s, alternatives: ["A", "B", "C", "D", "E"].map((_, i) => ({ text: q.alts[i] })), institution: "Segunda Lousa", exam: "Banco autoral Segunda Lousa (exemplo)", year: 2026, extra: cl.tema }),
+    stimulusId: q.stim ?? null, isDemo: true, reviewedBy: "Equipe Segunda Lousa", reviewedAt: new Date(),
   });
   inserted++;
 }

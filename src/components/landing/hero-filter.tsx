@@ -8,7 +8,7 @@ const TOPICS: { id: T; label: string }[] = [
   { id: "juros", label: "Juros compostos" },
   { id: "estat", label: "Média e mediana" },
 ];
-// Questões autorais de exemplo da Questeca (mesmas do acervo de demonstração).
+// Questões autorais de exemplo da Segunda Lousa (mesmas do acervo de demonstração).
 const QUESTIONS: { n: string; text: string; needs: T[] }[] = [
   { n: "01", text: "Uma camisa de R$ 80,00 tem 25% de desconto. Quanto passa a custar?", needs: ["pct"] },
   { n: "02", text: "Um produto de R$ 200,00 recebe 10% de desconto e, depois, mais 10% sobre o novo preço.", needs: ["pct", "desc"] },

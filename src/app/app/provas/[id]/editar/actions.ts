@@ -5,8 +5,9 @@ import { db } from "@/db";
 import { assessments, assessmentItems, questions } from "@/db/schema";
 import { searchNormOf } from "@/lib/core/search";
 import { evenPoints } from "@/lib/assessments";
+import { gerarQuestoesIA } from "@/lib/montar";
 import { requireCtx } from "@/lib/session";
-import { loadAssessment } from "@/lib/access";
+import { loadAssessment, loadClass } from "@/lib/access";
 import { normalizeMarkup } from "@/lib/core/richtext";
 import { audit } from "@/lib/audit";
 
@@ -91,4 +92,30 @@ export async function addBlankQuestionAction(assessmentId: string, answer: strin
   await audit(ctx.user.id, a.orgId, "assessment.blank_question_added", assessmentId);
   revalidatePath(`/app/provas/${assessmentId}`);
   return { ok: true };
+}
+
+/** A GizIA cria questões novas sobre os temas informados e as adiciona ao fim da prova (só com a permissão do professor). */
+export async function criarQuestoesGizIAAction(assessmentId: string, temas: string, n: number): Promise<{ ok: true; criadas: number; aviso?: string } | { ok: false; error: string }> {
+  const ctx = await requireCtx();
+  const a = await loadAssessment(ctx, assessmentId);
+  if (a.ownerId !== ctx.user.id && ctx.org.role !== "coordinator") return { ok: false, error: "Só quem criou a prova (ou a coordenação) pode editar." };
+  const lista = String(temas).split(/[,;\n]+/).map((t) => t.trim()).filter(Boolean).slice(0, 5);
+  if (!lista.length) return { ok: false, error: "Escreva o tema das questões." };
+  const qtd = Math.min(Math.max(Math.trunc(Number(n)) || 1, 1), 5);
+  const items = await db.select().from(assessmentItems).where(eq(assessmentItems.assessmentId, assessmentId));
+  if (items.length + qtd > 60) return { ok: false, error: "A prova passaria de 60 questões." };
+  let grade = "9"; let subject = "todas";
+  if (a.classId) { const { cls } = await loadClass(ctx, a.classId); grade = cls.grade; subject = cls.subject; }
+  const g = await gerarQuestoesIA(ctx, { temas: lista, subject, grade, n: qtd });
+  if (g.negado) return { ok: false, error: g.negado };
+  if (!g.geradas.length) return { ok: false, error: g.aviso ?? "A GizIA não conseguiu criar questões agora." };
+  let pos = items.length;
+  await db.insert(assessmentItems).values(g.geradas.map((q) => ({ assessmentId, questionId: q.id, position: ++pos, points: "1", manual: true, pinned: true, reason: `Criada pela GizIA · ${q.tema}. Confira enunciado e gabarito.` })));
+  const rows = (await db.select().from(assessmentItems).where(eq(assessmentItems.assessmentId, assessmentId))).sort((x, y) => x.position - y.position);
+  const pts = evenPoints(Number(a.totalPoints), rows.length);
+  for (let k = 0; k < rows.length; k++) await db.update(assessmentItems).set({ points: String(pts[k]) }).where(eq(assessmentItems.id, rows[k].id));
+  await db.update(assessments).set({ revision: a.revision + 1, updatedAt: new Date() }).where(eq(assessments.id, assessmentId));
+  await audit(ctx.user.id, a.orgId, "assessment.giz_questions_added", assessmentId, { n: g.geradas.length });
+  revalidatePath(`/app/provas/${assessmentId}`);
+  return { ok: true, criadas: g.geradas.length, aviso: g.aviso };
 }

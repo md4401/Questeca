@@ -13,7 +13,7 @@ export async function updateProfileAction(_: FormState, fd: FormData): Promise<F
   const ctx = await requireCtx();
   const name = String(fd.get("name") ?? "").trim();
   if (name.length < 2) return { error: "Informe seu nome." };
-  await db.update(users).set({ name, prefs: { notifyMarketing: fd.get("notifyMarketing") === "on", notifyCommunity: fd.get("notifyCommunity") === "on", largeFont: fd.get("largeFont") === "on" } }).where(eq(users.id, ctx.user.id));
+  await db.update(users).set({ name, prefs: { ...(ctx.user.prefs ?? {}), notifyMarketing: fd.get("notifyMarketing") === "on", notifyCommunity: fd.get("notifyCommunity") === "on", largeFont: fd.get("largeFont") === "on", gizCriaQuestoes: fd.get("gizCriaQuestoes") === "on" } }).where(eq(users.id, ctx.user.id));
   revalidatePath("/app", "layout");
   return { ok: "Preferências salvas. Avisos de segurança e pagamento são sempre enviados." };
 }

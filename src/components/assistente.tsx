@@ -87,14 +87,14 @@ export function Assistente({ disponivel, nome, creditos, sessoes: sessoesIniciai
       }
       if (!r.ok) setMsgs((m) => [...m, { role: "assistant", content: j.erro ?? "Não consegui responder agora.", isError: true }]);
       else setMsgs((m) => [...m, { role: "assistant", content: j.texto, links: j.links }]);
-    } catch { setMsgs((m) => [...m, { role: "assistant", content: "Sem conexão com o assistente. Tente de novo.", isError: true }]); }
+    } catch { setMsgs((m) => [...m, { role: "assistant", content: "Sem conexão com a GizIA. Tente de novo.", isError: true }]); }
     setEnviando(false);
   }
 
-  if (!disponivel) return <div className="card" role="status"><p className="font-medium">O assistente ainda não está ativado.</p><p className="hint mt-1">Falta configurar a IA nesta instalação: AI_PROVIDER=openai com OPENAI_API_KEY e AI_MODEL (ou nvidia/anthropic com a chave correspondente). Depois de editar o .env.local, reinicie o servidor.</p></div>;
+  if (!disponivel) return <div className="card" role="status"><p className="font-medium">A GizIA ainda não está ativada.</p><p className="hint mt-1">Falta configurar a IA nesta instalação: AI_PROVIDER=openai com OPENAI_API_KEY e AI_MODEL (ou nvidia/anthropic com a chave correspondente). Depois de editar o .env.local, reinicie o servidor.</p></div>;
 
   const painelConversas = (
-    <nav aria-label="Conversas com o assistente" className="flex h-full flex-col gap-2">
+    <nav aria-label="Conversas com a GizIA" className="flex h-full flex-col gap-2">
       <button type="button" className="btn w-full" onClick={nova} data-testid="nova-conversa">+ Nova conversa</button>
       <div className="min-h-0 flex-1 space-y-3 overflow-y-auto pr-1">
         {grupos.length === 0 && <p className="hint px-1">Suas conversas aparecem aqui.</p>}
@@ -131,11 +131,11 @@ export function Assistente({ disponivel, nome, creditos, sessoes: sessoesIniciai
       </div>
       <aside className="card hidden max-h-[calc(100vh-9rem)] min-h-[60vh] overflow-hidden lg:block" aria-label="Histórico de conversas">{painelConversas}</aside>
 
-      <section className="card flex min-h-[60vh] flex-col" aria-label="Conversa com o assistente">
+      <section className="card flex min-h-[60vh] flex-col" aria-label="Conversa com a GizIA">
         <div className="flex-1 space-y-4 overflow-y-auto pb-3" aria-live="polite">
           {msgs.length === 0 && (
             <div className="space-y-3 py-4">
-              <p className="text-lg font-medium">Olá, {nome}. O que vamos fazer hoje?</p>
+              <p className="text-lg font-medium">Olá, {nome}! Eu sou a GizIA. O que vamos fazer hoje?</p>
               <div className="grid gap-2 sm:grid-cols-2">{SUGESTOES.map((s) => <button key={s} type="button" className="btn btn-ghost !h-auto !justify-start !whitespace-normal !py-2 text-left text-sm" onClick={() => void enviar(s)}>{s}</button>)}</div>
             </div>)}
           {msgs.map((m, i) => (
@@ -150,7 +150,7 @@ export function Assistente({ disponivel, nome, creditos, sessoes: sessoesIniciai
         </div>
         <p className="pt-2 text-xs text-ink-soft" role="status" data-testid="creditos">Créditos de hoje: {fmt(cred.usados)} usados de {cred.limite} · restam {fmt(cred.restantes)}</p>
         <form className="flex gap-2 border-t border-line pt-3" onSubmit={(e) => { e.preventDefault(); void enviar(texto); }}>
-          <label htmlFor="assistente-msg" className="sr-only">Mensagem para o assistente</label>
+          <label htmlFor="assistente-msg" className="sr-only">Mensagem para a GizIA</label>
           <textarea id="assistente-msg" className="input min-h-[44px] flex-1" rows={2} value={texto} maxLength={4000} placeholder="Ex.: monte uma prova sobre funções para o 9º ano" onChange={(e) => setTexto(e.target.value)}
             onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); void enviar(texto); } }} />
           <button className="btn" type="submit" disabled={enviando || !texto.trim()}>Enviar</button>

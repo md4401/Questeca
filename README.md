@@ -1,4 +1,4 @@
-# Questeca — versão professores
+# Segunda Lousa — versão professores
 
 > **Ramificação `versao-professores`: 100% para professores e coordenação.** Não há portal de aluno ou responsável, convites de acesso, gamificação, quizzes, tarefas com entrega, mural de turma, videoaulas nem mensagens com alunos. A versão com tudo isso é a ramificação **`versao-completa`** (igual à `main`). As duas usam as mesmas migrações do banco, então o mesmo banco serve às duas.
 

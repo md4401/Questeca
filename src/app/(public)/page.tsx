@@ -38,7 +38,7 @@ export default function Home() {
               </span>
             </h1>
             <p className="reveal mx-auto mt-5 max-w-2xl text-lg text-ink-soft md:text-xl" style={{ ["--d" as string]: "160ms" }}>
-              Questões reais de provas públicas, escolhidas pelo raciocínio que exigem. Você diz o que a turma estudou; a Questeca monta a prova, separa o gabarito e acompanha a correção até a próxima aula.
+              Questões reais de provas públicas, escolhidas pelo raciocínio que exigem. Você diz o que a turma estudou; a Segunda Lousa monta a prova, separa o gabarito e acompanha a correção até a próxima aula.
             </p>
             <div className="reveal mt-8 flex flex-wrap items-center justify-center gap-3" style={{ ["--d" as string]: "240ms" }}>
               <Link className="btn btn-lg" href="/criar-conta">Criar primeira prova grátis</Link>

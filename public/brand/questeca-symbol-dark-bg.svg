@@ -1,3 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="96" height="96" role="img"><title>Questeca</title><mask id="cut" maskUnits="userSpaceOnUse" x="0" y="0" width="48" height="48"><rect width="48" height="48" fill="#fff"/><path d="M24.2 29.2h13.6v19.3l-6.8-5.6-6.8 5.6z" fill="#000" stroke="#000" stroke-width="2.4" stroke-linejoin="round"/></mask>
-<circle cx="22" cy="22" r="15.5" fill="none" stroke="#7FA6FF" stroke-width="7" mask="url(#cut)"/>
-<path d="M26.4 30h9v14.4l-4.5-3.7-4.5 3.7z" fill="#FFFFFF"/></svg>

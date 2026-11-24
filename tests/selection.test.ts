@@ -4,7 +4,7 @@ import type { Scope } from "@/db/schema";
 
 const q = (o: Partial<Candidate> & { id: string }): Candidate => ({
   status: "released", voided: false, answer: "E", statement: "x", assessed: [], prerequisites: [], methods: [],
-  difficulty: 3, estSeconds: 180, institution: "Questeca", year: 2013, ...o,
+  difficulty: 3, estSeconds: 180, institution: "Segunda Lousa", year: 2013, ...o,
 });
 const scope = (o: Partial<Scope>): Scope => ({ willFall: [], prerequisite: [], notTaught: [], confirm: [], ...o });
 

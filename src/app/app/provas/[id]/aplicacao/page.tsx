@@ -26,7 +26,7 @@ export default async function Aplicacao({ params, searchParams }: { params: Prom
     <div className="grid gap-6 lg:grid-cols-2">
       <section className="card">
         <h2 className="mb-2 text-lg">Marcar como aplicada</h2>
-        <p className="hint mb-3">Ao confirmar, a Questeca guarda a lista de itens, a ordem, o gabarito, os pesos, o cabeçalho e o escopo desta versão. Alterações depois disso criam uma nova versão, mantendo os resultados ligados ao que os alunos receberam.</p>
+        <p className="hint mb-3">Ao confirmar, a Segunda Lousa guarda a lista de itens, a ordem, o gabarito, os pesos, o cabeçalho e o escopo desta versão. Alterações depois disso criam uma nova versão, mantendo os resultados ligados ao que os alunos receberam.</p>
         {sp.erro && <p className="err mb-3" role="alert">{sp.erro}</p>}
         {conflicts.length > 0 && <p className="card-danger mb-3 text-sm">Há {conflicts.length} item(ns) fora do escopo. <Link href={`/app/provas/${id}`}>Resolver no editor</Link>.</p>}
         {items.length === 0 ? <p className="text-sm">A prova não tem questões.</p> : (

@@ -24,9 +24,9 @@ export function LogoMark({ size = 36, tone = "brand", className }: { size?: numb
 
 export function Logo({ href = "/", light, size = 36 }: { href?: string; light?: boolean; size?: number }) {
   return (
-    <Link href={href} aria-label="Questeca — início" className="group inline-flex items-center gap-2 no-underline">
+    <Link href={href} aria-label="Segunda Lousa — início" className="group inline-flex items-center gap-2 no-underline">
       <LogoMark size={size} tone={light ? "light" : "brand"} className="transition-transform duration-300 group-hover:scale-105" />
-      <span className={`logo-text display text-xl font-extrabold tracking-tight ${light ? "text-white" : "text-ink"}`}>Questeca</span>
+      <span className={`logo-text display text-xl font-extrabold tracking-tight ${light ? "text-white" : "text-ink"}`}>Segunda Lousa</span>
     </Link>
   );
 }

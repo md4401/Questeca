@@ -19,7 +19,7 @@ export function ProvasOficiais({ sp }: { sp: { q?: string; inst?: string; ano?: 
   const totalFiles = cat.edicoes.reduce((a, e) => a + e.ar.length, 0);
   return (
     <div className="space-y-5">
-      <div><h1>Provas e gabaritos oficiais</h1><p className="hint">{cat.edicoes.length} edições e {totalFiles} arquivos de {withData.length} instituições. Os botões levam ao arquivo no site da própria instituição; a Questeca não copia nem hospeda as provas.</p></div>
+      <div><h1>Provas e gabaritos oficiais</h1><p className="hint">{cat.edicoes.length} edições e {totalFiles} arquivos de {withData.length} instituições. Os botões levam ao arquivo no site da própria instituição; a Segunda Lousa não copia nem hospeda as provas.</p></div>
       <form role="search" className="card space-y-3">
         <div className="flex flex-wrap gap-2"><div className="field !mb-0 min-w-[16rem] flex-1"><label htmlFor="q" className="sr-only">Buscar provas e gabaritos</label><input id="q" name="q" defaultValue={sp.q} className="input" placeholder="Ex.: Enem 2023, Fuvest 2020, Unicamp, USP, redação…" /></div><input type="hidden" name="aba" value="provas" /><button className="btn" type="submit">Buscar</button></div>
         <div className="grid gap-3 sm:grid-cols-3">

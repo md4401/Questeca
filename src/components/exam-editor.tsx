@@ -2,12 +2,13 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { fromHtml, toHtml } from "@/lib/core/richtext";
 import { useRouter } from "next/navigation";
-import { saveExamEditsAction, addBlankQuestionAction, type EditPayload } from "@/app/app/provas/[id]/editar/actions";
+import { Modal } from "@/components/ui/modal";
+import { saveExamEditsAction, addBlankQuestionAction, criarQuestoesGizIAAction, type EditPayload } from "@/app/app/provas/[id]/editar/actions";
 import { moveAction, removeItemAction } from "@/app/app/provas/actions";
 
 type Item = { itemId: string; number: number; points: string; statement: string; alternatives: { key: string; text: string }[]; origStatement: string; origAlternatives: { key: string; text: string }[]; edited: boolean; ia?: { answer: string } | null; tema?: string | null };
 type Block = { id: string; beforeItemId: string | null; text: string };
-type Props = { assessmentId: string; title: string; instructions: string | null; items: Item[]; blocks: Block[]; schoolName: string };
+type Props = { assessmentId: string; title: string; instructions: string | null; items: Item[]; blocks: Block[]; schoolName: string; giz?: { permitido: boolean } | null };
 
 function Editable({ html, label, field, onDirty, className = "", single }: { html: string; label: string; field: string; onDirty: () => void; className?: string; single?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -21,7 +22,12 @@ function Editable({ html, label, field, onDirty, className = "", single }: { htm
 }
 
 /** Editor de texto da prova (como no Word): negrito, itálico, sublinhado, blocos de texto e restauração do original. */
-export function ExamEditor({ assessmentId, title, instructions, items: initItems, blocks: initBlocks, schoolName }: Props) {
+export function ExamEditor({ assessmentId, title, instructions, items: initItems, blocks: initBlocks, schoolName, giz }: Props) {
+  const [gizOpen, setGizOpen] = useState(false);
+  const [gizTema, setGizTema] = useState("");
+  const [gizN, setGizN] = useState(3);
+  const [gizMsg, setGizMsg] = useState<string | null>(null);
+  const [gizBusy, setGizBusy] = useState(false);
   const router = useRouter();
   const [items, setItems] = useState<Item[]>(initItems);
   const [blankAnswer, setBlankAnswer] = useState("A");
@@ -66,6 +72,15 @@ export function ExamEditor({ assessmentId, title, instructions, items: initItems
     setStatus({ kind: "saving", text: "Atualizando a prova…" });
     try { const r = (await fn()) as { ok?: boolean; error?: string } | undefined; if (r && r.ok === false) { setStatus({ kind: "error", text: r.error ?? "Não foi possível." }); return; } router.refresh(); } catch { setStatus({ kind: "error", text: "Não foi possível atualizar a prova." }); }
   };
+  const criarComGiz = async () => {
+    setGizBusy(true); setGizMsg(null);
+    await save();
+    try {
+      const r = await criarQuestoesGizIAAction(assessmentId, gizTema, gizN);
+      if (!r.ok) { setGizMsg(r.error); setGizBusy(false); return; }
+      setGizOpen(false); setGizTema(""); setGizBusy(false); router.refresh();
+    } catch { setGizMsg("Não consegui falar com a GizIA agora. Tente de novo."); setGizBusy(false); }
+  };
   const cmd = (c: string) => { document.execCommand("styleWithCSS", false, "false"); document.execCommand(c); markDirty(); };
   const Btn = ({ c, label, children }: { c: string; label: string; children: React.ReactNode }) => (
     <button type="button" className="tb-btn" aria-label={label} title={label} onMouseDown={(e) => e.preventDefault()} onClick={() => cmd(c)}>{children}</button>);
@@ -95,6 +110,7 @@ export function ExamEditor({ assessmentId, title, instructions, items: initItems
         <span className="tb-sep" aria-hidden />
         <button type="button" className="tb-btn !w-auto px-3" onClick={() => addBlock(null)}>+ Texto no final</button>
         <a className="tb-btn !w-auto px-3" href={`/app/banco?add=${assessmentId}`}>+ Questão do banco</a>
+        {giz && <button type="button" className="tb-btn !w-auto px-3" onClick={() => { setGizMsg(null); setGizOpen(true); }} data-testid="questao-giz">+ Questão com a GizIA</button>}
         <span className="flex items-center gap-1"><button type="button" className="tb-btn !w-auto px-3" onClick={() => void structural(() => addBlankQuestionAction(assessmentId, blankAnswer))}>+ Questão nova</button>
           <label className="sr-only" htmlFor="blank-ans">Alternativa correta da questão nova</label>
           <select id="blank-ans" className="input !w-auto !py-0.5 text-xs" value={blankAnswer} onChange={(e) => setBlankAnswer(e.target.value)} title="Alternativa correta">{["A", "B", "C", "D", "E"].map((k) => <option key={k} value={k}>Gab. {k}</option>)}</select></span>
@@ -132,12 +148,28 @@ export function ExamEditor({ assessmentId, title, instructions, items: initItems
               <button type="button" className="link-btn" disabled={it.number === items.length} onClick={() => void structural(() => moveAction(assessmentId, it.itemId, "down"))} aria-label={`Descer a questão ${it.number}`}>↓ Descer</button>
               <button type="button" className="link-btn !text-[#B42318]" onClick={() => { if (confirm(`Remover a questão ${it.number} da prova?`)) void structural(() => removeItemAction(assessmentId, it.itemId)); }} aria-label={`Remover a questão ${it.number}`}>Remover</button>
               {it.edited && <span className="text-[#8A5300]">editada</span>}
-              {it.ia && <span className="rounded bg-[#FFF1C2] px-1.5 py-0.5 text-[#6B4300]" data-testid="badge-ia">Criada por IA · gabarito {it.ia.answer} · confira antes de aplicar</span>}
+              {it.ia && <span className="rounded bg-[#FFF1C2] px-1.5 py-0.5 text-[#6B4300]" data-testid="badge-ia">Criada pela GizIA · gabarito {it.ia.answer} · confira antes de aplicar</span>}
               {!it.ia && it.tema && <span className="text-[#555]">Tema: {it.tema}</span>}
             </div>
           </section>))}
         {blocksAt(null).map((b) => <div key={b.id}>{blockView(b)}</div>)}
       </article>
+      {giz && (
+        <Modal open={gizOpen} onClose={() => setGizOpen(false)} title="Criar questões com a GizIA" solid>
+          {!giz.permitido ? (
+            <div className="space-y-3 text-sm">
+              <p>A criação de questões pela GizIA está <strong>desligada</strong> na sua conta. Ao ligar, você autoriza a GizIA a escrever questões novas para as suas provas. Elas ficam só na sua escola, vêm marcadas e você confere o gabarito.</p>
+              <a className="btn" href="/app/conta">Ativar em Minha conta</a>
+            </div>
+          ) : (
+            <form className="space-y-3" onSubmit={(e) => { e.preventDefault(); void criarComGiz(); }}>
+              <div className="field"><label htmlFor="giz-tema">Sobre qual tema?</label><input id="giz-tema" className="input" value={gizTema} onChange={(e) => setGizTema(e.target.value)} placeholder="Ex.: porcentagem, Machado de Assis" required maxLength={200} /></div>
+              <div className="field"><label htmlFor="giz-n">Quantas questões</label><select id="giz-n" className="input" value={gizN} onChange={(e) => setGizN(Number(e.target.value))}>{[1, 2, 3, 4, 5].map((n) => <option key={n} value={n}>{n}</option>)}</select></div>
+              <p className="hint">As questões entram no fim da prova, marcadas “Criada pela GizIA”. Confira enunciado e gabarito antes de aplicar. Gasta créditos.</p>
+              {gizMsg && <p className="text-sm text-danger" role="alert">{gizMsg}</p>}
+              <div className="flex gap-2"><button className="btn" type="submit" disabled={gizBusy || !gizTema.trim()}>{gizBusy ? "Criando…" : "Criar questões"}</button><button type="button" className="btn btn-ghost" onClick={() => setGizOpen(false)}>Cancelar</button></div>
+            </form>)}
+        </Modal>)}
     </div>
   );
 }

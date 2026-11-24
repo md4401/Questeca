@@ -2,14 +2,14 @@ import { test, expect as baseExpect } from "@playwright/test";
 import { signup, sql } from "./helpers";
 const expect = baseExpect.configure({ soft: true, timeout: 12000 });
 
-test("Assistente IA: página, aviso sem chave, API protegida e download de apresentação só do dono", async ({ page: t, browser }) => {
+test("GizIA: página, aviso sem chave, API protegida e download de apresentação só do dono", async ({ page: t, browser }) => {
   test.setTimeout(90_000);
   const email = await signup(t);
   await t.goto("/app/assistente");
-  await expect(t.getByRole("heading", { name: "Assistente IA" })).toBeVisible();
-  await expect(t.getByRole("link", { name: "Assistente IA" })).toBeVisible();
-  const ativo = await t.getByLabel("Mensagem para o assistente").count();
-  if (!ativo) await expect(t.getByText("O assistente ainda não está ativado")).toBeVisible();
+  await expect(t.getByRole("heading", { name: "GizIA" })).toBeVisible();
+  await expect(t.getByRole("link", { name: "GizIA" })).toBeVisible();
+  const ativo = await t.getByLabel("Mensagem para a GizIA").count();
+  if (!ativo) await expect(t.getByText("A GizIA ainda não está ativada")).toBeVisible();
 
   // API: sem chave responde 503; com mensagem inválida 400/503; nunca 200 sem IA
   const r = await t.request.post("/api/assistente", { data: { message: "oi" } });
@@ -34,7 +34,7 @@ test("Assistente IA: página, aviso sem chave, API protegida e download de apres
   }
 });
 
-test("Assistente IA: créditos (1.000 tokens = 1 crédito) bloqueiam ao estourar o limite diário", async ({ page: t }) => {
+test("GizIA: créditos (1.000 tokens = 1 crédito) bloqueiam ao estourar o limite diário", async ({ page: t }) => {
   test.setTimeout(60_000);
   const email = await signup(t);
   await t.goto("/app/assistente");
@@ -42,7 +42,7 @@ test("Assistente IA: créditos (1.000 tokens = 1 crédito) bloqueiam ao estourar
   // 99.500 tokens = 99,5 créditos usados → ainda resta meio crédito
   await sql`insert into ai_usage (user_id, org_id, kind, prompt_tokens, completion_tokens, tokens) values (${u.id}, ${u.org_id}, 'llm', 90000, 9500, 99500)`;
   await t.goto("/app/assistente");
-  await expect(t.getByText(/99,5 usados de 100/).or(t.getByText("O assistente ainda não está ativado"))).toBeVisible();
+  await expect(t.getByText(/99,5 usados de 100/).or(t.getByText("A GizIA ainda não está ativada"))).toBeVisible();
   const ok = await t.request.post("/api/assistente", { data: { message: "oi" } });
   expect(ok.status()).not.toBe(402);
   await sql`insert into ai_usage (user_id, org_id, kind, prompt_tokens, completion_tokens, tokens) values (${u.id}, ${u.org_id}, 'llm', 800, 200, 1000)`;
@@ -52,7 +52,7 @@ test("Assistente IA: créditos (1.000 tokens = 1 crédito) bloqueiam ao estourar
   expect((await bloq.json()).creditos.restantes).toBe(0);
 });
 
-test("Assistente IA: sessões de conversa (criar, listar, renomear, abrir, apagar) e isolamento entre professores", async ({ page: t, browser }) => {
+test("GizIA: sessões de conversa (criar, listar, renomear, abrir, apagar) e isolamento entre professores", async ({ page: t, browser }) => {
   test.setTimeout(60_000);
   const email = await signup(t);
   const [u] = await sql`select id from users where email = ${email}`;

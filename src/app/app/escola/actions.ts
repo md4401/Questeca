@@ -90,7 +90,7 @@ export async function inviteAction(_: FormState, fd: FormData): Promise<FormStat
   const token = randomToken(32);
   await db.insert(invitations).values({ orgId: ctx.org.id, email: p.data.email, role: p.data.role, classIds, tokenHash: sha256(token), invitedBy: ctx.user.id, expiresAt: new Date(Date.now() + 7 * 864e5) });
   const href = `${env.appUrl()}/convite/${token}`;
-  await sendMail({ to: p.data.email, subject: `Convite para ${ctx.org.name} na Questeca`, html: layoutMail(`Convite para ${escapeHtml(ctx.org.name)}`, `<p>${escapeHtml(ctx.user.name)} convidou você para a escola <strong>${escapeHtml(ctx.org.name)}</strong> na Questeca.</p>`, { href, label: "Ver convite" }), text: `Convite: ${href}` });
+  await sendMail({ to: p.data.email, subject: `Convite para ${ctx.org.name} na Segunda Lousa`, html: layoutMail(`Convite para ${escapeHtml(ctx.org.name)}`, `<p>${escapeHtml(ctx.user.name)} convidou você para a escola <strong>${escapeHtml(ctx.org.name)}</strong> na Segunda Lousa.</p>`, { href, label: "Ver convite" }), text: `Convite: ${href}` });
   await audit(ctx.user.id, ctx.org.id, "invite.created", p.data.email);
   revalidatePath("/app/escola");
   return { ok: emailEnabled() ? "Convite enviado por e-mail (válido por 7 dias)." : `Convite criado. O envio de e-mail não está configurado — copie e envie este link: ${href}` };

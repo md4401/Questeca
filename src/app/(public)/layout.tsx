@@ -23,7 +23,7 @@ export default async function PublicLayout({ children }: { children: React.React
                   <Link key={h} href={h} className="block rounded-xl px-4 py-3.5 text-base font-medium text-ink no-underline hover:bg-brand-tint">{l}</Link>))}
               </nav>
             </details>
-            {s ?<Link className="btn btn-sm" href="/app">Abrir Questeca</Link> : (
+            {s ?<Link className="btn btn-sm" href="/app">Abrir Segunda Lousa</Link> : (
               <>
                 <Link className="btn btn-glass btn-sm hidden sm:inline-flex" href="/entrar">Entrar</Link>
                 <Link className="btn btn-sm whitespace-nowrap" href="/criar-conta">Criar conta</Link>
@@ -41,7 +41,7 @@ export default async function PublicLayout({ children }: { children: React.React
           <nav aria-label="Produto" className="flex flex-col gap-2 text-sm"><p className="font-bold">Produto</p><Link href="/#como-funciona">Como funciona</Link><Link href="/planos">Planos</Link><Link href="/escolas">Para escolas</Link><Link href="/ajuda">Ajuda</Link></nav>
           <nav aria-label="Rodapé" className="flex flex-col gap-2 text-sm"><p className="font-bold">Institucional</p><Link href="/ajuda#contato">Contato</Link><Link href="/termos">Termos de uso</Link><Link href="/privacidade">Privacidade</Link><Link href="/acessibilidade">Acessibilidade</Link></nav>
         </div>
-        <p className="border-t border-line py-5 text-center text-xs text-ink-soft">© {new Date().getFullYear()} Questeca · Dados de alunos nunca são usados para treinar modelos.</p>
+        <p className="border-t border-line py-5 text-center text-xs text-ink-soft">© {new Date().getFullYear()} Segunda Lousa · Dados de alunos nunca são usados para treinar modelos.</p>
       </footer>
     </>
   );

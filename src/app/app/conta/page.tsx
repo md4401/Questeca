@@ -36,6 +36,8 @@ export default async function Conta({ searchParams }: { searchParams: Promise<{ 
         <Form action={updateProfileAction}>
           <Field label="Nome" name="name" defaultValue={ctx.user.name} required />
           <label className="mb-2 flex gap-2 font-normal"><input type="checkbox" name="largeFont" defaultChecked={!!p.largeFont} />Fonte maior na interface</label>
+          <label className="mb-1 flex gap-2 font-normal"><input type="checkbox" name="gizCriaQuestoes" defaultChecked={!!p.gizCriaQuestoes} />Permitir que a GizIA crie questões novas para as minhas provas</label>
+          <p className="hint mb-3 pl-7">Desligado por padrão. Questões criadas pela GizIA ficam só na sua escola, vêm marcadas e você confere o gabarito antes de aplicar. Gasta créditos.</p>
           <label className="mb-2 flex gap-2 font-normal"><input type="checkbox" name="notifyCommunity" defaultChecked={p.notifyCommunity !== false} />Avisos de atividade da comunidade</label>
           <label className="mb-3 flex gap-2 font-normal"><input type="checkbox" name="notifyMarketing" defaultChecked={!!p.notifyMarketing} />Novidades e dicas do produto (opcional)</label>
           <SubmitButton>Salvar</SubmitButton></Form></section>

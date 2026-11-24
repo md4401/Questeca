@@ -6,7 +6,7 @@ export const metadata = { title: "Para escolas" };
 export default function Escolas() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-12">
-      <h1>A Questeca na sua escola</h1>
+      <h1>A Segunda Lousa na sua escola</h1>
       <p className="mt-2 text-lg text-ink-soft">Um padrão cadastrado vale para as próximas provas. A coordenação recebe documentos no formato esperado e acompanha o que ainda precisa de revisão, com acesso limitado à sua atribuição.</p>
       <ul className="mt-6 grid gap-3 md:grid-cols-2">
         {[

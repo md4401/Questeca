@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { parseQuery, scoreDoc, norm, highlight } from "@/lib/core/search";
 
-const D = (title: string, statement: string, extra = {}) => ({ title, statement, institution: "Questeca", exam: "Banco autoral", year: 2026, ...extra });
+const D = (title: string, statement: string, extra = {}) => ({ title, statement, institution: "Segunda Lousa", exam: "Banco autoral", year: 2026, ...extra });
 describe("Busca do banco", () => {
   it("normaliza acento e caixa", () => expect(norm("Guimarães Rosa!")).toBe("guimaraes rosa"));
   it("reconhece o autor mesmo sem acento e acha por citação", () => {

@@ -11,7 +11,7 @@ export default function Privacidade() {
 
       <h2>1. Quem é responsável</h2>
       <p><b>{l.nome}</b>, CNPJ {l.cnpj}, {l.endereco}. Encarregado pelo tratamento de dados (DPO): {l.encarregado} — <b>{l.email}</b>.</p>
-      <p>Papéis: pelos dados da <b>conta de professor</b> e do uso do serviço, a Questeca é <b>controladora</b>. Pelos dados de <b>estudantes</b> lançados por uma escola ou professor vinculado a ela, a escola é a controladora e a Questeca atua como <b>operadora</b>, seguindo as instruções da escola. Professores sem escola (espaço pessoal) respondem pelos dados que lançam.</p>
+      <p>Papéis: pelos dados da <b>conta de professor</b> e do uso do serviço, a Segunda Lousa é <b>controladora</b>. Pelos dados de <b>estudantes</b> lançados por uma escola ou professor vinculado a ela, a escola é a controladora e a Segunda Lousa atua como <b>operadora</b>, seguindo as instruções da escola. Professores sem escola (espaço pessoal) respondem pelos dados que lançam.</p>
 
       <h2>2. Dados que tratamos</h2>
       <ul className="list-disc space-y-1 pl-6">

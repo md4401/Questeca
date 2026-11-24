@@ -1,7 +1,7 @@
 # Missão do subagente: extrair questões objetivas dos PDFs oficiais
 
 Você recebe UM lote (`scripts/extracao/chunks/chunk-NN.json`) com ~25 edições de provas. Cada edição lista arquivos (`tipo` prova/gabarito, `url`, `rotulo`, `versao`).
-Objetivo: transformar cada **questão objetiva (de múltipla escolha)** em um registro JSON individual, com o gabarito oficial, para o banco de questões pesquisável da Questeca.
+Objetivo: transformar cada **questão objetiva (de múltipla escolha)** em um registro JSON individual, com o gabarito oficial, para o banco de questões pesquisável da Segunda Lousa.
 
 ## Regras (obrigatórias)
 1. **Não invente nada.** O enunciado e as alternativas vêm do texto do PDF. O gabarito vem **só do arquivo de gabarito oficial** da mesma edição/versão. Sem gabarito casado → `gabarito: null` e `qualidade: "revisar"`.

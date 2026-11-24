@@ -15,7 +15,7 @@ criado por engano: `stayai.space` é da Stay Cloud e você não controla o DNS, 
 Passos quando houver domínio:
 1. Registre um domínio (ex.: `questeca.com.br` no Registro.br, ~R$ 40/ano).
 2. Peça-me para criá-lo no Resend (sa-east-1); cadastre no DNS os registros DKIM (TXT), SPF (MX e TXT) e CNAME que ele mostrar; peça a verificação.
-3. Crie uma chave de API "sending access" restrita ao domínio e, no painel do Stay Cloud, as variáveis `RESEND_API_KEY` e `EMAIL_FROM` (`Questeca <nao-responda@SEU_DOMINIO>`); opcional `REQUIRE_EMAIL_VERIFICATION=true`.
+3. Crie uma chave de API "sending access" restrita ao domínio e, no painel do Stay Cloud, as variáveis `RESEND_API_KEY` e `EMAIL_FROM` (`Segunda Lousa <nao-responda@SEU_DOMINIO>`); opcional `REQUIRE_EMAIL_VERIFICATION=true`.
 4. Opcional: apontar o site para o domínio (ex.: `app.SEU_DOMINIO`) e atualizar `APP_URL` e `NEXT_PUBLIC_APP_URL`.
 Enquanto isso: quem esquecer a senha precisa de redefinição manual (via `/admin` ou banco).
 

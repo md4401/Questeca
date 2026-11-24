@@ -8,17 +8,18 @@ import { CREDITOS_POR_DIA } from "@/lib/credits";
 import { montarProvaAction } from "./actions";
 
 export const metadata = { title: "Montar prova" };
-const BANCAS = ["Fuvest", "Comvest", "Uerj", "Vunesp", "PUC-SP", "Mackenzie", "ESPM", "Questeca"];
+const BANCAS = ["Fuvest", "Comvest", "Uerj", "Vunesp", "PUC-SP", "Mackenzie", "ESPM", "Segunda Lousa"];
 
 export default async function Montar({ searchParams }: { searchParams: Promise<{ turma?: string }> }) {
   const sp = await searchParams;
   const ctx = await requireCtx();
   const classes = await visibleClasses(ctx);
   const cls = classes.find((c) => c.id === sp.turma);
+  const permitido = !!ctx.user.prefs?.gizCriaQuestoes;
   return (
     <div className="max-w-2xl">
       <h1>Montar prova</h1>
-      <p className="hint mb-4">Escolha os temas e a série. A Questeca {aiAvailable() ? "usa IA para ampliar os temas e " : ""}pesquisa no banco, monta a prova e abre no editor, onde tudo pode ser mudado.</p>
+      <p className="hint mb-4">Escolha os temas e a série. A Segunda Lousa {aiAvailable() ? "usa IA para ampliar os temas e " : ""}pesquisa no banco, monta a prova e abre no editor, onde tudo pode ser mudado.</p>
       <Form action={montarProvaAction} className="card">
         <div className="field"><label htmlFor="themes">Temas da prova</label>
           <textarea id="themes" name="themes" className="input" style={{ minHeight: 90 }} placeholder="Ex.: Machado de Assis, Realismo, ironia" />
@@ -34,13 +35,14 @@ export default async function Montar({ searchParams }: { searchParams: Promise<{
             <select id="classId" name="classId" className="input" defaultValue={sp.turma ?? ""}><option value="">Sem turma</option>{classes.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}</select></div>
         </div>
         {aiAvailable() && (
-          <fieldset className="field rounded-md border border-line p-3"><legend className="px-1 text-sm font-medium">Questões novas com IA</legend>
+          <fieldset className="field rounded-md border border-line p-3"><legend className="px-1 text-sm font-medium">Questões novas com a GizIA</legend>
             <div className="space-y-1.5 text-sm">
-              <label className="flex gap-2 font-normal"><input type="radio" name="ia" value="banco" defaultChecked />Só do banco de provas (a IA escolhe as melhores)</label>
-              <label className="flex gap-2 font-normal"><input type="radio" name="ia" value="completar" />Do banco, e a IA cria as que faltarem</label>
-              <label className="flex gap-2 font-normal"><input type="radio" name="ia" value="novas" />Todas criadas pela IA (até 15)</label>
+              <label className="flex gap-2 font-normal"><input type="radio" name="ia" value="banco" defaultChecked />Só do banco de provas (a GizIA escolhe as melhores)</label>
+              <label className="flex gap-2 font-normal"><input type="radio" name="ia" value="completar" disabled={!permitido} />Do banco, e a GizIA cria as que faltarem</label>
+              <label className="flex gap-2 font-normal"><input type="radio" name="ia" value="novas" disabled={!permitido} />Todas criadas pela GizIA (até 15)</label>
             </div>
-            <span className="hint">Questões criadas por IA ficam só na sua escola e vêm marcadas para você conferir o gabarito. Gasta créditos (1.000 tokens = 1 crédito; você tem {CREDITOS_POR_DIA} por dia).</span></fieldset>)}
+            {!permitido && <span className="hint block text-amber">Para a GizIA criar questões, ative a permissão em <Link href="/app/conta">Minha conta</Link> (“Permitir que a GizIA crie questões novas”).</span>}
+            <span className="hint">Questões criadas pela GizIA ficam só na sua escola e vêm marcadas para você conferir o gabarito. Gasta créditos (1.000 tokens = 1 crédito; você tem {CREDITOS_POR_DIA} por dia).</span></fieldset>)}
         <details className="fold mb-3"><summary>Mais opções</summary>
           <Field label="Título da prova" name="title" placeholder="Gerado a partir dos temas" />
           <div className="field"><label htmlFor="dificuldade">Dificuldade</label>

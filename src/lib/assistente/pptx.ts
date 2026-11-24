@@ -3,12 +3,12 @@ import PptxGenJS from "pptxgenjs";
 
 export type Deck = { titulo: string; subtitulo?: string; slides: { titulo: string; topicos: string[]; notas?: string }[] };
 
-/** Gera um .pptx limpo (16:9, azul Questeca): capa, um slide por tópico e notas do professor. */
+/** Gera um .pptx limpo (16:9, azul Segunda Lousa): capa, um slide por tópico e notas do professor. */
 export async function renderDeck(d: Deck): Promise<Buffer> {
   const p = new PptxGenJS();
   p.layout = "LAYOUT_16x9";
   p.title = d.titulo;
-  p.author = "Questeca";
+  p.author = "Segunda Lousa · GizIA";
   const AZUL = "2F5BEA", INK = "1B2540", SOFT = "5B6785";
   const capa = p.addSlide();
   capa.background = { color: AZUL };

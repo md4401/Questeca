@@ -34,7 +34,7 @@ export function NovoEvento({ classes, canSchool, defaultDate, label = "Adicionar
             </div>
             <div className="flex flex-wrap items-center gap-3"><SubmitButton>Criar evento</SubmitButton><button type="button" className="btn btn-ghost" onClick={() => setOpen(false)}>Cancelar</button></div>
           </Form>)}
-        <p className="hint mt-3">Lembretes aparecem nas notificações quando você abre a Questeca perto do horário (não há envio automático por e-mail ou push).</p>
+        <p className="hint mt-3">Lembretes aparecem nas notificações quando você abre a Segunda Lousa perto do horário (não há envio automático por e-mail ou push).</p>
       </Modal>
     </>
   );

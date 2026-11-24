@@ -13,7 +13,7 @@ import type { FormState } from "@/components/form";
 export async function generateLinksAction(appId: string, _: FormState, fd: FormData): Promise<FormState> {
   const ctx = await requireCtx();
   const { app } = await loadApplication(ctx, appId);
-  if (app.kind === "external" || !app.versionId) return { error: "A aplicação digital exige uma prova da Questeca." };
+  if (app.kind === "external" || !app.versionId) return { error: "A aplicação digital exige uma prova da Segunda Lousa." };
   const hours = Math.min(168, Math.max(1, Number(fd.get("hours") ?? 24)));
   const studs = await classStudents(app.classId);
   if (!studs.length) return { error: "Cadastre os alunos da turma para gerar os links." };

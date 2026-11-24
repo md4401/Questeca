@@ -18,7 +18,7 @@ export async function POST(req: Request) {
   if (!ctx) return NextResponse.json({ erro: "Não autenticado." }, { status: 401 });
   const antes = await creditosHoje(ctx.user.id);
   if (antes.restantes <= 0) return NextResponse.json({ erro: new SemCreditos().message, creditos: antes }, { status: 402 });
-  if (!aiAvailable()) return NextResponse.json({ erro: "O assistente ainda não foi ativado nesta instalação (falta configurar a chave de IA)." }, { status: 503 });
+  if (!aiAvailable()) return NextResponse.json({ erro: "A GizIA ainda não foi ativada nesta instalação (falta configurar a chave de IA)." }, { status: 503 });
   const p = Body.safeParse(await req.json().catch(() => null));
   if (!p.success) return NextResponse.json({ erro: "Mensagem inválida." }, { status: 400 });
   if (!(await rateLimit(`assistente:${ctx.user.id}`, 30, 3600))) return NextResponse.json({ erro: "Muitas mensagens em pouco tempo. Tente de novo em alguns minutos." }, { status: 429 });
@@ -38,7 +38,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ ...r, sessionId: sessao.id, titulo, creditos: await creditosHoje(ctx.user.id) });
   } catch (e) {
     const semCred = e instanceof SemCreditos;
-    const erro = semCred ? e.message : "O assistente demorou ou falhou. Tente de novo.";
+    const erro = semCred ? e.message : "A GizIA demorou ou falhou. Tente de novo.";
     await anexar(sessao.id, { role: "assistant", content: erro, isError: true });
     return NextResponse.json({ erro, sessionId: sessao.id, titulo, creditos: await creditosHoje(ctx.user.id) }, { status: semCred ? 402 : 502 });
   }

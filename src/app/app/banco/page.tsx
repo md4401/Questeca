@@ -15,7 +15,7 @@ import { ProvasOficiais } from "./provas-oficiais";
 
 export const metadata = { title: "Banco de questões" };
 
-const BANCAS = ["Inep", "Fuvest", "Unicamp", "Unesp", "Etec", "Comvest", "Questeca"];
+const BANCAS = ["Inep", "Fuvest", "Unicamp", "Unesp", "Etec", "Comvest", "Segunda Lousa"];
 
 function BancoTabs({ aba }: { aba: "questoes" | "provas" }) {
   return (
@@ -81,7 +81,7 @@ export default async function Banco({ searchParams }: { searchParams: Promise<{ 
         <details className="fold" open={active > 0}><summary className="!min-h-0 text-sm">Filtros{active > 0 ? ` (${active} ativos)` : ""}</summary>
           <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             <div className="field !mb-0"><label htmlFor="disciplina">Disciplina</label><select id="disciplina" name="disciplina" defaultValue={sp.disciplina ?? ""} className="input"><option value="">Todas</option>{subjects.map((v) => <option key={v} value={v}>{SUBJECTS.find((x) => x.value === v)?.label ?? v}</option>)}</select></div>
-            <div className="field !mb-0"><label htmlFor="fonte">Banca / fonte</label><select id="fonte" name="fonte" defaultValue={sp.fonte ?? ""} className="input"><option value="">Todas</option>{fontes.map((f) => <option key={f} value={f}>{f === "Inep" ? "Enem (Inep)" : f === "Questeca" ? "Autoral Questeca" : f}</option>)}</select></div>
+            <div className="field !mb-0"><label htmlFor="fonte">Banca / fonte</label><select id="fonte" name="fonte" defaultValue={sp.fonte ?? ""} className="input"><option value="">Todas</option>{fontes.map((f) => <option key={f} value={f}>{f === "Inep" ? "Enem (Inep)" : f === "Segunda Lousa" ? "Autoral Segunda Lousa" : f}</option>)}</select></div>
             <div className="field !mb-0"><label htmlFor="ano">Ano</label><select id="ano" name="ano" defaultValue={sp.ano ?? ""} className="input"><option value="">Todos</option>{anos.map((a) => <option key={a} value={a}>{a}</option>)}</select></div>
             <div className="field !mb-0"><label htmlFor="serie">Série indicada</label><select id="serie" name="serie" defaultValue={sp.serie ?? ""} className="input"><option value="">Todas</option>{GRADES.map((g) => <option key={g.value} value={g.value}>{g.label}</option>)}</select></div>
             <div className="field !mb-0"><label htmlFor="tema">Tema</label><select id="tema" name="tema" defaultValue={sp.tema ?? ""} className="input"><option value="">Todos</option>{temasLista.map((t) => <option key={t} value={t}>{t}</option>)}</select></div>
@@ -99,11 +99,11 @@ export default async function Banco({ searchParams }: { searchParams: Promise<{ 
           return (
             <li key={x.id} className="card" data-testid="resultado-questao">
               <div className="flex flex-wrap items-start justify-between gap-2">
-                <div><p className="text-xs font-bold text-ink-soft">{x.institution === "Questeca" ? "EXEMPLO QUESTECA (AUTORAL)" : `${x.institution === "Inep" ? "ENEM (INEP)" : x.institution.toUpperCase()} · ${x.exam} · ${x.year}`}{x.booklet ? ` · caderno ${x.booklet}` : ""}{x.number ? ` · questão ${x.number}` : ""} · {subjectLabel(x.subject)}</p>
+                <div><p className="text-xs font-bold text-ink-soft">{x.institution === "Segunda Lousa" ? "EXEMPLO SEGUNDA LOUSA (AUTORAL)" : `${x.institution === "Inep" ? "ENEM (INEP)" : x.institution.toUpperCase()} · ${x.exam} · ${x.year}`}{x.booklet ? ` · caderno ${x.booklet}` : ""}{x.number ? ` · questão ${x.number}` : ""} · {subjectLabel(x.subject)}</p>
                   <h2 className="text-base"><Hl text={x.title} /></h2></div>
                 <span className={`badge ${x.status === "released" ? "" : x.status === "blocked" ? "badge-danger" : "badge-amber"}`}>{STATUS_LABEL[x.status]}</span>
               </div>
-              <p className="mt-2 flex flex-wrap gap-1.5 text-xs" data-testid="questao-meta">{x.tema && <span className="badge badge-gray">Tema: {x.tema}</span>}{x.series.length > 0 && <span className="badge badge-gray">Indicada para: {x.series.map(gradeLabel).join(", ")}</span>}{x.origin === "ia" && <span className="badge badge-amber">Criada por IA — confira o gabarito</span>}</p>
+              <p className="mt-2 flex flex-wrap gap-1.5 text-xs" data-testid="questao-meta">{x.tema && <span className="badge badge-gray">Tema: {x.tema}</span>}{x.series.length > 0 && <span className="badge badge-gray">Indicada para: {x.series.map(gradeLabel).join(", ")}</span>}{x.origin === "ia" && <span className="badge badge-amber">Criada pela GizIA — confira o gabarito</span>}</p>
               {m.reasons.length > 0 && <p className="mt-2 flex flex-wrap gap-1.5 text-xs" aria-label="Por que esta questão apareceu">{m.reasons.map((r) => <span key={`${r.kind}${r.text}`} className={`badge ${r.kind === "cita" ? "" : "badge-gray"}`}>{r.kind === "cita" ? "Cita" : r.kind === "relacionada" ? "Relacionada" : "Contém"}: {r.text}</span>)}</p>}
               {x.statement ? <p className="statement mt-2 whitespace-pre-line"><Hl text={x.statement} /></p> : <p className="card-amber mt-2 text-sm">Só referência: o enunciado completo não está disponível aqui. {x.licenseNote}</p>}
               {x.alternatives.length > 0 && <ol className="mt-1 text-sm">{x.alternatives.map((a) => <li key={a.key}><strong>{a.key})</strong> <Hl text={a.text} /></li>)}</ol>}

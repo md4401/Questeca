@@ -67,6 +67,31 @@ export async function selecionarPorTemas(i: { orgId: string; temas: string[]; su
   return { picked, candidatos: scored.slice(0, 30), temas, termos: termos.length };
 }
 
+/** A GizIA cria questões inéditas e as guarda (só para a escola do professor, marcadas como "ia"). Exige a permissão do professor. */
+export async function gerarQuestoesIA(ctx: Ctx, i: { temas: string[]; subject: string; grade: string; n: number }): Promise<{ geradas: { id: string; tema: string }[]; aviso?: string; negado?: string }> {
+  if (!aiAvailable()) return { geradas: [], negado: "A GizIA ainda não está ativada nesta instalação (falta a chave de IA)." };
+  if (!ctx.user.prefs?.gizCriaQuestoes) return { geradas: [], negado: "A criação de questões pela GizIA está desligada. Ative em Minha conta › Perfil e preferências (“Permitir que a GizIA crie questões novas”)." };
+  const geradas: { id: string; tema: string }[] = []; let aviso: string | undefined;
+  try {
+    const serieRot = gradeLabel(i.grade); const disc = subjectLabel(i.subject === "todas" ? "interdisciplinar" : i.subject);
+    const novas: QuestaoGerada[] = [];
+    for (let k = 0; k < i.n && novas.length < i.n; k += 8) novas.push(...(await aiGerarQuestoes({ temas: i.temas, disciplina: disc, serie: serieRot, n: Math.min(8, i.n - k) })));
+    const ano = new Date().getFullYear();
+    for (const q of novas.slice(0, i.n)) {
+      const alternatives = q.alternativas.map((t, n) => ({ key: "ABCDE"[n], text: t }));
+      const [row] = await db.insert(questions).values({
+        institution: "GizIA", exam: "Questão criada pela GizIA", year: ano, subject: i.subject === "todas" ? "interdisciplinar" : i.subject, tema: q.tema, series: [i.grade], origin: "ia", ownerOrgId: ctx.org.id,
+        title: q.enunciado.replace(/\s+/g, " ").slice(0, 100), statement: q.enunciado, alternatives, answer: q.gabarito, answerSource: "Gerada pela GizIA — confira o gabarito", status: "released",
+        licenseNote: "Questão criada pela GizIA a pedido do professor; visível só para a escola. Confira enunciado e gabarito.",
+        searchNorm: searchNormOf({ title: q.enunciado.slice(0, 100), statement: q.enunciado, alternatives, institution: "GizIA", exam: "Questão criada pela GizIA", year: ano, extra: q.tema }),
+      }).returning({ id: questions.id });
+      geradas.push({ id: row.id, tema: q.tema });
+    }
+    if (geradas.length < i.n) aviso = `A GizIA criou ${geradas.length} de ${i.n} questões; complete com “+ Questão nova” ou “+ Questão do banco”.`;
+  } catch (e) { aviso = e instanceof SemCreditos ? "Seus créditos de IA acabaram antes de criar as questões novas." : "Não consegui criar as questões com a GizIA agora."; }
+  return { geradas, aviso };
+}
+
 export type ModoIA = "banco" | "completar" | "novas";
 
 /** Cria o rascunho da prova a partir dos temas (formulário "Montar prova" e assistente). A IA, quando disponível, escolhe as melhores questões do banco e, se o professor habilitar, cria questões novas. */
@@ -76,7 +101,8 @@ export async function criarProvaPorTemas(ctx: Ctx, i: { title?: string; classId?
   const temas = i.temas.map((t) => t.trim()).filter(Boolean).slice(0, 8);
   const insts = i.insts ?? [];
   const modo: ModoIA = i.ia ?? "banco";
-  if (modo !== "banco" && !aiAvailable()) return { ok: false, error: "Criar questões com IA precisa da IA ativada nesta instalação (chave de IA)." };
+  if (modo !== "banco" && !aiAvailable()) return { ok: false, error: "Criar questões com IA precisa da GizIA ativada nesta instalação (chave de IA)." };
+  if (modo !== "banco" && !ctx.user.prefs?.gizCriaQuestoes) return { ok: false, error: "A criação de questões pela GizIA está desligada. Ative em Minha conta › Perfil e preferências (“Permitir que a GizIA crie questões novas”) e tente de novo." };
   const r = modo === "novas" ? { picked: [] as Awaited<ReturnType<typeof selecionarPorTemas>>["picked"], candidatos: [] as Awaited<ReturnType<typeof selecionarPorTemas>>["candidatos"], termos: temas.length }
     : await selecionarPorTemas({ orgId: ctx.org.id, temas, subject: i.subject, grade: i.grade, count: i.count, insts, dificuldade: i.dificuldade, usedIds: await usedQuestionIdsForClass(classId) });
   if (!r.termos) return { ok: false, error: "Não entendi os temas. Tente palavras como “porcentagem” ou “Machado de Assis”." };
@@ -98,26 +124,8 @@ export async function criarProvaPorTemas(ctx: Ctx, i: { title?: string; classId?
 
   // Criação de questões novas com IA (só quando o professor habilita)
   const faltam = modo === "novas" ? Math.min(i.count, 15) : modo === "completar" ? Math.max(0, i.count - picked.length) : 0;
-  const geradas: { id: string; tema: string }[] = [];
-  if (faltam > 0) {
-    try {
-      const serieRot = gradeLabel(i.grade); const disc = subjectLabel(i.subject === "todas" ? "interdisciplinar" : i.subject);
-      const novas: QuestaoGerada[] = [];
-      for (let k = 0; k < faltam && novas.length < faltam; k += 8) novas.push(...(await aiGerarQuestoes({ temas, disciplina: disc, serie: serieRot, n: Math.min(8, faltam - k) })));
-      const ano = new Date().getFullYear();
-      for (const q of novas.slice(0, faltam)) {
-        const alternatives = q.alternativas.map((t, n) => ({ key: "ABCDE"[n], text: t }));
-        const [row] = await db.insert(questions).values({
-          institution: "Questeca IA", exam: "Questão criada por IA", year: ano, subject: i.subject === "todas" ? "interdisciplinar" : i.subject, tema: q.tema, series: [i.grade], origin: "ia", ownerOrgId: ctx.org.id,
-          title: q.enunciado.replace(/\s+/g, " ").slice(0, 100), statement: q.enunciado, alternatives, answer: q.gabarito, answerSource: "Gerada por IA — confira o gabarito", status: "released",
-          licenseNote: "Questão criada por IA a pedido do professor; visível só para a escola. Confira enunciado e gabarito.",
-          searchNorm: searchNormOf({ title: q.enunciado.slice(0, 100), statement: q.enunciado, alternatives, institution: "Questeca IA", exam: "Questão criada por IA", year: ano, extra: q.tema }),
-        }).returning({ id: questions.id });
-        geradas.push({ id: row.id, tema: q.tema });
-      }
-      if (geradas.length < faltam) aviso = `A IA criou ${geradas.length} de ${faltam} questões; complete com “+ Questão nova” ou “+ Questão do banco”.`;
-    } catch (e) { aviso = e instanceof SemCreditos ? "Seus créditos de IA acabaram antes de criar as questões novas." : "Não consegui criar as questões com a IA agora."; }
-  }
+  let geradas: { id: string; tema: string }[] = [];
+  if (faltam > 0) { const g = await gerarQuestoesIA(ctx, { temas, subject: i.subject, grade: i.grade, n: faltam }); geradas = g.geradas; aviso = g.aviso ?? aviso; }
   if (!picked.length && !geradas.length) return { ok: false, error: aviso ?? "Não encontrei questões liberadas para esses temas. Tente outros termos, mude a disciplina para “Todas”, remova o filtro de bancas ou habilite “Criar com IA”." };
 
   const total = picked.length + geradas.length;
@@ -132,9 +140,9 @@ export async function criarProvaPorTemas(ctx: Ctx, i: { title?: string; classId?
   await db.insert(assessmentItems).values([
     ...picked.map((s, k) => {
       const hit = temas.find((_, n) => s.porTema[n] > 0);
-      return { assessmentId: a.id, questionId: s.q.id, position: k + 1, points: String(pts[k]), reason: `${escolhidaPorIA ? "Escolhida pela IA" : "Escolhida"}${s.q.tema ? ` · ${s.q.tema}` : ""}${hit ? ` · tema “${hit}”` : ""}. ${s.q.institution} ${s.q.year}.` };
+      return { assessmentId: a.id, questionId: s.q.id, position: k + 1, points: String(pts[k]), reason: `${escolhidaPorIA ? "Escolhida pela GizIA" : "Escolhida"}${s.q.tema ? ` · ${s.q.tema}` : ""}${hit ? ` · tema “${hit}”` : ""}. ${s.q.institution} ${s.q.year}.` };
     }),
-    ...geradas.map((g, k) => ({ assessmentId: a.id, questionId: g.id, position: picked.length + k + 1, points: String(pts[picked.length + k]), reason: `Criada pela IA · ${g.tema}. Confira enunciado e gabarito.` })),
+    ...geradas.map((g, k) => ({ assessmentId: a.id, questionId: g.id, position: picked.length + k + 1, points: String(pts[picked.length + k]), reason: `Criada pela GizIA · ${g.tema}. Confira enunciado e gabarito.` })),
   ]);
   await audit(ctx.user.id, ctx.org.id, "assessment.composed", a.id, { temas, found: picked.length, geradas: geradas.length, ia: escolhidaPorIA });
   await track("search_done", ctx.user.id, ctx.org.id, { found: picked.length, wanted: i.count });
