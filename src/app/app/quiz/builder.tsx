@@ -1,8 +1,17 @@
 "use client";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { Form, SubmitButton } from "@/components/form";
 import { salvarQuizAction } from "./actions";
+
+/** Caixa de texto que cresce com o conteúdo (também ao abrir um quiz salvo e ao redimensionar a tela). */
+function Auto({ value, onChange, ...rest }: { value: string; onChange: (v: string) => void } & Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, "value" | "onChange">) {
+  const ref = useRef<HTMLTextAreaElement>(null);
+  const ajusta = () => { const e = ref.current; if (e) { e.style.height = "auto"; e.style.height = `${e.scrollHeight}px`; } };
+  useLayoutEffect(() => { ajusta(); }, [value]);
+  useLayoutEffect(() => { window.addEventListener("resize", ajusta); return () => window.removeEventListener("resize", ajusta); }, []);
+  return <textarea ref={ref} value={value} onChange={(e) => onChange(e.target.value)} {...rest} />;
+}
 
 type P = { k: number; texto: string; opcoes: string[]; certa: number; segundos: number };
 const TEMPOS = [10, 20, 30, 45, 60, 90, 120];
@@ -34,7 +43,7 @@ export function QuizBuilder({ id, titulo = "", inicial = [] }: { id: string | nu
         <section key={p.k} className={`qb-card ${foco === p.k ? "on" : ""}`} onFocusCapture={() => setFoco(p.k)} onClick={() => setFoco(p.k)} data-testid="pergunta">
           <div className="qb-top"><span className="qb-num">{i + 1}</span>
             <label className="sr-only" htmlFor={`q-${p.k}`}>Pergunta {i + 1}</label>
-            <textarea id={`q-${p.k}`} className="qb-enun" rows={1} value={p.texto} maxLength={300} placeholder="Pergunta" onChange={(e) => { upd(p.k, (x) => ({ ...x, texto: e.target.value })); e.target.style.height = "auto"; e.target.style.height = `${e.target.scrollHeight}px`; }} /></div>
+            <Auto id={`q-${p.k}`} className="qb-enun" rows={1} value={p.texto} maxLength={300} placeholder="Pergunta" onChange={(v) => upd(p.k, (x) => ({ ...x, texto: v }))} /></div>
           <ul className="qb-opts" role="radiogroup" aria-label={`Opções da pergunta ${i + 1}`}>
             {p.opcoes.map((o, oi) => (
               <li key={oi} className={p.certa === oi ? "certa" : ""}>

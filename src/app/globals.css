@@ -758,7 +758,7 @@ a.qchoice-card:hover { border-color: var(--color-brand); box-shadow: 0 14px 32px
 .qb-titulo:focus { border-bottom-color: var(--color-brand); }
 .qb-top { display: flex; gap: .75rem; align-items: flex-start; }
 .qb-num { flex: none; width: 1.9rem; height: 1.9rem; border-radius: 50%; background: var(--color-brand-tint); color: var(--color-brand); font-weight: 800; font-size: .85rem; display: grid; place-items: center; margin-top: .45rem; }
-.qb-enun { flex: 1; resize: none; overflow: hidden; border: 0; border-bottom: 1.5px solid var(--color-line); background: var(--color-brand-tint); border-radius: .5rem .5rem 0 0; padding: .7rem .8rem; font-size: 1.05rem; color: var(--color-ink); outline: none; min-height: 2.8rem; }
+.qb-enun { flex: 1; resize: none; overflow: hidden; line-height: 1.45; border: 0; border-bottom: 1.5px solid var(--color-line); background: var(--color-brand-tint); border-radius: .5rem .5rem 0 0; padding: .7rem .8rem; font-size: 1.05rem; color: var(--color-ink); outline: none; min-height: 2.8rem; }
 .qb-enun:focus { border-bottom-color: var(--color-brand); }
 .qb-opts { list-style: none; margin: .9rem 0 0; padding: 0; display: grid; gap: .5rem; }
 .qb-opts li { display: flex; align-items: center; gap: .6rem; padding: .15rem .35rem; border-radius: .6rem; }
@@ -814,3 +814,27 @@ a.qchoice-card:hover { border-color: var(--color-brand); box-shadow: 0 14px 32px
 
 /* Enunciados reais têm linhas longas sem espaço (pontilhados, links): sempre quebram, nunca criam rolagem lateral. */
 .statement, .statement *, .card ol li, .card h2, .hint, .card p { overflow-wrap: anywhere; word-break: normal; }
+
+/* ---------- Tour de primeira visita ---------- */
+.tour { position: fixed; inset: 0; z-index: 9990; pointer-events: none; }
+.tour-block { position: fixed; inset: 0; pointer-events: auto; }
+.tour-dim { position: fixed; inset: 0; background: rgba(7, 16, 45, .62); }
+.tour-spot { position: fixed; border-radius: 14px; box-shadow: 0 0 0 9999px rgba(7, 16, 45, .62), 0 0 0 3px var(--color-brand) inset; outline: 3px solid color-mix(in srgb, var(--color-brand) 70%, white); transition: top .28s ease, left .28s ease, width .28s ease, height .28s ease; pointer-events: none; }
+.tour-pop { position: fixed; z-index: 1; width: min(340px, calc(100vw - 24px)); background: var(--color-sheet); color: var(--color-ink); border-radius: 16px; padding: 1.1rem 1.15rem 1rem; box-shadow: 0 24px 60px -18px rgba(7, 16, 45, .6); pointer-events: auto; animation: tour-in .22s ease; }
+@keyframes tour-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.tour-pop h2 { margin: 0 1.6rem .35rem 0; font-size: 1.05rem; }
+.tour-pop p { margin: 0 0 .9rem; font-size: .9rem; line-height: 1.5; color: var(--color-ink-soft); }
+.tour-x { position: absolute; top: .5rem; right: .6rem; width: 2rem; height: 2rem; border-radius: 50%; font-size: 1.3rem; color: var(--color-ink-soft); }
+.tour-x:hover { background: var(--color-brand-tint); }
+.tour-foot { display: flex; align-items: center; gap: .5rem; border-top: 1px solid var(--color-line); padding-top: .75rem; }
+.tour-pular { font-size: .85rem; color: var(--color-ink-soft); padding: .4rem .2rem; min-height: 2.4rem; }
+.tour-pular:hover { color: var(--color-ink); text-decoration: underline; }
+.tour-cont { margin-left: auto; font-size: .78rem; color: var(--color-ink-soft); }
+.tour-volta { font-size: .88rem; font-weight: 600; color: var(--color-ink); padding: .4rem .5rem; min-height: 2.4rem; border-radius: .6rem; }
+.tour-volta:hover { background: var(--color-brand-tint); }
+.tour-prox { background: var(--color-brand); color: #fff; font-size: .88rem; font-weight: 700; padding: .5rem 1rem; min-height: 2.4rem; border-radius: .7rem; }
+.tour-prox:hover { filter: brightness(1.08); }
+.tour-pop[data-lado="abaixo"]::before, .tour-pop[data-lado="acima"]::before { content: ""; position: absolute; left: calc(var(--seta) - 8px); width: 16px; height: 16px; background: var(--color-sheet); transform: rotate(45deg); }
+.tour-pop[data-lado="abaixo"]::before { top: -7px; }
+.tour-pop[data-lado="acima"]::before { bottom: -7px; }
+@media (prefers-reduced-motion: reduce) { .tour-spot { transition: none; } .tour-pop { animation: none; } }

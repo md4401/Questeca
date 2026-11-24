@@ -3,6 +3,7 @@ import { eq, and, isNull, count } from "drizzle-orm";
 import { requireCtx } from "@/lib/session";
 import { Logo, LogoMark } from "@/components/logo";
 import { NavLinks } from "@/components/nav";
+import { Tour, TourButton } from "@/components/tour";
 import { MobileTabs } from "@/components/mobile-tabs";
 import { ThemeSync, ThemeToggle } from "@/components/theme";
 import { Icon, type IconName } from "@/components/icons";
@@ -61,7 +62,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
         <p className="min-w-0 flex-1 truncate text-right text-xs leading-tight text-ink-soft"><span className="block truncate font-semibold text-ink">{ctx.org.name}</span>{place}</p>
         <div className="flex items-center gap-1">
           <Link href="/app/banco" className="icon-btn" aria-label="Buscar no banco de questões"><Icon name="busca" size={20} /></Link>
-          <Link href="/app/notificacoes" className="icon-btn relative" aria-label={`Avisos${unread ? ` (${unread} não lidos)` : ""}`}><Icon name="sino" size={20} />{unread > 0 && <i className="absolute right-1.5 top-1.5 h-2.5 w-2.5 rounded-full bg-[var(--color-brand)]" aria-hidden />}</Link>
+          <TourButton /><Link href="/app/notificacoes" className="icon-btn relative" aria-label={`Avisos${unread ? ` (${unread} não lidos)` : ""}`}><Icon name="sino" size={20} />{unread > 0 && <i className="absolute right-1.5 top-1.5 h-2.5 w-2.5 rounded-full bg-[var(--color-brand)]" aria-hidden />}</Link>
         </div>
       </header>
 
@@ -105,7 +106,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
             </form>)}
           <div className="flex items-center gap-1">
             <Link href="/app/banco" className="icon-btn" aria-label="Buscar no banco de questões"><Icon name="busca" size={20} /></Link>
-            <Link href="/app/ajuda" className="icon-btn" aria-label="Ajuda"><Icon name="ajuda" size={20} /></Link>
+            <TourButton /><Link href="/app/ajuda" className="icon-btn" aria-label="Ajuda"><Icon name="ajuda" size={20} /></Link>
             <Link href="/app/notificacoes" className="icon-btn relative" aria-label={`Avisos${unread ? ` (${unread} não lidos)` : ""}`}><Icon name="sino" size={20} />{unread > 0 && <i className="absolute right-1.5 top-1.5 h-2.5 w-2.5 rounded-full bg-danger" aria-hidden />}</Link>
           </div>
         </div>
@@ -115,6 +116,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
             <form action={resendVerificationAction}><SubmitButton className="link-btn">Reenviar link</SubmitButton></form>
           </div>
         )}
+        <Tour seen={ctx.user.prefs.tours ?? []} />
         <div id="conteudo" className="mx-auto max-w-6xl p-4 pb-[calc(5.5rem+env(safe-area-inset-bottom))] sm:px-6 sm:py-6 sm:pb-8 lg:px-8 lg:py-8 xl:px-10 2xl:max-w-[84rem]">{children}</div>
       </div>
 

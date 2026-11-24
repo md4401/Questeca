@@ -27,7 +27,7 @@ export const users = pgTable("users", {
   termsVersion: text("terms_version").notNull(),
   termsAcceptedAt: timestamp("terms_accepted_at", { withTimezone: true }).notNull(),
   isStaff: boolean("is_staff").notNull().default(false),
-  prefs: jsonb("prefs").$type<{ notifyMarketing?: boolean; notifyCommunity?: boolean; largeFont?: boolean; mute?: string[]; gizCriaQuestoes?: boolean; theme?: "light" | "dark" | "system" }>().notNull().default({}),
+  prefs: jsonb("prefs").$type<{ notifyMarketing?: boolean; notifyCommunity?: boolean; largeFont?: boolean; mute?: string[]; gizCriaQuestoes?: boolean; tours?: string[]; theme?: "light" | "dark" | "system" }>().notNull().default({}),
   onboardingDraft: jsonb("onboarding_draft").$type<Record<string, unknown>>(),
   onboardingDoneAt: timestamp("onboarding_done_at", { withTimezone: true }),
   failedLogins: integer("failed_logins").notNull().default(0),

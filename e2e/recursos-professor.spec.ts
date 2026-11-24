@@ -147,3 +147,19 @@ test("Biblioteca: Adicionar material abre em modal e fecha ao salvar", async ({ 
   await expect(page.getByRole("dialog")).toBeHidden({ timeout: 8000 });
   await expect(page.getByRole("heading", { name: "Apostila de funções" })).toBeVisible();
 });
+
+test("Quiz: pergunta longa aparece inteira no construtor", async ({ page }) => {
+  await signup(page);
+  await page.goto("/app/quiz/novo/manual");
+  await page.getByLabel("Nome do quiz").fill("Trigonometria");
+  const longa = "Em um triângulo retângulo, os catetos medem 3 e 4, e a hipotenusa mede 5. Para o ângulo oposto ao cateto 3, qual é o seno?";
+  await page.getByLabel("Pergunta 1", { exact: true }).fill(longa);
+  for (const [n, t] of [[1, "4/5"], [2, "3/5"]] as const) await page.getByLabel(`Texto da opção ${n} da pergunta 1`).fill(t);
+  await page.getByRole("button", { name: "Salvar quiz" }).click();
+  await expect(page.getByTestId("iniciar-jogo")).toBeVisible();
+  for (const w of [1200, 390]) {
+    await page.setViewportSize({ width: w, height: 800 });
+    const ok = await page.getByLabel("Pergunta 1", { exact: true }).evaluate((e: HTMLTextAreaElement) => e.scrollHeight <= e.clientHeight + 1);
+    expect(ok, `largura ${w}`).toBe(true);
+  }
+});
