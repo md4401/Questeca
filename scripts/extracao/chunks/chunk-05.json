@@ -1,0 +1,951 @@
+[
+ {
+  "id": "comvest-2024-1-fase",
+  "s": "comvest",
+  "a": 2024,
+  "n": "Comvest 2024 · 1ª fase",
+  "f": "1ª fase",
+  "fo": "https://www.comvest.unicamp.br/ingresso-2024/vestibular-2024-2/area-doa-candidatoa/",
+  "ar": [
+   {
+    "t": "gabarito",
+    "r": "Gabarito — versão Q e Y",
+    "u": "https://www.comvest.unicamp.br/wp-content/uploads/2023/10/Q_Y.pdf",
+    "fm": "pdf",
+    "v": "Q e Y"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito — versão R e Z",
+    "u": "https://www.comvest.unicamp.br/wp-content/uploads/2023/10/R_Z.pdf",
+    "fm": "pdf",
+    "v": "R e Z"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito — versão S e W",
+    "u": "https://www.comvest.unicamp.br/wp-content/uploads/2023/10/S_W.pdf",
+    "fm": "pdf",
+    "v": "S e W"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito — versão T e X",
+    "u": "https://www.comvest.unicamp.br/wp-content/uploads/2023/10/T_X.pdf",
+    "fm": "pdf",
+    "v": "T e X"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — versão Q e Y",
+    "u": "https://www.comvest.unicamp.br/vest2024/F1/f12024Q_Y.pdf",
+    "fm": "pdf",
+    "v": "Q e Y"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — versão R e Z",
+    "u": "https://www.comvest.unicamp.br/vest2024/F1/f12024R_Z.pdf",
+    "fm": "pdf",
+    "v": "R e Z"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — versão S e W",
+    "u": "https://www.comvest.unicamp.br/vest2024/F1/f12024S_W.pdf",
+    "fm": "pdf",
+    "v": "S e W"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — versão T e X",
+    "u": "https://www.comvest.unicamp.br/vest2024/F1/f12024T_X.pdf",
+    "fm": "pdf",
+    "v": "T e X"
+   }
+  ]
+ },
+ {
+  "id": "comvest-2024-2-fase",
+  "s": "comvest",
+  "a": 2024,
+  "n": "Comvest 2024 · 2ª fase",
+  "f": "2ª fase",
+  "fo": "https://www.comvest.unicamp.br/ingresso-2024/vestibular-2024-2/area-doa-candidatoa/",
+  "ar": [
+   {
+    "t": "gabarito",
+    "r": "Respostas esperadas — Expectativa da banca de Redação",
+    "u": "https://www.comvest.unicamp.br/wp-content/uploads/2023/12/Expectativa-Banca_RED.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Área de Ciências Exatas / Tecnológicas",
+    "u": "https://www.comvest.unicamp.br/vest2024/F2/provas/2024F2CE.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Área de Ciências Biológicas / Saúde",
+    "u": "https://www.comvest.unicamp.br/vest2024/F2/provas/2024F2CB.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Área de Ciências Humanas / Artes",
+    "u": "https://www.comvest.unicamp.br/vest2024/F2/provas/2024F2CH.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Redação, Língua Portuguesa e Literaturas de Língua Portuguesa, interdisciplinar",
+    "u": "https://www.comvest.unicamp.br/vest2024/F2/provas/2024F2redporingcn.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "comvest-2024-2-fase-1-dia",
+  "s": "comvest",
+  "a": 2024,
+  "n": "Comvest 2024 · 2ª fase · 1º dia",
+  "f": "2ª fase",
+  "d": "1º dia",
+  "fo": "https://www.comvest.unicamp.br/ingresso-2024/vestibular-2024-2/area-doa-candidatoa/",
+  "ar": [
+   {
+    "t": "gabarito",
+    "r": "Respostas esperadas — Questões do primeiro dia",
+    "u": "https://www.comvest.unicamp.br/wp-content/uploads/2023/12/Respostas-Esperadas_1odia.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "comvest-2024-2-fase-2-dia",
+  "s": "comvest",
+  "a": 2024,
+  "n": "Comvest 2024 · 2ª fase · 2º dia",
+  "f": "2ª fase",
+  "d": "2º dia",
+  "fo": "https://www.comvest.unicamp.br/ingresso-2024/vestibular-2024-2/area-doa-candidatoa/",
+  "ar": [
+   {
+    "t": "gabarito",
+    "r": "Respostas esperadas — Ciências Exatas / Tecnológicas",
+    "u": "https://www.comvest.unicamp.br/wp-content/uploads/2023/12/RespostasEsperadas_dia2_CE.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Respostas esperadas — Ciências Biológicas / Saúde",
+    "u": "https://www.comvest.unicamp.br/wp-content/uploads/2023/12/RespostasEsperadas_dia2_CB.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Respostas esperadas — Ciências Humanas / Artes",
+    "u": "https://www.comvest.unicamp.br/wp-content/uploads/2023/12/RespostasEsperadas_dia2_CH.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "comvest-2024-2-fase-habilidades-especificas",
+  "s": "comvest",
+  "a": 2024,
+  "n": "Comvest 2024 · 2ª fase · Habilidades Específicas",
+  "f": "2ª fase",
+  "ap": "Habilidades Específicas",
+  "fo": "https://www.comvest.unicamp.br/ingresso-2024/vestibular-2024-2/",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — Arquitetura e Urbanismo (P1)",
+    "u": "https://www.comvest.unicamp.br/wp-content/uploads/2024/05/Arquitetura-e-Urbanismo-P1.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Arquitetura e Urbanismo (P2)",
+    "u": "https://www.comvest.unicamp.br/wp-content/uploads/2024/05/Arquitetura-e-Urbanismo-P2.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Artes Visuais – Expressão",
+    "u": "https://www.comvest.unicamp.br/wp-content/uploads/2024/05/Artes-Visuais_Expressao-Plastica.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Artes Visuais – História da Arte",
+    "u": "https://www.comvest.unicamp.br/wp-content/uploads/2024/05/Artes-Visuais_Historia-da-Arte.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Artes Cênicas",
+    "u": "https://www.comvest.unicamp.br/wp-content/uploads/2024/05/Artes-Cenicas.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "comvest-2025-1-fase",
+  "s": "comvest",
+  "a": 2025,
+  "n": "Comvest 2025 · 1ª fase",
+  "f": "1ª fase",
+  "fo": "https://www.comvest.unicamp.br/ingresso-2025/vestibular-2025/area-doa-candidatoa/",
+  "ar": [
+   {
+    "t": "gabarito",
+    "r": "Gabarito — versão Q e Z",
+    "u": "https://www.comvest.unicamp.br/wp-content/uploads/2024/10/QZ_gabarito_2025_FINAL_site.pdf",
+    "fm": "pdf",
+    "v": "Q e Z"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito — versão R e W",
+    "u": "https://www.comvest.unicamp.br/wp-content/uploads/2024/10/RW_gabarito_2025_FINAL_site.pdf",
+    "fm": "pdf",
+    "v": "R e W"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito — versão S e X",
+    "u": "https://www.comvest.unicamp.br/wp-content/uploads/2024/10/SX_gabarito_2025_FINAL_site.pdf",
+    "fm": "pdf",
+    "v": "S e X"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito — versão T e Y",
+    "u": "https://www.comvest.unicamp.br/wp-content/uploads/2024/10/TY_gabarito_2025_FINAL_site.pdf",
+    "fm": "pdf",
+    "v": "T e Y"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — versão Q e Z",
+    "u": "https://www.comvest.unicamp.br/vest2025/F1/f12025Q_Z.pdf",
+    "fm": "pdf",
+    "v": "Q e Z"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — versão R e W",
+    "u": "https://www.comvest.unicamp.br/vest2025/F1/f12025R_W.pdf",
+    "fm": "pdf",
+    "v": "R e W"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — versão S e X",
+    "u": "https://www.comvest.unicamp.br/vest2025/F1/f12025S_X.pdf",
+    "fm": "pdf",
+    "v": "S e X"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — versão T e Y",
+    "u": "https://www.comvest.unicamp.br/vest2025/F1/f12025T_Y.pdf",
+    "fm": "pdf",
+    "v": "T e Y"
+   }
+  ]
+ },
+ {
+  "id": "comvest-2025-2-fase",
+  "s": "comvest",
+  "a": 2025,
+  "n": "Comvest 2025 · 2ª fase",
+  "f": "2ª fase",
+  "fo": "https://www.comvest.unicamp.br/ingresso-2025/vestibular-2025/area-doa-candidatoa/",
+  "ar": [
+   {
+    "t": "gabarito",
+    "r": "Respostas esperadas — Redação",
+    "u": "https://www.comvest.unicamp.br/wp-content/uploads/2024/12/Expectativa-Banca_RED_FINAL.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Área de Ciências Exatas / Tecnológicas",
+    "u": "https://www.comvest.unicamp.br/vest2025/F2/provas/2025F2CE.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Área de Ciências Biológicas / Saúde",
+    "u": "https://www.comvest.unicamp.br/vest2025/F2/provas/2025F2CB.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Área de Ciências Humanas / Artes",
+    "u": "https://www.comvest.unicamp.br/vest2025/F2/provas/2025F2CH.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Redação, Língua Portuguesa e Literaturas de Língua Portuguesa, interdisciplinar",
+    "u": "https://www.comvest.unicamp.br/vest2025/F2/provas/2025F2redporingcn.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "comvest-2025-2-fase-1-dia",
+  "s": "comvest",
+  "a": 2025,
+  "n": "Comvest 2025 · 2ª fase · 1º dia",
+  "f": "2ª fase",
+  "d": "1º dia",
+  "fo": "https://www.comvest.unicamp.br/ingresso-2025/vestibular-2025/area-doa-candidatoa/",
+  "ar": [
+   {
+    "t": "gabarito",
+    "r": "Respostas esperadas — 1º dia (Língua Portuguesa e Interdisciplinares)",
+    "u": "https://www.comvest.unicamp.br/wp-content/uploads/2024/12/Respostas-Esperadas_Dia-1.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "comvest-2025-2-fase-2-dia",
+  "s": "comvest",
+  "a": 2025,
+  "n": "Comvest 2025 · 2ª fase · 2º dia",
+  "f": "2ª fase",
+  "d": "2º dia",
+  "fo": "https://www.comvest.unicamp.br/ingresso-2025/vestibular-2025/area-doa-candidatoa/",
+  "ar": [
+   {
+    "t": "gabarito",
+    "r": "Respostas esperadas — Área de Ciências Exatas / Tecnológicas",
+    "u": "https://www.comvest.unicamp.br/wp-content/uploads/2024/12/Respostas-Esperadas_Dia-2_CET.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Respostas esperadas — Área de Ciências Biológicas / Saúde",
+    "u": "https://www.comvest.unicamp.br/wp-content/uploads/2024/12/Respostas-Esperadas_Dia-2_CBS.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Respostas esperadas — Área de Ciências Humanas / Artes",
+    "u": "https://www.comvest.unicamp.br/wp-content/uploads/2024/12/Respostas-Esperadas_Dia-2_CHA.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "comvest-2026-1-fase",
+  "s": "comvest",
+  "a": 2026,
+  "n": "Comvest 2026 · 1ª fase",
+  "f": "1ª fase",
+  "fo": "https://www.comvest.unicamp.br/ingresso-2026/vestibular-2026/provas-e-gabaritos-vestibular-2026/",
+  "ar": [
+   {
+    "t": "gabarito",
+    "r": "Gabarito — versão Q e X",
+    "u": "https://www.comvest.unicamp.br/wp-content/uploads/2025/10/Q_X-gabarito.pdf",
+    "fm": "pdf",
+    "v": "Q e X"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito — versão R e Y",
+    "u": "https://www.comvest.unicamp.br/wp-content/uploads/2025/10/R_Y-gabarito.pdf",
+    "fm": "pdf",
+    "v": "R e Y"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito — versão S e Z",
+    "u": "https://www.comvest.unicamp.br/wp-content/uploads/2025/10/S_Z-gabarito.pdf",
+    "fm": "pdf",
+    "v": "S e Z"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito — versão T e W",
+    "u": "https://www.comvest.unicamp.br/wp-content/uploads/2025/10/T_W-gabarito.pdf",
+    "fm": "pdf",
+    "v": "T e W"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — versão Q e X",
+    "u": "https://www.comvest.unicamp.br/vest2026/F1/f12026Q_X.pdf",
+    "fm": "pdf",
+    "v": "Q e X"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — versão R e Y",
+    "u": "https://www.comvest.unicamp.br/vest2026/F1/f12026R_Y.pdf",
+    "fm": "pdf",
+    "v": "R e Y"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — versão S e Z",
+    "u": "https://www.comvest.unicamp.br/vest2026/F1/f12026S_Z.pdf",
+    "fm": "pdf",
+    "v": "S e Z"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — versão T e W",
+    "u": "https://www.comvest.unicamp.br/vest2026/F1/f12026T_W.pdf",
+    "fm": "pdf",
+    "v": "T e W"
+   }
+  ]
+ },
+ {
+  "id": "comvest-2026-2-fase",
+  "s": "comvest",
+  "a": 2026,
+  "n": "Comvest 2026 · 2ª fase",
+  "f": "2ª fase",
+  "fo": "https://www.comvest.unicamp.br/ingresso-2026/vestibular-2026/provas-e-gabaritos-vestibular-2026/",
+  "ar": [
+   {
+    "t": "gabarito",
+    "r": "Respostas esperadas — Redação",
+    "u": "https://www.comvest.unicamp.br/wp-content/uploads/2025/12/Expectativa-Banca_RED_FINAL.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Área de Ciências Exatas / Tecnológicas",
+    "u": "https://www.comvest.unicamp.br/vest2026/F2/provas/2026F2CE.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Área de Ciências Biológicas / Saúde",
+    "u": "https://www.comvest.unicamp.br/vest2026/F2/provas/2026F2CB.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Área de Ciências Humanas / Artes",
+    "u": "https://www.comvest.unicamp.br/vest2026/F2/provas/2026F2CH.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Redação, Língua Portuguesa e Literaturas de Língua Portuguesa, interdisciplinar",
+    "u": "https://www.comvest.unicamp.br/vest2026/F2/provas/2026F2redporingcn.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "comvest-2026-2-fase-1-dia",
+  "s": "comvest",
+  "a": 2026,
+  "n": "Comvest 2026 · 2ª fase · 1º dia",
+  "f": "2ª fase",
+  "d": "1º dia",
+  "fo": "https://www.comvest.unicamp.br/ingresso-2026/vestibular-2026/provas-e-gabaritos-vestibular-2026/",
+  "ar": [
+   {
+    "t": "gabarito",
+    "r": "Respostas esperadas — Língua Portuguesa e Interdisciplinares",
+    "u": "https://www.comvest.unicamp.br/wp-content/uploads/2025/12/Respostas-Esperadas_Dia-1.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "comvest-2026-2-fase-2-dia",
+  "s": "comvest",
+  "a": 2026,
+  "n": "Comvest 2026 · 2ª fase · 2º dia",
+  "f": "2ª fase",
+  "d": "2º dia",
+  "fo": "https://www.comvest.unicamp.br/ingresso-2026/vestibular-2026/provas-e-gabaritos-vestibular-2026/",
+  "ar": [
+   {
+    "t": "gabarito",
+    "r": "Respostas esperadas — Área de Ciências Exatas / Tecnológicas",
+    "u": "https://www.comvest.unicamp.br/wp-content/uploads/2025/12/Respostas-Esperadas_Dia-2_CET.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Respostas esperadas — Área de Ciências Biológicas / Saúde",
+    "u": "https://www.comvest.unicamp.br/wp-content/uploads/2025/12/Respostas-Esperadas_Dia-2_CBS.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Respostas esperadas — Área de Ciências Humanas / Artes",
+    "u": "https://www.comvest.unicamp.br/wp-content/uploads/2025/12/Respostas-Esperadas_Dia-2_CHA.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "comvest-2027-1-fase",
+  "s": "comvest",
+  "a": 2027,
+  "n": "Comvest 2027 · 1ª fase",
+  "f": "1ª fase",
+  "fo": "https://www.comvest.unicamp.br/ingresso-2027/vestibular-2027/",
+  "ar": [
+   {
+    "t": "gabarito",
+    "r": "Gabarito — versão Q e Y",
+    "u": "https://www.comvest.unicamp.br/wp-content/uploads/2026/10/gabarito_2027_QY.pdf",
+    "fm": "pdf",
+    "v": "Q e Y"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito — versão R e Z",
+    "u": "https://www.comvest.unicamp.br/wp-content/uploads/2026/10/gabarito_2027_RZ.pdf",
+    "fm": "pdf",
+    "v": "R e Z"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito — versão S e W",
+    "u": "https://www.comvest.unicamp.br/wp-content/uploads/2026/10/gabarito_2027_SW.pdf",
+    "fm": "pdf",
+    "v": "S e W"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito — versão T e X",
+    "u": "https://www.comvest.unicamp.br/wp-content/uploads/2026/10/gabarito_2027_TX.pdf",
+    "fm": "pdf",
+    "v": "T e X"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — versão Q e Y",
+    "u": "https://www.comvest.unicamp.br/vest2027/F1/F1_2027_Q_Y.pdf",
+    "fm": "pdf",
+    "v": "Q e Y"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — versão R e Z",
+    "u": "https://www.comvest.unicamp.br/vest2027/F1/F1_2027_R_Z.pdf",
+    "fm": "pdf",
+    "v": "R e Z"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — versão S e W",
+    "u": "https://www.comvest.unicamp.br/vest2027/F1/F1_2027_S_W.pdf",
+    "fm": "pdf",
+    "v": "S e W"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — versão T e X",
+    "u": "https://www.comvest.unicamp.br/vest2027/F1/F1_2027_T_X.pdf",
+    "fm": "pdf",
+    "v": "T e X"
+   }
+  ]
+ },
+ {
+  "id": "espm-2026-1-vestibular",
+  "s": "espm",
+  "a": 2026,
+  "n": "ESPM 2026/1 · Vestibular",
+  "f": "Prova única",
+  "ap": "1º semestre",
+  "fo": "https://www.espm.br/cursos-de-graduacao/processos-seletivos/vestibular/",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova (Caderno A)",
+    "u": "https://www.espm.br/wp-content/uploads/Prova-A_V2_Final_Impressao-1.pdf",
+    "fm": "pdf",
+    "v": "Caderno A"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito (Caderno A)",
+    "u": "https://www.espm.br/wp-content/uploads/Gabarito_Prova-A-1.pdf",
+    "fm": "pdf",
+    "v": "Caderno A"
+   }
+  ]
+ },
+ {
+  "id": "espm-2026-2-vestibular",
+  "s": "espm",
+  "a": 2026,
+  "n": "ESPM 2026/2 · Vestibular",
+  "f": "Prova única",
+  "ap": "2º semestre",
+  "fo": "https://www.espm.br/cursos-de-graduacao/processos-seletivos/vestibular/",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova (Caderno A)",
+    "u": "https://www.espm.br/wp-content/uploads/Caderno_de-Prova_2026-2_Prova-A-1.pdf",
+    "fm": "pdf",
+    "v": "Caderno A"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito (Caderno A)",
+    "u": "https://www.espm.br/wp-content/uploads/Gabarito_2026-2_-Prova_A_-1.pdf",
+    "fm": "pdf",
+    "v": "Caderno A"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-1977-1-fase",
+  "s": "fuvest",
+  "a": 1977,
+  "n": "Fuvest 1977 · 1ª fase",
+  "f": "1ª fase",
+  "fo": "https://www.fuvest.br/acervo-vestibular-1977",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova (Primeiro Exame: Primeira Fase)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest1977-fase1-prova-exame1.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Segundo Exame: Primeira Fase)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest1977-fase1-prova-exame2.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Terceiro Exame: Primeira Fase)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest1977-fase1-prova-exame3.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-1977-2-fase",
+  "s": "fuvest",
+  "a": 1977,
+  "n": "Fuvest 1977 · 2ª fase",
+  "f": "2ª fase",
+  "fo": "https://www.fuvest.br/acervo-vestibular-1977",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova (Biologia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest1977-fase2-prova-biologia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Comunicação)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest1977-fase2-prova-comunicacao.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Estudos Sociais)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest1977-fase2-prova-estudos.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Física)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest1977-fase2-prova-fisica.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Línguas Estrangeiras)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest1977-fase2-prova-linguas.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Matemática)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest1977-fase2-prova-matematica.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Química)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest1977-fase2-prova-quimica.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-1978-1-fase",
+  "s": "fuvest",
+  "a": 1978,
+  "n": "Fuvest 1978 · 1ª fase",
+  "f": "1ª fase",
+  "fo": "https://www.fuvest.br/acervo-vestibular-1978",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest1978-fase1-prova.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_1978_gabarito_primeira_fase_.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-1978-2-fase",
+  "s": "fuvest",
+  "a": 1978,
+  "n": "Fuvest 1978 · 2ª fase",
+  "f": "2ª fase",
+  "fo": "https://www.fuvest.br/acervo-vestibular-1978",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova (Biologia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest1978-fase2-prova-biologia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Comunicação)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest1978-fase2-prova-comunicacao.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Estudos Sociais)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest1978-fase2-prova-estudos.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Física)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest1978-fase2-prova-fisica.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Línguas Estrangeiras)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest1978-fase2-prova-linguas.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Matemática)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest1978-fase2-prova-matematica.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Química)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest1978-fase2-prova-quimica.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-1979-1-fase",
+  "s": "fuvest",
+  "a": 1979,
+  "n": "Fuvest 1979 · 1ª fase",
+  "f": "1ª fase",
+  "fo": "https://www.fuvest.br/acervo-vestibular-1979",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest1979-fase1-prova.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_1979_gabarito_primeira_fase_.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-1979-2-fase",
+  "s": "fuvest",
+  "a": 1979,
+  "n": "Fuvest 1979 · 2ª fase",
+  "f": "2ª fase",
+  "fo": "https://www.fuvest.br/acervo-vestibular-1979",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova (Biologia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest1979-fase2-prova-biologia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Comunicação)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest1979-fase2-prova-comunicacao.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Física)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest1979-fase2-prova-fisica.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Geografia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest1979-fase2-prova-geografia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (História)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest1979-fase2-prova-historia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Línguas Estrangeiras)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest1979-fase2-prova-linguas.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Matemática)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest1979-fase2-prova-matematica.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Química)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest1979-fase2-prova-quimica.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-1980-1-fase",
+  "s": "fuvest",
+  "a": 1980,
+  "n": "Fuvest 1980 · 1ª fase",
+  "f": "1ª fase",
+  "fo": "https://www.fuvest.br/acervo-vestibular-1980",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_1980_prova_primeira_fase.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_1980_gabarito_primeira_fase.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-1980-2-fase",
+  "s": "fuvest",
+  "a": 1980,
+  "n": "Fuvest 1980 · 2ª fase",
+  "f": "2ª fase",
+  "fo": "https://www.fuvest.br/acervo-vestibular-1980",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova (Biologia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest1980-fase2-prova-biologia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Comunicação)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest1980-fase2-prova-comunicacao.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Física)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest1980-fase2-prova-fisica.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Geografia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest1980-fase2-prova-geografia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (História)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest1980-fase2-prova-historia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Línguas Estrangeiras)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest1980-fase2-prova-linguas.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Matemática)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest1980-fase2-prova-matematica.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Química)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest1980-fase2-prova-quimica.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-1981-1-fase",
+  "s": "fuvest",
+  "a": 1981,
+  "n": "Fuvest 1981 · 1ª fase",
+  "f": "1ª fase",
+  "fo": "https://www.fuvest.br/acervo-vestibular-1981",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_1981_prova_primeira_fase.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_1981_gabarito_primeira_fase.pdf",
+    "fm": "pdf"
+   }
+  ]
+ }
+]

@@ -1,0 +1,561 @@
+[
+ {
+  "id": "fuvest-2018-1-fase",
+  "s": "fuvest",
+  "a": 2018,
+  "n": "Fuvest 2018 · 1ª fase",
+  "f": "1ª fase",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2018",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuv2018_1fase_prova_V.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuv2018_1fase_prova_gab.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuv2018_1fase_prova_gab_cor.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2018-2-fase",
+  "s": "fuvest",
+  "a": 2018,
+  "n": "Fuvest 2018 · 2ª fase",
+  "f": "2ª fase",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2018",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova (3º Dia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuv2018_2fase_dia3.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2018-2-fase-1-dia",
+  "s": "fuvest",
+  "a": 2018,
+  "n": "Fuvest 2018 · 2ª fase · 1º dia",
+  "f": "2ª fase",
+  "d": "1º dia",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2018",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — 1º dia (1º Dia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuv2018_2fase_dia1.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2018-2-fase-2-dia",
+  "s": "fuvest",
+  "a": 2018,
+  "n": "Fuvest 2018 · 2ª fase · 2º dia",
+  "f": "2ª fase",
+  "d": "2º dia",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2018",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — 2º dia (2º Dia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuv2018_2fase_dia2.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2019-1-fase",
+  "s": "fuvest",
+  "a": 2019,
+  "n": "Fuvest 2019 · 1ª fase",
+  "f": "1ª fase",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2019",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2019_primeira_fase.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2019-2-fase-1-dia",
+  "s": "fuvest",
+  "a": 2019,
+  "n": "Fuvest 2019 · 2ª fase · 1º dia",
+  "f": "2ª fase",
+  "d": "1º dia",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2019",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — 1º dia (1º Dia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuv2019_2fase_dia1.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2019-2-fase-2-dia",
+  "s": "fuvest",
+  "a": 2019,
+  "n": "Fuvest 2019 · 2ª fase · 2º dia",
+  "f": "2ª fase",
+  "d": "2º dia",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2019",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — 2º dia (2º Dia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuv2019_2fase_dia2.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2019-provas",
+  "s": "fuvest",
+  "a": 2019,
+  "n": "Fuvest 2019 · Provas",
+  "f": "Não informada",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2019",
+  "ar": [
+   {
+    "t": "gabarito",
+    "r": "Gabarito",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuv2019.gabarito.oficial.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2020-1-fase",
+  "s": "fuvest",
+  "a": 2020,
+  "n": "Fuvest 2020 · 1ª fase",
+  "f": "1ª fase",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2020",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2020_primeira_fase_prova_V.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2020_primeira_fase_gabaritos.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2020-2-fase-1-dia",
+  "s": "fuvest",
+  "a": 2020,
+  "n": "Fuvest 2020 · 2ª fase · 1º dia",
+  "f": "2ª fase",
+  "d": "1º dia",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2020",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — 1º dia (1º Dia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuv2020_2fase_dia_1.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2020-2-fase-2-dia",
+  "s": "fuvest",
+  "a": 2020,
+  "n": "Fuvest 2020 · 2ª fase · 2º dia",
+  "f": "2ª fase",
+  "d": "2º dia",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2020",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — 2º dia (2º Dia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuv2020_2fase_dia_2.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2021-1-fase",
+  "s": "fuvest",
+  "a": 2021,
+  "n": "Fuvest 2021 · 1ª fase",
+  "f": "1ª fase",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2021",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2021_primeira_fase.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2021_primeira_fase_gabarito_v2.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Notas de Corte)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2021_notas_primeira_fase.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2021-2-fase-1-dia",
+  "s": "fuvest",
+  "a": 2021,
+  "n": "Fuvest 2021 · 2ª fase · 1º dia",
+  "f": "2ª fase",
+  "d": "1º dia",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2021",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — 1º dia (1º Dia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuv2021_2fase_dia_1.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2021-2-fase-2-dia",
+  "s": "fuvest",
+  "a": 2021,
+  "n": "Fuvest 2021 · 2ª fase · 2º dia",
+  "f": "2ª fase",
+  "d": "2º dia",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2021",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — 2º dia (2º Dia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuv2021_2fase_dia_2.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2022-1-fase",
+  "s": "fuvest",
+  "a": 2022,
+  "n": "Fuvest 2022 · 1ª fase",
+  "f": "1ª fase",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2022",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova (Prova V)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2022_primeira_fase_tipo_V.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Prova K)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2022_primeira_fase_tipo_K.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Prova Q)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2022_primeira_fase_tipo_Q.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Prova X)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2022_primeira_fase_tipo_X.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Prova Z)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2022_primeira_fase_tipo_Z.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2022_primeira_fase_gabarito_retificado.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2022-2-fase-1-dia",
+  "s": "fuvest",
+  "a": 2022,
+  "n": "Fuvest 2022 · 2ª fase · 1º dia",
+  "f": "2ª fase",
+  "d": "1º dia",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2022",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — 1º dia (1º Dia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2022_segunda_fase_dia_1.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2022-2-fase-2-dia",
+  "s": "fuvest",
+  "a": 2022,
+  "n": "Fuvest 2022 · 2ª fase · 2º dia",
+  "f": "2ª fase",
+  "d": "2º dia",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2022",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — 2º dia (2º Dia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2022_segunda_fase_dia_2.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2023-1-fase",
+  "s": "fuvest",
+  "a": 2023,
+  "n": "Fuvest 2023 · 1ª fase",
+  "f": "1ª fase",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2023",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova (Prova V)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest2023_primeira_fase_prova_V.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Prova K)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest2023_primeira_fase_prova_K.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Prova Q)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest2023_primeira_fase_prova_Q.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Prova X)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest2023_primeira_fase_prova_X.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Prova Z)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest2023_primeira_fase_prova_Z.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest2023_gabarito_primeira_fase.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2023-2-fase-1-dia",
+  "s": "fuvest",
+  "a": 2023,
+  "n": "Fuvest 2023 · 2ª fase · 1º dia",
+  "f": "2ª fase",
+  "d": "1º dia",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2023",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — 1º dia (1º Dia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2023_segunda_fase_dia_1.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2023-2-fase-2-dia",
+  "s": "fuvest",
+  "a": 2023,
+  "n": "Fuvest 2023 · 2ª fase · 2º dia",
+  "f": "2ª fase",
+  "d": "2º dia",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2023",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — 2º dia (2º Dia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2023_segunda_fase_dia_2.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2024-1-fase",
+  "s": "fuvest",
+  "a": 2024,
+  "n": "Fuvest 2024 · 1ª fase",
+  "f": "1ª fase",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2024",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova (Prova V)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest2024_primeira_fase_prova_V.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Prova K)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest2024_primeira_fase_prova_K.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Prova Q)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest2024_primeira_fase_prova_Q.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Prova X)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest2024_primeira_fase_prova_X.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Prova Z)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest2024_primeira_fase_prova_Z.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest2024_gabarito_primeira_fase_retificado_2023-11-24.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2024-2-fase-1-dia",
+  "s": "fuvest",
+  "a": 2024,
+  "n": "Fuvest 2024 · 2ª fase · 1º dia",
+  "f": "2ª fase",
+  "d": "1º dia",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2024",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — 1º dia (1º Dia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest2024_segunda_fase_prova_1dia.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2024-2-fase-2-dia",
+  "s": "fuvest",
+  "a": 2024,
+  "n": "Fuvest 2024 · 2ª fase · 2º dia",
+  "f": "2ª fase",
+  "d": "2º dia",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2024",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — 2º dia (2º Dia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest2024_segunda_fase_prova_2dia.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2025-1-fase",
+  "s": "fuvest",
+  "a": 2025,
+  "n": "Fuvest 2025 · 1ª fase",
+  "f": "1ª fase",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2025",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova (Prova V1)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest2025_primeira_fase_prova_V1.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Prova V2)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest2025_primeira_fase_prova_V2.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Prova V3)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest2025_primeira_fase_prova_V3.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Prova V4)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest2025_primeira_fase_prova_V4.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest2025_gabarito_primeira_fase.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2025-2-fase-1-dia",
+  "s": "fuvest",
+  "a": 2025,
+  "n": "Fuvest 2025 · 2ª fase · 1º dia",
+  "f": "2ª fase",
+  "d": "1º dia",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2025",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — 1º dia (1º dia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest2025_prova_2fase_dia1.pdf",
+    "fm": "pdf"
+   }
+  ]
+ }
+]

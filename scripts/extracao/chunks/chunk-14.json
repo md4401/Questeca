@@ -1,0 +1,1367 @@
+[
+ {
+  "id": "uerj-2018-2-exame-de-qualificacao",
+  "s": "uerj",
+  "a": 2018,
+  "n": "UERJ 2018 · 2º Exame de Qualificação",
+  "f": "2º Exame de Qualificação",
+  "fo": "https://www.vestibular.uerj.br/?page_id=7069",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/03/2018_2eq_prova.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/03/2018_2eq_gabarito.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "uerj-2018-exame-discursivo",
+  "s": "uerj",
+  "a": 2018,
+  "n": "UERJ 2018 · Exame Discursivo",
+  "f": "Exame Discursivo",
+  "fo": "https://www.vestibular.uerj.br/?page_id=7069",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — Redação",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/03/2018_ED_Redacao.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Redação",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/03/2018_ED_PR_Redacao.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Física",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/03/2018_ED_Fisica.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Física",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/03/2018_ED_PR_Fisica.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — História",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/03/2018_ED_Historia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — História",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/03/2018_ED_PR_Historia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Biologia",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/03/2018_ED_Biologia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Biologia",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/03/2018_ED_PR_Biologia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Geografia",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/03/2018_ED_Geografia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Geografia",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/03/2018_ED_PR_Geografia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Língua Portuguesa e Literaturas",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/03/2018_ED_LPL.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Língua Portuguesa e Literaturas",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/03/2018_ED_PR_LPL.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Língua Estrangeira",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/03/2018_ED_Lingua_Estrangeira.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Espanhol",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/03/2018_ED_PR_Espanhol.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Francês",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/03/2018_ED_PR_Frances.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Inglês",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/03/2018_ED_PR_Ingles.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Matemática",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/03/2018_ED_Matematica.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Matemática",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/03/2018_ED_PR_Matematica.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Química",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/03/2018_ED_Quimica.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Química",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/03/2018_ED_PR_Quimica.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "uerj-2019-1-exame-de-qualificacao",
+  "s": "uerj",
+  "a": 2019,
+  "n": "UERJ 2019 · 1º Exame de Qualificação",
+  "f": "1º Exame de Qualificação",
+  "fo": "https://www.vestibular.uerj.br/?page_id=6445",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/02/2019_1eq_prova.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2018/09/2019_1eq_gabarito-1.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "uerj-2019-2-exame-de-qualificacao",
+  "s": "uerj",
+  "a": 2019,
+  "n": "UERJ 2019 · 2º Exame de Qualificação",
+  "f": "2º Exame de Qualificação",
+  "fo": "https://www.vestibular.uerj.br/?page_id=6700",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/02/2019_2eq_prova.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/02/2019_2eq_gabarito.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "uerj-2019-exame-discursivo",
+  "s": "uerj",
+  "a": 2019,
+  "n": "UERJ 2019 · Exame Discursivo",
+  "f": "Exame Discursivo",
+  "fo": "https://www.vestibular.uerj.br/?page_id=6530",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — Redação",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/02/2019_ED_Redacao.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Redação",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/02/2019_ED_PR_Redacao.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Física",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/04/2019_ED_Fisica.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Física",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/02/2019_ED_PR_Fisica.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — História",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/03/2019_ED_Historia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — História",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/02/2019_ED_PR_Historia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Biologia",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/02/2019_ED_Biologia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Biologia",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/02/2019_ED_PR_Biologia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Geografia",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/02/2019_ED_Geografia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Geografia",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/02/2019_ED_PR_Geografia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Língua Portuguesa e Literaturas",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/02/2019_ED_LPL.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Língua Portuguesa e Literaturas",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/02/2019_ED_PR_LPL.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Língua Estrangeira",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/02/2019_ED_Lingua_Estrangeira.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Espanhol",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/02/2019_ED_PR_Espanhol.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Francês",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/02/2019_ED_PR_Frances.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Inglês",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/02/2019_ED_PR_Ingles.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Matemática",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/02/2019_ED_Matematica.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Matemática",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/02/2019_ED_PR_Matematica.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Química",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/02/2019_ED_Quimica.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Química",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/02/2019_ED_PR_Quimica.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "uerj-2020-1-exame-de-qualificacao",
+  "s": "uerj",
+  "a": 2020,
+  "n": "UERJ 2020 · 1º Exame de Qualificação",
+  "f": "1º Exame de Qualificação",
+  "fo": "https://www.vestibular.uerj.br/?page_id=7641",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/06/1_Exame_Qualificacao.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/06/Gabarito.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "uerj-2020-2-exame-de-qualificacao",
+  "s": "uerj",
+  "a": 2020,
+  "n": "UERJ 2020 · 2º Exame de Qualificação",
+  "f": "2º Exame de Qualificação",
+  "fo": "https://www.vestibular.uerj.br/?page_id=8539",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/09/2EQ_2020-p.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2019/09/Gabarito_2EQ_2020.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "uerj-2020-exame-discursivo",
+  "s": "uerj",
+  "a": 2020,
+  "n": "UERJ 2020 · Exame Discursivo",
+  "f": "Exame Discursivo",
+  "fo": "https://www.vestibular.uerj.br/?page_id=9245",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — Redação",
+    "u": "https://www.vestibular.uerj.br/2020_ED_Redacao.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Redação",
+    "u": "https://www.vestibular.uerj.br/2020_ED_PR_Redacao.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Física",
+    "u": "https://www.vestibular.uerj.br/2020_ED_Fisica.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Física",
+    "u": "https://www.vestibular.uerj.br/2020_ED_PR_Fisica.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — História",
+    "u": "https://www.vestibular.uerj.br/2020_ED_Historia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — História",
+    "u": "https://www.vestibular.uerj.br/2020_ED_PR_Historia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Biologia",
+    "u": "https://www.vestibular.uerj.br/2020_ED_Biologia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Biologia",
+    "u": "https://www.vestibular.uerj.br/2020_ED_PR_Biologia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Geografia",
+    "u": "https://www.vestibular.uerj.br/2020_ED_Geografia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Geografia",
+    "u": "https://www.vestibular.uerj.br/2020_ED_PR_Geografia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Língua Portuguesa e Literaturas",
+    "u": "https://www.vestibular.uerj.br/2020_ED_LPL.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Língua Portuguesa e Literaturas",
+    "u": "https://www.vestibular.uerj.br/2020_ED_PR_LPL.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Língua Estrangeira",
+    "u": "https://www.vestibular.uerj.br/2020_ED_Lingua_Estrangeira.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Espanhol",
+    "u": "https://www.vestibular.uerj.br/2020_ED_PR_Espanhol.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Francês",
+    "u": "https://www.vestibular.uerj.br/2020_ED_PR_Frances.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Inglês",
+    "u": "https://www.vestibular.uerj.br/2020_ED_PR_Ingles.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Matemática",
+    "u": "https://www.vestibular.uerj.br/2020_ED_Matematica.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Matemática",
+    "u": "https://www.vestibular.uerj.br/2020_ED_PR_Matematica.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Química",
+    "u": "https://www.vestibular.uerj.br/2020_ED_Quimica.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Química",
+    "u": "https://www.vestibular.uerj.br/2020_ED_PR_Quimica.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "uerj-2021-exame-unico",
+  "s": "uerj",
+  "a": 2021,
+  "n": "UERJ 2021 · Exame Único",
+  "f": "Exame Único",
+  "fo": "https://www.vestibular.uerj.br/?page_id=11072",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — Questões objetivas",
+    "u": "https://www.vestibular.uerj.br/anexos/Exame_Unico_Objetiva.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Redação",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2021/07/Exame_Unico_Redacao.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito",
+    "u": "https://www.vestibular.uerj.br/wp-content/uploads/2021/07/Gabarito-Geral_Divulgacao.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "uerj-2022-exame-unico",
+  "s": "uerj",
+  "a": 2022,
+  "n": "UERJ 2022 · Exame Único",
+  "f": "Exame Único",
+  "fo": "https://www.vestibular.uerj.br/?page_id=12028",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — Questões objetivas",
+    "u": "https://www.vestibular.uerj.br/anexos/223/prova_2022.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito",
+    "u": "https://www.vestibular.uerj.br/anexos/223/gabarito_2022.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Redação",
+    "u": "https://www.vestibular.uerj.br/anexos/223/redacao_2022.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Redação",
+    "u": "https://www.vestibular.uerj.br/anexos/223/padrao_redacao_2022.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "uerj-2023-exame-unico",
+  "s": "uerj",
+  "a": 2023,
+  "n": "UERJ 2023 · Exame Único",
+  "f": "Exame Único",
+  "fo": "https://www.vestibular.uerj.br/?page_id=12911",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — Questões objetivas",
+    "u": "https://www.vestibular.uerj.br/anexos/233/prova_vetibular_2023.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito (retificado)",
+    "u": "https://www.vestibular.uerj.br/anexos/233/gabarito_vestibular_2023_retificado.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Redação",
+    "u": "https://www.vestibular.uerj.br/anexos/233/redacao_vestibular_2023.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Redação",
+    "u": "https://www.vestibular.uerj.br/anexos/233/padrao_resposta_2023.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "uerj-2024-1-exame-de-qualificacao",
+  "s": "uerj",
+  "a": 2024,
+  "n": "UERJ 2024 · 1º Exame de Qualificação",
+  "f": "1º Exame de Qualificação",
+  "fo": "https://www.vestibular.uerj.br/?page_id=13475",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova",
+    "u": "https://www.vestibular.uerj.br/anexos/241/prova.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito (anulada)",
+    "u": "https://www.vestibular.uerj.br/anexos/241/Gabarito_VESTIBULAR_ANULADA.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "uerj-2024-2-exame-de-qualificacao",
+  "s": "uerj",
+  "a": 2024,
+  "n": "UERJ 2024 · 2º Exame de Qualificação",
+  "f": "2º Exame de Qualificação",
+  "fo": "https://www.vestibular.uerj.br/?page_id=13774",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova",
+    "u": "https://www.vestibular.uerj.br/anexos/242/2o_EQ_prova.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito (retificado)",
+    "u": "https://www.vestibular.uerj.br/anexos/242/2o_EQ_gabarito_retificado.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "uerj-2024-exame-discursivo",
+  "s": "uerj",
+  "a": 2024,
+  "n": "UERJ 2024 · Exame Discursivo",
+  "f": "Exame Discursivo",
+  "fo": "https://www.vestibular.uerj.br/?page_id=13975",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — Redação",
+    "u": "https://www.vestibular.uerj.br/anexos/243/prova/Redacao.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Redação",
+    "u": "https://www.vestibular.uerj.br/anexos/243/prova/redacao_1.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Física",
+    "u": "https://www.vestibular.uerj.br/anexos/243/prova/Fisica.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Física",
+    "u": "https://www.vestibular.uerj.br/anexos/243/prova/Fisica_1.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — História",
+    "u": "https://www.vestibular.uerj.br/anexos/243/prova/Historia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — História",
+    "u": "https://www.vestibular.uerj.br/anexos/243/prova/Historia_1_retificado.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Biologia",
+    "u": "https://www.vestibular.uerj.br/anexos/243/prova/Biologia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Biologia",
+    "u": "https://www.vestibular.uerj.br/anexos/243/prova/Biologia_1.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Geografia",
+    "u": "https://www.vestibular.uerj.br/anexos/243/prova/Geografia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Geografia",
+    "u": "https://www.vestibular.uerj.br/anexos/243/prova/Geografia_1.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Língua Portuguesa e Literaturas",
+    "u": "https://www.vestibular.uerj.br/anexos/243/prova/LPL.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Língua Portuguesa e Literaturas",
+    "u": "https://www.vestibular.uerj.br/anexos/243/prova/LPL_1.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Língua Estrangeira",
+    "u": "https://www.vestibular.uerj.br/anexos/243/prova/Estrangeiras.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Espanhol",
+    "u": "https://www.vestibular.uerj.br/anexos/243/prova/Espanhol.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Francês",
+    "u": "https://www.vestibular.uerj.br/anexos/243/prova/Frances.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Inglês",
+    "u": "https://www.vestibular.uerj.br/anexos/243/prova/Ingles.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Matemática",
+    "u": "https://www.vestibular.uerj.br/anexos/243/prova/Matematica.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Matemática",
+    "u": "https://www.vestibular.uerj.br/anexos/243/prova/Matematica_retificado.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Química",
+    "u": "https://www.vestibular.uerj.br/anexos/243/prova/Quimica.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Química",
+    "u": "https://www.vestibular.uerj.br/anexos/243/prova/Quimica_1.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "uerj-2025-1-exame-de-qualificacao",
+  "s": "uerj",
+  "a": 2025,
+  "n": "UERJ 2025 · 1º Exame de Qualificação",
+  "f": "1º Exame de Qualificação",
+  "fo": "https://www.vestibular.uerj.br/?page_id=14486",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova",
+    "u": "https://www.vestibular.uerj.br/anexos/251/01_Exame_Qualificacao.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito",
+    "u": "https://www.vestibular.uerj.br/anexos/251/Gabarito_VESTIBULAR.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "uerj-2025-2-exame-de-qualificacao",
+  "s": "uerj",
+  "a": 2025,
+  "n": "UERJ 2025 · 2º Exame de Qualificação",
+  "f": "2º Exame de Qualificação",
+  "fo": "https://www.vestibular.uerj.br/?page_id=14817",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova",
+    "u": "https://www.vestibular.uerj.br/anexos/252/252_prova.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito (retificado)",
+    "u": "https://www.vestibular.uerj.br/anexos/252/252_gabarito_retificado.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "uerj-2025-exame-discursivo",
+  "s": "uerj",
+  "a": 2025,
+  "n": "UERJ 2025 · Exame Discursivo",
+  "f": "Exame Discursivo",
+  "fo": "https://www.vestibular.uerj.br/?page_id=15203",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — Redação",
+    "u": "https://www.vestibular.uerj.br/anexos/253/provas/Redacao.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Redação",
+    "u": "https://www.vestibular.uerj.br/anexos/253/padroes/Redacao.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Física",
+    "u": "https://www.vestibular.uerj.br/anexos/253/provas/Fisica.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Física",
+    "u": "https://www.vestibular.uerj.br/anexos/253/padroes/pr_fis.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — História",
+    "u": "https://www.vestibular.uerj.br/anexos/253/provas/Historia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — História",
+    "u": "https://www.vestibular.uerj.br/anexos/253/padroes/Historia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Biologia",
+    "u": "https://www.vestibular.uerj.br/anexos/253/provas/Biologia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Biologia",
+    "u": "https://www.vestibular.uerj.br/anexos/253/padroes/Biologia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Geografia",
+    "u": "https://www.vestibular.uerj.br/anexos/253/provas/Geografia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Geografia",
+    "u": "https://www.vestibular.uerj.br/anexos/253/padroes/Geografia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Língua Portuguesa e Literaturas",
+    "u": "https://www.vestibular.uerj.br/anexos/253/provas/LP.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Língua Portuguesa e Literaturas",
+    "u": "https://www.vestibular.uerj.br/anexos/253/padroes/LPL.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Língua Estrangeira",
+    "u": "https://www.vestibular.uerj.br/anexos/253/provas/Lingua_Estrangeira.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Espanhol",
+    "u": "https://www.vestibular.uerj.br/anexos/253/padroes/Espanhol.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Francês",
+    "u": "https://www.vestibular.uerj.br/anexos/253/padroes/Frances.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Inglês",
+    "u": "https://www.vestibular.uerj.br/anexos/253/padroes/pr_ing_.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Matemática",
+    "u": "https://www.vestibular.uerj.br/anexos/253/provas/Matematica.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Matemática",
+    "u": "https://www.vestibular.uerj.br/anexos/253/padroes/Matematica_retificado.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Química",
+    "u": "https://www.vestibular.uerj.br/anexos/253/provas/Quimica.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Química",
+    "u": "https://www.vestibular.uerj.br/anexos/253/padroes/Quimica.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "uerj-2026-1-exame-de-qualificacao",
+  "s": "uerj",
+  "a": 2026,
+  "n": "UERJ 2026 · 1º Exame de Qualificação",
+  "f": "1º Exame de Qualificação",
+  "fo": "https://www.vestibular.uerj.br/?p=15701",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova",
+    "u": "https://www.vestibular.uerj.br/anexos/261/prova_261.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito",
+    "u": "https://www.vestibular.uerj.br/anexos/261/gabarito_261.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "uerj-2026-2-exame-de-qualificacao",
+  "s": "uerj",
+  "a": 2026,
+  "n": "UERJ 2026 · 2º Exame de Qualificação",
+  "f": "2º Exame de Qualificação",
+  "fo": "https://www.vestibular.uerj.br/?page_id=15994",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova",
+    "u": "https://www.vestibular.uerj.br/anexos/262/Prova_2_EQ.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito",
+    "u": "https://www.vestibular.uerj.br/anexos/262/Gabarito_VESTIBULAR.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "uerj-2026-exame-discursivo",
+  "s": "uerj",
+  "a": 2026,
+  "n": "UERJ 2026 · Exame Discursivo",
+  "f": "Exame Discursivo",
+  "fo": "https://www.vestibular.uerj.br/?page_id=16334",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — Redação",
+    "u": "https://www.vestibular.uerj.br/anexos/263/provas/Redacao.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Redação",
+    "u": "https://www.vestibular.uerj.br/anexos/263/padroes/Redacao.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Física",
+    "u": "https://www.vestibular.uerj.br/anexos/263/provas/Fisica.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Física",
+    "u": "https://www.vestibular.uerj.br/anexos/263/padroes/Fisica.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — História",
+    "u": "https://www.vestibular.uerj.br/anexos/263/provas/Historia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — História",
+    "u": "https://www.vestibular.uerj.br/anexos/263/padroes/Historia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Biologia",
+    "u": "https://www.vestibular.uerj.br/anexos/263/provas/Biologia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Biologia",
+    "u": "https://www.vestibular.uerj.br/anexos/263/padroes/Biologia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Geografia",
+    "u": "https://www.vestibular.uerj.br/anexos/263/provas/Geografia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Geografia",
+    "u": "https://www.vestibular.uerj.br/anexos/263/padroes/Geografia.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Língua Portuguesa e Literaturas",
+    "u": "https://www.vestibular.uerj.br/anexos/263/provas/LPL.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Língua Portuguesa e Literaturas",
+    "u": "https://www.vestibular.uerj.br/anexos/263/padroes/LPL.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Língua Estrangeira",
+    "u": "https://www.vestibular.uerj.br/anexos/263/provas/Linguas_estrangeiras.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Espanhol",
+    "u": "https://www.vestibular.uerj.br/anexos/263/padroes/Espanhol.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Francês",
+    "u": "https://www.vestibular.uerj.br/anexos/263/padroes/Frances.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Inglês",
+    "u": "https://www.vestibular.uerj.br/anexos/263/padroes/Ingles.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Matemática",
+    "u": "https://www.vestibular.uerj.br/anexos/263/provas/Matematica.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Matemática",
+    "u": "https://www.vestibular.uerj.br/anexos/263/padroes/Matematica.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Química",
+    "u": "https://www.vestibular.uerj.br/anexos/263/provas/Quimica.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Padrão de resposta — Química",
+    "u": "https://www.vestibular.uerj.br/anexos/263/padroes/Quimica.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "uerj-2027-1-exame-de-qualificacao",
+  "s": "uerj",
+  "a": 2027,
+  "n": "UERJ 2027 · 1º Exame de Qualificação",
+  "f": "1º Exame de Qualificação",
+  "fo": "https://www.vestibular.uerj.br/?page_id=16862",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova",
+    "u": "https://www.vestibular.uerj.br/anexos/271/ExamedeQualificacao_2027.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito (anulada)",
+    "u": "https://www.vestibular.uerj.br/anexos/271/Gabarito_VESTIBULAR_Anulada.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "uerj-2027-2-exame-de-qualificacao",
+  "s": "uerj",
+  "a": 2027,
+  "n": "UERJ 2027 · 2º Exame de Qualificação",
+  "f": "2º Exame de Qualificação",
+  "fo": "https://www.vestibular.uerj.br/?page_id=17124",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova",
+    "u": "https://www.vestibular.uerj.br/anexos/272/prova.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito",
+    "u": "https://www.vestibular.uerj.br/anexos/272/Gabarito_272_09-09-2026.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "ufpr-2019-processo-seletivo-2-fase",
+  "s": "ufpr",
+  "a": 2019,
+  "n": "UFPR 2019 · Processo Seletivo · 2ª fase",
+  "f": "2ª fase",
+  "fo": "https://servicos.nc.ufpr.br/PortalNC/Concurso?concurso=PS2019",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — Produção e Compreensão de Textos - 2ª Fase",
+    "u": "https://servicos.nc.ufpr.br/PortalNC/obterDocumento?pub=445",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "ufpr-2024-processo-seletivo-provas-habilidade-especifica",
+  "s": "ufpr",
+  "a": 2024,
+  "n": "UFPR 2024 · Processo Seletivo · Provas · Habilidade específica",
+  "f": "Não informada",
+  "ap": "Prova de habilidade específica (Música)",
+  "fo": "https://servicos.nc.ufpr.br/PortalNC/Concurso?concurso=PS2024",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova e gabarito definitivo — PHE Música - Prova Objetiva",
+    "u": "https://servicos.nc.ufpr.br/PortalNC/obterDocumento?pub=7199",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "vunesp-2019-1-fase",
+  "s": "vunesp",
+  "a": 2019,
+  "n": "Vunesp 2019 · 1ª fase",
+  "f": "1ª fase",
+  "fo": "https://vestibular.unesp.br/portal#!/arquivo/vestibular-2019/",
+  "ar": [
+   {
+    "t": "gabarito",
+    "r": "Gabarito — Conhecimentos Gerais (versão 1)",
+    "u": "https://vestibular.unesp.br/Home/2019/gabarito-cg-1a-fase-versao-1-2019.pdf",
+    "fm": "pdf",
+    "v": "Versão 1"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Conhecimentos Gerais (versão 1)",
+    "u": "https://vestibular.unesp.br/Home/2019/caderno-cg-1a-fase-versao-1-2019.pdf",
+    "fm": "pdf",
+    "v": "Versão 1"
+   }
+  ]
+ },
+ {
+  "id": "vunesp-2019-2-fase",
+  "s": "vunesp",
+  "a": 2019,
+  "n": "Vunesp 2019 · 2ª fase",
+  "f": "2ª fase",
+  "fo": "https://vestibular.unesp.br/portal#!/arquivo/vestibular-2019/",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — Linguagens e Códigos",
+    "u": "https://vestibular.unesp.br/Home/2019/2fase_caderno_linguagens.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Ciências Humanas",
+    "u": "https://vestibular.unesp.br/Home/2019/2fase_caderno_ci_humanas.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Ciências da Natureza e Matemática",
+    "u": "https://vestibular.unesp.br/Home/2019/2fase_caderno_c_natureza_e_matematica.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "vunesp-2020-1-fase",
+  "s": "vunesp",
+  "a": 2020,
+  "n": "Vunesp 2020 · 1ª fase",
+  "f": "1ª fase",
+  "fo": "https://vestibular.unesp.br/portal#!/arquivo/vestibular-2020/",
+  "ar": [
+   {
+    "t": "gabarito",
+    "r": "Gabarito após recursos — Conhecimentos Gerais",
+    "u": "https://vestibular.unesp.br/Home/2020/gabarito_apos_recursos_vnsp1901_prova_1a_fase_15nov2019.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Conhecimentos Gerais",
+    "u": "https://vestibular.unesp.br/Home/2020/unesp_caderno_de_questoes_prova_de_conhecimentos_gerais_15_nov_2019__v1.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito — Conhecimentos Gerais",
+    "u": "https://vestibular.unesp.br/Home/2020/unesp_gabarito_prova_de_conhecimentos_gerais_15_nov_2019__v1.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "vunesp-2020-2-fase",
+  "s": "vunesp",
+  "a": 2020,
+  "n": "Vunesp 2020 · 2ª fase",
+  "f": "2ª fase",
+  "fo": "https://vestibular.unesp.br/portal#!/arquivo/vestibular-2020/",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — Linguagens e Códigos",
+    "u": "https://vestibular.unesp.br/Home/unesp-2a-fase-2020-caderno-linguagens.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Ciências Humanas",
+    "u": "https://vestibular.unesp.br/Home/unesp-2a-fase-2020-caderno_ciencias_humanas.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Ciências da Natureza e Matemática",
+    "u": "https://vestibular.unesp.br/Home/unesp-2a-fase-2020-caderno_ciencias_natur_matem.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "vunesp-2021-2-fase",
+  "s": "vunesp",
+  "a": 2021,
+  "n": "Vunesp 2021 · 2ª fase",
+  "f": "2ª fase",
+  "fo": "https://vestibular.unesp.br/portal#!/arquivo/vestibular-2021/",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova (versão 1)",
+    "u": "https://vestibular.unesp.br/Home/2021/caderno_2afase_unesp2021_versao_1.pdf",
+    "fm": "pdf",
+    "v": "Versão 1"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito (versão 1)",
+    "u": "https://vestibular.unesp.br/Home/2021/gabarito_2afase_unesp2021_versao1.pdf",
+    "fm": "pdf",
+    "v": "Versão 1"
+   }
+  ]
+ },
+ {
+  "id": "vunesp-2022-1-fase",
+  "s": "vunesp",
+  "a": 2022,
+  "n": "Vunesp 2022 · 1ª fase",
+  "f": "1ª fase",
+  "fo": "https://vestibular.unesp.br/portal#!/arquivo/vestibular-2022/documentos/",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — Conhecimentos Gerais — Cursos de Biológicas (versão 1)",
+    "u": "https://vestibular.unesp.br/Home/documentos/provafase1_biologicas",
+    "fm": "pdf",
+    "v": "Versão 1 · Cursos de Biológicas"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito — Conhecimentos Gerais — Cursos de Biológicas (versão 1)",
+    "u": "https://vestibular.unesp.br/Home/documentos/provafase1_biologicas_gabarito.pdf",
+    "fm": "pdf",
+    "v": "Versão 1 · Cursos de Biológicas"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — Conhecimentos Gerais — Cursos de Exatas e Humanas (versão 1)",
+    "u": "https://vestibular.unesp.br/Home/documentos/provafase1_exatashumanas.pdf",
+    "fm": "pdf",
+    "v": "Versão 1 · Cursos de Exatas e Humanas"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito — Conhecimentos Gerais — Cursos de Exatas e Humanas (versão 1)",
+    "u": "https://vestibular.unesp.br/Home/documentos/provafase1_exatashumanas_gabarito.pdf",
+    "fm": "pdf",
+    "v": "Versão 1 · Cursos de Exatas e Humanas"
+   }
+  ]
+ }
+]

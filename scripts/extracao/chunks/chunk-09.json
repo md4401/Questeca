@@ -1,0 +1,522 @@
+[
+ {
+  "id": "fuvest-2011-provas",
+  "s": "fuvest",
+  "a": 2011,
+  "n": "Fuvest 2011 · Provas",
+  "f": "Não informada",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2011",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova (Índice de Discriminação – 1ª Fase)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2011_id1fins.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2012-1-fase",
+  "s": "fuvest",
+  "a": 2012,
+  "n": "Fuvest 2012 · 1ª fase",
+  "f": "1ª fase",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2012",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2012_1fase_prova_V.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2012_1fase_prova_gab.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2012_1fase_prova_gab_cor.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2012-2-fase",
+  "s": "fuvest",
+  "a": 2012,
+  "n": "Fuvest 2012 · 2ª fase",
+  "f": "2ª fase",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2012",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova (3º Dia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2012_2fase_dia3.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2012-2-fase-1-dia",
+  "s": "fuvest",
+  "a": 2012,
+  "n": "Fuvest 2012 · 2ª fase · 1º dia",
+  "f": "2ª fase",
+  "d": "1º dia",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2012",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — 1º dia (1º Dia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2012_2fase_dia1.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2012-2-fase-2-dia",
+  "s": "fuvest",
+  "a": 2012,
+  "n": "Fuvest 2012 · 2ª fase · 2º dia",
+  "f": "2ª fase",
+  "d": "2º dia",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2012",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — 2º dia (2º Dia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2012_2fase_dia2.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2012-provas",
+  "s": "fuvest",
+  "a": 2012,
+  "n": "Fuvest 2012 · Provas",
+  "f": "Não informada",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2012",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova (Índice de Discriminação – 1ª Fase)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2012_id1fins.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2013-1-fase",
+  "s": "fuvest",
+  "a": 2013,
+  "n": "Fuvest 2013 · 1ª fase",
+  "f": "1ª fase",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2013",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2013_1fase_prova_V.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2013_1fase_prova_gab.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2013_1fase_prova_gab_cor.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Índice de Discriminação – 1ª Fase)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2013_indice_discriminacao_primeira_fase.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2013-2-fase",
+  "s": "fuvest",
+  "a": 2013,
+  "n": "Fuvest 2013 · 2ª fase",
+  "f": "2ª fase",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2013",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova (3º Dia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2013_2fase_dia3.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Índice de Discriminação – 2ª Fase)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2013_indice_discriminacao_segunda_fase.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2013-2-fase-1-dia",
+  "s": "fuvest",
+  "a": 2013,
+  "n": "Fuvest 2013 · 2ª fase · 1º dia",
+  "f": "2ª fase",
+  "d": "1º dia",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2013",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — 1º dia (1º Dia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2013_2fase_dia1.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2013-2-fase-2-dia",
+  "s": "fuvest",
+  "a": 2013,
+  "n": "Fuvest 2013 · 2ª fase · 2º dia",
+  "f": "2ª fase",
+  "d": "2º dia",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2013",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — 2º dia (2º Dia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2013_2fase_dia2.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2014-1-fase",
+  "s": "fuvest",
+  "a": 2014,
+  "n": "Fuvest 2014 · 1ª fase",
+  "f": "1ª fase",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2014",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2014_1fase_prova_V.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2014_1fase_prova_gab.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2014_1fase_prova_gab_cor.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Índice de Discriminação – 1ª Fase)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2014_indice_discriminacao_primeira_fase.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2014-2-fase",
+  "s": "fuvest",
+  "a": 2014,
+  "n": "Fuvest 2014 · 2ª fase",
+  "f": "2ª fase",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2014",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova (3º Dia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2014_2fase_dia3.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Índice de Discriminação – 2ª Fase)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2014_indice_discriminacao_segunda_fase.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2014-2-fase-1-dia",
+  "s": "fuvest",
+  "a": 2014,
+  "n": "Fuvest 2014 · 2ª fase · 1º dia",
+  "f": "2ª fase",
+  "d": "1º dia",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2014",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — 1º dia (1º Dia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2014_2fase_dia1.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2014-2-fase-2-dia",
+  "s": "fuvest",
+  "a": 2014,
+  "n": "Fuvest 2014 · 2ª fase · 2º dia",
+  "f": "2ª fase",
+  "d": "2º dia",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2014",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — 2º dia (2º Dia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2014_2fase_dia2.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2015-1-fase",
+  "s": "fuvest",
+  "a": 2015,
+  "n": "Fuvest 2015 · 1ª fase",
+  "f": "1ª fase",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2015",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2015_1fase_prova_V.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2015_1fase_prova_gab.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2015_1fase_prova_gab_cor.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova (Índice de Discriminação – 1ª Fase)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2015_indice_discriminacao_1_fase_ins.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2015-2-fase",
+  "s": "fuvest",
+  "a": 2015,
+  "n": "Fuvest 2015 · 2ª fase",
+  "f": "2ª fase",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2015",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova (3º Dia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2015_2fase_dia3.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2015-2-fase-1-dia",
+  "s": "fuvest",
+  "a": 2015,
+  "n": "Fuvest 2015 · 2ª fase · 1º dia",
+  "f": "2ª fase",
+  "d": "1º dia",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2015",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — 1º dia (1º Dia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2015_2fase_dia1.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2015-2-fase-2-dia",
+  "s": "fuvest",
+  "a": 2015,
+  "n": "Fuvest 2015 · 2ª fase · 2º dia",
+  "f": "2ª fase",
+  "d": "2º dia",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2015",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — 2º dia (2º Dia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2015_2fase_dia2.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2016-1-fase",
+  "s": "fuvest",
+  "a": 2016,
+  "n": "Fuvest 2016 · 1ª fase",
+  "f": "1ª fase",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2016",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2016_1fase_prova_V.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2016_1fase_prova_gab.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2016_1fase_prova_gab_cor.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2016-2-fase-1-dia",
+  "s": "fuvest",
+  "a": 2016,
+  "n": "Fuvest 2016 · 2ª fase · 1º dia",
+  "f": "2ª fase",
+  "d": "1º dia",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2016",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — 1º dia (1º Dia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2016_2fase_dia1.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2016-2-fase-2-dia",
+  "s": "fuvest",
+  "a": 2016,
+  "n": "Fuvest 2016 · 2ª fase · 2º dia",
+  "f": "2ª fase",
+  "d": "2º dia",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2016",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — 2º dia (3º Dia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2016_2fase_dia2.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "prova",
+    "r": "Prova — 2º dia (2º Dia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2016_2fase_dia3.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2017-1-fase",
+  "s": "fuvest",
+  "a": 2017,
+  "n": "Fuvest 2017 · 1ª fase",
+  "f": "1ª fase",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2017",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2017_1fase_prova_V.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2017_1fase_prova_gab.pdf",
+    "fm": "pdf"
+   },
+   {
+    "t": "gabarito",
+    "r": "Gabarito",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2017_1fase_prova_gab_cor.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2017-2-fase",
+  "s": "fuvest",
+  "a": 2017,
+  "n": "Fuvest 2017 · 2ª fase",
+  "f": "2ª fase",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2017",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova (3º Dia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2017_2fase_dia3.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2017-2-fase-1-dia",
+  "s": "fuvest",
+  "a": 2017,
+  "n": "Fuvest 2017 · 2ª fase · 1º dia",
+  "f": "2ª fase",
+  "d": "1º dia",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2017",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — 1º dia (1º Dia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2017_2fase_dia1.pdf",
+    "fm": "pdf"
+   }
+  ]
+ },
+ {
+  "id": "fuvest-2017-2-fase-2-dia",
+  "s": "fuvest",
+  "a": 2017,
+  "n": "Fuvest 2017 · 2ª fase · 2º dia",
+  "f": "2ª fase",
+  "d": "2º dia",
+  "fo": "https://www.fuvest.br/acervo-vestibular-2017",
+  "ar": [
+   {
+    "t": "prova",
+    "r": "Prova — 2º dia (2º Dia)",
+    "u": "https://www.fuvest.br/wp-content/uploads/fuvest_2017_2fase_dia2.pdf",
+    "fm": "pdf"
+   }
+  ]
+ }
+]
