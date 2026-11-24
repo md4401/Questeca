@@ -5,6 +5,12 @@ import { questions } from "@/db/schema";
 import { aiAvailable, aiExpandThemes } from "@/lib/ai";
 import { parseQuery, scoreDoc, norm } from "@/lib/core/search";
 import { subjectLabel, gradeLabel } from "@/lib/taxonomy";
+import { assessments, assessmentItems } from "@/db/schema";
+import { loadClass } from "@/lib/access";
+import { evenPoints, usedQuestionIdsForClass } from "@/lib/assessments";
+import { consumeAssembly } from "@/lib/billing";
+import { audit, track } from "@/lib/audit";
+import type { Ctx } from "@/lib/session";
 
 /** Dificuldade-alvo (1 a 5) pela série. As questões do banco têm dificuldade 3 por padrão, então é só uma preferência. */
 export const DIFICULDADE_POR_SERIE: Record<string, number> = { "6": 1, "7": 2, "8": 2, "9": 3, em1: 3, em2: 4, em3: 4 };
@@ -57,4 +63,31 @@ export async function selecionarPorTemas(i: { orgId: string; temas: string[]; su
   for (const s of scored) { if (picked.length >= p.data.count) break; if (!taken.has(s.q.id)) { taken.add(s.q.id); picked.push(s); } }
 
   return { picked, temas, termos: termos.length };
+}
+
+/** Cria o rascunho da prova a partir dos temas (usado pelo formulário "Montar prova" e pelo assistente). */
+export async function criarProvaPorTemas(ctx: Ctx, i: { title?: string; classId?: string | null; grade: string; subject: string; temas: string[]; count: number; insts?: string[]; dificuldade?: number }): Promise<{ ok: true; id: string; found: number; wanted: number } | { ok: false; error: string }> {
+  const classId = i.classId || null;
+  if (classId) await loadClass(ctx, classId);
+  const temas = i.temas.map((t) => t.trim()).filter(Boolean).slice(0, 8);
+  const insts = i.insts ?? [];
+  const r = await selecionarPorTemas({ orgId: ctx.org.id, temas, subject: i.subject, grade: i.grade, count: i.count, insts, dificuldade: i.dificuldade, usedIds: await usedQuestionIdsForClass(classId) });
+  if (!r.termos) return { ok: false, error: "Não entendi os temas. Tente palavras como “porcentagem” ou “Machado de Assis”." };
+  const picked = r.picked;
+  if (!picked.length) return { ok: false, error: "Não encontrei questões liberadas para esses temas. Tente outros termos, mude a disciplina para “Todas” ou remova o filtro de bancas." };
+  const title = i.title || `Prova de ${subjectLabel(i.subject === "todas" ? "interdisciplinar" : i.subject)} — ${temas.slice(0, 2).join(", ")}`;
+  const [a] = await db.insert(assessments).values({
+    orgId: ctx.org.id, classId, ownerId: ctx.user.id, title, scope: { willFall: [...new Set(picked.flatMap((s) => [...s.q.assessed, ...s.q.prerequisites]))], prerequisite: [], notTaught: [], confirm: [], sources: {} },
+    wantedCount: i.count, durationMin: Math.max(10, picked.length * 4), totalPoints: "10", filters: { institutions: insts, difficulty: [] },
+  }).returning();
+  const cota = await consumeAssembly(ctx.org.id, a.id);
+  if (!cota.ok) { await db.delete(assessments).where(eq(assessments.id, a.id)); return { ok: false, error: `${cota.reason} Você ainda pode montar manualmente pelo Banco de questões.` }; }
+  const pts = evenPoints(10, picked.length);
+  await db.insert(assessmentItems).values(picked.map((s, k) => {
+    const hit = temas.find((_, n) => s.porTema[n] > 0);
+    return { assessmentId: a.id, questionId: s.q.id, position: k + 1, points: String(pts[k]), reason: `${hit ? `Tema “${hit}”. ` : "Relacionada aos temas pedidos. "}${s.q.institution} ${s.q.year}.` };
+  }));
+  await audit(ctx.user.id, ctx.org.id, "assessment.composed", a.id, { temas, found: picked.length });
+  await track("search_done", ctx.user.id, ctx.org.id, { found: picked.length, wanted: i.count });
+  return { ok: true, id: a.id, found: picked.length, wanted: i.count };
 }

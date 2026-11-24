@@ -1026,3 +1026,14 @@ export const riskAlerts = pgTable("risk_alerts", {
   notified: integer("notified").notNull().default(0), // coordenadores notificados
   createdAt: created(),
 }, (t) => [index("risk_alerts_student_idx").on(t.studentId, t.createdAt)]);
+
+/** Arquivos criados pelo assistente de IA (hoje: apresentações). Só o dono baixa. */
+export const assistantFiles = pgTable("assistant_files", {
+  id: id(),
+  orgId: uuid("org_id").notNull().references(() => orgs.id, { onDelete: "cascade" }),
+  ownerId: uuid("owner_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  kind: text("kind").notNull().default("pptx"),
+  title: text("title").notNull(),
+  data: jsonb("data").$type<{ slides: { titulo: string; topicos: string[]; notas?: string }[]; subtitulo?: string }>().notNull(),
+  createdAt: created(),
+}, (t) => [index("assistant_files_owner_idx").on(t.ownerId)]);

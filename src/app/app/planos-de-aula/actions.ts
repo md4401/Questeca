@@ -7,6 +7,7 @@ import { db } from "@/db";
 import { lessonPlans, memberships, type LessonPlanContent } from "@/db/schema";
 import { requireCtx } from "@/lib/session";
 import { loadClass } from "@/lib/access";
+import { criarPlanoDeAula } from "@/lib/planos";
 import { templatePlan } from "@/lib/core/lesson-plan";
 import { aiAvailable, aiLessonPlan } from "@/lib/ai";
 import { gradeLabel, subjectLabel } from "@/lib/taxonomy";
@@ -29,24 +30,7 @@ export async function createPlanAction(_: FormState, fd: FormData): Promise<Form
   const ctx = await requireCtx();
   const p = z.object({ theme: z.string().trim().min(3, "Digite o tema da aula.").max(300), classId: z.string().optional(), durationMin: z.coerce.number().int().min(20).max(240).default(50), plannedFor: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional().or(z.literal("")) }).safeParse(Object.fromEntries(fd));
   if (!p.success) return { error: p.error.issues[0].message };
-  let orgId = ctx.org.id; let className = "—"; let subject = "Matemática"; let grade = ""; let classId: string | null = null;
-  if (p.data.classId) {
-    const { cls } = await loadClass(ctx, p.data.classId);
-    classId = cls.id; orgId = cls.orgId; className = cls.name; subject = subjectLabel(cls.subject); grade = gradeLabel(cls.grade);
-  }
-  const orgName = ctx.orgs.find((o) => o.id === orgId)?.name ?? ctx.org.name;
-  const date = p.data.plannedFor || todayISO();
-  const input = { theme: p.data.theme, grade, subject, durationMin: p.data.durationMin, school: orgName, className, teacher: ctx.user.name, date: fmtDate(date) };
-  let content: LessonPlanContent = templatePlan(input);
-  if (aiAvailable()) {
-    try {
-      const a = await aiLessonPlan({ theme: input.theme, grade, subject, durationMin: input.durationMin });
-      const sum = a.momentos?.reduce((s, m) => s + Number(m.minutos || 0), 0);
-      if (a.objetivos?.length && a.momentos?.length === 5 && sum === input.durationMin) content = { ...content, ...a, origem: "ia" };
-    } catch { /* cai no modelo */ }
-  }
-  const [row] = await db.insert(lessonPlans).values({ orgId, classId, authorId: ctx.user.id, theme: p.data.theme, plannedFor: date, durationMin: p.data.durationMin, content }).returning();
-  await track("lesson_plan_created", ctx.user.id, orgId, { origem: content.origem });
+  const row = await criarPlanoDeAula(ctx, p.data);
   redirect(`/app/planos-de-aula/${row.id}`);
 }
 

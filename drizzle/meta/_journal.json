@@ -92,6 +92,13 @@
       "when": 1795486216282,
       "tag": "0012_questao_propria",
       "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1795517259964,
+      "tag": "0013_assistente_arquivos",
+      "breakpoints": true
     }
   ]
 }

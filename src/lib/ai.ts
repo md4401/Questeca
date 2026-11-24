@@ -113,3 +113,9 @@ export async function aiExpandThemes(i: { themes: string[]; subject: string; gra
   if (!m) return [];
   try { return (JSON.parse(m[0]) as unknown[]).filter((x): x is string => typeof x === "string").map((x) => x.slice(0, 40)).slice(0, 15); } catch { return []; }
 }
+
+/** Conversa livre (texto in, texto out) para o assistente. O conteúdo já vem montado e delimitado pelo chamador. */
+export async function aiComplete(system: string, text: string, maxTokens = 1800, timeoutMs = 90_000): Promise<string> {
+  if (!aiAvailable()) throw new Error("IA não configurada.");
+  return llm(system, [{ type: "text", text }], maxTokens, timeoutMs);
+}
