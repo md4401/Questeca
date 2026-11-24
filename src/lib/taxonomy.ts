@@ -34,7 +34,8 @@ export const TOPICS: Topic[] = [
 ];
 
 export const TOPIC_BY_SLUG = new Map(TOPICS.map((t) => [t.slug, t]));
-export const topicName = (slug: string) => TOPIC_BY_SLUG.get(slug)?.name ?? slug;
+const EXTRA_TOPICS: Record<string, string> = { "lit-realismo": "Realismo", "lit-modernismo": "Modernismo", "lit-narrador": "Foco narrativo", "lit-ironia": "Ironia e crítica social" };
+export const topicName = (slug: string) => TOPIC_BY_SLUG.get(slug)?.name ?? EXTRA_TOPICS[slug] ?? slug;
 
 export const GRADES: { value: string; label: string }[] = [
   { value: "6", label: "6º ano" }, { value: "7", label: "7º ano" }, { value: "8", label: "8º ano" }, { value: "9", label: "9º ano" },

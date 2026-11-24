@@ -422,3 +422,5 @@ html[data-theme="dark"] .grade-ok { color: #4ADE80; } html[data-theme="dark"] .g
 .fold > summary::-webkit-details-marker { display: none; }
 .fold > summary::after { content: "+"; color: var(--color-brand); font-size: 1.25rem; transition: transform .2s; }
 .fold[open] > summary::after { transform: rotate(45deg); }
+
+mark.hl { background: color-mix(in srgb, #FACC15 40%, transparent); color: inherit; border-radius: 3px; padding: 0 2px; }

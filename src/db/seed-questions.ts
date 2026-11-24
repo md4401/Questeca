@@ -2,7 +2,7 @@
 // Questões reais de Enem/vestibulares só entram pelo fluxo de importação com autorização (ver PENDING.md).
 export type SeedQ = {
   t: string; s: string; alts: [string, string, string, string, string]; a: "A" | "B" | "C" | "D" | "E";
-  topics: string[]; pre?: string[]; methods?: string[]; d: number; sec: number; stim?: string;
+  topics: string[]; pre?: string[]; methods?: string[]; d: number; sec: number; stim?: string; subject?: string;
 };
 
 const K = ["A", "B", "C", "D", "E"] as const;
@@ -63,6 +63,18 @@ export const REFERENCE_ONLY = [
     licenseNote: "Reprodução do enunciado depende de permissão aplicável. Consulte o caderno original no link do Inep.",
     assessed: ["porcentagem-simples", "descontos-sucessivos"],
   },
+];
+
+/** Questões AUTORAIS de Literatura (exemplo). Itens reais de Enem/Fuvest entram só pelo importador, com autorização. */
+export const LIT_SEED: SeedQ[] = [
+  { subject: "literatura", t: "Dom Casmurro: a dúvida central", s: "No romance Dom Casmurro, de Machado de Assis, o narrador Bentinho reconstrói a juventude e o casamento com Capitu. Qual é a dúvida que atravessa a narrativa?", alts: ["Se Bentinho realmente se tornou padre.", "Se Capitu traiu Bentinho com Escobar.", "Se Escobar herdou a fortuna da família.", "Se José Dias era amigo da família.", "Se Dona Glória aprovava o casamento."], a: "B", topics: ["lit-realismo", "lit-narrador"], d: 2, sec: 90 },
+  { subject: "literatura", t: "Memórias Póstumas: o defunto-autor", s: "Em Memórias Póstumas de Brás Cubas, publicado em 1881, a história é contada por um narrador já morto. Esse recurso é característico de qual traço da obra?", alts: ["Idealização da natureza e do amor.", "Ironia e distanciamento crítico em relação à sociedade e a si mesmo.", "Defesa explícita dos valores religiosos.", "Linguagem regionalista com marcas de oralidade sertaneja.", "Culto à forma e à métrica rigorosa."], a: "B", topics: ["lit-realismo", "lit-ironia"], d: 3, sec: 120 },
+  { subject: "literatura", t: "O Alienista e a crítica à razão absoluta", s: "No conto O Alienista, de Machado de Assis, o médico Simão Bacamarte manda internar quase toda a população de Itaguaí na Casa Verde. Que crítica a narrativa constrói?", alts: ["A defesa da ciência como solução para todos os conflitos sociais.", "A importância de isolar os considerados diferentes.", "A crítica a uma racionalidade científica que se pretende absoluta e perde o senso de realidade.", "A exaltação do campo em oposição à cidade.", "A valorização do herói romântico que enfrenta o poder."], a: "C", topics: ["lit-realismo", "lit-ironia"], d: 3, sec: 120 },
+  { subject: "literatura", t: "Quincas Borba e o Humanitismo", s: "O filósofo Quincas Borba, personagem de Machado de Assis, formula o Humanitismo, cuja máxima é \"Ao vencedor, as batatas\". Essa ideia satiriza:", alts: ["O ideal de solidariedade entre as classes.", "As doutrinas que justificam a competição e a vitória do mais forte como lei natural.", "A moral cristã do perdão.", "O nacionalismo ufanista do Romantismo.", "O misticismo oriental."], a: "B", topics: ["lit-realismo", "lit-ironia"], d: 4, sec: 150 },
+  { subject: "literatura", t: "Machado de Assis e o Realismo brasileiro", s: "Machado de Assis é considerado o maior nome do Realismo no Brasil. Qual característica de sua obra madura corresponde a esse movimento?", alts: ["Ênfase no sentimentalismo e na idealização da mulher.", "Análise psicológica das personagens e crítica aos costumes da sociedade.", "Exaltação do índio como herói nacional.", "Experimentação com verso livre e linguagem coloquial.", "Descrição científica de ambientes sem interesse psicológico."], a: "B", topics: ["lit-realismo"], d: 2, sec: 90 },
+  { subject: "literatura", t: "Missa do Galo: a ambiguidade", s: "No conto Missa do Galo, de Machado de Assis, um jovem conversa com Conceição na noite de Natal enquanto espera a hora da missa. O sentido do encontro permanece ambíguo porque:", alts: ["O narrador afirma, no final, que houve uma declaração amorosa.", "O texto não esclarece se havia intenção de sedução, e o narrador já adulto recorda sem certeza.", "Conceição conta tudo ao marido.", "A missa é cancelada por causa da chuva.", "O jovem mente deliberadamente ao leitor."], a: "B", topics: ["lit-realismo", "lit-narrador"], d: 4, sec: 150 },
+  { subject: "literatura", t: "Clarice Lispector: A hora da estrela", s: "Em A hora da estrela, de Clarice Lispector, o narrador Rodrigo S. M. conta a história de Macabéa, uma jovem nordestina que vive no Rio de Janeiro. Um traço marcante do livro é:", alts: ["A narração em terceira pessoa sem qualquer interferência do narrador.", "O narrador que comenta o próprio ato de escrever e reflete sobre a personagem que cria.", "A estrutura de poema épico em versos decassílabos.", "A defesa explícita do Romantismo.", "O cenário exclusivamente rural."], a: "B", topics: ["lit-modernismo", "lit-narrador"], d: 3, sec: 120 },
+  { subject: "literatura", t: "Drummond e o poema da pedra", s: "No poema No meio do caminho, de Carlos Drummond de Andrade, a repetição da imagem da pedra produz principalmente o efeito de:", alts: ["Descrição científica de um acidente geográfico.", "Obsessão e ênfase sobre um obstáculo que marca a experiência do eu lírico.", "Exaltação da natureza brasileira.", "Imitação rigorosa do soneto clássico.", "Narrativa de aventura."], a: "B", topics: ["lit-modernismo"], d: 2, sec: 90 },
 ];
 
 export { K };
