@@ -1,7 +1,7 @@
 import "server-only";
 import type { Ctx } from "@/lib/session";
 import { FERRAMENTAS, type Link } from "./ferramentas";
-import { extrairJson } from "@/lib/core/json";
+import { extrairJson, interpretarResposta } from "@/lib/core/json";
 
 export type Msg = { role: "user" | "assistant"; content: string };
 export type Passo = { ferramenta: string; ok: boolean };
@@ -36,7 +36,14 @@ export async function conversar(ctx: Ctx, history: Msg[], complete: Complete): P
     const out = await complete(system, `${turns}${scratch}\n\nResponda agora com o JSON.`);
     const j = extrairJson(out);
     if (!j) return { texto: out.trim().slice(0, 4000) || "Não consegui responder agora. Tente reformular.", links, passos };
-    if (j.acao !== "ferramenta") return { texto: String(j.texto ?? j.resposta ?? out).slice(0, 6000), links, passos };
+    const r = interpretarResposta(j, FERRAMENTAS.map((f) => f.nome));
+    if (r.tipo === "texto") return { texto: r.texto.slice(0, 6000), links, passos };
+    if (r.tipo === "invalida") {
+      if (n === MAX_PASSOS) break;
+      scratch += `\n\nASSISTENTE: ${out.slice(0, 300)}\nERRO DE FORMATO: responda com {"acao":"ferramenta","nome":"<ferramenta>","args":{...}} ou {"acao":"responder","texto":"..."}.`;
+      continue;
+    }
+    j.nome = r.nome; j.args = r.args;
     if (n === MAX_PASSOS) break;
     const f = FERRAMENTAS.find((x) => x.nome === j.nome);
     let retorno: unknown;
