@@ -138,8 +138,9 @@ table.t tbody tr:hover { background: #F8FAFF; }
 @keyframes toast-in { from { opacity: 0; transform: translateY(12px) scale(.98); } }
 
 /* ---------- Modal ---------- */
-dialog.modal { border: 0; padding: 0; background: transparent; max-width: min(560px, calc(100vw - 2rem)); width: 100%; color: var(--color-ink); }
+dialog.modal { margin: auto; border: 0; padding: 0; background: transparent; max-width: min(560px, calc(100vw - 2rem)); width: 100%; color: var(--color-ink); }
 dialog.modal::backdrop { background: rgba(10,26,63,.35); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+dialog.modal .modal-panel { max-height: 90vh; overflow-y: auto; }
 dialog.modal[open] .modal-panel { animation: modal-in .35s var(--ease-out); }
 @keyframes modal-in { from { opacity: 0; transform: translateY(16px) scale(.98); } }
 

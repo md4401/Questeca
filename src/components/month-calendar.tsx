@@ -51,13 +51,13 @@ export function MonthCalendar({ mes, items, selected, today, base }: { mes: stri
 }
 
 const hm = (d: Date) => d.toLocaleTimeString("pt-BR", { timeZone: "America/Sao_Paulo", hour: "2-digit", minute: "2-digit" });
-export function DayPanel({ date, items }: { date: string; items: AgendaItem[] }) {
+export function DayPanel({ date, items, renderAction }: { date: string; items: AgendaItem[]; renderAction?: (key: string) => React.ReactNode }) {
   const label = new Date(date + "T12:00:00Z").toLocaleDateString("pt-BR", { timeZone: "UTC", day: "numeric", month: "long" });
   return (
     <section className="card" aria-label={`Eventos de ${label}`}>
       <h2 className="mb-2">{label}</h2>
       {items.length === 0 ? <p className="empty !py-4">Nenhum evento neste dia</p> : (
-        <ul className="list-rows text-sm">{items.map((e) => <li key={e.key}><span className="mr-2 inline-block h-2 w-2 rounded-full" style={{ background: CAT_COLOR[e.category] ?? "#64748B" }} aria-hidden /><strong>{e.href ? <Link href={e.href}>{e.title}</Link> : e.title}</strong><br /><span className="hint">{CAT_LABEL[e.category] ?? e.category} · {e.allDay ? "dia todo" : hm(e.start)}</span></li>)}</ul>)}
+        <ul className="list-rows text-sm">{items.map((e) => <li key={e.key}><span className="mr-2 inline-block h-2 w-2 rounded-full" style={{ background: CAT_COLOR[e.category] ?? "#64748B" }} aria-hidden /><strong>{e.href ? <Link href={e.href}>{e.title}</Link> : e.title}</strong><br /><span className="hint">{CAT_LABEL[e.category] ?? e.category} · {e.allDay ? "dia todo" : hm(e.start)}</span>{renderAction?.(e.key)}</li>)}</ul>)}
     </section>
   );
 }

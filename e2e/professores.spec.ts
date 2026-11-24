@@ -48,6 +48,7 @@ test("Versão professores: chamada, agenda e horários, gestão, boletim, painel
   const today = new Date(Date.now() - 3 * 3600e3).toISOString().slice(0, 10);
   const until = new Date(Date.now() + 40 * 864e5).toISOString().slice(0, 10);
   await t.goto("/app/agenda");
+  await t.getByRole("button", { name: "Adicionar evento" }).click();
   await t.getByLabel("Título").fill("Reunião pedagógica");
   await t.getByLabel("Para quem").selectOption("personal");
   await t.getByLabel("Data").fill(today);
