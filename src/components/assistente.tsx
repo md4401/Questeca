@@ -47,7 +47,7 @@ export function Assistente({ disponivel, nome, creditos }: { disponivel: boolean
     setEnviando(false);
   }
 
-  if (!disponivel) return <div className="card" role="status"><p className="font-medium">O assistente ainda não está ativado.</p><p className="hint mt-1">Falta configurar a chave de IA (AI_PROVIDER e NVIDIA_API_KEY ou ANTHROPIC_API_KEY) nesta instalação. Enquanto isso, use “Montar prova” e “Planos de aula”.</p></div>;
+  if (!disponivel) return <div className="card" role="status"><p className="font-medium">O assistente ainda não está ativado.</p><p className="hint mt-1">Falta configurar a IA nesta instalação: AI_PROVIDER=openai com OPENAI_API_KEY e AI_MODEL (ou nvidia/anthropic com a chave correspondente). Depois de editar o .env.local, reinicie o servidor. Enquanto isso, use “Montar prova” e “Planos de aula”.</p></div>;
 
   return (
     <section className="card flex min-h-[60vh] flex-col" aria-label="Conversa com o assistente">
