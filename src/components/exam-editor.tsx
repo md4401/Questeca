@@ -19,7 +19,8 @@ function Editable({ html, label, field, onDirty, className = "", single }: { htm
 }
 
 /** Editor de texto da prova (como no Word): negrito, itálico, sublinhado, blocos de texto e restauração do original. */
-export function ExamEditor({ assessmentId, title, instructions, items, blocks: initBlocks, schoolName }: Props) {
+export function ExamEditor({ assessmentId, title, instructions, items: initItems, blocks: initBlocks, schoolName }: Props) {
+  const [items, setItems] = useState<Item[]>(initItems);
   const root = useRef<HTMLDivElement>(null);
   const [blocks, setBlocks] = useState<Block[]>(initBlocks);
   const [dirty, setDirty] = useState(false);
@@ -29,7 +30,6 @@ export function ExamEditor({ assessmentId, title, instructions, items, blocks: i
   const saving = useRef(false);
 
   const markDirty = useCallback(() => { setDirty(true); setStatus({ kind: "idle", text: "Alterações não salvas." }); }, []);
-  const read = (sel: string) => root.current!.querySelector<HTMLElement>(sel)!;
   const collect = useCallback((): EditPayload => {
     const q = (f: string) => fromHtml(root.current!.querySelector<HTMLElement>(`[data-field="${f}"]`)?.innerHTML ?? "");
     return {
@@ -63,8 +63,7 @@ export function ExamEditor({ assessmentId, title, instructions, items, blocks: i
   const addBlock = (beforeItemId: string | null) => { const id = `b${Date.now().toString(36)}${Math.random().toString(36).slice(2, 5)}`; setBlocks((b) => [...b, { id, beforeItemId, text: "" }]); markDirty(); setTimeout(() => root.current?.querySelector<HTMLElement>(`[data-field="blk:${id}"]`)?.focus(), 50); };
   const delBlock = (id: string) => { setBlocks((b) => b.filter((x) => x.id !== id)); markDirty(); };
   const restore = (it: Item) => {
-    read(`[data-field="st:${it.itemId}"]`).innerHTML = toHtml(it.origStatement);
-    it.origAlternatives.forEach((a) => { read(`[data-field="alt:${it.itemId}:${a.key}"]`).innerHTML = toHtml(a.text); });
+    setItems((all) => all.map((x) => (x.itemId === it.itemId ? { ...x, statement: it.origStatement, alternatives: it.origAlternatives, edited: false } : x)));
     setRestored((r) => ({ ...r, [it.itemId]: (r[it.itemId] ?? 0) + 1 })); markDirty();
   };
   const blocksAt = (id: string | null) => blocks.filter((b) => b.beforeItemId === id);

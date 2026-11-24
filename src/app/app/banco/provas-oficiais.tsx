@@ -39,7 +39,7 @@ export function ProvasOficiais({ sp }: { sp: { q?: string; inst?: string; ano?: 
               {arquivos.map((a) => (
                 <li key={a.u} className="flex items-center justify-between gap-2 rounded-lg border border-line p-2 text-sm">
                   <span className="min-w-0"><span className={`badge ${a.t === "gabarito" ? "badge-ok" : a.t === "prova" ? "" : "badge-gray"} mr-1.5`}>{TIPOS[a.t] ?? a.t}</span><span className="break-words">{a.r}</span></span>
-                  {a.x ? <span className="hint whitespace-nowrap" title="O link oficial não respondeu na última conferência">link fora do ar</span> : <a className="btn btn-sm" href={a.u} target="_blank" rel="noopener noreferrer" aria-label={`Abrir ${a.r} em ${inst.sigla} ${ed.a}`}>Abrir {a.fm.toUpperCase()}</a>}
+                  {a.x ? <span className="hint whitespace-nowrap" title="O link oficial não respondeu na última conferência">link fora do ar</span> : <a className="btn btn-sm" href={a.u} target="_blank" rel="noopener noreferrer" aria-label={`Abrir ${a.fm.toUpperCase()}: ${a.r} (${inst.sigla} ${ed.a})`}>Abrir {a.fm.toUpperCase()}</a>}
                 </li>))}
             </ul>
           </li>))}

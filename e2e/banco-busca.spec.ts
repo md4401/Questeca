@@ -77,17 +77,17 @@ test("Banco: aba Provas e gabaritos oficiais (catálogo de Enem, Fuvest, Unicamp
   await t.goto("/app/banco?aba=provas&q=enem+2023");
   const cards = t.getByTestId("edicao-oficial");
   expect(await cards.count()).toBeGreaterThan(0);
-  await expect(cards.first()).toContainText("ENEM · 2023");
+  await expect(cards.first()).toContainText(/ENEM · 2023/i);
   await expect(cards.first().getByText("Prova", { exact: true }).first()).toBeVisible();
   await expect(cards.first().getByText("Gabarito", { exact: true }).first()).toBeVisible();
-  const href = await cards.first().getByRole("link", { name: /Abrir .* em ENEM 2023/ }).first().getAttribute("href");
+  const href = await cards.first().getByRole("link", { name: /Abrir PDF: .*\(ENEM 2023\)/i }).first().getAttribute("href");
   expect(href).toMatch(/^https:\/\/.*inep\.gov\.br/); 
   expect(await cards.first().getByRole("link", { name: /Abrir/ }).first().getAttribute("target")).toBe("_blank");
   // siglas populares e filtros
   await t.goto("/app/banco?aba=provas&q=usp&tipo=gabarito");
-  await expect(t.getByTestId("edicao-oficial").first()).toContainText("FUVEST");
+  await expect(t.getByTestId("edicao-oficial").first()).toContainText(/FUVEST/i);
   await t.goto("/app/banco?aba=provas&inst=comvest&ano=2020");
-  await expect(t.getByTestId("edicao-oficial").first()).toContainText("COMVEST");
+  await expect(t.getByTestId("edicao-oficial").first()).toContainText(/COMVEST/i);
   await t.goto("/app/banco?aba=provas&q=zzzxxyy");
   await expect(t.getByText(/Nenhuma edição encontrada/)).toBeVisible();
   // paginação
