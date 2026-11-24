@@ -26,7 +26,7 @@ export default async function Editor({ params, searchParams }: { params: Promise
   const hist = await db.select().from(assessmentHistory).where(eq(assessmentHistory.assessmentId, id)).orderBy(desc(assessmentHistory.createdAt)).limit(8);
   const [cls] = a.classId ? await db.select().from(classes).where(eq(classes.id, a.classId)).limit(1) : [];
   const swaps = sp.trocar ? await swapAlternatives(id, sp.trocar, a) : [];
-  const pool = await loadPool("matematica");
+  const pool = await loadPool("matematica", ctx.org.id);
   const inExam = new Set(items.map((i) => i.q.id));
   const addable = pool.filter((q) => !inExam.has(q.id) && evaluate(toCandidate(q), { ...a.scope, willFall: a.scope.willFall }).ok).slice(0, 40);
 

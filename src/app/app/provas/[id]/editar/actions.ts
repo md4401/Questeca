@@ -3,6 +3,8 @@ import { revalidatePath } from "next/cache";
 import { eq, and } from "drizzle-orm";
 import { db } from "@/db";
 import { assessments, assessmentItems, questions } from "@/db/schema";
+import { searchNormOf } from "@/lib/core/search";
+import { evenPoints } from "@/lib/assessments";
 import { requireCtx } from "@/lib/session";
 import { loadAssessment } from "@/lib/access";
 import { normalizeMarkup } from "@/lib/core/richtext";
@@ -62,4 +64,31 @@ export async function saveExamEditsAction(assessmentId: string, p: EditPayload):
   }
   revalidatePath(`/app/provas/${assessmentId}`);
   return { ok: true, at: new Date().toISOString(), changed };
+}
+
+/** Cria uma questão própria (visível só para esta escola) e a coloca no fim da prova, já editável. */
+export async function addBlankQuestionAction(assessmentId: string, answer: string): Promise<{ ok: true } | { ok: false; error: string }> {
+  const ctx = await requireCtx();
+  const a = await loadAssessment(ctx, assessmentId);
+  if (a.ownerId !== ctx.user.id && ctx.org.role !== "coordinator") return { ok: false, error: "Só quem criou a prova (ou a coordenação) pode editar." };
+  if (!/^[A-E]$/.test(answer)) return { ok: false, error: "Escolha a alternativa correta (A a E)." };
+  const items = await db.select().from(assessmentItems).where(eq(assessmentItems.assessmentId, assessmentId));
+  if (items.length >= 60) return { ok: false, error: "A prova já tem 60 questões." };
+  const alternatives = ["A", "B", "C", "D", "E"].map((k) => ({ key: k, text: `Alternativa ${k}` }));
+  const statement = "Escreva aqui o enunciado da questão.";
+  const [q] = await db.insert(questions).values({
+    institution: "Professor", exam: "Questão própria", year: new Date().getFullYear(), subject: "interdisciplinar", title: "Questão própria", statement, alternatives, answer,
+    answerSource: "Informado pelo professor", status: "released", licenseNote: "Questão criada pelo professor, visível só para a escola.", ownerOrgId: ctx.org.id,
+    searchNorm: searchNormOf({ title: "Questão própria", statement, alternatives, institution: "Professor", exam: "Questão própria", year: new Date().getFullYear() }),
+  }).returning();
+  const n = items.length + 1;
+  await db.insert(assessmentItems).values({ assessmentId, questionId: q.id, position: n, points: "1", manual: true, pinned: true, reason: "Questão criada pelo professor." });
+  const rows = await db.select().from(assessmentItems).where(eq(assessmentItems.assessmentId, assessmentId));
+  const pts = evenPoints(Number(a.totalPoints), rows.length);
+  rows.sort((x, y) => x.position - y.position);
+  for (let i = 0; i < rows.length; i++) await db.update(assessmentItems).set({ points: String(pts[i]) }).where(eq(assessmentItems.id, rows[i].id));
+  await db.update(assessments).set({ revision: a.revision + 1, updatedAt: new Date() }).where(eq(assessments.id, assessmentId));
+  await audit(ctx.user.id, a.orgId, "assessment.blank_question_added", assessmentId);
+  revalidatePath(`/app/provas/${assessmentId}`);
+  return { ok: true };
 }

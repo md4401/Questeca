@@ -17,13 +17,14 @@ const db = drizzle(neon(url));
 
 const dir = process.argv[2];
 if (!dir) throw new Error("Informe a pasta dos .jsonl");
+const NOMES: Record<string, string> = { fuvest: "Fuvest", uerj: "Uerj", comvest: "Comvest", "puc-sp": "PUC-SP", espm: "ESPM", mackenzie: "Mackenzie", vunesp: "Vunesp", ufpr: "UFPR", pas: "PAS/UnB" };
 const alvo: { i: string; e: string; y: number; n: number; ph: string | null; a: string }[] = [];
 for (const f of readdirSync(dir).filter((f) => f.endsWith(".jsonl")))
   for (const l of readFileSync(join(dir, f), "utf8").split("\n")) {
     if (!l.trim()) continue;
     const r = JSON.parse(l);
     if (r.qualidade === "ok" && r.gabarito && /^[A-E]$/.test(r.gabarito) && (r.alternativas ?? []).length >= 2 && r.enunciado)
-      alvo.push({ i: r.instituicao, e: r.exam, y: r.ano, n: r.numero, ph: r.fase ?? null, a: r.gabarito });
+      alvo.push({ i: NOMES[String(r.instituicao).toLowerCase()] ?? r.instituicao, e: r.exam, y: r.ano, n: r.numero, ph: r.fase ?? null, a: r.gabarito });
   }
 let n = 0;
 for (const t of alvo) {

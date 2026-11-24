@@ -7,7 +7,7 @@ import { TOPICS, normalize, topicName } from "@/lib/taxonomy";
 import { STATUS_LABEL } from "@/lib/format";
 import { db } from "@/db";
 import { assessments, questions } from "@/db/schema";
-import { and, eq, desc, or, ilike, sql } from "drizzle-orm";
+import { and, eq, desc, or, ilike, sql, isNull } from "drizzle-orm";
 import { addManualFormAction } from "../provas/actions";
 import { checkIntegrity } from "@/lib/core/selection";
 import { FlagForm } from "@/components/flag-form";
@@ -36,6 +36,7 @@ export default async function Banco({ searchParams }: { searchParams: Promise<{ 
   const esc = (t: string) => t.replace(/[\\%_]/g, "\\$&");
   const termos = [...new Set([...parsed.entities.flatMap((e) => [...e.namesN, ...e.relatedN]), ...parsed.tokens])].filter((t) => t.length > 1).slice(0, 60);
   const conds = [
+    or(isNull(questions.ownerOrgId), eq(questions.ownerOrgId, ctx.org.id)),
     hasQuery && termos.length ? or(...termos.map((t) => ilike(questions.searchNorm, `%${esc(t)}%`))) : undefined,
     sp.disciplina ? eq(questions.subject, sp.disciplina) : undefined,
     sp.fonte ? eq(questions.institution, sp.fonte) : undefined,

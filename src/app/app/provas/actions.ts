@@ -98,7 +98,7 @@ export async function saveScopeAction(id: string, _: FormState, fd: FormData): P
   const keepIds = keep.map((k) => k.q.id);
   await db.update(assessments).set({ title: p.data.title, scope, wantedCount: p.data.wantedCount, durationMin: p.data.durationMin, totalPoints: String(p.data.totalPoints), filters, updatedAt: new Date() }).where(eq(assessments.id, id));
 
-  const pool = await loadPool("matematica");
+  const pool = await loadPool("matematica", ctx.org.id);
   const used = await usedQuestionIdsForClass(a.classId);
   const { result, byId } = runSelection(pool, scope, { wantedCount: p.data.wantedCount, durationMin: p.data.durationMin, filters }, used, keepIds);
 
@@ -328,7 +328,7 @@ export async function createSecondCallAction(id: string) {
   if (!info.features.second) redirect(`/app/provas/${id}/aplicacao?erro=${encodeURIComponent("Segunda chamada está disponível nos planos Professor e Escola.")}`);
   const items = await getItems(id);
   if (!items.length) redirect(`/app/provas/${id}?erro=${encodeURIComponent("A prova original não tem itens.")}`);
-  const pool = await loadPool("matematica");
+  const pool = await loadPool("matematica", ctx.org.id);
   // evita duplicatas entre cadernos: exclui as originais e quem compartilha estímulo com elas
   const usedIds = new Set(items.map((i) => i.q.id));
   const usedStim = new Set(items.map((i) => i.q.stimulusId).filter(Boolean));
@@ -353,7 +353,7 @@ export async function createFollowUpAction(classId: string, kind: "retomada" | "
   const topics = fd.getAll("topics").map(String).filter((s) => TOPICS.some((t) => t.slug === s));
   if (!topics.length) redirect(`/app/turmas/${classId}/relatorios?erro=${encodeURIComponent("Escolha ao menos um conteúdo.")}`);
   const scope: Scope = { willFall: topics, prerequisite: [], notTaught: [], confirm: [], sources: {} };
-  const pool = await loadPool("matematica");
+  const pool = await loadPool("matematica", ctx.org.id);
   const allTopics = new Set(topics);
   for (const q of pool) for (const s of q.assessed) if (allTopics.has(s)) for (const p of q.prerequisites) if (!allTopics.has(p)) scope.prerequisite.push(p);
   scope.prerequisite = [...new Set(scope.prerequisite)];

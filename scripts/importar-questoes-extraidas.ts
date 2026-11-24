@@ -26,6 +26,8 @@ for (const a of process.argv.slice(2)) {
 }
 if (!files.length) throw new Error("Informe arquivos .jsonl ou uma pasta.");
 
+const NOMES: Record<string, string> = { fuvest: "Fuvest", uerj: "Uerj", comvest: "Comvest", "puc-sp": "PUC-SP", espm: "ESPM", mackenzie: "Mackenzie", vunesp: "Vunesp", ufpr: "UFPR", pas: "PAS/UnB" };
+const nomeBanca = (i: string) => NOMES[i.toLowerCase()] ?? i;
 const key = (i: string, e: string, y: number, ph: string | null, n: number) => `${i}|${e}|${y}|${ph ?? ""}|${n}`;
 const existing = new Set<string>();
 const rows = await db.select({ i: questions.institution, e: questions.exam, y: questions.year, p: questions.phase, n: questions.number }).from(questions);
@@ -39,7 +41,7 @@ for (const f of files) {
     lidas++;
     const r = JSON.parse(line);
     if (!r.enunciado || !r.instituicao || !r.ano || !r.numero) { puladas++; continue; }
-    const k = key(r.instituicao, r.exam, r.ano, r.fase ?? null, r.numero);
+    const k = key(nomeBanca(r.instituicao), r.exam, r.ano, r.fase ?? null, r.numero);
     if (existing.has(k)) { puladas++; continue; }
     existing.add(k);
     const alternatives = (r.alternativas ?? []).map((a: { key?: string; text?: string } | string, i: number) =>
@@ -47,11 +49,11 @@ for (const f of files) {
     const title = String(r.titulo || r.enunciado).replace(/\s+/g, " ").slice(0, 140);
     const notes = [r.qualidade === "revisar" ? "Revisar: extração automática com baixa confiança." : null, r.tem_figura ? "Tem figura/imagem na prova original." : null, r.notas].filter(Boolean).join(" ");
     batch.push({
-      institution: r.instituicao, exam: r.exam, year: r.ano, phase: r.fase ?? null, booklet: r.versao ?? null, number: r.numero, page: r.pagina ?? null,
+      institution: nomeBanca(r.instituicao), exam: r.exam, year: r.ano, phase: r.fase ?? null, booklet: r.versao ?? null, number: r.numero, page: r.pagina ?? null,
       sourceUrl: r.url_prova ?? null, subject: r.disciplina ?? "interdisciplinar", title, statement: r.enunciado, alternatives,
       answer: r.gabarito ?? null, answerSource: r.url_gabarito ?? null, status: "curation",
       licenseNote: `Extração automática de prova oficial pública. Requer curadoria antes de liberar.${notes ? " " + notes : ""}`,
-      searchNorm: searchNormOf({ title, statement: r.enunciado, alternatives, institution: r.instituicao, exam: r.exam, year: r.ano }),
+      searchNorm: searchNormOf({ title, statement: r.enunciado, alternatives, institution: nomeBanca(r.instituicao), exam: r.exam, year: r.ano }),
     });
   }
 }

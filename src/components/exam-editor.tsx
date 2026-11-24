@@ -1,7 +1,9 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { fromHtml, toHtml } from "@/lib/core/richtext";
-import { saveExamEditsAction, type EditPayload } from "@/app/app/provas/[id]/editar/actions";
+import { useRouter } from "next/navigation";
+import { saveExamEditsAction, addBlankQuestionAction, type EditPayload } from "@/app/app/provas/[id]/editar/actions";
+import { moveAction, removeItemAction } from "@/app/app/provas/actions";
 
 type Item = { itemId: string; number: number; points: string; statement: string; alternatives: { key: string; text: string }[]; origStatement: string; origAlternatives: { key: string; text: string }[]; edited: boolean };
 type Block = { id: string; beforeItemId: string | null; text: string };
@@ -20,7 +22,9 @@ function Editable({ html, label, field, onDirty, className = "", single }: { htm
 
 /** Editor de texto da prova (como no Word): negrito, itálico, sublinhado, blocos de texto e restauração do original. */
 export function ExamEditor({ assessmentId, title, instructions, items: initItems, blocks: initBlocks, schoolName }: Props) {
+  const router = useRouter();
   const [items, setItems] = useState<Item[]>(initItems);
+  const [blankAnswer, setBlankAnswer] = useState("A");
   const root = useRef<HTMLDivElement>(null);
   const [blocks, setBlocks] = useState<Block[]>(initBlocks);
   const [dirty, setDirty] = useState(false);
@@ -56,6 +60,12 @@ export function ExamEditor({ assessmentId, title, instructions, items: initItems
   useEffect(() => { const h = (e: BeforeUnloadEvent) => { if (dirty) { e.preventDefault(); e.returnValue = ""; } }; window.addEventListener("beforeunload", h); return () => window.removeEventListener("beforeunload", h); }, [dirty]);
   useEffect(() => { const k = (e: KeyboardEvent) => { if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "s") { e.preventDefault(); void save(); } }; window.addEventListener("keydown", k); return () => window.removeEventListener("keydown", k); }, [save]);
 
+  /** Salva o texto e então executa uma ação estrutural (mover, remover, adicionar); a página recarrega com a nova estrutura. */
+  const structural = async (fn: () => Promise<unknown>) => {
+    await save();
+    setStatus({ kind: "saving", text: "Atualizando a prova…" });
+    try { const r = (await fn()) as { ok?: boolean; error?: string } | undefined; if (r && r.ok === false) { setStatus({ kind: "error", text: r.error ?? "Não foi possível." }); return; } router.refresh(); } catch { setStatus({ kind: "error", text: "Não foi possível atualizar a prova." }); }
+  };
   const cmd = (c: string) => { document.execCommand("styleWithCSS", false, "false"); document.execCommand(c); markDirty(); };
   const Btn = ({ c, label, children }: { c: string; label: string; children: React.ReactNode }) => (
     <button type="button" className="tb-btn" aria-label={label} title={label} onMouseDown={(e) => e.preventDefault()} onClick={() => cmd(c)}>{children}</button>);
@@ -84,6 +94,10 @@ export function ExamEditor({ assessmentId, title, instructions, items: initItems
         <Btn c="redo" label="Refazer (Ctrl+Y)">↷</Btn>
         <span className="tb-sep" aria-hidden />
         <button type="button" className="tb-btn !w-auto px-3" onClick={() => addBlock(null)}>+ Texto no final</button>
+        <a className="tb-btn !w-auto px-3" href={`/app/banco?add=${assessmentId}`}>+ Questão do banco</a>
+        <span className="flex items-center gap-1"><button type="button" className="tb-btn !w-auto px-3" onClick={() => void structural(() => addBlankQuestionAction(assessmentId, blankAnswer))}>+ Questão nova</button>
+          <label className="sr-only" htmlFor="blank-ans">Alternativa correta da questão nova</label>
+          <select id="blank-ans" className="input !w-auto !py-0.5 text-xs" value={blankAnswer} onChange={(e) => setBlankAnswer(e.target.value)} title="Alternativa correta">{["A", "B", "C", "D", "E"].map((k) => <option key={k} value={k}>Gab. {k}</option>)}</select></span>
         <span className="ml-auto flex items-center gap-3">
           <span role="status" aria-live="polite" className={`text-sm ${status.kind === "error" ? "text-danger" : "text-ink-soft"}`}>{status.text}</span>
           <button type="button" className="btn btn-sm" disabled={!dirty || status.kind === "saving"} onClick={() => void save()}>Salvar</button>
@@ -114,6 +128,9 @@ export function ExamEditor({ assessmentId, title, instructions, items: initItems
             <div className="no-print mt-1 flex gap-3 pl-6 text-xs">
               <button type="button" className="link-btn" onClick={() => addBlock(it.itemId)} aria-label={`Inserir texto antes da questão ${it.number}`}>Inserir texto antes</button>
               <button type="button" className="link-btn" onClick={() => restore(it)} aria-label={`Restaurar original da questão ${it.number}`}>Restaurar original</button>
+              <button type="button" className="link-btn" disabled={it.number === 1} onClick={() => void structural(() => moveAction(assessmentId, it.itemId, "up"))} aria-label={`Subir a questão ${it.number}`}>↑ Subir</button>
+              <button type="button" className="link-btn" disabled={it.number === items.length} onClick={() => void structural(() => moveAction(assessmentId, it.itemId, "down"))} aria-label={`Descer a questão ${it.number}`}>↓ Descer</button>
+              <button type="button" className="link-btn !text-[#B42318]" onClick={() => { if (confirm(`Remover a questão ${it.number} da prova?`)) void structural(() => removeItemAction(assessmentId, it.itemId)); }} aria-label={`Remover a questão ${it.number}`}>Remover</button>
               {it.edited && <span className="text-[#8A5300]">editada</span>}
             </div>
           </section>))}

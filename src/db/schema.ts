@@ -199,6 +199,8 @@ export const questions = pgTable("questions", {
   version: integer("version").notNull().default(1),
   /** Texto normalizado (sem acento, minúsculo) para a busca; mantido por searchNormOf. */
   searchNorm: text("search_norm"),
+  /** Questão própria de uma escola/professor: só ela enxerga. Nulo = banco geral. */
+  ownerOrgId: uuid("owner_org_id").references(() => orgs.id, { onDelete: "cascade" }),
   createdAt: created(),
 }, (t) => [index("questions_status_idx").on(t.status), index("questions_subject_idx").on(t.subject), index("questions_search_trgm").using("gin", sql`${t.searchNorm} gin_trgm_ops`)]);
 

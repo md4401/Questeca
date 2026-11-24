@@ -1,5 +1,5 @@
 import "server-only";
-import { and, eq, inArray, asc, desc, ne } from "drizzle-orm";
+import { and, eq, inArray, asc, desc, ne, or, isNull } from "drizzle-orm";
 import { db } from "@/db";
 import { questions, assessments, assessmentItems, assessmentHistory, assessmentVersions, applications, type Scope, type OrgSettings } from "@/db/schema";
 import { selectQuestions, scopeConflicts, evaluate, type Candidate, type SelectionResult } from "@/lib/core/selection";
@@ -13,8 +13,8 @@ export const toCandidate = (q: QRow): Candidate => ({
   institution: q.institution, year: q.year, stimulusId: q.stimulusId,
 });
 
-export async function loadPool(subject = "matematica") {
-  const rows = await db.select().from(questions).where(eq(questions.subject, subject));
+export async function loadPool(subject = "matematica", orgId?: string) {
+  const rows = await db.select().from(questions).where(and(eq(questions.subject, subject), orgId ? or(isNull(questions.ownerOrgId), eq(questions.ownerOrgId, orgId)) : isNull(questions.ownerOrgId)));
   return rows;
 }
 
@@ -135,7 +135,7 @@ export async function swapAlternatives(assessmentId: string, itemId: string, a: 
   const items = await getItems(assessmentId);
   const current = items.find((i) => i.item.id === itemId);
   if (!current) return [];
-  const pool = await loadPool(current.q.subject);
+  const pool = await loadPool(current.q.subject, a.orgId);
   const taken = new Set(items.map((i) => i.q.id));
   const scope = a.scope;
   const cands = pool.filter((q) => !taken.has(q.id) && evaluate(toCandidate(q), scope).ok);
