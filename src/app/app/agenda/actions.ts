@@ -37,7 +37,7 @@ export async function createEventAction(_: FormState, fd: FormData): Promise<For
     startsAt, endsAt, allDay, recurrence: d.freq === "none" ? null : { freq: d.freq, until: d.until! }, reminderMin: d.reminder ? Number(d.reminder) || null : null, createdBy: ctx.user.id,
   }).returning();
   await audit(ctx.user.id, ctx.org.id, "event.created", ev.id);
-  revalidatePath("/app/agenda");
+  revalidatePath("/app/agenda"); revalidatePath("/app");
   return { ok: "Evento criado." };
 }
 
@@ -48,7 +48,7 @@ export async function deleteEventAction(id: string) {
   if (e.createdBy !== ctx.user.id && !isOrgManager(ctx.org.role)) return;
   await db.delete(calendarEvents).where(eq(calendarEvents.id, id));
   await audit(ctx.user.id, ctx.org.id, "event.deleted", id);
-  revalidatePath("/app/agenda");
+  revalidatePath("/app/agenda"); revalidatePath("/app");
 }
 
 export async function createSlotAction(_: FormState, fd: FormData): Promise<FormState> {

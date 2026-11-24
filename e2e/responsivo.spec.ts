@@ -47,14 +47,11 @@ test("Layout responsivo: modo de navegação por largura e nenhuma página com r
       const over = await overflow(t);
       expect(over, `${m.nome} (${m.w}px) ${r}: rolagem lateral de ${over}px`).toBeLessThanOrEqual(0);
     }
-    // Início: indicadores e atalhos sem bloco órfão em tela larga (5 em linha)
+    // Início: quatro indicadores sempre numa única linha (celular inclusive)
     await t.goto("/app");
-    if (m.w >= 1280) {
-      const ys = await t.getByTestId("indicadores").locator("li").evaluateAll((els) => els.map((e) => Math.round(e.getBoundingClientRect().top)));
-      expect(new Set(ys).size, `${m.nome}: indicadores em uma linha`).toBe(1);
-      const ya = await t.getByTestId("atalhos-rapidos").locator("li").evaluateAll((els) => els.map((e) => Math.round(e.getBoundingClientRect().top)));
-      expect(new Set(ya).size, `${m.nome}: atalhos em uma linha`).toBe(1);
-    }
+    const ys = await t.getByTestId("indicadores").locator("li").evaluateAll((els) => els.map((e) => Math.round(e.getBoundingClientRect().top)));
+    expect(ys.length, `${m.nome}: indicadores`).toBe(4);
+    expect(new Set(ys).size, `${m.nome}: indicadores em uma linha`).toBe(1);
   }
 });
 
@@ -64,7 +61,7 @@ test("Alvos de toque: botões e links principais têm pelo menos 40px em telas d
   const email = await signup(t);
   await sql`update users set onboarding_done_at = now() where email = ${email}`;
   await t.goto("/app");
-  const pequenos = await t.evaluate(() => Array.from(document.querySelectorAll("nav[aria-label='Navegação principal'] a, nav[aria-label='Navegação principal'] button, [data-testid='atalhos-rapidos'] a, [data-testid='indicadores'] a"))
+  const pequenos = await t.evaluate(() => Array.from(document.querySelectorAll("nav[aria-label='Navegação principal'] a, nav[aria-label='Navegação principal'] button, [data-testid='indicadores'] a, [data-testid='criar-prova']"))
     .filter((e) => { const b = e.getBoundingClientRect(); return b.width > 0 && b.height < 40; }).map((e) => e.textContent?.trim()));
   expect(pequenos, "alvos de toque pequenos").toEqual([]);
   await ctx.close();

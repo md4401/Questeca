@@ -5,13 +5,13 @@ import { Form, SubmitButton, type FormState } from "@/components/form";
 import { createEventAction } from "./actions";
 
 /** Botão "Adicionar evento" (canto superior direito da Agenda) que abre o formulário num modal; fecha ao criar. */
-export function NovoEvento({ classes, canSchool, defaultDate }: { classes: { id: string; name: string }[]; canSchool: boolean; defaultDate: string }) {
+export function NovoEvento({ classes, canSchool, defaultDate, label = "Adicionar evento", className = "btn btn-sm", testId = "adicionar-evento" }: { classes: { id: string; name: string }[]; canSchool: boolean; defaultDate: string; label?: string; className?: string; testId?: string }) {
   const [open, setOpen] = useState(false);
   useEffect(() => { if (open) { const id = setTimeout(() => document.getElementById("title")?.focus(), 0); return () => clearTimeout(id); } }, [open]);
   const acao = async (prev: FormState, fd: FormData) => { const r = await createEventAction(prev, fd); if (r?.ok) setOpen(false); return r; };
   return (
     <>
-      <button type="button" className="btn btn-sm" onClick={() => setOpen(true)} aria-haspopup="dialog" data-testid="adicionar-evento">Adicionar evento</button>
+      <button type="button" className={className} onClick={() => setOpen(true)} aria-haspopup="dialog" data-testid={testId}>{label}</button>
       <Modal open={open} onClose={() => setOpen(false)} title="Novo evento" solid>
         {open && (
           <Form action={acao} toast>

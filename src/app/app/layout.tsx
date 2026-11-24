@@ -57,7 +57,11 @@ export default async function AppLayout({ children }: { children: React.ReactNod
         <Link href="/app" aria-label="Questeca — início" className="inline-flex items-center gap-2 no-underline">
           <LogoMark size={28} /><span className="text-lg font-bold text-ink">Questeca</span>
         </Link>
-        <p className="min-w-0 truncate text-right text-xs leading-tight text-ink-soft"><span className="block truncate font-semibold text-ink">{ctx.org.name}</span>{place}</p>
+        <p className="min-w-0 flex-1 truncate text-right text-xs leading-tight text-ink-soft"><span className="block truncate font-semibold text-ink">{ctx.org.name}</span>{place}</p>
+        <div className="flex items-center gap-1">
+          <Link href="/app/banco" className="icon-btn" aria-label="Buscar no banco de questões"><Icon name="busca" size={20} /></Link>
+          <Link href="/app/notificacoes" className="icon-btn relative" aria-label={`Avisos${unread ? ` (${unread} não lidos)` : ""}`}><Icon name="sino" size={20} />{unread > 0 && <i className="absolute right-1.5 top-1.5 h-2.5 w-2.5 rounded-full bg-[var(--color-brand)]" aria-hidden />}</Link>
+        </div>
       </header>
 
       {/* desktop: barra lateral */}
