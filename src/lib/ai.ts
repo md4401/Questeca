@@ -1,10 +1,11 @@
 import "server-only";
 
 /** Camada de IA agnóstica. Sem chave configurada, o produto segue funcionando com heurísticas determinísticas. */
-export function aiProvider(): "anthropic" | "nvidia" | null {
+export function aiProvider(): "anthropic" | "nvidia" | "openai" | null {
   const p = process.env.AI_PROVIDER ?? "none";
   if (p === "anthropic" && process.env.ANTHROPIC_API_KEY) return "anthropic";
   if (p === "nvidia" && process.env.NVIDIA_API_KEY) return "nvidia";
+  if (p === "openai" && process.env.OPENAI_API_KEY && process.env.AI_MODEL) return "openai";
   return null;
 }
 export const aiAvailable = () => aiProvider() !== null;
@@ -30,6 +31,28 @@ async function nvidia(system: string, content: Block[], maxTokens = 1500, timeou
   return text;
 }
 
+/**
+ * Qualquer API compatível com a da OpenAI (OpenAI, Azure, OpenRouter, vLLM…). Exige OPENAI_API_KEY e AI_MODEL (o nome do modelo, ex.: o que o provedor chamar de "luna").
+ * OPENAI_BASE_URL muda o endereço (padrão https://api.openai.com/v1). AI_REASONING_EFFORT (low|medium|high) é opcional.
+ */
+async function openai(system: string, content: Block[], maxTokens = 1500, timeoutMs = 120_000): Promise<string> {
+  const user = content.map((b) => (b.type === "text" ? { type: "text", text: b.text } : { type: "image_url", image_url: { url: `data:${b.source.media_type};base64,${b.source.data}` } }));
+  const url = `${(process.env.OPENAI_BASE_URL ?? "https://api.openai.com/v1").replace(/\/+$/, "")}/chat/completions`;
+  const call = (limitKey: "max_completion_tokens" | "max_tokens") => fetch(url, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${process.env.OPENAI_API_KEY}`, "content-type": "application/json", accept: "application/json" },
+    body: JSON.stringify({ model: process.env.AI_MODEL, messages: [{ role: "system", content: system }, { role: "user", content: user }], [limitKey]: Math.max(maxTokens, 2000), ...(process.env.AI_REASONING_EFFORT ? { reasoning_effort: process.env.AI_REASONING_EFFORT } : {}) }),
+    signal: AbortSignal.timeout(timeoutMs),
+  });
+  let res = await call("max_completion_tokens");
+  if (res.status === 400) { const msg = await res.text(); if (/max_completion_tokens/i.test(msg)) res = await call("max_tokens"); else throw new Error("IA indisponível (400)"); }
+  if (!res.ok) throw new Error(`IA indisponível (${res.status})`);
+  const j = (await res.json()) as { choices?: { message?: { content?: string | null } }[]; usage?: { prompt_tokens?: number; completion_tokens?: number } };
+  const text = j.choices?.[0]?.message?.content ?? "";
+  await meter(j.usage?.prompt_tokens, j.usage?.completion_tokens, system.length + content.map((b) => (b.type === "text" ? b.text.length : 1500)).reduce((a, b) => a + b, 0), text.length);
+  return text;
+}
+
 /** Cobra o uso (1.000 tokens = 1 crédito) do usuário da requisição atual. Fora de uma requisição (scripts), não cobra. */
 async function usuarioAtual() {
   try { const { getSession } = await import("@/lib/session"); const s = await getSession(); return s ? { userId: s.user.id, orgId: s.activeOrgId } : null; } catch { return null; }
@@ -47,7 +70,8 @@ async function meter(prompt: number | undefined, completion: number | undefined,
 async function llm(system: string, content: Block[], maxTokens = 1500, timeoutMs?: number): Promise<string> {
   const u = await usuarioAtual();
   if (u) { const { exigirCreditos } = await import("@/lib/credits"); await exigirCreditos(u.userId); }
-  return aiProvider() === "nvidia" ? nvidia(system, content, maxTokens, timeoutMs) : anthropic(system, content, maxTokens);
+  const p = aiProvider();
+  return p === "nvidia" ? nvidia(system, content, maxTokens, timeoutMs) : p === "openai" ? openai(system, content, maxTokens, timeoutMs) : anthropic(system, content, maxTokens);
 }
 
 async function anthropic(system: string, content: Block[], maxTokens = 1500): Promise<string> {
