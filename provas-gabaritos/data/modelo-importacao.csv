@@ -1,0 +1,3 @@
+instituicao;ano;nome;tipo;rotulo;url;formato;fonte;observacao
+enem;2019;ENEM 2019 · 1º dia;prova;Prova — caderno azul;https://EXEMPLO-troque-pela-url-oficial/prova.pdf;pdf;https://EXEMPLO-troque-pela-pagina-oficial/provas;Linha de exemplo: apague antes de importar
+enem;2019;ENEM 2019 · 1º dia;gabarito;Gabarito — caderno azul;https://EXEMPLO-troque-pela-url-oficial/gabarito.pdf;pdf;https://EXEMPLO-troque-pela-pagina-oficial/provas;
