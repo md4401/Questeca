@@ -1,0 +1,26 @@
+[
+  {
+    "id": "mackenzie-2026-2-semestre-vestibular",
+    "instituicao": "mackenzie",
+    "ano": 2026,
+    "nome": "Mackenzie 2026/2º semestre · Vestibular",
+    "arquivos": [
+      {
+        "tipo": "prova",
+        "rotulo": "Prova (aplicada em 15/07/2026)",
+        "url": "https://www.mackenzie.br/fileadmin/ARQUIVOS/Public/2-processos-seletivos/upm/VESTIBULAR_REGULAR/2026/2026_2/Prova_15.07.2026_-_2026_2__semestre.pdf",
+        "formato": "pdf"
+      },
+      {
+        "tipo": "gabarito",
+        "rotulo": "Gabarito (aplicada em 15/07/2026)",
+        "url": "https://www.mackenzie.br/fileadmin/ARQUIVOS/Public/2-processos-seletivos/upm/VESTIBULAR_REGULAR/2026/2026_2/Gabarito_15.07.2026_-_2026_2__semestre.pdf",
+        "formato": "pdf"
+      }
+    ],
+    "fonte": "https://www.mackenzie.br/processos-seletivos/vestibular-graduacao/sao-paulo-higienopolis",
+    "fase": "Prova única",
+    "aplicacao": "2º semestre",
+    "observacao": "Mesmo arquivo publicado nas páginas dos campi: sao-paulo-higienopolis, universidade-campus-alphaville, universidade-campus-campinas."
+  }
+]
