@@ -1054,3 +1054,23 @@ export const aiUsage = pgTable("ai_usage", {
   tokens: integer("tokens").notNull().default(0),
   createdAt: created(),
 }, (t) => [index("ai_usage_user_day_idx").on(t.userId, t.createdAt)]);
+
+/** Conversas do assistente de IA (estilo "sessões"): cada professor só enxerga as suas. */
+export const assistantSessions = pgTable("assistant_sessions", {
+  id: id(),
+  userId: uuid("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  orgId: uuid("org_id").references(() => orgs.id, { onDelete: "set null" }),
+  title: text("title").notNull().default("Nova conversa"),
+  createdAt: created(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+}, (t) => [index("assistant_sessions_user_idx").on(t.userId, t.updatedAt)]);
+
+export const assistantMessages = pgTable("assistant_messages", {
+  id: id(),
+  sessionId: uuid("session_id").notNull().references(() => assistantSessions.id, { onDelete: "cascade" }),
+  role: text("role").notNull(), // user | assistant
+  content: text("content").notNull(),
+  links: jsonb("links").$type<{ label: string; href: string }[]>().notNull().default([]),
+  isError: boolean("is_error").notNull().default(false),
+  createdAt: created(),
+}, (t) => [index("assistant_messages_session_idx").on(t.sessionId, t.createdAt)]);
