@@ -27,7 +27,7 @@ export function ProvasOficiais({ sp }: { sp: { q?: string; inst?: string; ano?: 
           <div className="field !mb-0"><label htmlFor="ano">Ano</label><select id="ano" name="ano" defaultValue={sp.ano ?? ""} className="input"><option value="">Todos</option>{anos.map((a) => <option key={a} value={a}>{a}</option>)}</select></div>
           <div className="field !mb-0"><label htmlFor="tipo">Documento</label><select id="tipo" name="tipo" defaultValue={sp.tipo ?? ""} className="input"><option value="">Todos</option>{Object.entries(TIPOS).map(([k, v]) => <option key={k} value={k}>{v}</option>)}</select></div>
         </div>
-        {(sp.q || sp.inst || sp.ano || sp.tipo) && <p className="text-sm"><Link href="/app/banco?aba=provas">Limpar busca e filtros</Link></p>}
+        {(sp.q || sp.inst || sp.ano || sp.tipo) && <p className="text-sm"><a href="/app/banco?aba=provas">Limpar busca e filtros</a></p>}
       </form>
       <p className="hint" aria-live="polite">{res.length} edição(ões) encontrada(s){res.length > PER ? ` · página ${page} de ${pages}` : ""}.</p>
       <ul className="space-y-3">
@@ -45,7 +45,7 @@ export function ProvasOficiais({ sp }: { sp: { q?: string; inst?: string; ano?: 
           </li>))}
         {slice.length === 0 && <li className="card empty">Nenhuma edição encontrada. Tente “Enem 2023”, “Fuvest”, “Unicamp” ou limpe os filtros. Instituições como Univesp, Fatec, UFRGS, IME, EsPCEx, AFA, Insper, FGV e Einstein ainda não têm arquivos no catálogo (acesso bloqueado ou nada publicado).</li>}
       </ul>
-      {pages > 1 && <nav className="flex items-center justify-between" aria-label="Páginas">{page > 1 ? <Link className="btn btn-ghost" href={qs({ pag: String(page - 1) })}>← Anterior</Link> : <span />}<span className="hint">Página {page} de {pages}</span>{page < pages ? <Link className="btn btn-ghost" href={qs({ pag: String(page + 1) })}>Próxima →</Link> : <span />}</nav>}
+      {pages > 1 && <nav className="flex items-center justify-between" aria-label="Páginas">{page > 1 ? <a className="btn btn-ghost" href={qs({ pag: String(page - 1) })}>← Anterior</a> : <span />}<span className="hint">Página {page} de {pages}</span>{page < pages ? <a className="btn btn-ghost" href={qs({ pag: String(page + 1) })}>Próxima →</a> : <span />}</nav>}
     </div>
   );
 }

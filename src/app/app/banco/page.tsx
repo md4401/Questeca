@@ -20,8 +20,8 @@ const BANCAS = ["Inep", "Fuvest", "Unicamp", "Unesp", "Etec", "Comvest", "Queste
 function BancoTabs({ aba }: { aba: "questoes" | "provas" }) {
   return (
     <div className="tabs" role="navigation" aria-label="Seções do banco">
-      <Link href="/app/banco" className="tab" aria-current={aba === "questoes" ? "page" : undefined}>Questões</Link>
-      <Link href="/app/banco?aba=provas" className="tab" aria-current={aba === "provas" ? "page" : undefined}>Provas e gabaritos oficiais</Link>
+      <a href="/app/banco" className="tab" aria-current={aba === "questoes" ? "page" : undefined}>Questões</a>
+      <a href="/app/banco?aba=provas" className="tab" aria-current={aba === "provas" ? "page" : undefined}>Provas e gabaritos oficiais</a>
     </div>
   );
 }

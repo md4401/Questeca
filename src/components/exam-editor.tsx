@@ -68,9 +68,9 @@ export function ExamEditor({ assessmentId, title, instructions, items, blocks: i
     setRestored((r) => ({ ...r, [it.itemId]: (r[it.itemId] ?? 0) + 1 })); markDirty();
   };
   const blocksAt = (id: string | null) => blocks.filter((b) => b.beforeItemId === id);
-  const BlockView = ({ b }: { b: Block }) => (
+  const blockView = (b: Block) => (
     <div className="mb-3 rounded-md border border-dashed border-[#9AA7C7] p-2">
-      <div className="mb-1 flex items-center justify-between text-xs text-[#555]"><span>Bloco de texto</span><button type="button" className="link-btn !text-[#B42318]" onClick={() => delBlock(b.id)} aria-label="Remover bloco de texto">Remover</button></div>
+      <div className="mb-1 flex items-center justify-between text-xs text-[#555]"><span>Bloco de texto</span><button type="button" className="link-btn !text-[#B42318]" onClick={() => delBlock(b.id)} aria-label="Remover bloco de texto">Remover bloco</button></div>
       <Editable html={toHtml(b.text)} label="Bloco de texto" field={`blk:${b.id}`} onDirty={markDirty} className="min-h-[2.5rem]" />
     </div>);
 
@@ -101,7 +101,7 @@ export function ExamEditor({ assessmentId, title, instructions, items, blocks: i
         </header>
         {items.map((it) => (
           <section key={it.itemId} aria-label={`Questão ${it.number}`} className="mb-5">
-            {blocksAt(it.itemId).map((b) => <BlockView key={b.id} b={b} />)}
+            {blocksAt(it.itemId).map((b) => <div key={b.id}>{blockView(b)}</div>)}
             <div className="flex gap-2">
               <span className="font-bold">{it.number}.</span>
               <div className="min-w-0 flex-1" key={`${it.itemId}-${restored[it.itemId] ?? 0}`}>
@@ -113,12 +113,12 @@ export function ExamEditor({ assessmentId, title, instructions, items, blocks: i
               <span className="whitespace-nowrap text-xs text-[#555]">({it.points} pt)</span>
             </div>
             <div className="no-print mt-1 flex gap-3 pl-6 text-xs">
-              <button type="button" className="link-btn" onClick={() => addBlock(it.itemId)} aria-label={`Inserir texto antes da questão ${it.number}`}>+ Inserir texto antes</button>
-              <button type="button" className="link-btn" onClick={() => restore(it)} aria-label={`Restaurar o texto original da questão ${it.number}`}>Restaurar original</button>
+              <button type="button" className="link-btn" onClick={() => addBlock(it.itemId)} aria-label={`Inserir texto antes da questão ${it.number}`}>Inserir texto antes</button>
+              <button type="button" className="link-btn" onClick={() => restore(it)} aria-label={`Restaurar original da questão ${it.number}`}>Restaurar original</button>
               {it.edited && <span className="text-[#8A5300]">editada</span>}
             </div>
           </section>))}
-        {blocksAt(null).map((b) => <BlockView key={b.id} b={b} />)}
+        {blocksAt(null).map((b) => <div key={b.id}>{blockView(b)}</div>)}
       </article>
     </div>
   );

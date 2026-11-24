@@ -18,7 +18,8 @@ const setHtml = async (page: Page, label: string, html: string) => {
   await page.getByRole("textbox", { name: label, exact: true }).evaluate((el, h) => { (el as HTMLElement).innerHTML = h; el.dispatchEvent(new Event("input", { bubbles: true })); }, html);
 };
 
-test("Editor da prova: editar texto como no Word, blocos, restaurar, salvar e sair nos arquivos", async ({ page: t, request }) => {
+test("Editor da prova: editar texto como no Word, blocos, restaurar, salvar e sair nos arquivos", async ({ page: t }) => {
+  const request = t.request;
   test.setTimeout(150_000);
   const email = await signup(t, { name: "Professora Editor" });
   await sql`update subscriptions set plan = 'teacher' where org_id in (select m.org_id from memberships m join users u on u.id = m.user_id where u.email = ${email})`;
@@ -78,7 +79,7 @@ test("Editor da prova: editar texto como no Word, blocos, restaurar, salvar e sa
   expect(xml).toContain("novo em negrito"); expect(xml).toMatch(/<w:b\/>[\s\S]*novo em negrito/); expect(xml).toContain("<w:i/>"); expect(xml).toContain("<w:u ");
 
   // restaurar original
-  await t.getByRole("button", { name: "Restaurar o texto original da questão 1" }).click();
+  await t.getByRole("button", { name: "Restaurar original da questão 1" }).click();
   await expect(t.getByRole("textbox", { name: "Enunciado da questão 1", exact: true })).toHaveText(original);
   await t.getByRole("button", { name: "Salvar" }).click();
   await expect(t.getByRole("status").filter({ hasText: /Salvo às/ })).toBeVisible();
