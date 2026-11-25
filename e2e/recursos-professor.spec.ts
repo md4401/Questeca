@@ -212,6 +212,3 @@ test("Figuras das questões: aparecem na busca, no editor e vão para o PDF e o 
   const [a, b] = await Promise.all([prova.id, prova2.id].map(async (id) => { const r = await page.request.get(`/api/export/prova?id=${id}&tipo=aluno&rascunho=1`); expect(r.status()).toBe(200); return (await r.body()).length; }));
   expect(a, `PDF com figura (${bytesImg} bytes de imagem) deve conter a imagem`).toBeGreaterThan(b + Math.min(bytesImg, 4000) * 0.5);
 });
-  const sem = await page.request.get(`/api/export/prova?id=${prova.id}&tipo=aluno&rascunho=1`);
-  expect(comImagem, "PDF com figura é maior que sem figura").toBeGreaterThan((await sem.body()).length + 500);
-});
