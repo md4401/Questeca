@@ -22,15 +22,24 @@ def palavras(page):
     return [(norm(w["text"]), w) for w in ws if norm(w["text"])]
 
 def acha_inicio(ws, enun, usado=None):
-    toks = [norm(t) for t in re.findall(r"\S+", enun)[:40]]
-    toks = [t for t in toks if t][:6]
-    if len(toks) < 3: return None
+    """Acha onde a questão começa na página. Tenta o começo do enunciado; se não achar (texto-base, quebra de linha,
+    símbolos), tenta trechos de 4 palavras mais adiante e recua o topo proporcionalmente."""
+    toks = [norm(t) for t in re.findall(r"\S+", enun)[:80]]
+    toks = [t for t in toks if t]
+    if len(toks) < 3: return None, 0
     seq = [t for t, _ in ws]
-    for n in (len(toks), 4, 3):
-        alvo = toks[:n]
+    def busca(alvo):
+        n = len(alvo)
         for i in range(len(seq) - n + 1):
             if seq[i:i + n] == alvo: return ws[i][1]
-    return None
+    for n in (6, 4, 3):
+        if len(toks) >= n:
+            w = busca(toks[:n])
+            if w: return w, 0
+    for off in range(3, min(len(toks) - 4, 45), 3):
+        w = busca(toks[off:off + 4])
+        if w: return w, off
+    return None, 0
 
 def duas_colunas(page):
     ws = page.extract_words()
@@ -84,8 +93,10 @@ def processa(rows, cachedirs, saida, limite=None):
             p0 = (q.get("pagina") or 1) - 1
             for i in (p0, p0 + 1, p0 - 1):
                 if 0 <= i < len(doc.pages):
-                    w = acha_inicio(pg(i)[1], q["enunciado"])
-                    if w: inicios[id(q)] = (i, w); break
+                    w, off = acha_inicio(pg(i)[1], q["enunciado"])
+                    if w:
+                        if off: w = dict(w, top=max(0, w["top"] - min(off * 5, 140)), x0=w["x0"])
+                        inicios[id(q)] = (i, w); break
         for k, q in enumerate(qs):
             if not q.get("tem_figura"): continue
             if limite and stats["figuras_ok"] >= limite: return feitos, stats

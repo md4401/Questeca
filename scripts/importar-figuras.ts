@@ -53,7 +53,7 @@ console.log(`Questões com figura anexada: ${anexadas} (${imagens} imagens) · s
 if (liberar) {
   if (!pastaQuestoes) throw new Error("--liberar exige --questoes <pasta dos .jsonl>");
   const OK_FIG = /figura|gr[áa]fico|tabela|imagem|mapa|legenda|visual|charge|tirinha/i;
-  const RUIM = /texto|numera|contagem|lacuna|n[aã]o casad|sem gabarito|colun|truncad|incomplet|ileg[ií]vel|anulad/i;
+  const RUIM = /refere-se a texto|texto de apoio|texto[\/-]base|texto\/trecho|trecho|numera|contagem|lacuna|n[aã]o casad|sem gabarito|colun|truncad|incomplet|ileg[ií]vel|anulad/i;
   const elegiveis = new Set<string>();
   for (const f of readdirSync(pastaQuestoes).filter((f) => f.endsWith(".jsonl")))
     for (const l of readFileSync(join(pastaQuestoes, f), "utf8").split("\n")) {
