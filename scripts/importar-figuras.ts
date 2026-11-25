@@ -1,7 +1,8 @@
 /**
  * Anexa às questões as figuras recortadas dos PDFs (scripts/figuras/extrair_figuras.py) e, com --liberar,
  * libera as que estavam em curadoria só por depender de figura.
- * Uso: pnpm db:importar-figuras <pasta-das-figuras>... [--questoes data/questoes-extraidas] [--liberar]
+ * Uso: pnpm db:importar-figuras data/figuras-questoes   (a pasta-mãe; ou várias pastas com manifesto.jsonl)
+ *   antes: <pasta-das-figuras>... [--questoes data/questoes-extraidas] [--liberar]
  *   cada pasta tem manifesto.jsonl + os .png. Idempotente (troca as figuras da questão).
  */
 import { config } from "dotenv";
@@ -24,7 +25,14 @@ const args = process.argv.slice(2);
 const liberar = args.includes("--liberar");
 const qi = args.indexOf("--questoes");
 const pastaQuestoes = qi >= 0 ? args[qi + 1] : null;
-const pastas = args.filter((a, i) => !a.startsWith("--") && i !== qi + 1 && existsSync(a) && statSync(a).isDirectory());
+// Aceita pastas de figuras (com manifesto.jsonl) ou uma pasta-mãe com subpastas; ignora "/*" (o PowerShell não expande curingas).
+const candidatas = args.filter((a, i) => !a.startsWith("--") && !(qi >= 0 && i === qi + 1)).map((a) => a.replace(/[\\/]\*+$/, ""));
+const pastas: string[] = [];
+for (const c of candidatas) {
+  if (!existsSync(c) || !statSync(c).isDirectory()) continue;
+  if (existsSync(join(c, "manifesto.jsonl"))) pastas.push(c);
+  else for (const d of readdirSync(c)) { const sub = join(c, d); if (statSync(sub).isDirectory() && existsSync(join(sub, "manifesto.jsonl"))) pastas.push(sub); }
+}
 if (!pastas.length) throw new Error("Informe as pastas de figuras.");
 
 const NOMES: Record<string, string> = { fuvest: "Fuvest", uerj: "Uerj", comvest: "Comvest", "puc-sp": "PUC-SP", espm: "ESPM", mackenzie: "Mackenzie", vunesp: "Vunesp", ufpr: "UFPR", pas: "PAS/UnB", ita: "ITA", "puc-campinas": "PUC-Campinas", upe: "UPE", ufpel: "UFPel (PAVE)", unicentro: "Unicentro", etec: "Etec", ifrs: "IFRS", obm: "OBM", obmep: "OBMEP", ufg: "UFG", unifesp: "Unifesp", ufscar: "UFSCar" };
