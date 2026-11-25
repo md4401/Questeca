@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { figurasPorQuestao } from "@/lib/figuras";
+import { Figuras } from "@/components/figuras";
 import { requireCtx } from "@/lib/session";
 import { toCandidate } from "@/lib/assessments";
 import { parseQuery, scoreDoc, highlight } from "@/lib/core/search";
@@ -64,6 +66,7 @@ export default async function Banco({ searchParams }: { searchParams: Promise<{ 
   }).sort((a, b) => b.m.score - a.m.score || (a.x.status === "released" ? 0 : 1) - (b.x.status === "released" ? 0 : 1) || b.x.year - a.x.year);
   const total = rows.length;
   const list = rows.slice(0, 40);
+  const figMap = await figurasPorQuestao(list.map(({ x }) => x.id));
   const instAll = facetInst.map((r) => r.v);
   const fontes = [...new Set([...BANCAS, ...instAll])].filter((f) => instAll.includes(f) || BANCAS.includes(f));
   const anos = facetAnos.map((r) => r.v).sort((a, b) => b - a);
@@ -105,7 +108,7 @@ export default async function Banco({ searchParams }: { searchParams: Promise<{ 
               </div>
               <p className="mt-2 flex flex-wrap gap-1.5 text-xs" data-testid="questao-meta">{x.tema && <span className="badge badge-gray">Tema: {x.tema}</span>}{x.series.length > 0 && <span className="badge badge-gray">Indicada para: {x.series.map(gradeLabel).join(", ")}</span>}{x.origin === "ia" && <span className="badge badge-amber">Criada pela GizIA — confira o gabarito</span>}</p>
               {m.reasons.length > 0 && <p className="mt-2 flex flex-wrap gap-1.5 text-xs" aria-label="Por que esta questão apareceu">{m.reasons.map((r) => <span key={`${r.kind}${r.text}`} className={`badge ${r.kind === "cita" ? "" : "badge-gray"}`}>{r.kind === "cita" ? "Cita" : r.kind === "relacionada" ? "Relacionada" : "Contém"}: {r.text}</span>)}</p>}
-              {x.statement ? <p className="statement mt-2 whitespace-pre-line"><Hl text={x.statement} /></p> : <p className="card-amber mt-2 text-sm">Só referência: o enunciado completo não está disponível aqui. {x.licenseNote}</p>}
+              {x.statement ? <><p className="statement mt-2 whitespace-pre-line"><Hl text={x.statement} /></p><Figuras ids={figMap.get(x.id)?.map((f) => f.id)} /></> : <p className="card-amber mt-2 text-sm">Só referência: o enunciado completo não está disponível aqui. {x.licenseNote}</p>}
               {x.alternatives.length > 0 && <ol className="mt-1 text-sm">{x.alternatives.map((a) => <li key={a.key}><strong>{a.key})</strong> <Hl text={a.text} /></li>)}</ol>}
               <p className="hint mt-2">Avalia: {x.assessed.map(topicName).join(", ")}{x.prerequisites.length ? ` · Pré-requisitos: ${x.prerequisites.map(topicName).join(", ")}` : ""} · dificuldade {x.difficulty}/5 · Gabarito: {x.answer ? `${x.answer} (${x.answerSource})` : "não verificado"}.{x.sourceUrl && <> <a href={x.sourceUrl} target="_blank" rel="noreferrer">Ver fonte original</a>.</>}</p>
               <div className="mt-2 flex flex-wrap items-center gap-4">

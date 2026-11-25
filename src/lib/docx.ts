@@ -1,5 +1,6 @@
 import "server-only";
-import { Document, Packer, Paragraph, TextRun, Footer, AlignmentType, PageNumber } from "docx";
+import { Document, Packer, Paragraph, TextRun, ImageRun, Footer, AlignmentType, PageNumber } from "docx";
+import { figurasComBytes, ajustar } from "@/lib/figuras";
 import type { Snapshot } from "@/lib/assessments";
 import { topicName } from "@/lib/taxonomy";
 import { parseMarkup } from "@/lib/core/richtext";
@@ -18,6 +19,7 @@ export async function renderDocx(snap: Snapshot, o: { mode: "student" | "teacher
   };
   const esc = (t: string) => t.replace(/\{/g, "{lb}");
   const blocksBefore = (pos: number | null) => (snap.blocks ?? []).filter((b) => b.beforePosition === pos);
+  const figs = student ? await figurasComBytes(snap.items.map((it) => it.questionId)) : new Map<string, { bytes: Buffer; width: number; height: number }[]>();
   const kids: Paragraph[] = [
     p(h.schoolName || "Escola", { bold: true, size: 28 }),
     ...(h.subtitle ? [p(h.subtitle)] : []),
@@ -30,6 +32,7 @@ export async function renderDocx(snap: Snapshot, o: { mode: "student" | "teacher
     if (student) {
       for (const b of blocksBefore(it.position)) kids.push(rich(b.text, { after: 140 }));
       kids.push(rich(`${i + 1}. ${it.rich?.statement ?? esc(it.statement ?? "")}  (${Number(it.points).toLocaleString("pt-BR")} pt)`, { after: 60 }));
+      for (const f of figs.get(it.questionId) ?? []) { const t = ajustar(f.width, f.height, 440, 330); kids.push(new Paragraph({ spacing: { after: 80 }, indent: { left: 360 }, children: [new ImageRun({ type: "png", data: f.bytes, transformation: { width: Math.round(t.w), height: Math.round(t.h) } })] })); }
       (it.rich?.alternatives ?? it.alternatives).forEach((a) => kids.push(rich(`${a.key}) ${it.rich?.alternatives ? a.text : esc(a.text)}`, { indent: 360, after: 30 })));
       kids.push(p("", { after: 120 }));
     } else {

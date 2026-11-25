@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { requireCtx } from "@/lib/session";
 import { loadAssessment } from "@/lib/access";
+import { figurasPorQuestao } from "@/lib/figuras";
 import { getItems } from "@/lib/assessments";
 import { ExamEditor } from "@/components/exam-editor";
 import { aiAvailable } from "@/lib/ai";
@@ -15,7 +16,9 @@ export default async function Editar({ params, searchParams }: { params: Promise
   const rows = await getItems(id);
   const esc = (t: string) => t.replace(/\{/g, "{lb}");
   if (!rows.length) return <div className="card"><p>A prova ainda não tem questões para editar.</p><div className="mt-3 flex gap-2"><Link className="btn" href="/app/provas/montar">Montar com temas</Link><Link className="btn btn-ghost" href={`/app/banco?add=${id}`}>Adicionar do banco</Link></div></div>;
+  const figMap = await figurasPorQuestao(rows.map((r) => r.q.id));
   const items = rows.map((r, i) => ({
+    figs: (figMap.get(r.q.id) ?? []).map((f) => f.id),
     itemId: r.item.id, number: i + 1, points: Number(r.item.points).toLocaleString("pt-BR"),
     statement: r.item.override?.statement ?? esc(r.q.statement ?? ""),
     alternatives: r.q.alternatives.map((alt) => ({ key: alt.key, text: r.item.override?.alternatives?.find((x) => x.key === alt.key)?.text ?? esc(alt.text) })),

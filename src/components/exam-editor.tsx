@@ -1,4 +1,5 @@
 "use client";
+import { Figuras } from "@/components/figuras";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { fromHtml, toHtml } from "@/lib/core/richtext";
 import { useRouter } from "next/navigation";
@@ -6,7 +7,7 @@ import { Modal } from "@/components/ui/modal";
 import { saveExamEditsAction, addBlankQuestionAction, criarQuestoesGizIAAction, type EditPayload } from "@/app/app/provas/[id]/editar/actions";
 import { moveAction, removeItemAction } from "@/app/app/provas/actions";
 
-type Item = { itemId: string; number: number; points: string; statement: string; alternatives: { key: string; text: string }[]; origStatement: string; origAlternatives: { key: string; text: string }[]; edited: boolean; ia?: { answer: string } | null; tema?: string | null };
+type Item = { itemId: string; number: number; points: string; statement: string; alternatives: { key: string; text: string }[]; origStatement: string; origAlternatives: { key: string; text: string }[]; edited: boolean; figs?: string[]; ia?: { answer: string } | null; tema?: string | null };
 type Block = { id: string; beforeItemId: string | null; text: string };
 type Props = { assessmentId: string; title: string; instructions: string | null; items: Item[]; blocks: Block[]; schoolName: string; giz?: { permitido: boolean } | null };
 
@@ -135,6 +136,7 @@ export function ExamEditor({ assessmentId, title, instructions, items: initItems
               <span className="font-bold">{it.number}.</span>
               <div className="min-w-0 flex-1" key={`${it.itemId}-${restored[it.itemId] ?? 0}`}>
                 <Editable html={toHtml(it.statement)} label={`Enunciado da questão ${it.number}`} field={`st:${it.itemId}`} onDirty={markDirty} />
+                <Figuras ids={it.figs} />
                 <ol className="mt-1 space-y-0.5">{it.alternatives.map((a) => (
                   <li key={a.key} className="flex gap-1.5 pl-3"><span className="font-semibold">{a.key})</span>
                     <Editable html={toHtml(a.text)} label={`Alternativa ${a.key} da questão ${it.number}`} field={`alt:${it.itemId}:${a.key}`} onDirty={markDirty} className="flex-1" single /></li>))}</ol>

@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { EditorTabs } from "@/components/editor-tabs";
 import { eq, desc } from "drizzle-orm";
+import { figurasPorQuestao } from "@/lib/figuras";
+import { Figuras } from "@/components/figuras";
 import { requireCtx } from "@/lib/session";
 import { loadAssessment } from "@/lib/access";
 import { getItems, buildMap, conflictsFor, swapAlternatives, loadPool, toCandidate } from "@/lib/assessments";
@@ -28,6 +30,7 @@ export default async function Editor({ params, searchParams }: { params: Promise
   const swaps = sp.trocar ? await swapAlternatives(id, sp.trocar, a) : [];
   const pool = await loadPool("matematica", ctx.org.id);
   const inExam = new Set(items.map((i) => i.q.id));
+  const figMap = await figurasPorQuestao(items.map((i) => i.q.id));
   const addable = pool.filter((q) => !inExam.has(q.id) && evaluate(toCandidate(q), { ...a.scope, willFall: a.scope.willFall }).ok).slice(0, 40);
 
   let parentCompare: { title: string; n: number; minutes: number; avgDiff: number } | null = null;
@@ -85,6 +88,7 @@ export default async function Editor({ params, searchParams }: { params: Promise
                 </div>
               </div>
               <p className="statement mt-2 whitespace-pre-line">{q.statement}</p>
+              <Figuras ids={figMap.get(q.id)?.map((f) => f.id)} />
               <ol className="mt-2 space-y-1">{q.alternatives.map((alt) => <li key={alt.key} className="statement text-base"><strong>{alt.key})</strong> {alt.text}</li>)}</ol>
               <p className="hint mt-3">{item.reason}</p>
               {conflictIds.has(item.id) && (

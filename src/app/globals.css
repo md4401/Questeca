@@ -838,3 +838,8 @@ a.qchoice-card:hover { border-color: var(--color-brand); box-shadow: 0 14px 32px
 .tour-pop[data-lado="abaixo"]::before { top: -7px; }
 .tour-pop[data-lado="acima"]::before { bottom: -7px; }
 @media (prefers-reduced-motion: reduce) { .tour-spot { transition: none; } .tour-pop { animation: none; } }
+
+/* Figuras das questões */
+.questao-figs { display: flex; flex-wrap: wrap; gap: .75rem; margin: .6rem 0; }
+.questao-figs img { max-width: min(100%, 34rem); height: auto; max-height: 22rem; border: 1px solid var(--color-line); border-radius: .5rem; background: #fff; padding: .25rem; }
+@media print { .questao-figs img { border: 0; max-height: 16rem; } }

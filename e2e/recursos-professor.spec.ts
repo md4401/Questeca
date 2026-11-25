@@ -183,3 +183,35 @@ test("Montar prova por tema com o banco de vestibulares: acha questões do assun
     for (const q of itens) expect(String(q.statement), tema).not.toMatch(/#{3,}|Concurso Vestibular|�/);
   }
 });
+
+test("Figuras das questões: aparecem na busca, no editor e vão para o PDF e o Word", async ({ page }) => {
+  test.setTimeout(150_000);
+  const com = await sql`select q.id, q.institution, q.exam, q.year, q.number from questions q where q.status = 'released' and exists (select 1 from question_images i where i.question_id = q.id) and q.subject = 'matematica' limit 1`;
+  test.skip(!com.length, "precisa de questões com figura importadas (pnpm db:importar-figuras)");
+  const q = com[0];
+  await signup(page);
+  // 1) o arquivo da figura exige login e é uma imagem PNG
+  const [img] = await sql`select id from question_images where question_id = ${q.id} order by position limit 1`;
+  const r = await page.request.get(`/api/questao-imagem/${img.id}`);
+  expect(r.status()).toBe(200); expect(r.headers()["content-type"]).toBe("image/png");
+  expect((await (await page.context().browser()!.newContext()).request.get(`${new URL(page.url()).origin}/api/questao-imagem/${img.id}`)).status()).toBe(401);
+  // 2) monta uma prova com essa questão e confere editor + exportações
+  await page.goto("/app/provas/nova");
+  const t = `Figuras ${Date.now()}`;
+  const [{ id: orgId }] = await sql`select active_org_id as id from sessions order by created_at desc limit 1`;
+  const [prova] = await sql`insert into assessments (org_id, owner_id, title, scope, total_points, duration_min, wanted_count) values (${orgId}, (select user_id from sessions order by created_at desc limit 1), ${t}, '{"willFall":[],"prerequisite":[],"notTaught":[],"confirm":[],"sources":{}}'::jsonb, '10', 50, 1) returning id`;
+  await sql`insert into assessment_items (assessment_id, question_id, position, points, reason) values (${prova.id}, ${q.id}, 1, '10', 'teste')`;
+  await page.goto(`/app/provas/${prova.id}/editar`);
+  await expect(page.locator(".questao-figs img").first()).toBeVisible();
+  const ok = await page.locator(".questao-figs img").first().evaluate((e: HTMLImageElement) => e.complete && e.naturalWidth > 20);
+  expect(ok).toBe(true);
+  const [{ n: bytesImg }] = await sql`select coalesce(sum(length(data)),0)::int as n from question_images where question_id = ${q.id}`;
+  const [simples] = await sql`select id from questions where status = 'released' and subject = 'matematica' and not exists (select 1 from question_images i where i.question_id = questions.id) and length(statement) < 600 limit 1`;
+  const [prova2] = await sql`insert into assessments (org_id, owner_id, title, scope, total_points, duration_min, wanted_count) values (${orgId}, (select user_id from sessions order by created_at desc limit 1), ${t + " B"}, '{"willFall":[],"prerequisite":[],"notTaught":[],"confirm":[],"sources":{}}'::jsonb, '10', 50, 1) returning id`;
+  await sql`insert into assessment_items (assessment_id, question_id, position, points, reason) values (${prova2.id}, ${simples.id}, 1, '10', 'teste')`;
+  const [a, b] = await Promise.all([prova.id, prova2.id].map(async (id) => { const r = await page.request.get(`/api/export/prova?id=${id}&tipo=aluno&rascunho=1`); expect(r.status()).toBe(200); return (await r.body()).length; }));
+  expect(a, `PDF com figura (${bytesImg} bytes de imagem) deve conter a imagem`).toBeGreaterThan(b + Math.min(bytesImg, 4000) * 0.5);
+});
+  const sem = await page.request.get(`/api/export/prova?id=${prova.id}&tipo=aluno&rascunho=1`);
+  expect(comImagem, "PDF com figura é maior que sem figura").toBeGreaterThan((await sem.body()).length + 500);
+});

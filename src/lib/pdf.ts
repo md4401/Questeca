@@ -5,6 +5,7 @@ import { PDFDocument, rgb, type PDFFont, type PDFPage } from "pdf-lib";
 import fontkit from "@pdf-lib/fontkit";
 import QRCode from "qrcode";
 import type { Snapshot } from "@/lib/assessments";
+import { figurasComBytes, ajustar } from "@/lib/figuras";
 import { topicName } from "@/lib/taxonomy";
 import { parseMarkup, plain, type Run } from "@/lib/core/richtext";
 
@@ -176,22 +177,30 @@ export async function renderExam(snap: Snapshot, opts: ExamOpts): Promise<{ byte
   if (!header.schoolName) d.warnings.push("Cabeçalho da escola não configurado: usando cabeçalho genérico.");
   await drawHeader(d, header, { teacher: opts.teacher, className: opts.className, title: student ? snap.title : `Gabarito — ${snap.title}`, instructions: student ? header.instructions : "Documento do professor. Não distribuir aos alunos.", instructionsRich: student ? snap.instructionsRich : null, student });
 
+  const figs = student ? await figurasComBytes(snap.items.map((it) => it.questionId)) : new Map();
   if (student) {
     const blocksBefore = (pos: number | null) => (snap.blocks ?? []).filter((b) => b.beforePosition === pos);
-    snap.items.forEach((it, i) => {
+    for (const [i, it] of snap.items.entries()) {
       for (const b of blocksBefore(it.position)) { d.need(40); d.rich(b.text, { size: 10.5, family: "serif" }); d.gap(8 * d.scale); }
       const stmtMk = it.rich?.statement ?? (it.statement ?? "").replace(/\{/g, "{lb}");
       const stmt = `${i + 1}. ${stmtMk}  (${Number(it.points).toLocaleString("pt-BR")} pt)`;
       const altsMk = (it.rich?.alternatives ?? it.alternatives).map((a) => ({ key: a.key, mk: `${a.key}) ${it.rich?.alternatives ? a.text : a.text.replace(/\{/g, "{lb}")}` }));
-      const h = d.richHeight(stmt, { size: 11 }) + altsMk.reduce((s2, a) => s2 + d.richHeight(a.mk, { size: 11, maxW: d.width - 14, lineGap: 2 }), 0) + 20;
+      const imgs = (figs.get(it.questionId) ?? []).map((f: { bytes: Buffer; width: number; height: number }) => ({ f, ...ajustar(f.width, f.height, d.width - 20, A4.h * 0.34) }));
+      const h = imgs.reduce((s2: number, x: { h: number }) => s2 + x.h + 8, 0) + d.richHeight(stmt, { size: 11 }) + altsMk.reduce((s2, a) => s2 + d.richHeight(a.mk, { size: 11, maxW: d.width - 14, lineGap: 2 }), 0) + 20;
       const avail = d.y - M.b;
       if (h > avail && h < A4.h - M.t - M.b) d.newPage();
       else if (h >= A4.h - M.t - M.b) d.warnings.push(`A questão ${i + 1} é maior que uma página e será dividida.`);
       d.rich(stmt, { size: 11 });
       d.gap(2 * d.scale);
+      for (const x of imgs) {
+        d.need(x.h + 8);
+        const png = await d.doc.embedPng(x.f.bytes);
+        d.page.drawImage(png, { x: M.l + 14, y: d.y - x.h, width: x.w, height: x.h });
+        d.y -= x.h + 8;
+      }
       for (const a of altsMk) d.rich(a.mk, { size: 11, x: M.l + 14, maxW: d.width - 14, lineGap: 2 });
       d.gap(10 * d.scale);
-    });
+    }
     for (const b of blocksBefore(null)) { d.need(40); d.rich(b.text, { size: 10.5, family: "serif" }); d.gap(8 * d.scale); }
   } else {
     d.text("Gabarito e referências", { font: d.f.sansBold, size: 11 });

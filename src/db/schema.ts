@@ -1132,3 +1132,15 @@ export const liveAnswers = pgTable("live_answers", {
   correct: boolean("correct").notNull(),
   points: integer("points").notNull().default(0),
 }, (t) => [primaryKey({ columns: [t.gameId, t.playerId, t.q] })]);
+
+/* ---------- Figuras das questões (recortadas dos PDFs oficiais) ---------- */
+export const questionImages = pgTable("question_images", {
+  id: id(),
+  questionId: uuid("question_id").notNull().references(() => questions.id, { onDelete: "cascade" }),
+  position: integer("position").notNull().default(0),
+  mime: text("mime").notNull().default("image/png"),
+  width: integer("width").notNull(),
+  height: integer("height").notNull(),
+  data: bytea("data").notNull(),
+  createdAt: created(),
+}, (t) => [index("question_images_q_idx").on(t.questionId, t.position)]);

@@ -141,6 +141,13 @@
       "when": 1795638574337,
       "tag": "0019_recursos_professor",
       "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "7",
+      "when": 1795724974337,
+      "tag": "0020_figuras_questoes",
+      "breakpoints": true
     }
   ]
 }
